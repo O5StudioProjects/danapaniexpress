@@ -1,8 +1,5 @@
 
-import 'package:flutter/material.dart';
-
-import '../config/res_config/colors_config.dart';
-import '../resources/res/app_colors.dart';
+import 'package:danapaniexpress/core/common_imports.dart';
 
 class Styles {
   static ThemeData themeData(

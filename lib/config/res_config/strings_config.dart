@@ -1,66 +1,58 @@
-import '../../data/enums/enums.dart';
+import 'package:danapaniexpress/core/common_imports.dart';
 
 abstract class EnvStrings {
-  static late String contentDatabaseName;
+  static late String appNameEng;
+  static late String appNameUrdu;
   static late String appDatabaseName;
-  static late String lughatDatabaseName;
   static late String privacyPolicy;
   static late String appVersion;
   static late String appIDFree;
   static late String appIDPaid;
   static late String oneSignalAppId;
-  static late String facebookPageUrl;
-  static late String databaseUrl;
 
 
   static late Flavor _environment;
   static Flavor get environment => _environment;
 
-  // static setUpAppStrings(Flavor environment) {
-  //   _environment = environment;
-  //   switch (environment) {
-  //     case Flavor.dev:
-  //       appDatabaseName = DatabaseName.AppDatabase;
-  //       contentDatabaseName = DatabaseName.Develop;
-  //       lughatDatabaseName = DatabaseName.LughatDatabase;
-  //       privacyPolicy = PrivacyPolicy.Develop;
-  //       appVersion = AppVersions.Develop;
-  //       appIDFree = AppIDFree.Develop;
-  //       appIDPaid = AppIDPaid.Develop;
-  //       oneSignalAppId = OneSignalID.Develop;
-  //       facebookPageUrl = FacebookPage.Develop;
-  //       databaseUrl = DatabaseLink.Develop;
-  //
-  //       break;
-  //
-  //     case Flavor.prod:
-  //       appDatabaseName = DatabaseName.AppDatabase;
-  //       contentDatabaseName = DatabaseName.ZainShakeel;
-  //       lughatDatabaseName = DatabaseName.LughatDatabase;
-  //       privacyPolicy = PrivacyPolicy.ZainShakeel;
-  //       appVersion = AppVersions.ZainShakeel;
-  //       appIDFree = AppIDFree.ZainShakeel;
-  //       appIDPaid = AppIDPaid.ZainShakeel;
-  //       oneSignalAppId = OneSignalID.ZainShakeel;
-  //       facebookPageUrl = FacebookPage.ZainShakeel;
-  //       databaseUrl = DatabaseLink.ZainShakeel;
-  //
-  //       break;
-  //
-  //     case Flavor.rider:
-  //       appDatabaseName = DatabaseName.AppDatabase;
-  //       contentDatabaseName = DatabaseName.ZainShakeel;
-  //       lughatDatabaseName = DatabaseName.LughatDatabase;
-  //       privacyPolicy = PrivacyPolicy.ZainShakeelPro;
-  //       appVersion = AppVersions.ZainShakeelPro;
-  //       appIDFree = AppIDFree.ZainShakeel;
-  //       appIDPaid = AppIDPaid.ZainShakeel;
-  //       oneSignalAppId = OneSignalID.ZainShakeel;
-  //       facebookPageUrl = FacebookPage.ZainShakeel;
-  //       databaseUrl = DatabaseLink.ZainShakeel;
-  //
-  //       break;
-  //
-  //   }
-  // }
+  static setUpAppStrings(Flavor environment) {
+    _environment = environment;
+    switch (environment) {
+      case Flavor.dev:
+        appNameEng = AppNameEnv.DevelopEng;
+        appNameUrdu = AppNameEnv.DevelopUrdu;
+        appDatabaseName = AppDatabaseNameEnv.develop;
+        privacyPolicy = PrivacyPolicyEnv.develop;
+        appVersion = AppVersionsEnv.develop;
+        appIDFree = AppAdsIdPaidEnv.develop;
+        appIDPaid = AppAdsIdPaidEnv.develop;
+        oneSignalAppId = AppOneSignalIDEnv.develop;
+
+        break;
+
+      case Flavor.prod:
+        appNameEng = AppNameEnv.ProdEng;
+        appNameUrdu = AppNameEnv.ProdUrdu;
+        appDatabaseName = AppDatabaseNameEnv.prod;
+        privacyPolicy = PrivacyPolicyEnv.prod;
+        appVersion = AppVersionsEnv.prod;
+        appIDFree = AppAdsIdPaidEnv.prod;
+        appIDPaid = AppAdsIdPaidEnv.prod;
+        oneSignalAppId = AppOneSignalIDEnv.prod;
+
+        break;
+
+      case Flavor.rider:
+        appNameEng = AppNameEnv.RiderEng;
+        appNameUrdu = AppNameEnv.RiderUrdu;
+        appDatabaseName = AppDatabaseNameEnv.rider;
+        privacyPolicy = PrivacyPolicyEnv.rider;
+        appVersion = AppVersionsEnv.rider;
+        appIDFree = AppAdsIdPaidEnv.rider;
+        appIDPaid = AppAdsIdPaidEnv.rider;
+        oneSignalAppId = AppOneSignalIDEnv.rider;
+
+        break;
+
+    }
+  }
 }
