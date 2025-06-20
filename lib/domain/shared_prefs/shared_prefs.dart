@@ -1,6 +1,5 @@
-import 'package:shared_preferences/shared_preferences.dart';
-import '../../core/consts.dart';
-import '../../resources/common_resources_strings/common_strings.dart';
+import 'package:danapaniexpress/core/common_imports.dart';
+import 'package:danapaniexpress/core/packages_import.dart';
 
 class SharedPrefs {
   static setLanguage(String value) async{
@@ -85,7 +84,7 @@ class SharedPrefs {
   static Future<String> getLanguageScreen() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.reload();
-    return prefs.getString(LANGUAGE_SCREEN) ?? LANGUAGE_SCREEN_NOT_OPENED;
+    return prefs.getString(LANGUAGE_SCREEN) ?? FIRST_TIME_SCREEN_NOT_OPENED;
   }
 
 }

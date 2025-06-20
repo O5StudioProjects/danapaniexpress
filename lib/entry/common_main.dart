@@ -4,7 +4,6 @@ import 'package:danapaniexpress/core/controllers_import.dart';
 
 Future<void> commonMain() async {
 
-
   runApp(const MyApp());
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent, // Status bar color
@@ -27,7 +26,7 @@ class MyApp extends StatelessWidget {
     print('Internet Connection : ${themeController.internet}');
 
     return Obx(
-          ()=> GetMaterialApp(
+      ()=> GetMaterialApp(
         navigatorKey: GlobalContextService.navigatorKey,
         scaffoldMessengerKey: scaffoldKey,
         debugShowCheckedModeBanner: false,
