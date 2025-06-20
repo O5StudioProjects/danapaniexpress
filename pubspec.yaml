@@ -117,3 +117,16 @@ flutter:
     - family: roboto_regular
       fonts:
         - asset: fonts/Roboto-Regular.ttf
+
+    - family: oswald_regular
+      fonts:
+        - asset: fonts/Oswald-Regular.ttf
+
+    - family: oswald_semibold
+      fonts:
+        - asset: fonts/Oswald-SemiBold.ttf
+
+    - family: faiz_lahore_nastaleeq
+      fonts:
+        - asset: fonts/faiz-lahori-nastaleeq-regular.ttf
+

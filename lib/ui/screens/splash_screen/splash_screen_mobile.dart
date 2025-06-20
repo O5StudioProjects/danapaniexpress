@@ -8,29 +8,35 @@ class SplashScreenMobile extends StatelessWidget {
     return Container(
       width: size.width,
       height: size.height,
-      decoration: BoxDecoration(color: AppColors.backgroundColorSkin(isDark)),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Welcome to',
-              style: TextStyle(
-                fontSize: 28,
-                fontFamily: nunitoSemibold,
-                color: AppColors.primaryTextColorSkin(isDark),
+      decoration: BoxDecoration(color: EnvColors.backgroundColorLight),
+      child: Stack(
+        children: [
+          SizedBox(
+            width: size.width,
+            height: size.height,
+            child: appAssetImage(image: EnvImages.imgMainLogo, width: size.width, fit: BoxFit.fitWidth),
+          ),
+
+          SizedBox(
+            width: size.width,
+            height: size.height,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 50.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  appText(
+                      text: AppLanguage.developedByStr(appLanguage),
+                      textStyle: splashBodyTextStyle()),
+                  setHeight(10.0),
+                  appText(
+                      text: EnvStrings.appVersion,
+                      textStyle: splashBodyTextStyle()),
+                ],
               ),
             ),
-            Text(
-              '${AppLanguage.appNameStr(appLanguage)}',
-              style: TextStyle(
-                fontSize: 40,
-                fontFamily: poppinsSemibold,
-                color: AppColors.primaryTextColorSkin(isDark),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

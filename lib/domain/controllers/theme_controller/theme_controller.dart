@@ -1,26 +1,20 @@
 
-
-import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-
-import '../../../core/consts.dart';
-import '../../../resources/common_resources_strings/common_strings.dart';
-import '../../shared_prefs/shared_prefs.dart';
+import 'package:danapaniexpress/core/common_imports.dart';
+import 'package:danapaniexpress/core/packages_import.dart';
 
 class ThemeController extends GetxController {
 
   @override
-  void onInit() {
-    fetchTheme();
-    fetchLanguage();
+  void onInit() async {
+    await fetchTheme();
+    await fetchLanguage();
     super.onInit();
   }
 
   RxBool isDark = false.obs;
   RxBool internet = false.obs;
   RxString appLanguage = ENGLISH_LANGUAGE.obs;
-  RxString languageScreenStatus = LANGUAGE_SCREEN_NOT_OPENED.obs;
+  RxString languageScreenStatus = FIRST_TIME_SCREEN_NOT_OPENED.obs;
 
 
   Future<void> changeTheme() async {
