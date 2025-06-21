@@ -1,4 +1,3 @@
-
 import 'package:danapaniexpress/core/packages_import.dart';
 import 'package:danapaniexpress/core/common_imports.dart';
 
@@ -12,7 +11,14 @@ Widget appAssetImage({image, width, height, fit, opacity = 1.0}) {
   );
 }
 
-Widget appText({String? text, textStyle, textAlign, maxLines, textDirection, overFlow = TextOverflow.ellipsis}) {
+Widget appText({
+  String? text,
+  textStyle,
+  textAlign,
+  maxLines,
+  textDirection,
+  overFlow = TextOverflow.ellipsis,
+}) {
   return Text(
     text!,
     style: textStyle,
@@ -23,13 +29,20 @@ Widget appText({String? text, textStyle, textAlign, maxLines, textDirection, ove
   );
 }
 
-Widget appSelectableText(
-    {String? text, textStyle, textAlign, maxLines, textDirection}) {
-  return SelectableText(text!,
-      style: textStyle,
-      textDirection: textDirection,
-      textAlign: textAlign,
-      maxLines: maxLines);
+Widget appSelectableText({
+  String? text,
+  textStyle,
+  textAlign,
+  maxLines,
+  textDirection,
+}) {
+  return SelectableText(
+    text!,
+    style: textStyle,
+    textDirection: textDirection,
+    textAlign: textAlign,
+    maxLines: maxLines,
+  );
 }
 
 // Widget appAsyncImage(imageUrl, {boxFit = BoxFit.cover, showLoading = true}) {
@@ -43,18 +56,14 @@ Widget appSelectableText(
 // }
 
 Widget setHeight(height) {
-  return SizedBox(
-    height: height,
-  );
+  return SizedBox(height: height);
 }
 
 Widget setWidth(width) {
-  return SizedBox(
-    width: width,
-  );
+  return SizedBox(width: width);
 }
 
-Widget appSvgIcon({icon, width,  color}) {
+Widget appSvgIcon({icon, width, color}) {
   return SvgPicture.asset(
     icon,
     width: width,
@@ -62,19 +71,48 @@ Widget appSvgIcon({icon, width,  color}) {
   );
 }
 
-Widget appMaterialButton({text, onTap, isCustomColor = false, textColor, buttonColor}) {
+Widget appMaterialButton({
+  text,
+  onTap,
+  isCustomColor = false,
+  textColor,
+  buttonColor,
+}) {
   return GestureDetector(
     onTap: onTap,
     child: Container(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       height: BUTTON_HEIGHT,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8.0),
-          color: isCustomColor ? buttonColor : AppColors.materialButtonSkin(isDark)),
+        borderRadius: BorderRadius.circular(8.0),
+        color: isCustomColor
+            ? buttonColor
+            : AppColors.materialButtonSkin(isDark),
+      ),
       child: Center(
         child: appText(
-            text: text,
-            textStyle: buttonTextStyle(color: isCustomColor ? textColor : AppColors.materialButtonTextSkin(isDark))),
+          text: text,
+          textDirection: setTextDirection(appLanguage),
+          textStyle: buttonTextStyle(
+            color: isCustomColor
+                ? textColor
+                : AppColors.materialButtonTextSkin(isDark),
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+Widget appTextButton({text, onTap, useDefault = true, customTextColor}) {
+  return TextButton(
+    onPressed: onTap,
+    child: appText(
+      text: text,
+      textStyle: appTextButtonStyle(
+        color: useDefault
+            ? AppColors.secondaryTextColorSkin(isDark)
+            : customTextColor,
       ),
     ),
   );

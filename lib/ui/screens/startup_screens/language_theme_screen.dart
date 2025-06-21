@@ -102,11 +102,14 @@ Widget buildMobileUI({
               )),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: appMaterialButton(text: AppLanguage.nextStr(appLanguage), onTap: () async {
+            child: appMaterialButton(text: AppLanguage.confirmStr(appLanguage), onTap: () async {
               // await SharedPrefs.setLanguageScreen(FIRST_TIME_SCREEN_OPENED);
               // var status = await SharedPrefs.getLanguageScreen();
               // themeController.setLanguageScreenEvent(languageScreenStatusValue: FIRST_TIME_SCREEN_OPENED);
               // Navigator.pop(gContext);
+              if(isStart){
+                JumpTo.gotoWelcomeStartupScreen();
+              }
             }),
           ),
           setHeight(60.0)

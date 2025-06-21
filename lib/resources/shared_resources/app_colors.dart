@@ -30,6 +30,15 @@ class AppColors {
     }
   }
 
+  static Color primaryHeadingTextSkin(isDark) {
+    if (isDark) {
+      return EnvColors.primaryTextColorDark;
+    } else {
+      return EnvColors.primaryColorLight;
+    }
+  }
+
+
   static Color materialButtonTextSkin(isDark) {
     if (isDark) {
       return EnvColors.primaryTextColorLight;
