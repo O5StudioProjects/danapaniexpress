@@ -24,7 +24,8 @@ TextStyle appBarTextStyle(){
   return TextStyle(
       color: AppColors.primaryTextColorSkin(isDark),
       height: 0.0,
-      fontSize: HEADING_FONT_SIZE,
+      fontSize: appLanguage == URDU_LANGUAGE ? (HEADING_FONT_SIZE + 2.0) : HEADING_FONT_SIZE,
+     // fontSize: HEADING_FONT_SIZE,
       fontFamily:  setFont(appLanguage, urdu: urduRegular, englishFont: poppinsBold)
   );
 }
@@ -33,10 +34,32 @@ TextStyle headingTextStyle({height = 0.0}){
   return TextStyle(
       color: AppColors.primaryTextColorSkin(isDark),
       height: height,
-      //fontSize: getAppLanguage == URDU_LANGUAGE ? (HEADING_FONT_SIZE + 2.0) : HEADING_FONT_SIZE,
-      fontSize:  HEADING_FONT_SIZE,
+      fontSize: appLanguage == URDU_LANGUAGE ? (HEADING_FONT_SIZE + 2.0) : HEADING_FONT_SIZE,
+      //fontSize:  HEADING_FONT_SIZE,
       fontFamily:  setFont(appLanguage, urdu: urduSemibold, englishFont: oswaldSemibold),
-      // fontWeight: getAppLanguage != ROMAN_URDU_ENGLISH_LANGUAGE ? FontWeight.bold : null
+      //fontWeight: appLanguage != ENGLISH_LANGUAGE ? FontWeight.bold : null
+  );
+}
+
+TextStyle startupHeadingTextStyle({height = 0.0}){
+  return TextStyle(
+    color: AppColors.primaryHeadingTextSkin(isDark),
+    height: height,
+    fontSize: appLanguage == URDU_LANGUAGE ? (PRIMARY_HEADING_FONT_SIZE + 2.0) : PRIMARY_HEADING_FONT_SIZE,
+    //fontSize:  PRIMARY_HEADING_FONT_SIZE,
+    fontFamily:  setFont(appLanguage, urdu: urduSemibold, englishFont: oswaldSemibold),
+    // fontWeight: getAppLanguage != ROMAN_URDU_ENGLISH_LANGUAGE ? FontWeight.bold : null
+  );
+}
+
+TextStyle bodyTextStyle({height = 0.0}){
+  return TextStyle(
+    color: AppColors.primaryTextColorSkin(isDark),
+    height: height,
+    fontSize: appLanguage == URDU_LANGUAGE ? (NORMAL_TEXT_FONT_SIZE + 2.0) : NORMAL_TEXT_FONT_SIZE,
+   // fontSize:  NORMAL_TEXT_FONT_SIZE,
+    fontFamily:  setFont(appLanguage, urdu: urduSemibold, englishFont: robotoRegular),
+    // fontWeight: getAppLanguage != ROMAN_URDU_ENGLISH_LANGUAGE ? FontWeight.bold : null
   );
 }
 
@@ -44,7 +67,8 @@ TextStyle itemTextStyle({height = 0.0}){
   return TextStyle(
       color: AppColors.primaryTextColorSkin(isDark),
       height: height,
-      fontSize: NORMAL_TEXT_FONT_SIZE,
+      fontSize: appLanguage == URDU_LANGUAGE ? (NORMAL_TEXT_FONT_SIZE + 2.0) : NORMAL_TEXT_FONT_SIZE,
+      //fontSize: NORMAL_TEXT_FONT_SIZE,
       fontFamily:  setFont(appLanguage, urdu: urduRegular, englishFont: robotoRegular)
   );
 }
@@ -53,8 +77,18 @@ TextStyle buttonTextStyle({color}){
   return TextStyle(
       color: color,
       height:  0.0,
-      fontSize: NORMAL_TEXT_FONT_SIZE,
+      fontSize: appLanguage == URDU_LANGUAGE ? (NORMAL_TEXT_FONT_SIZE + 2.0) : NORMAL_TEXT_FONT_SIZE,
+      //fontSize: NORMAL_TEXT_FONT_SIZE,
       fontFamily:  setFont(appLanguage, urdu: urduSemibold, englishFont: poppinsBold,)
+  );
+}
+
+TextStyle appTextButtonStyle({color}){
+  return TextStyle(
+      color: color,
+      height: 0.0,
+      fontSize: appLanguage == URDU_LANGUAGE ? (NORMAL_TEXT_FONT_SIZE + 2.0) : NORMAL_TEXT_FONT_SIZE,
+      fontFamily:  setFont(appLanguage, urdu: urduRegular, englishFont: nunitoMedium),
   );
 }
 
@@ -67,5 +101,13 @@ String setFont(language, {englishFont = robotoRegular, urdu = urduRegular}){
   }
   else{
     return englishFont;
+  }
+}
+
+TextDirection setTextDirection(appLanguage){
+  if(appLanguage == ENGLISH_LANGUAGE){
+    return TextDirection.ltr;
+  } else {
+    return TextDirection.rtl;
   }
 }

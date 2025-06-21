@@ -13,5 +13,22 @@ class JumpTo {
     });
   }
 
+  static gotoWelcomeStartupScreen(){
+    Get.offAndToNamed(RouteNames.WelcomeStartupScreenRoute);
+  }
+  static gotoFastDeliveryStartupScreen(){
+    Get.toNamed(RouteNames.FastDeliveryStartupScreenRoute);
+  }
+  static gotoFreshProductsStartupScreen(){
+    Get.toNamed(RouteNames.FreshProductsStartupScreenRoute);
+  }
+  static gotoTrustedByFamiliesStartupScreen(){
+    Get.toNamed(RouteNames.TrustedByFamiliesStartupScreenRoute);
+  }
+
+  ///AUTH SCREENS
+  static gotoSignInScreen(){
+    Get.offAllNamed(RouteNames.SignInScreenRoute);
+  }
 
 }

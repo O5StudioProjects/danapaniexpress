@@ -36,3 +36,8 @@ export 'package:danapaniexpress/ui/app_common/global/styles.dart';
 export 'package:danapaniexpress/ui/app_common/global/widgets.dart';
 export 'package:danapaniexpress/ui/app_common/global/utils.dart';
 
+
+
+export 'package:danapaniexpress/ui/screens/startup_screens/startup_screens_layout/startup_layout_mobile.dart';
+
+

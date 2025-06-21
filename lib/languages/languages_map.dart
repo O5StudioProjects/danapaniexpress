@@ -1,8 +1,6 @@
-
 import 'package:danapaniexpress/core/common_imports.dart';
 
 Map<String, Map<String, String>> allLang = {
-
   ENGLISH: {
     APP_NAME: EnvStrings.appNameEng,
     DEVELOPED_BY: 'Developed by O5Studio',
@@ -14,6 +12,18 @@ Map<String, Map<String, String>> allLang = {
     CHOOSE_THEME: 'Choose Theme',
     LIGHT: 'Light',
     DARK: 'Dark',
+    CONFIRM: 'Confirm',
+    STARTUP_WELCOME_HEADING_TEXT: 'Welcome to Dana Pani Express',
+    STARTUP_WELCOME_SUBTEXT: 'Your everyday groceries, delivered fast, fresh, and on time — from your trusted neighborhood stores.',
+    GET_STARTED: 'Get Started!',
+    START_SHOPPING: 'Start Shopping',
+    STARTUP_FAST_DELIVERY_HEADING_TEXT: 'Speed You Can Rely On',
+    STARTUP_FAST_DELIVERY_SUBTEXT: 'We deliver within 30 minutes — no waiting, no worrying.',
+    STARTUP_FRESH_PRODUCTS_HEADING_TEXT: 'Handpicked for You',
+    STARTUP_FRESH_PRODUCTS_SUBTEXT: 'Only the freshest groceries from local sellers and trusted vendors.',
+    STARTUP_TRUSTED_FAMILIES_HEADING_TEXT: 'Serving Homes Across Pakistan',
+    STARTUP_TRUSTED_FAMILIES_SUBTEXT: 'Safe, affordable, and personalized — your grocery partner you can count on.',
+    SKIP: 'Skip',
   },
 
   URDU: {
@@ -27,6 +37,17 @@ Map<String, Map<String, String>> allLang = {
     CHOOSE_THEME: 'تھیم منتخب کریں',
     LIGHT: 'لائیٹ',
     DARK: 'ڈارک',
-
-  }
+    CONFIRM: 'تصدیق کریں',
+    STARTUP_WELCOME_HEADING_TEXT: 'دانہ پانی ایکسپریس میں خوش آمدید',
+    STARTUP_WELCOME_SUBTEXT: 'آپ کی روزمرہ کی گروسری، تیز، تازہ، اور وقت پر — آپ کی قریبی قابلِ اعتماد دکانوں سے',
+    GET_STARTED: 'شروع کریں!',
+    START_SHOPPING: 'خریداری شروع کریں۔',
+    STARTUP_FAST_DELIVERY_HEADING_TEXT: 'رفتار جس پر آپ بھروسہ کر سکتے ہیں',
+    STARTUP_FAST_DELIVERY_SUBTEXT: 'ہم 30 منٹ کے اندر ڈیلیور کرتے ہیں — نہ انتظار، نہ پریشانی',
+    STARTUP_FRESH_PRODUCTS_HEADING_TEXT: 'آپ کے لیے چنیدہ اشیاء',
+    STARTUP_FRESH_PRODUCTS_SUBTEXT: 'صرف تازہ ترین گروسری، مقامی دکانداروں اور قابلِ اعتماد فروشوں سے',
+    STARTUP_TRUSTED_FAMILIES_HEADING_TEXT: 'پاکستان بھر کے گھروں کی خدمت میں',
+    STARTUP_TRUSTED_FAMILIES_SUBTEXT: 'محفوظ، مناسب قیمت اور ذاتی توجہ کے ساتھ — آپ کا بھروسے مند گروسری پارٹنر',
+    SKIP: 'چھوڑیں۔',
+  },
 };
