@@ -79,6 +79,14 @@ class AppColors {
     }
   }
 
+  static Color secondaryTextColorInverseSkin(isDark) {
+    if (isDark) {
+      return EnvColors.secondaryTextColorLight;
+    } else {
+      return EnvColors.secondaryTextColorDark;
+    }
+  }
+
   static Color dividerColorSkin(isDark) {
     if (isDark) {
       return EnvColors.dividerColorDark;

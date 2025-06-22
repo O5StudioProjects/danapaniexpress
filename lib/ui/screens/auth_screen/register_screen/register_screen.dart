@@ -1,7 +1,7 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 
-class FreshProductsScreen extends StatelessWidget {
-  const FreshProductsScreen({super.key});
+class RegisterScreen extends StatelessWidget {
+  const RegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +20,8 @@ class FreshProductsScreen extends StatelessWidget {
 }
 
 Widget buildMobileUI() {
-  return StartupScreenLayoutMobile(
-    image: EnvImages.imgFreshProductsStartup,
-    headingText: AppLanguage.startupFreshProductsHeadingStr(appLanguage).toString(),
-    subText: AppLanguage.startupFreshProductsSubtextStr(appLanguage).toString(),
-    buttonText: AppLanguage.nextStr(appLanguage).toString(),
-    onTap: ()=> JumpTo.gotoTrustedByFamiliesStartupScreen(),
-  );
+  return Container();
+
 }
 
 Widget buildTabletUI() {

@@ -24,6 +24,14 @@ Map<String, Map<String, String>> allLang = {
     STARTUP_TRUSTED_FAMILIES_HEADING_TEXT: 'Serving Homes Across Pakistan',
     STARTUP_TRUSTED_FAMILIES_SUBTEXT: 'Safe, affordable, and personalized — your grocery partner you can count on.',
     SKIP: 'Skip',
+    WELCOME_BACK: 'Welcome Back',
+    LOGIN_TO_YOUR_ACCOUNT : 'Login to your account',
+    EMAIL_PHONE : 'Email/Phone',
+    PASSWORD: 'Password',
+    FORGOT_PASSWORD: 'Forgot Password?',
+    LOGIN: 'Login',
+    DONT_HAVE_ACCOUNT: "Don't have account? ",
+    SIGNUP: 'Sign up',
   },
 
   URDU: {
@@ -49,5 +57,13 @@ Map<String, Map<String, String>> allLang = {
     STARTUP_TRUSTED_FAMILIES_HEADING_TEXT: 'پاکستان بھر کے گھروں کی خدمت میں',
     STARTUP_TRUSTED_FAMILIES_SUBTEXT: 'محفوظ، مناسب قیمت اور ذاتی توجہ کے ساتھ — آپ کا بھروسے مند گروسری پارٹنر',
     SKIP: 'چھوڑیں۔',
+    WELCOME_BACK: 'خوش آمدید',
+    LOGIN_TO_YOUR_ACCOUNT : 'اپنے اکاؤنٹ میں لاگ ان کریں',
+    EMAIL_PHONE : 'ای میل/فون',
+    PASSWORD: 'پاس ورڈ',
+    FORGOT_PASSWORD: 'پاس ورڈ بھول گئے؟',
+    LOGIN: 'لاگ ان',
+    DONT_HAVE_ACCOUNT: 'اکاؤنٹ نہیں ہے؟ ',
+    SIGNUP: 'سائن اپ کریں',
   },
 };

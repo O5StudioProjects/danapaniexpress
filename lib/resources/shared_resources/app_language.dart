@@ -74,4 +74,28 @@ class AppLanguage {
     return allLang[appLanguage]?[SKIP];
   }
 
+  static String? welcomeBackStr(String appLanguage){
+    return allLang[appLanguage]?[WELCOME_BACK];
+  }
+  static String? loginToAccountStr(String appLanguage){
+    return allLang[appLanguage]?[LOGIN_TO_YOUR_ACCOUNT];
+  }
+  static String? emailPhoneStr(String appLanguage){
+    return allLang[appLanguage]?[EMAIL_PHONE];
+  }
+  static String? passwordStr(String appLanguage){
+    return allLang[appLanguage]?[PASSWORD];
+  }
+  static String? forgotPasswordStr(String appLanguage){
+    return allLang[appLanguage]?[FORGOT_PASSWORD];
+  }
+  static String? loginStr(String appLanguage){
+    return allLang[appLanguage]?[LOGIN];
+  }
+  static String? dontHaveAccountStr(String appLanguage){
+    return allLang[appLanguage]?[DONT_HAVE_ACCOUNT];
+  }
+  static String? signUpStr(String appLanguage){
+    return allLang[appLanguage]?[SIGNUP];
+  }
 }

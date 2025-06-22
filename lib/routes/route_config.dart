@@ -1,11 +1,11 @@
 import 'package:danapaniexpress/ui/screens/auth_screen/sign_in_screen/sign_in_screen.dart';
 import 'package:danapaniexpress/ui/screens/splash_screen/splash_screen.dart';
-import 'package:danapaniexpress/ui/screens/startup_screens/1_welocme_screen/welcome_screen.dart';
-import 'package:danapaniexpress/ui/screens/startup_screens/2_fast_delivery_screen/fast_delivery_screen.dart';
-import 'package:danapaniexpress/ui/screens/startup_screens/3_fresh_products_screen/fresh_products_screen.dart';
-import 'package:danapaniexpress/ui/screens/startup_screens/5_trusted_by_families_screen/trusted_by_families_screen.dart';
 import 'package:danapaniexpress/ui/screens/startup_screens/language_theme_screen.dart';
 import 'package:danapaniexpress/core/common_imports.dart';
+import 'package:danapaniexpress/ui/screens/startup_screens/startup_main_screen/startup_main_screen.dart';
+
+import '../ui/screens/auth_screen/forgot_password_screen/forgot_password_screen.dart';
+import '../ui/screens/auth_screen/register_screen/register_screen.dart';
 
 class AppRouter {
   static final routes = [
@@ -19,30 +19,17 @@ class AppRouter {
       transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
       page: () => const LanguageThemeScreen(),
     ),
+
+    /// STARTUP SCREENS
+
     GetPage(
-      name: RouteNames.WelcomeStartupScreenRoute,
+      name: RouteNames.StartupMainScreenRoute,
       transition: Transition.rightToLeft,
       transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
-      page: () => const WelcomeScreen(),
+      page: () => const StartupMainScreen(),
     ),
-    GetPage(
-      name: RouteNames.FastDeliveryStartupScreenRoute,
-      transition: Transition.rightToLeft,
-      transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
-      page: () => const FastDeliveryScreen(),
-    ),
-    GetPage(
-      name: RouteNames.FreshProductsStartupScreenRoute,
-      transition: Transition.rightToLeft,
-      transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
-      page: () => const FreshProductsScreen(),
-    ),
-    GetPage(
-      name: RouteNames.TrustedByFamiliesStartupScreenRoute,
-      transition: Transition.rightToLeft,
-      transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
-      page: () => const TrustedByFamiliesScreen(),
-    ),
+
+    /// AUTH SCREENS
 
     GetPage(
       name: RouteNames.SignInScreenRoute,
@@ -50,6 +37,21 @@ class AppRouter {
       transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
       page: () => const SignInScreen(),
     ),
+
+    GetPage(
+      name: RouteNames.RegisterScreenRoute,
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
+      page: () => const RegisterScreen(),
+    ),
+
+    GetPage(
+      name: RouteNames.ForgotPasswordScreenRoute,
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
+      page: () => const ForgotPasswordScreen(),
+    ),
+
 
     // GetPage(name: RouteNames.HomeScreenRoute, page: () => const HomeScreen(), binding: DashboardBinding()),
   ];
