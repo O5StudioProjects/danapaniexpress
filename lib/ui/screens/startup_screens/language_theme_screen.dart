@@ -108,7 +108,7 @@ Widget buildMobileUI({
               // themeController.setLanguageScreenEvent(languageScreenStatusValue: FIRST_TIME_SCREEN_OPENED);
               // Navigator.pop(gContext);
               if(isStart){
-                JumpTo.gotoWelcomeStartupScreen();
+                JumpTo.gotoStartupMainScreen();
               }
             }),
           ),

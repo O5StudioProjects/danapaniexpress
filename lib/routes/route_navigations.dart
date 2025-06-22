@@ -13,22 +13,19 @@ class JumpTo {
     });
   }
 
-  static gotoWelcomeStartupScreen(){
-    Get.offAndToNamed(RouteNames.WelcomeStartupScreenRoute);
-  }
-  static gotoFastDeliveryStartupScreen(){
-    Get.toNamed(RouteNames.FastDeliveryStartupScreenRoute);
-  }
-  static gotoFreshProductsStartupScreen(){
-    Get.toNamed(RouteNames.FreshProductsStartupScreenRoute);
-  }
-  static gotoTrustedByFamiliesStartupScreen(){
-    Get.toNamed(RouteNames.TrustedByFamiliesStartupScreenRoute);
+  static gotoStartupMainScreen(){
+    Get.offAndToNamed(RouteNames.StartupMainScreenRoute);
   }
 
   ///AUTH SCREENS
   static gotoSignInScreen(){
     Get.offAllNamed(RouteNames.SignInScreenRoute);
+  }
+  static gotoRegisterScreen(){
+    Get.offAllNamed(RouteNames.RegisterScreenRoute);
+  }
+  static gotoForgotPasswordScreen(){
+    Get.offAllNamed(RouteNames.ForgotPasswordScreenRoute);
   }
 
 }

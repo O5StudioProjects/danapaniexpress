@@ -1,7 +1,7 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 
-class TrustedByFamiliesScreen extends StatelessWidget {
-  const TrustedByFamiliesScreen({super.key});
+class ForgotPasswordScreen extends StatelessWidget {
+  const ForgotPasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +20,8 @@ class TrustedByFamiliesScreen extends StatelessWidget {
 }
 
 Widget buildMobileUI() {
-  return StartupScreenLayoutMobile(
-    image: EnvImages.imgTrustedByFamiliesStartup,
-    headingText: AppLanguage.startupTrustedFamiliesHeadingStr(appLanguage).toString(),
-    subText: AppLanguage.startupTrustedFamiliesSubtextStr(appLanguage).toString(),
-    buttonText: AppLanguage.startShoppingStr(appLanguage).toString(),
-    onTap: ()=> JumpTo.gotoSignInScreen(),
-  );
+  return Container();
+
 }
 
 Widget buildTabletUI() {

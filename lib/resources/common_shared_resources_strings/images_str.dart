@@ -10,10 +10,6 @@ class AppImagesPath {
   static const String imgMainLogo_Prod = '${PROD_IMG_PATH}img_main_logo.png';
   static const String imgMainLogo_Rider = '${RIDER_IMG_PATH}img_main_logo.png';
 
-  static const String imgWaveDark_Dev = '${DEV_IMG_PATH}img_wave_dark.svg';
-  static const String imgWaveDark_Prod = '${PROD_IMG_PATH}img_wave_dark.svg';
-  static const String imgWaveDark_Rider = '${RIDER_IMG_PATH}img_wave_dark.svg';
-
   static const String imgWaveLight_Dev = '${DEV_IMG_PATH}img_wave_light.svg';
   static const String imgWaveLight_Prod = '${PROD_IMG_PATH}img_wave_light.svg';
   static const String imgWaveLight_Rider = '${RIDER_IMG_PATH}img_wave_light.svg';
@@ -34,8 +30,12 @@ class AppImagesPath {
   static const String imgTrustedByFamiliesStartup_Prod = '${PROD_IMG_PATH}img_trusted_by_families_startup.jpeg';
   static const String imgTrustedByFamiliesStartup_Rider = '${RIDER_IMG_PATH}img_trusted_by_families_startup.jpeg';
 
-}
+  static const String imgLoginScreen_Dev = '${DEV_IMG_PATH}img_login_screen.png';
+  static const String imgLoginScreen_Dev_Prod = '${PROD_IMG_PATH}img_login_screen.png';
+  static const String imgLoginScreen_Dev_Rider = '${RIDER_IMG_PATH}img_login_screen.png';
 
+
+}
 
 // COMMON IMAGES IN ALL FLAVORS
 const String imgError = 'assets/common/images/img_error.png';

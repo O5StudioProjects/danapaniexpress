@@ -20,14 +20,7 @@ class SignInScreen extends StatelessWidget {
 }
 
 Widget buildMobileUI() {
-  return Container(
-    width: size.width,
-    height: size.height,
-    color: AppColors.backgroundColorSkin(isDark),
-    child: Center(
-      child: appText(text: 'Welcome To Sign In Screen', textStyle: headingTextStyle()),
-    ),
-  );
+  return SignInMobile();
 
 }
 
