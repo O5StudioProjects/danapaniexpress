@@ -86,6 +86,15 @@ class AppLanguage {
   static String? passwordStr(String appLanguage){
     return allLang[appLanguage]?[PASSWORD];
   }
+  static String? confirmPasswordStr(String appLanguage){
+    return allLang[appLanguage]?[CONFIRM_PASSWORD];
+  }
+  static String? newPasswordStr(String appLanguage){
+    return allLang[appLanguage]?[NEW_PASSWORD];
+  }
+  static String? reEnterPasswordStr(String appLanguage){
+    return allLang[appLanguage]?[RE_ENTER_PASSWORD];
+  }
   static String? forgotPasswordStr(String appLanguage){
     return allLang[appLanguage]?[FORGOT_PASSWORD];
   }
@@ -98,4 +107,53 @@ class AppLanguage {
   static String? signUpStr(String appLanguage){
     return allLang[appLanguage]?[SIGNUP];
   }
+  static String? continueAsGuestStr(String appLanguage){
+    return allLang[appLanguage]?[CONTINUE_AS_GUEST];
+  }
+
+  static String? fullNameStr(String appLanguage){
+    return allLang[appLanguage]?[FULL_NAME];
+  }
+
+  static String? emailStr(String appLanguage){
+    return allLang[appLanguage]?[EMAIL];
+  }
+  static String? phoneStr(String appLanguage){
+    return allLang[appLanguage]?[PHONE];
+  }
+  static String? registerStr(String appLanguage){
+    return allLang[appLanguage]?[REGISTER];
+  }
+  static String? createNewAccountStr(String appLanguage){
+    return allLang[appLanguage]?[CREATE_NEW_ACCOUNT];
+  }
+  static String? recoverYourAccountStr(String appLanguage){
+    return allLang[appLanguage]?[RECOVER_ACCOUNT];
+  }
+  static String? continueWithStr(String appLanguage){
+    return allLang[appLanguage]?[CONTINUE_WITH];
+  }
+  static String? alreadyHaveAccountStr(String appLanguage){
+    return allLang[appLanguage]?[ALREADY_HAVE_ACCOUNT];
+  }
+  static String? signInWithGoogleStr(String appLanguage){
+    return allLang[appLanguage]?[SIGN_IN_WITH_GOOGLE];
+  }
+
+  static String? homeStr(String appLanguage){
+    return allLang[appLanguage]?[HOME];
+  }
+  static String? categoriesStr(String appLanguage){
+    return allLang[appLanguage]?[CATEGORIES];
+  }
+  static String? favoritesStr(String appLanguage){
+    return allLang[appLanguage]?[FAVORITES];
+  }
+  static String? cartStr(String appLanguage){
+    return allLang[appLanguage]?[CART];
+  }
+  static String? accountStr(String appLanguage){
+    return allLang[appLanguage]?[ACCOUNT];
+  }
+
 }

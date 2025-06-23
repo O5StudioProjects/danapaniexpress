@@ -33,6 +33,7 @@ export 'package:danapaniexpress/ui/app_common/components/responsive_layout.dart'
 export 'package:danapaniexpress/ui/app_common/components/app_bars.dart';
 export 'package:danapaniexpress/ui/app_common/components/items.dart';
 export 'package:danapaniexpress/ui/app_common/components/text_form_fields.dart';
+export 'package:danapaniexpress/ui/app_common/components/bottom_nav_bar.dart';
 export 'package:danapaniexpress/ui/app_common/global/styles.dart';
 export 'package:danapaniexpress/ui/app_common/global/widgets.dart';
 export 'package:danapaniexpress/ui/app_common/global/utils.dart';
@@ -45,3 +46,4 @@ export 'package:danapaniexpress/ui/screens/auth_screen/sign_in_screen/sign_in_mo
 export 'package:danapaniexpress/ui/screens/auth_screen/sign_in_screen/sign_in_screen.dart';
 export 'package:danapaniexpress/ui/screens/auth_screen/register_screen/register_screen_mobile.dart';
 export 'package:danapaniexpress/ui/screens/auth_screen/forgot_password_screen/forgot_password_mobile.dart';
+export 'package:danapaniexpress/ui/screens/main_dashboard_screen/main_dashboard_screen_mobile.dart';

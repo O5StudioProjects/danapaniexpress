@@ -18,15 +18,23 @@ class AppIconsPath {
 
 // COMMON ICONS IN ALL FLAVORS
 
-const String icHome = '${COMMON_ICON_PATH}ic_home.svg';
+const String icHome = '${COMMON_ICON_PATH}ic_home.png';
 const String icFavorite = '${COMMON_ICON_PATH}ic_favorite.svg';
 const String icDownload = '${COMMON_ICON_PATH}ic_download.svg';
 const String icProfile = '${COMMON_ICON_PATH}ic_profile.svg';
+const String icCategories = '${COMMON_ICON_PATH}ic_categories.png';
+const String icHeart = '${COMMON_ICON_PATH}ic_heart.png';
+const String icCart = '${COMMON_ICON_PATH}ic_cart.png';
+const String icAccount = '${COMMON_ICON_PATH}ic_account.png';
 
-const String icHomeFill = '${COMMON_ICON_PATH}ic_home_fill.svg';
+const String icHomeFill = '${COMMON_ICON_PATH}ic_home_filled.png';
 const String icFavoriteFill = '${COMMON_ICON_PATH}ic_favorite_fill.svg';
 const String icDownloadFill = '${COMMON_ICON_PATH}ic_download_fill.svg';
 const String icProfileFill = '${COMMON_ICON_PATH}ic_profile_fill.svg';
+const String icCategoriesFill = '${COMMON_ICON_PATH}ic_categories_filled.png';
+const String icHeartFill = '${COMMON_ICON_PATH}ic_heart_filled.png';
+const String icCartFill = '${COMMON_ICON_PATH}ic_cart_filled.png';
+const String icAccountFill = '${COMMON_ICON_PATH}ic_account_filled.png';
 
 const String icSearch = '${COMMON_ICON_PATH}ic_search.svg';
 const String icNotification = '${COMMON_ICON_PATH}ic_notification.svg';
@@ -55,4 +63,5 @@ const String icEmail = '${COMMON_ICON_PATH}ic_email.png';
 const String icInAppPurchase = '${COMMON_ICON_PATH}ic_in_app_purchase.png';
 const String icPremium = '${COMMON_ICON_PATH}ic_premium.png';
 const String icWhatsAppGroup = '${COMMON_ICON_PATH}ic_whatsapp_group.png';
+const String icGoogle = '${COMMON_ICON_PATH}ic_google.png';
 
