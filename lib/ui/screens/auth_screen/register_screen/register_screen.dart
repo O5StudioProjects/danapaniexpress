@@ -20,7 +20,7 @@ class RegisterScreen extends StatelessWidget {
 }
 
 Widget buildMobileUI() {
-  return Container();
+  return RegisterScreenMobile();
 
 }
 

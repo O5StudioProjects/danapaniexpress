@@ -1,4 +1,5 @@
 import 'package:danapaniexpress/ui/screens/auth_screen/sign_in_screen/sign_in_screen.dart';
+import 'package:danapaniexpress/ui/screens/main_dashboard_screen/main_dashboard_screen.dart';
 import 'package:danapaniexpress/ui/screens/splash_screen/splash_screen.dart';
 import 'package:danapaniexpress/ui/screens/startup_screens/language_theme_screen.dart';
 import 'package:danapaniexpress/core/common_imports.dart';
@@ -15,7 +16,7 @@ class AppRouter {
     ),
     GetPage(
       name: RouteNames.LanguageThemeScreenRoute,
-      transition: Transition.downToUp,
+      transition: Transition.rightToLeft,
       transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
       page: () => const LanguageThemeScreen(),
     ),
@@ -30,7 +31,6 @@ class AppRouter {
     ),
 
     /// AUTH SCREENS
-
     GetPage(
       name: RouteNames.SignInScreenRoute,
       transition: Transition.rightToLeft,
@@ -50,6 +50,14 @@ class AppRouter {
       transition: Transition.rightToLeft,
       transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
       page: () => const ForgotPasswordScreen(),
+    ),
+
+    ///DASHBOARD SCREEN AND PAGES SCREENS
+    GetPage(
+      name: RouteNames.MainDashboardScreenRoute,
+      transition: Transition.fadeIn,
+      transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
+      page: () => const MainDashboardScreen(),
     ),
 
 

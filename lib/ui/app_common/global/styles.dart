@@ -1,5 +1,4 @@
 import 'package:danapaniexpress/core/common_imports.dart';
-import 'package:danapaniexpress/core/packages_import.dart';
 
 TextStyle splashHeadingTextStyle(){
   return TextStyle(
@@ -102,6 +101,16 @@ TextStyle buttonTextStyle({color}){
       fontSize: appLanguage == URDU_LANGUAGE ? (NORMAL_TEXT_FONT_SIZE + 2.0) : NORMAL_TEXT_FONT_SIZE,
       //fontSize: NORMAL_TEXT_FONT_SIZE,
       fontFamily:  setFont(appLanguage, urdu: urduSemibold, englishFont: poppinsBold,)
+  );
+}
+
+TextStyle bottomNavItemTextStyle(){
+  return TextStyle(
+      color: AppColors.materialButtonSkin(isDark),
+      height:  0.0,
+      fontSize: appLanguage == URDU_LANGUAGE ? (SUB_HEADING_TEXT_BUTTON_FONT_SIZE + 2.0) : SUB_HEADING_TEXT_BUTTON_FONT_SIZE,
+      //fontSize: NORMAL_TEXT_FONT_SIZE,
+      fontFamily:  setFont(appLanguage, urdu: urduSemibold, englishFont: poppinsSemibold,)
   );
 }
 

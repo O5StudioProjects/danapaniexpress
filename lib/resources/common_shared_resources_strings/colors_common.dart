@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 const Color whiteColor = Color(0xffFFFFFF);
+const Color greyColor = Color(0xffd7d6d6);
 const Color blackColor = Color(0xff101010);
 const Color mehronColor = Color(0xff540000);
 const Color amber = Colors.amber;

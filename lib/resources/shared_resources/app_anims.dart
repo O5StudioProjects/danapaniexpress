@@ -3,11 +3,11 @@ import '../../config/res_config/anims_config.dart';
 
 class AppAnims {
 
-  static String animDownloadingSkin(isDark){
+  static String animLoadingSkin(isDark){
     if (isDark) {
-      return EnvAnim.animDownloadingDark;
+      return EnvAnim.animLoadingDark;
     } else {
-      return EnvAnim.animDownloadingLight;
+      return EnvAnim.animArrowUpLight;
     }
   }
 
