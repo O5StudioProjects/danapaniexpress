@@ -7,7 +7,7 @@ class AppAnims {
     if (isDark) {
       return EnvAnim.animLoadingDark;
     } else {
-      return EnvAnim.animArrowUpLight;
+      return EnvAnim.animLoadingLight;
     }
   }
 

@@ -1,5 +1,6 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/domain/controllers/dashboard_controller/dashboard_controller.dart';
+import 'package:danapaniexpress/ui/screens/pages/home_screen/home_screen.dart';
 
 var navBarItemsList = [
   BottomNavItemsModel(icHome, icHomeFill, AppLanguage.navHomeStr(appLanguage).toString()),
@@ -10,10 +11,7 @@ var navBarItemsList = [
 ];
 
 var screenList = [
-  Container(color: Colors.red,
-  child: Center(
-    child: appText(text: 'Home', textStyle: headingTextStyle()),
-  ),),
+  HomeScreen(),
   Container(color: Colors.amber,
     child: Center(
       child: appText(text: 'Categories', textStyle: headingTextStyle()),

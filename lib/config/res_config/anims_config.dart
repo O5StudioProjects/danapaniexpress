@@ -19,36 +19,24 @@ abstract class EnvAnim {
     _environment = environment;
     switch (environment) {
       case Flavor.dev:
-        animNotificationDark = AppAnimationsPath.animNotificationDark_Dev;
-        animNotificationLight = AppAnimationsPath.animNotificationLight_Dev;
-        animArrowUpDark = AppAnimationsPath.animArrowUpDark_Dev;
-        animArrowUpLight = AppAnimationsPath.animArrowUpLight_Dev;
+
         animLoadingDark = AppAnimationsPath.animLoadingDark_Dev;
         animLoadingLight = AppAnimationsPath.animLoadingLight_Dev;
-        animDownloadingDark = AppAnimationsPath.animDownloadingDark_Dev;
-        animDownloadingLight = AppAnimationsPath.animDownloadingLight_Dev;
+
         break;
 
       case Flavor.prod:
-        animNotificationDark = AppAnimationsPath.animNotificationDark_ZainShakeel;
-        animNotificationLight = AppAnimationsPath.animNotificationLight_ZainShakeel;
-        animArrowUpDark = AppAnimationsPath.animArrowUpDark_ZainShakeel;
-        animArrowUpLight = AppAnimationsPath.animArrowUpLight_ZainShakeel;
-        animLoadingDark = AppAnimationsPath.animLoadingDark_ZainShakeel;
-        animLoadingLight = AppAnimationsPath.animLoadingLight_ZainShakeel;
-        animDownloadingDark = AppAnimationsPath.animDownloadingDark_ZainShakeel;
-        animDownloadingLight = AppAnimationsPath.animDownloadingLight_ZainShakeel;
+
+        animLoadingDark = AppAnimationsPath.animLoadingDark_Prod;
+        animLoadingLight = AppAnimationsPath.animLoadingLight_Prod;
+
         break;
 
       case Flavor.rider:
-        animNotificationDark = AppAnimationsPath.animNotificationDark_ZainShakeel;
-        animNotificationLight = AppAnimationsPath.animNotificationLight_ZainShakeel;
-        animArrowUpDark = AppAnimationsPath.animArrowUpDark_ZainShakeel;
-        animArrowUpLight = AppAnimationsPath.animArrowUpLight_ZainShakeel;
-        animLoadingDark = AppAnimationsPath.animLoadingDark_ZainShakeel;
-        animLoadingLight = AppAnimationsPath.animLoadingLight_ZainShakeel;
-        animDownloadingDark = AppAnimationsPath.animDownloadingDark_ZainShakeel;
-        animDownloadingLight = AppAnimationsPath.animDownloadingLight_ZainShakeel;
+
+        animLoadingDark = AppAnimationsPath.animLoadingDark_Rider;
+        animLoadingLight = AppAnimationsPath.animLoadingLight_Rider;
+
         break;
 
     }

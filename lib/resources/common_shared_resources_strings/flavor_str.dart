@@ -11,6 +11,16 @@ class AppNameEnv {
   static const String RiderUrdu = 'ڈی پی ای رائیڈر';
 }
 
+///App Slogan
+class AppSloganEnv {
+  static const String DevelopEng = 'Mart at your door step.';
+  static const String DevelopUrdu = 'مارٹ آپ کے دروازے پر۔';
+  static const String ProdEng = 'Mart at your door step.';
+  static const String ProdUrdu = 'مارٹ آپ کے دروازے پر۔';
+  static const String RiderEng = 'Mart at your door step.';
+  static const String RiderUrdu = 'مارٹ آپ کے دروازے پر۔';
+}
+
 ///Privacy Policy
 class PrivacyPolicyEnv {
   static const String develop = '';

@@ -55,11 +55,12 @@ Widget loadingIndicator() {
   );
 }
 
-Widget appAsyncImage(imageUrl, {boxFit = BoxFit.cover, showLoading = true}) {
+Widget appAsyncImage(imageUrl, {boxFit = BoxFit.cover, width, showLoading = true}) {
   return CachedNetworkImage(
     progressIndicatorBuilder: (context, url, downloadProgress) => showLoading ? loadingIndicator() : const SizedBox(),
     errorWidget: (context, url, error) => appIcon(iconType: IconType.PNG, icon: icEmptyImagePlaceholder, color: AppColors.primaryTextColorSkin(isDark)),
     fit: boxFit,
+    width: width,
     imageUrl: imageUrl,
     // imageUrl: '$coreUrl${data[index]['qr_image']}',
   );

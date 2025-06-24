@@ -8,6 +8,9 @@ class AppLanguage {
   static String? appNameStr(String appLanguage){
     return allLang[appLanguage]?[APP_NAME];
   }
+  static String? appSloganStr(String appLanguage){
+    return allLang[appLanguage]?[APP_SLOGAN];
+  }
   static String? navHomeStr(String appLanguage){
     return allLang[appLanguage]?[HOME];
   }

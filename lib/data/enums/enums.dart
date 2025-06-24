@@ -9,3 +9,7 @@ enum IconType {
   ICON,
   URL
 }
+
+enum AppbarSliderImagesStatus {
+  IDLE, LOADING, SUCCESS, FAILURE
+}

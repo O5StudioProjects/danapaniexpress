@@ -30,6 +30,14 @@ class AppColors {
     }
   }
 
+  static Color floatingButtonSkin(isDark) {
+    if (isDark) {
+      return EnvColors.cardColorDark;
+    } else {
+      return EnvColors.primaryColorLight;
+    }
+  }
+
   static Color primaryHeadingTextSkin(isDark) {
     if (isDark) {
       return EnvColors.primaryTextColorDark;

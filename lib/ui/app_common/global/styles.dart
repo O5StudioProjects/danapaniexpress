@@ -133,6 +133,33 @@ TextStyle textFormHintTextStyle({height = 0.0}){
   );
 }
 
+TextStyle sliverAppHeadingTextStyle(){
+  return TextStyle(
+      color: whiteColor,
+      height: 0.0,
+      fontSize: MEDIUM_TEXT_FONT_SIZE,
+      fontFamily: setFont(appLanguage, urdu: urduRegular, englishFont: oswaldSemibold),
+      fontWeight: appLanguage != ENGLISH_LANGUAGE ? FontWeight.bold : null
+  );
+}
+TextStyle sliverAppSubHeadingTextStyle(){
+  return TextStyle(
+      color: whiteColor,
+      fontSize: NORMAL_TEXT_FONT_SIZE-2,
+      height: 0.0,
+      fontFamily:  setFont(appLanguage, urdu: urduRegular, englishFont: interRegular)
+  );
+}
+
+TextStyle sliverAppDescriptionTextStyle(){
+  return TextStyle(
+      color: whiteColor,
+      fontSize: appLanguage!= URDU_LANGUAGE ? SUB_HEADING_TEXT_BUTTON_FONT_SIZE : NORMAL_TEXT_FONT_SIZE,
+      height: 0.0,
+      fontFamily:  setFont(appLanguage, urdu: urduRegular, englishFont: interRegular)
+  );
+}
+
 
 
 
