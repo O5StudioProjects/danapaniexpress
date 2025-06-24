@@ -1,23 +1,13 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
 
-class MainDashboardScreen extends StatelessWidget {
-  const MainDashboardScreen({super.key});
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var dashboardController = Get.put(DashBoardController());
+    var homeController = Get.put(HomeScreenController());
     return Scaffold(
-      bottomNavigationBar: Obx(
-        ()=> Container(
-          width: size.width,
-          height: BOTTOM_NAV_BAR_SIZE,
-          decoration: BoxDecoration(
-            color: AppColors.backgroundColorSkin(isDark),
-          ),
-          child: appBottomNavBar(),
-        ),
-      ),
       body: SafeArea(
         top: false,
         bottom: false,
@@ -32,7 +22,7 @@ class MainDashboardScreen extends StatelessWidget {
 }
 
 Widget buildMobileUI() {
-  return MainDashboardScreenMobile();
+  return HomeScreenMobile();
 
 }
 

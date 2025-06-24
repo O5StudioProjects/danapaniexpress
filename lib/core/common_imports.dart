@@ -47,3 +47,5 @@ export 'package:danapaniexpress/ui/screens/auth_screen/sign_in_screen/sign_in_sc
 export 'package:danapaniexpress/ui/screens/auth_screen/register_screen/register_screen_mobile.dart';
 export 'package:danapaniexpress/ui/screens/auth_screen/forgot_password_screen/forgot_password_mobile.dart';
 export 'package:danapaniexpress/ui/screens/main_dashboard_screen/main_dashboard_screen_mobile.dart';
+export 'package:danapaniexpress/ui/screens/pages/home_screen/home_screen_mobile.dart';
+

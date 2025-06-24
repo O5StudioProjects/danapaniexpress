@@ -1,0 +1,32 @@
+[
+  {
+    "slider_id": "1",
+    "type": "category",
+    "type_id": "101",
+    "image_url": "https://freshdaykart.com/photos/large/banr_20220208202319_ad-2.jpg"
+  },
+  {
+    "slider_id": "2",
+    "type": "product",
+    "type_id": "202",
+    "image_url": "https://mir-s3-cdn-cf.behance.net/project_modules/source/18d60b107187879.5fa16aecd880f.jpg"
+  },
+  {
+    "slider_id": "3",
+    "type": "category",
+    "type_id": "303",
+    "image_url": "https://mir-s3-cdn-cf.behance.net/project_modules/hd/d7dfad107187879.5fa16aecd773f.jpg"
+  },
+  {
+    "slider_id": "4",
+    "type": "product",
+    "type_id": "404",
+    "image_url": "https://www.shutterstock.com/image-photo/online-grocery-app-on-smartphone-600nw-2244240217.jpg"
+  },
+  {
+    "slider_id": "5",
+    "type": "product",
+    "type_id": "505",
+    "image_url": "https://hyperbeans.com/resources/images/blogs/6989214121629271478.jpg"
+  }
+]

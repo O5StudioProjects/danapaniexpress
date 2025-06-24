@@ -3,6 +3,8 @@ import 'package:danapaniexpress/core/common_imports.dart';
 abstract class EnvStrings {
   static late String appNameEng;
   static late String appNameUrdu;
+  static late String appSloganEng;
+  static late String appSloganUrdu;
   static late String appDatabaseName;
   static late String privacyPolicy;
   static late String appVersion;
@@ -20,6 +22,8 @@ abstract class EnvStrings {
       case Flavor.dev:
         appNameEng = AppNameEnv.DevelopEng;
         appNameUrdu = AppNameEnv.DevelopUrdu;
+        appSloganEng = AppSloganEnv.DevelopEng;
+        appSloganUrdu = AppSloganEnv.DevelopUrdu;
         appDatabaseName = AppDatabaseNameEnv.develop;
         privacyPolicy = PrivacyPolicyEnv.develop;
         appVersion = AppVersionsEnv.develop;
@@ -32,6 +36,8 @@ abstract class EnvStrings {
       case Flavor.prod:
         appNameEng = AppNameEnv.ProdEng;
         appNameUrdu = AppNameEnv.ProdUrdu;
+        appSloganEng = AppSloganEnv.ProdEng;
+        appSloganUrdu = AppSloganEnv.ProdUrdu;
         appDatabaseName = AppDatabaseNameEnv.prod;
         privacyPolicy = PrivacyPolicyEnv.prod;
         appVersion = AppVersionsEnv.prod;
@@ -44,6 +50,8 @@ abstract class EnvStrings {
       case Flavor.rider:
         appNameEng = AppNameEnv.RiderEng;
         appNameUrdu = AppNameEnv.RiderUrdu;
+        appSloganEng = AppSloganEnv.RiderEng;
+        appSloganUrdu = AppSloganEnv.RiderUrdu;
         appDatabaseName = AppDatabaseNameEnv.rider;
         privacyPolicy = PrivacyPolicyEnv.rider;
         appVersion = AppVersionsEnv.rider;

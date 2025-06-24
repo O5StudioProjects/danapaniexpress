@@ -1,3 +1,4 @@
+import 'package:danapaniexpress/domain/di/dashboard_binding.dart';
 import 'package:danapaniexpress/ui/screens/auth_screen/sign_in_screen/sign_in_screen.dart';
 import 'package:danapaniexpress/ui/screens/main_dashboard_screen/main_dashboard_screen.dart';
 import 'package:danapaniexpress/ui/screens/splash_screen/splash_screen.dart';
@@ -58,6 +59,7 @@ class AppRouter {
       transition: Transition.fadeIn,
       transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
       page: () => const MainDashboardScreen(),
+      binding: DashboardBinding()
     ),
 
 

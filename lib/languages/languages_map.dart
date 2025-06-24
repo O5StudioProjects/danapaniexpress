@@ -3,6 +3,7 @@ import 'package:danapaniexpress/core/common_imports.dart';
 Map<String, Map<String, String>> allLang = {
   ENGLISH: {
     APP_NAME: EnvStrings.appNameEng,
+    APP_SLOGAN: EnvStrings.appSloganEng,
     DEVELOPED_BY: 'Developed by O5Studio',
     LANGUAGE_ONLY: 'Language',
     THEME_LANGUAGE: 'Theme & Language',
@@ -54,6 +55,7 @@ Map<String, Map<String, String>> allLang = {
 
   URDU: {
     APP_NAME: EnvStrings.appNameUrdu,
+    APP_SLOGAN: EnvStrings.appSloganUrdu,
     DEVELOPED_BY: 'Developed by O5Studio',
     LANGUAGE_ONLY: 'زبان',
     THEME_LANGUAGE: 'زبان اور تھیم',
