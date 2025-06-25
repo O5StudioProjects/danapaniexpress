@@ -1,0 +1,242 @@
+[
+  {
+    "category_id": "Fruits",
+    "category_name_english": "Fruits",
+    "category_name_urdu": "پھل",
+    "category_image": "https://media.post.rvohealth.io/wp-content/uploads/sites/3/2025/01/sugar-fruit-GettyImages-2195839879-Facebook.jpg",
+    "category_cover_image": "https://media.post.rvohealth.io/wp-content/uploads/sites/3/2025/01/sugar-fruit-GettyImages-2195839879-Facebook.jpg",
+    "category_is_featured": false,
+    "sub_categories": [
+      {
+        "sub_category_id": "Apples",
+        "sub_category_name_english": "Apples",
+        "sub_category_name_urdu": "سیب",
+        "sub_category_image": "https://alumni.cornell.edu/cornellians/wp-content/uploads/sites/2/2024/09/AU-CALS-Agritech-Oct012021-109-A-1184x666.jpg",
+        "sub_category_is_featued": false
+      },
+      {
+        "sub_category_id": "Bananas",
+        "sub_category_name_english": "Bananas",
+        "sub_category_name_urdu": "کیلا",
+        "sub_category_image": "https://nutritionsource.hsph.harvard.edu/wp-content/uploads/2018/08/bananas-1354785_1920-1024x683.jpg",
+        "sub_category_is_featued": false
+      }
+    ]
+  },
+  {
+    "category_id": "Vegetables",
+    "category_name_english": "Vegetables",
+    "category_name_urdu": "سبزیاں",
+    "category_image": "https://healthymadetasty.com.au/wp-content/uploads/1129_0031_vegetable_array_resized__1649219764_52563-1-tiny-jpeg.jpg",
+    "category_cover_image": "https://howdyhealth.tamu.edu/wp-content/uploads/2023/11/3-easy-ways-to-eat-more-vegetables.jpg",
+    "category_is_featured": true,
+    "sub_categories": [
+      {
+        "sub_category_id": "Tomatoes",
+        "sub_category_name_english": "Tomatoes",
+        "sub_category_name_urdu": "ٹماٹر",
+        "sub_category_image": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Tomato_je.jpg/1200px-Tomato_je.jpg",
+        "sub_category_is_featued": false
+      },
+      {
+        "sub_category_id": "Potatoes",
+        "sub_category_name_english": "Potatoes",
+        "sub_category_name_urdu": "آلو",
+        "sub_category_image": "https://www.bordbia.ie/globalassets/bordbia.ie/lifestyle/information/bord-bia-food-images/potatoes-istock.jpg",
+        "sub_category_is_featued": false
+      }
+    ]
+  },
+  {
+    "category_id": "Dairy",
+    "category_name_english": "Dairy",
+    "category_name_urdu": "دودھ کی مصنوعات",
+    "category_image": "https://samsungfood.com/wp-content/uploads/2023/02/shutterstock_1679020255.jpg",
+    "category_cover_image": "https://www.dairyfoods.com/ext/resources/2022/10/27/Dairy-Products.jpeg?height=635&t=1666879344&width=1200",
+    "category_is_featured": false,
+    "sub_categories": [
+      {
+        "sub_category_id": "Milk",
+        "sub_category_name_english": "Milk",
+        "sub_category_name_urdu": "دودھ",
+        "sub_category_image": "https://www.oregondairy.com/wp-content/uploads/2016/05/Milk.jpg",
+        "sub_category_is_featued": false
+      },
+      {
+        "sub_category_id": "Cheese",
+        "sub_category_name_english": "Cheese",
+        "sub_category_name_urdu": "پنیر",
+        "sub_category_image": "https://www.allrecipes.com/thmb/iRcip7RaCHF_RmbzDV4bC8gqNYs=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-504780334-2000-1caaee9e697c40a8935db7b8d9818a85.jpg",
+        "sub_category_is_featued": false
+      }
+    ]
+  },
+  {
+    "category_id": "Bakery",
+    "category_name_english": "Bakery",
+    "category_name_urdu": "بیکری",
+    "category_image": "https://waringsbakery.co.uk/wp-content/uploads/2023/10/bread-new-image.jpg",
+    "category_cover_image": "https://images.ctfassets.net/rric2f17v78a/1ql70crfzaiw9nFd58CZ7p/04652a19ab2fe5a5370d92c7957eb016/open-a-bakery-header.jpg",
+    "category_is_featured": false,
+    "sub_categories": [
+      {
+        "sub_category_id": "Bread",
+        "sub_category_name_english": "Bread",
+        "sub_category_name_urdu": "روٹی",
+        "sub_category_image": "https://www.backerhausveit.com/wp-content/uploads/2021/03/17783-1.jpg",
+        "sub_category_is_featued": false
+      },
+      {
+        "sub_category_id": "Buns",
+        "sub_category_name_english": "Buns",
+        "sub_category_name_urdu": "بن",
+        "sub_category_image": "https://krollskorner.com/wp-content/uploads/2025/04/hamburgerbuns_featimg.png",
+        "sub_category_is_featued": false
+      }
+    ]
+  },
+  {
+    "category_id": "Beverages",
+    "category_name_english": "Beverages",
+    "category_name_urdu": "مشروبات",
+    "category_image": "https://thumbs.dreamstime.com/b/cans-beverages-19492376.jpg",
+    "category_cover_image": "https://cdn.foodstorm.com/3da8662b65244337a9d6b218c1adae0d/images/571b3ecb0e3c4b0ab1d6723d72df48c0_1080w.jpg",
+    "category_is_featured": false,
+    "sub_categories": [
+      {
+        "sub_category_id": "Soft Drinks",
+        "sub_category_name_english": "Soft Drinks",
+        "sub_category_name_urdu": "سافٹ ڈرنکس",
+        "sub_category_image": "https://foodmaster.pk/wp-content/uploads/2018/06/1.5-liter-soft-drink-1.jpg",
+        "sub_category_is_featued": false
+      },
+      {
+        "sub_category_id": "Juices",
+        "sub_category_name_english": "Juices",
+        "sub_category_name_urdu": "جوس",
+        "sub_category_image": "https://t4.ftcdn.net/jpg/00/61/97/53/360_F_61975353_iHijpcgYRfCDQp1wY06W54PHI0NCWCf5.jpg",
+        "sub_category_is_featued": false
+      }
+    ]
+  },
+  {
+    "category_id": "Snacks",
+    "category_name_english": "Snacks",
+    "category_name_urdu": "نمکین",
+    "category_image": "https://cdnimg.webstaurantstore.com/uploads/seo_category/2023/11/Individually-Wrapped-Snacks/wrapped-snacks_one.jpg",
+    "category_cover_image": "https://shop.thedeli.co.za/cdn/shop/collections/snacks-676286.jpg",
+    "category_is_featured": false,
+    "sub_categories": [
+      {
+        "sub_category_id": "Chips",
+        "sub_category_name_english": "Chips",
+        "sub_category_name_urdu": "چپس",
+        "sub_category_image": "https://img.drz.lazcdn.com/static/pk/p/0cafa516bee9376a1eb87d36e28c97a1.jpg_720x720q80.jpg",
+        "sub_category_is_featued": false
+      },
+      {
+        "sub_category_id": "Nimko",
+        "sub_category_name_english": "Nimko",
+        "sub_category_name_urdu": "نمکو",
+        "sub_category_image": "https://img.drz.lazcdn.com/g/kf/Sbd0a7d0f67f447bfa89e51693b635c9bl.jpg_720x720q80.jpg",
+        "sub_category_is_featued": false
+      }
+    ]
+  },
+  {
+    "category_id": "Meat",
+    "category_name_english": "Meat",
+    "category_name_urdu": "گوشت",
+    "category_image": "https://www.aicr.org/wp-content/uploads/2019/11/redmeats.png",
+    "category_cover_image": "https://ifanca.org/app/uploads/2022/06/Raw_Meat-AdobeStock_123479894-scaled.jpeg",
+    "category_is_featured": false,
+    "sub_categories": [
+      {
+        "sub_category_id": "Chicken",
+        "sub_category_name_english": "Chicken",
+        "sub_category_name_urdu": "چکن",
+        "sub_category_image": "https://meatdirect.co.nz/wp-content/uploads/whole-chicken-frozen-raw.jpg",
+        "sub_category_is_featued": false
+      },
+      {
+        "sub_category_id": "Mutton",
+        "sub_category_name_english": "Mutton",
+        "sub_category_name_urdu": "مٹن",
+        "sub_category_image": "https://www.freshtohome.com/blog/wp-content/uploads/2024/08/goat-curry-cut.jpg",
+        "sub_category_is_featued": false
+      }
+    ]
+  },
+  {
+    "category_id": "Frozen Food",
+    "category_name_english": "Frozen Food",
+    "category_name_urdu": "فروزن فوڈ",
+    "category_image": "https://www.markwellfoods.co.nz/wp-content/uploads/2022/11/Untitled-design-2023-01-25T125859.280.png",
+    "category_cover_image": "https://healthwire.pk/wp-content/uploads/2022/06/frozen-food-items.jpg",
+    "category_is_featured": false,
+    "sub_categories": [
+      {
+        "sub_category_id": "Frozen Nuggets",
+        "sub_category_name_english": "Frozen Nuggets",
+        "sub_category_name_urdu": "فرائز",
+        "sub_category_image": "https://aileencooks.com/wp-content/uploads/2019/12/air-fryer-frozen-chicken-nuggets-3.jpg",
+        "sub_category_is_featued": false
+      },
+      {
+        "sub_category_id": "Frozen Paratha",
+        "sub_category_name_english": "Frozen Paratha",
+        "sub_category_name_urdu": "پراٹھا",
+        "sub_category_image": "https://5.imimg.com/data5/WK/XP/QM/SELLER-14186204/frozen-kerala-paratha.jpg",
+        "sub_category_is_featued": false
+      }
+    ]
+  },
+  {
+    "category_id": "Grains & Rice",
+    "category_name_english": "Grains & Rice",
+    "category_name_urdu": "اناج اور چاول",
+    "category_image": "https://static.vecteezy.com/system/resources/thumbnails/037/349/469/small_2x/ai-generated-a-handful-of-long-grain-white-rice-spills-out-on-the-wooden-table-food-light-natural-colors-high-quality-ai-generative-photo.jpg",
+    "category_cover_image": "https://www.quickanddirtytips.com/wp-content/uploads/2010/04/what-type-of-rice-is-the-healthiest.png",
+    "category_is_featured": false,
+    "sub_categories": [
+      {
+        "sub_category_id": "Wheat",
+        "sub_category_name_english": "Wheat",
+        "sub_category_name_urdu": "گندم",
+        "sub_category_image": "https://cdn.britannica.com/80/157180-050-7B906E02/Heads-wheat-grains.jpg",
+        "sub_category_is_featued": false
+      },
+      {
+        "sub_category_id": "Rice",
+        "sub_category_name_english": "Rice",
+        "sub_category_name_urdu": "چاول",
+        "sub_category_image": "https://cdn.loveandlemons.com/wp-content/uploads/2020/03/how-to-cook-rice-500x375.jpg",
+        "sub_category_is_featued": false
+      }
+    ]
+  },
+  {
+    "category_id": "Spices",
+    "category_name_english": "Spices",
+    "category_name_urdu": "مصالحے",
+    "category_image": "https://cdn-diekm.nitrocdn.com/HOwlnarUJjGHsEfHJVXlNeqNRJOnjIWW/assets/images/optimized/rev-4f278e7/www.globalgrinders.com/wp-content/uploads/2016/04/Facts-About-Whole-Spices.jpg.pagespeed.ce.SI-lP9yTyL.jpg",
+    "category_cover_image": "https://www.starfrit.com/media/contentmanager/content/Quels_sont_les_condiments_essentiels_avoir_dans_votre_garde-manger.jpg",
+    "category_is_featured": false,
+    "sub_categories": [
+      {
+        "sub_category_id": "Red Chili",
+        "sub_category_name_english": "Red Chili",
+        "sub_category_name_urdu": "لال مرچ",
+        "sub_category_image": "https://www.chandigarhayurvedcentre.com/wp-content/uploads/2021/10/RED-CHILI-OF-BENEFITS-AND-DISADVANTAGES.jpg",
+        "sub_category_is_featued": false
+      },
+      {
+        "sub_category_id": "Turmeric",
+        "sub_category_name_english": "Turmeric",
+        "sub_category_name_urdu": "ہلدی",
+        "sub_category_image": "https://domf5oio6qrcr.cloudfront.net/medialibrary/15065/conversions/fa246ce0-054b-4892-bf30-5eb43cd938aa-thumb.jpg",
+        "sub_category_is_featued": false
+      }
+    ]
+  }
+]

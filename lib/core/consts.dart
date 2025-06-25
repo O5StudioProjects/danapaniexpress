@@ -14,3 +14,5 @@ const FIRST_TIME_SCREEN_NOT_OPENED = 'Not Opened';
 
 ///TESTING STRINGS
 const String jsonAppbarSlider = 'assets/json/appbar_slider.json';
+const String jsonNotification = 'assets/json/notifications.json';
+const String jsonCategories = 'assets/json/categories.json';

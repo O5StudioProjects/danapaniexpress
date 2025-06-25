@@ -11,4 +11,12 @@ class AppAnims {
     }
   }
 
+  static String animNotificationSkin(isDark){
+    if (isDark) {
+      return EnvAnim.animNotificationDark;
+    } else {
+      return EnvAnim.animNotificationLight;
+    }
+  }
+
 }

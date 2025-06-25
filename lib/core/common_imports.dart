@@ -2,6 +2,8 @@ export 'package:flutter/material.dart';
 export 'consts.dart';
 export 'package:flutter/services.dart';
 export 'package:get/get.dart';
+export 'package:flutter/foundation.dart';
+
 export 'package:danapaniexpress/core/common_sizes.dart';
 export 'package:danapaniexpress/core/arguments.dart';
 export 'package:danapaniexpress/data/enums/enums.dart';
@@ -48,4 +50,9 @@ export 'package:danapaniexpress/ui/screens/auth_screen/register_screen/register_
 export 'package:danapaniexpress/ui/screens/auth_screen/forgot_password_screen/forgot_password_mobile.dart';
 export 'package:danapaniexpress/ui/screens/main_dashboard_screen/main_dashboard_screen_mobile.dart';
 export 'package:danapaniexpress/ui/screens/pages/home_screen/home_screen_mobile.dart';
+
+
+export 'package:danapaniexpress/ui/screens/pages/home_screen/home_utils.dart';
+export 'package:danapaniexpress/ui/screens/pages/home_screen/home_screen_widgets/product_categories.dart';
+export 'package:danapaniexpress/ui/screens/pages/home_screen/home_screen_widgets/notification_bar.dart';
 

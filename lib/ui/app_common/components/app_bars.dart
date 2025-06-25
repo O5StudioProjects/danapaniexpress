@@ -70,6 +70,43 @@ Widget appSliverAppbarHome() {
                             color: AppColors.floatingButtonSkin(isDark),
                             borderRadius: BorderRadius.circular(100),
                           ),
+                          child: appIcon(iconType: IconType.ICON, icon: isDark ? Icons.dark_mode_rounded : Icons.light_mode_rounded, color: whiteColor),
+                        ),
+                      ),
+                    ),
+                    setHeight(5.0),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: GestureDetector(
+                        onTap: () {
+                          if(appLanguage == ENGLISH_LANGUAGE) {
+                            Get.find<ThemeController>().changeLanguage(language: URDU_LANGUAGE);
+                          } else {
+                            Get.find<ThemeController>().changeLanguage(language: ENGLISH_LANGUAGE);
+                          }
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(6.0),
+                          decoration: BoxDecoration(
+                            color: AppColors.floatingButtonSkin(isDark),
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                          child: appIcon(iconType: IconType.ICON, icon: Icons.language, color: whiteColor),
+                        ),
+                      ),
+                    ),
+                    setHeight(5.0),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: GestureDetector(
+                        onTap: () {
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(6.0),
+                          decoration: BoxDecoration(
+                            color: AppColors.floatingButtonSkin(isDark),
+                            borderRadius: BorderRadius.circular(100),
+                          ),
                           child: appSvgIcon(
                             icon: icSearch,
                             width: 20.0,
