@@ -27,7 +27,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
     return TextFormField(
       cursorHeight: 16.0,
       obscureText: widget.isPassword ? _obscure : false,
-      style: itemTextStyle(),
+      style: bodyTextStyle(),
       decoration: InputDecoration(
         hintText: widget.hintText,
         prefixIcon: widget.prefixIcon != null

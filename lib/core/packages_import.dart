@@ -5,6 +5,8 @@ export 'package:flutter_svg/svg.dart';
 export 'package:flutter/gestures.dart';
 export 'package:lottie/lottie.dart';
 export 'package:carousel_slider/carousel_slider.dart';
+export 'package:marquee/marquee.dart';
+
 
 
 

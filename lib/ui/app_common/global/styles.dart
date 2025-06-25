@@ -1,5 +1,7 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 
+import '../../screens/pages/home_screen/home_utils.dart';
+
 TextStyle splashHeadingTextStyle(){
   return TextStyle(
       color: whiteColor,
@@ -84,15 +86,15 @@ TextStyle bodyTextStyle({height = 0.0}){
   );
 }
 
-TextStyle itemTextStyle({height = 0.0}){
-  return TextStyle(
-      color: AppColors.primaryTextColorSkin(isDark),
-      height: height,
-      fontSize: appLanguage == URDU_LANGUAGE ? (NORMAL_TEXT_FONT_SIZE + 2.0) : NORMAL_TEXT_FONT_SIZE,
-      //fontSize: NORMAL_TEXT_FONT_SIZE,
-      fontFamily:  setFont(appLanguage, urdu: urduRegular, englishFont: robotoRegular)
-  );
-}
+// TextStyle itemTextStyle({height = 0.0}){
+//   return TextStyle(
+//       color: AppColors.primaryTextColorSkin(isDark),
+//       height: height,
+//       fontSize: appLanguage == URDU_LANGUAGE ? (NORMAL_TEXT_FONT_SIZE + 2.0) : NORMAL_TEXT_FONT_SIZE,
+//       //fontSize: NORMAL_TEXT_FONT_SIZE,
+//       fontFamily:  setFont(appLanguage, urdu: urduRegular, englishFont: robotoRegular)
+//   );
+// }
 
 TextStyle buttonTextStyle({color}){
   return TextStyle(
@@ -157,6 +159,18 @@ TextStyle sliverAppDescriptionTextStyle(){
       fontSize: appLanguage!= URDU_LANGUAGE ? SUB_HEADING_TEXT_BUTTON_FONT_SIZE : NORMAL_TEXT_FONT_SIZE,
       height: 0.0,
       fontFamily:  setFont(appLanguage, urdu: urduRegular, englishFont: interRegular)
+  );
+}
+
+TextStyle marqueeTextStyle({data}){
+  return TextStyle(
+      color: AppColors.primaryTextColorSkin(isDark),
+      fontSize: appLanguage == URDU_LANGUAGE ? (NORMAL_TEXT_FONT_SIZE + 2.0) : NORMAL_TEXT_FONT_SIZE,
+      height: 0.0,
+      fontFamily:  setFont(appLanguage,
+        urdu: setFontDynamicDataTopNotifications(language: appLanguage, data: data, urdu: urduRegular,  english: poppinsRegular),
+        englishFont: setFontDynamicDataTopNotifications(language: appLanguage, data: data, urdu: urduRegular, english: poppinsRegular),
+      )
   );
 }
 

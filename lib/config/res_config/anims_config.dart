@@ -19,21 +19,24 @@ abstract class EnvAnim {
     _environment = environment;
     switch (environment) {
       case Flavor.dev:
-
+        animNotificationDark = AppAnimationsPath.animNotificationDark_Dev;
+        animNotificationLight = AppAnimationsPath.animNotificationLight_Dev;
         animLoadingDark = AppAnimationsPath.animLoadingDark_Dev;
         animLoadingLight = AppAnimationsPath.animLoadingLight_Dev;
 
         break;
 
       case Flavor.prod:
-
+        animNotificationDark = AppAnimationsPath.animNotificationDark_Prod;
+        animNotificationLight = AppAnimationsPath.animNotificationLight_Prod;
         animLoadingDark = AppAnimationsPath.animLoadingDark_Prod;
         animLoadingLight = AppAnimationsPath.animLoadingLight_Prod;
 
         break;
 
       case Flavor.rider:
-
+        animNotificationDark = AppAnimationsPath.animNotificationDark_Rider;
+        animNotificationLight = AppAnimationsPath.animNotificationLight_Rider;
         animLoadingDark = AppAnimationsPath.animLoadingDark_Rider;
         animLoadingLight = AppAnimationsPath.animLoadingLight_Rider;
 

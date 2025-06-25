@@ -17,7 +17,7 @@ Widget listItemIcon({iconType, leadingIcon, isPngColor = false, itemTitle, trail
             setIcon(iconType: iconType, iconName: leadingIcon, isPngColor: isPngColor, color: AppColors.backgroundColorInverseSkin(isDark)),
             // appSvgIcon(icon: leadingIcon, width: 24.0, color: AppColors.blackInLightWhiteInDarkSkin(isDark)),
             setWidth(8.0),
-            Expanded(child: appText(text: itemTitle,textAlign: TextAlign.start, textStyle: itemTextStyle())),
+            Expanded(child: appText(text: itemTitle,textAlign: TextAlign.start, textStyle: bodyTextStyle())),
             setWidth(8.0),
             appSvgIcon(icon: trailingIcon, width: 24.0, color: AppColors.materialButtonSkin(isDark)),
           ])
@@ -25,7 +25,7 @@ Widget listItemIcon({iconType, leadingIcon, isPngColor = false, itemTitle, trail
           children: [
             appSvgIcon(icon: trailingIcon, width: 24.0, color: AppColors.materialButtonSkin(isDark)),
             setWidth(8.0),
-            Expanded(child: appText(text: itemTitle, textAlign: TextAlign.end, textStyle: itemTextStyle())),
+            Expanded(child: appText(text: itemTitle, textAlign: TextAlign.end, textStyle: bodyTextStyle())),
             setWidth(8.0),
             setIcon(iconType: iconType, iconName: leadingIcon, isPngColor: isPngColor, color: AppColors.backgroundColorInverseSkin(isDark)),
             // appSvgIcon(icon: leadingIcon, width: 24.0, color: AppColors.blackInLightWhiteInDarkSkin(isDark)),

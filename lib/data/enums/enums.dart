@@ -13,3 +13,9 @@ enum IconType {
 enum AppbarSliderImagesStatus {
   IDLE, LOADING, SUCCESS, FAILURE
 }
+enum NotificationsStatus {
+  IDLE, LOADING, SUCCESS, FAILURE
+}
+enum CategoriesStatus { IDLE, LOADING, SUCCESS, FAILURE }
+
+

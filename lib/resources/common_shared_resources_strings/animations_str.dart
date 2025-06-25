@@ -14,6 +14,13 @@ class AppAnimationsPath {
   static const String animLoadingDark_Rider = '${RIDER_ANIMATION_PATH}anim_dark_mode_loading.json';
   static const String animLoadingLight_Rider = '${RIDER_ANIMATION_PATH}anim_light_mode_loading.json';
 
+  static const String animNotificationDark_Dev = '${DEV_ANIMATION_PATH}anim_notification_dark.json';
+  static const String animNotificationLight_Dev = '${DEV_ANIMATION_PATH}anim_notification_light.json';
+  static const String animNotificationDark_Prod = '${PROD_ANIMATION_PATH}anim_notification_dark.json';
+  static const String animNotificationLight_Prod = '${PROD_ANIMATION_PATH}anim_notification_light.json';
+  static const String animNotificationDark_Rider = '${RIDER_ANIMATION_PATH}anim_notification_dark.json';
+  static const String animNotificationLight_Rider = '${RIDER_ANIMATION_PATH}anim_notification_light.json';
+
 }
 
 // COMMON ICONS IN ALL FLAVORS

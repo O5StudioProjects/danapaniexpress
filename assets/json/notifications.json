@@ -1,0 +1,20 @@
+[
+  {
+    "_id": "notif_001",
+    "notification_type": "news",
+    "notification_title_english": "New Feature Released!",
+    "notification_title_urdu": "نئی خصوصیت جاری کر دی گئی ہے!",
+    "notification_detail_english": "We've added voice search to make your experience smoother.",
+    "notification_detail_urdu": "ہم نے آپ کے تجربے کو بہتر بنانے کے لیے وائس سرچ شامل کی ہے۔",
+    "date_time": "2025-06-25T10:30:00Z"
+  },
+  {
+    "_id": "notif_002",
+    "notification_type": "marquee",
+    "notification_title_english": "Don’t Miss the Sale!",
+    "notification_title_urdu": "سیل کو مت چھوڑیں!",
+    "notification_detail_english": "Our mega discount offer ends tonight at midnight.",
+    "notification_detail_urdu": "ہماری بڑی ڈسکاؤنٹ آفر آج رات بارہ بجے ختم ہو رہی ہے۔",
+    "date_time": "2025-06-25T08:00:00Z"
+  }
+]
