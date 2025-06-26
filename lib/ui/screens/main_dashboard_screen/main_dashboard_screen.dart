@@ -20,7 +20,6 @@ class MainDashboardScreen extends StatelessWidget {
       ),
       body: SafeArea(
         top: false,
-        bottom: false,
         child: ResponsiveLayout(
           mobileView: buildMobileUI(),
           tabletView: buildTabletUI(),

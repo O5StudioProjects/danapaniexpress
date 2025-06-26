@@ -20,6 +20,7 @@ class ProductCategories extends StatelessWidget {
             // right: MAIN_HORIZONTAL_PADDING,
           ),
           child: Column(
+
             children: [
               Padding(
                 padding: const EdgeInsets.only(right: MAIN_HORIZONTAL_PADDING),
@@ -46,7 +47,7 @@ class ProductCategories extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           appText(
-                            text: 'Products by categories',
+                            text: 'Products By Categories',
                             textStyle: headingTextStyle(),
                           ),
                           appText(
@@ -65,59 +66,7 @@ class ProductCategories extends StatelessWidget {
                     index,
                   ) {
                     var data = controller.categoriesList[index];
-                    return Padding(
-                      padding: const EdgeInsets.only(
-                        right: MAIN_HORIZONTAL_PADDING,
-                      ),
-                      child: SizedBox(
-                        width: 70.0,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                top: MAIN_HORIZONTAL_PADDING,
-                                bottom: 10.0,
-                              ),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: AppColors.backgroundColorSkin(isDark),
-                                  borderRadius: BorderRadius.circular(12.0),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withValues(
-                                        alpha: 0.15,
-                                      ),
-                                      blurRadius: 6,
-                                      spreadRadius: 1,
-                                      offset: const Offset(0, 3),
-                                    ),
-                                  ],
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(12.0),
-                                  child: SizedBox(
-                                    width: 70.0,
-                                    height: 70.0,
-                                    child: appAsyncImage(
-                                      data.categoryImage,
-                                      boxFit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            appText(
-                              text: appLanguage == URDU_LANGUAGE
-                                  ? data.categoryNameUrdu
-                                  : data.categoryNameEnglish,
-                              textStyle: bodyTextStyle(),
-                              overFlow: TextOverflow.ellipsis,
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
+                    return productCategoriesItem(data: data);
                   }),
                 ),
               ),
@@ -129,4 +78,67 @@ class ProductCategories extends StatelessWidget {
       }
     });
   }
+}
+
+
+Widget productCategoriesItem({required data}) {
+  return Padding(
+    padding: const EdgeInsets.only(
+      top: MAIN_HORIZONTAL_PADDING,
+      right: MAIN_HORIZONTAL_PADDING
+    ),
+    child: SizedBox(
+      width: size.width * 0.2,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          // 🔹 Fixed size image container
+          Container(
+            width: size.width * 0.2,
+            height: size.width * 0.2,
+            decoration: BoxDecoration(
+              color: AppColors.cardColorSkin(isDark),
+              borderRadius: BorderRadius.circular(12.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withAlpha(40),
+                  blurRadius: 6,
+                  spreadRadius: 1,
+                  offset: const Offset(0, 3),
+                ),
+              ],
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12.0),
+              child: appAsyncImage(
+                data.categoryImage,
+                boxFit: BoxFit.cover,
+              ),
+            ),
+          ),
+
+           setHeight(8.0),
+          // 🔹 Responsive Text
+          SizedBox(
+            height: size.height * 0.04,
+            child: appText(
+              text:
+              appLanguage == URDU_LANGUAGE
+                  ? data.categoryNameUrdu
+                  : data.categoryNameEnglish,
+              maxLines: 2,
+              overFlow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+              textStyle: bodyTextStyle().copyWith(
+                fontSize: appLanguage == URDU_LANGUAGE
+                    ? SUB_HEADING_TEXT_BUTTON_FONT_SIZE +2
+                    : SUB_HEADING_TEXT_BUTTON_FONT_SIZE
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
 }

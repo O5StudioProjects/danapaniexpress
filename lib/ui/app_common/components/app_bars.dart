@@ -25,7 +25,7 @@ Widget appSliverAppbarHome() {
           child: Stack(
             children: [
               CarouselSlider(
-                items: controller.sliderList.map((slider) {
+                items: controller.appbarPagerList.map((slider) {
                   return Builder(
                     builder: (BuildContext context) {
                       return appAsyncImage(slider.imageUrl, width: size.width);

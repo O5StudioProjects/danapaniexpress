@@ -55,4 +55,5 @@ export 'package:danapaniexpress/ui/screens/pages/home_screen/home_screen_mobile.
 export 'package:danapaniexpress/ui/screens/pages/home_screen/home_utils.dart';
 export 'package:danapaniexpress/ui/screens/pages/home_screen/home_screen_widgets/product_categories.dart';
 export 'package:danapaniexpress/ui/screens/pages/home_screen/home_screen_widgets/notification_bar.dart';
+export 'package:danapaniexpress/ui/screens/pages/home_screen/home_screen_widgets/body_image_pager.dart';
 

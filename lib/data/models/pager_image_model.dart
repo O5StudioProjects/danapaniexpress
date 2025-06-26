@@ -1,23 +1,23 @@
-const String sliderImagesTable = 'slider_images';
+const String pagerImagesTable = 'pager_images';
 
-class SliderImagesFields {
+class PagerImagesFields {
   static final List<String> values = [
     sliderId, type, typeId, imageUrl,
   ];
 
-  static const String sliderId = 'slider_id';
+  static const String sliderId = 'pager_id';
   static const String type = 'type';
   static const String typeId = 'type_id';
   static const String imageUrl = 'image_url';
 }
 
-class SliderImagesModel {
+class PagerImagesModel {
   final String? sliderId;
   final String? type;
   final String? typeId;
   final String? imageUrl;
 
-  const SliderImagesModel({
+  const PagerImagesModel({
     required this.sliderId,
     required this.type,
     required this.typeId,
@@ -25,26 +25,26 @@ class SliderImagesModel {
   });
 
   Map<String, Object?> toJson() => {
-    SliderImagesFields.sliderId: sliderId,
-    SliderImagesFields.type: type,
-    SliderImagesFields.typeId: typeId,
-    SliderImagesFields.imageUrl: imageUrl,
+    PagerImagesFields.sliderId: sliderId,
+    PagerImagesFields.type: type,
+    PagerImagesFields.typeId: typeId,
+    PagerImagesFields.imageUrl: imageUrl,
   };
 
-  static SliderImagesModel fromJson(Map<String, Object?> json) => SliderImagesModel(
-    sliderId: json[SliderImagesFields.sliderId] as String?,
-    type: json[SliderImagesFields.type] as String?,
-    typeId: json[SliderImagesFields.typeId] as String?,
-    imageUrl: json[SliderImagesFields.imageUrl] as String?,
+  static PagerImagesModel fromJson(Map<String, Object?> json) => PagerImagesModel(
+    sliderId: json[PagerImagesFields.sliderId] as String?,
+    type: json[PagerImagesFields.type] as String?,
+    typeId: json[PagerImagesFields.typeId] as String?,
+    imageUrl: json[PagerImagesFields.imageUrl] as String?,
   );
 
-  SliderImagesModel copy({
+  PagerImagesModel copy({
     String? sliderId,
     String? type,
     String? typeId,
     String? imageUrl,
   }) =>
-      SliderImagesModel(
+      PagerImagesModel(
         sliderId: sliderId ?? this.sliderId,
         type: type ?? this.type,
         typeId: typeId ?? this.typeId,

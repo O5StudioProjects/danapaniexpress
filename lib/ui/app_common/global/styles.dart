@@ -86,15 +86,38 @@ TextStyle bodyTextStyle({height = 0.0}){
   );
 }
 
-// TextStyle itemTextStyle({height = 0.0}){
-//   return TextStyle(
-//       color: AppColors.primaryTextColorSkin(isDark),
-//       height: height,
-//       fontSize: appLanguage == URDU_LANGUAGE ? (NORMAL_TEXT_FONT_SIZE + 2.0) : NORMAL_TEXT_FONT_SIZE,
-//       //fontSize: NORMAL_TEXT_FONT_SIZE,
-//       fontFamily:  setFont(appLanguage, urdu: urduRegular, englishFont: robotoRegular)
-//   );
-// }
+TextStyle itemTextStyle({height = 0.0}){
+  return TextStyle(
+      color: AppColors.primaryTextColorSkin(isDark),
+      height: height,
+      fontSize: appLanguage == URDU_LANGUAGE ? (NORMAL_TEXT_FONT_SIZE) : NORMAL_TEXT_FONT_SIZE -2.0,
+      //fontSize: NORMAL_TEXT_FONT_SIZE,
+      fontFamily:  setFont(appLanguage, urdu: urduRegular, englishFont: nunitoSemibold),
+    fontWeight: FontWeight.w800
+  );
+}
+
+TextStyle cutPriceTextStyle({height = 0.0}){
+  return TextStyle(
+      color: AppColors.secondaryTextColorSkin(isDark),
+      height: height,
+      decoration: TextDecoration.lineThrough,
+      decorationThickness: 2,
+      decorationColor: AppColors.primaryTextColorSkin(isDark),
+      fontSize: NORMAL_TEXT_FONT_SIZE -2.0,
+      //fontSize: NORMAL_TEXT_FONT_SIZE,
+      fontFamily:  setFont(appLanguage, urdu: nunitoSemibold, englishFont: nunitoSemibold)
+  );
+}
+TextStyle sellingPriceTextStyle({height = 0.0}){
+  return TextStyle(
+      color: AppColors.sellingPriceTextSkin(isDark),
+      height: height,
+      fontSize: NORMAL_TEXT_FONT_SIZE ,
+      //fontSize: NORMAL_TEXT_FONT_SIZE,
+      fontFamily:  setFont(appLanguage, urdu: oswaldSemibold, englishFont: oswaldSemibold)
+  );
+}
 
 TextStyle buttonTextStyle({color}){
   return TextStyle(
@@ -191,5 +214,13 @@ TextDirection setTextDirection(appLanguage){
     return TextDirection.ltr;
   } else {
     return TextDirection.rtl;
+  }
+}
+
+TextAlign setTextAlignment(appLanguage){
+  if(appLanguage == ENGLISH_LANGUAGE){
+    return TextAlign.start;
+  } else {
+    return TextAlign.end;
   }
 }

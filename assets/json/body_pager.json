@@ -1,0 +1,20 @@
+[
+  {
+    "pager_id": "1",
+    "type": "category",
+    "type_id": "101",
+    "image_url": "https://static.vecteezy.com/system/resources/previews/010/248/845/non_2x/flash-sale-shopping-banner-on-red-background-flash-sale-banner-template-design-for-social-media-and-website-special-offer-flash-sale-campaign-or-promotion-vector.jpg"
+  },
+  {
+    "pager_id": "2",
+    "type": "product",
+    "type_id": "202",
+    "image_url": "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/supermarket-landscape-design-template-dd8ed359dbd2609045b0f3f6bf081169_screen.jpg"
+  },
+  {
+    "pager_id": "3",
+    "type": "category",
+    "type_id": "303",
+    "image_url": "https://img.freepik.com/free-vector/flat-design-grocery-store-sale-banner_23-2151074240.jpg"
+  }
+]
