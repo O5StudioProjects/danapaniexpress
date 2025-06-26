@@ -30,6 +30,22 @@ class AppColors {
     }
   }
 
+  static Color sellingPriceTextSkin(isDark) {
+    if (isDark) {
+      return EnvColors.accentCTAColorDark;
+    } else {
+      return EnvColors.primaryColorLight;
+    }
+  }
+
+  static Color percentageTextSkin(isDark) {
+    if (isDark) {
+      return EnvColors.primaryColorLight;
+    } else {
+      return EnvColors.accentCTAColorDark;
+    }
+  }
+
   static Color floatingButtonSkin(isDark) {
     if (isDark) {
       return EnvColors.cardColorDark;

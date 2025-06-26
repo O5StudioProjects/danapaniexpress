@@ -10,12 +10,16 @@ enum IconType {
   URL
 }
 
-enum AppbarSliderImagesStatus {
+enum AppbarPagerImagesStatus {
+  IDLE, LOADING, SUCCESS, FAILURE
+}
+enum BodyPagerImagesStatus {
   IDLE, LOADING, SUCCESS, FAILURE
 }
 enum NotificationsStatus {
   IDLE, LOADING, SUCCESS, FAILURE
 }
 enum CategoriesStatus { IDLE, LOADING, SUCCESS, FAILURE }
+enum ProductsStatus { IDLE, LOADING, SUCCESS, FAILURE }
 
 

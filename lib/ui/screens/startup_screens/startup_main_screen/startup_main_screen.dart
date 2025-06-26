@@ -20,7 +20,6 @@ class StartupMainScreen extends StatelessWidget {
       },
       child: Scaffold(
         body: SafeArea(
-          bottom: false,
           top: false,
           child: ResponsiveLayout(
             mobileView: buildMobileUI(),

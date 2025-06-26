@@ -39,6 +39,7 @@ class AppImagesPath {
 
 // COMMON IMAGES IN ALL FLAVORS
 const String imgError = 'assets/common/images/img_error.png';
+const String imgSale = 'assets/common/images/img_sale.png';
 
 const String imgDailyPoetryCardLeft = '${COMMON_IMG_PATH}img_daily_poetry_card_left.png';
 

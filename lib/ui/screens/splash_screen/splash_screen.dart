@@ -11,7 +11,6 @@ class SplashScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         top: false,
-        bottom: false,
         child: ResponsiveLayout(
           mobileView: mobileUI(),
           tabletView: tabletUI(),

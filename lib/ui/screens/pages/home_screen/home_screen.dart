@@ -10,7 +10,6 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         top: false,
-        bottom: false,
         child: ResponsiveLayout(
           mobileView: buildMobileUI(),
           tabletView: buildTabletUI(),

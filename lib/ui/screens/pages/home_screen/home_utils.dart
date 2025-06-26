@@ -26,3 +26,8 @@ String? setFontDynamicDataTopNotifications({language, NotificationModel? data, u
     return null;
   }
 }
+
+int calculateDiscount(double cutPrice, double sellingPrice) {
+  if (cutPrice == 0) return 0;
+  return ((cutPrice - sellingPrice) / cutPrice * 100).round();
+}
