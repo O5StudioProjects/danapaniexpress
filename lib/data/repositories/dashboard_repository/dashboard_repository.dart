@@ -108,35 +108,124 @@ class DashboardRepository {
   }
 
 
-  Future<void> fetchProductsListEvent(
-      Rx<ProductsStatus> status,
-      RxList<ProductsModel> productsList, {
-        int limit = 20,
-      }) async {
-    try {
-      status.value = ProductsStatus.LOADING;
-      String jsonString = await rootBundle.loadString(jsonProducts);
-      List<dynamic> jsonData = json.decode(jsonString);
+  // Future<void> fetchProductsListEvent(
+  //     Rx<ProductsStatus> status,
+  //     RxList<ProductsModel> productsList, {
+  //       int limit = 20,
+  //       bool onlyFeatured = false,
+  //
+  //     }) async {
+  //   try {
+  //     status.value = ProductsStatus.LOADING;
+  //     String jsonString = await rootBundle.loadString(jsonProducts);
+  //     List<dynamic> jsonData = json.decode(jsonString);
+  //
+  //     List<ProductsModel> result = jsonData
+  //         .where((item) =>
+  //     onlyFeatured ? item[ProductsFields.productIsFeatured] == true : true)
+  //         .map((item) => ProductsModel.fromJson(item))
+  //         .take(limit)
+  //         .toList();
+  //
+  //     productsList.assignAll(result);
+  //     status.value = ProductsStatus.SUCCESS;
+  //
+  //     if (kDebugMode) {
+  //       print("Fetched $limit products");
+  //     }
+  //   } catch (e) {
+  //     status.value = ProductsStatus.FAILURE;
+  //     if (kDebugMode) {
+  //       print("Error loading products: $e");
+  //     }
+  //   }
+  // }
 
-      List<ProductsModel> result = jsonData
-          .map((item) => ProductsModel.fromJson(item))
-          .take(limit)
-          .toList();
 
-      productsList.assignAll(result);
-      status.value = ProductsStatus.SUCCESS;
+  Future<List<ProductsModel>> fetchProductsListEvent({
+    required ProductFilterType filterType,
+    required int limit,
+  }) async {
+    String jsonString = await rootBundle.loadString(jsonProducts);
+    List<dynamic> jsonData = json.decode(jsonString);
 
-      if (kDebugMode) {
-        print("Fetched $limit products");
-      }
-    } catch (e) {
-      status.value = ProductsStatus.FAILURE;
-      if (kDebugMode) {
-        print("Error loading products: $e");
-      }
+    Iterable filtered = jsonData;
+
+    // Apply filter
+    switch (filterType) {
+      case ProductFilterType.featured:
+        filtered = jsonData.where((item) => item["product_is_featured"] == true);
+        break;
+      case ProductFilterType.flashSale:
+        filtered = jsonData.where((item) => item["product_is_flashsale"] == true);
+        break;
+      case ProductFilterType.all:
+      case ProductFilterType.popular: // fallback to all for popular
+        filtered = jsonData;
+        break;
     }
+
+    List<ProductsModel> result = filtered
+        .map((item) => ProductsModel.fromJson(item))
+        .toList();
+
+    return result.take(limit).toList();
   }
 
+  // Future<void> fetchProductsListEvent(
+  //     Rx<ProductsStatus> status,
+  //     RxList<ProductsModel> productsList, {
+  //       int limit = 20,
+  //       ProductFilterType filterType = ProductFilterType.all,
+  //     }) async {
+  //   try {
+  //     status.value = ProductsStatus.LOADING;
+  //
+  //     String jsonString = await rootBundle.loadString(jsonProducts);
+  //     List<dynamic> jsonData = json.decode(jsonString);
+  //
+  //     Iterable filtered = jsonData;
+  //
+  //     // Apply filtering
+  //     switch (filterType) {
+  //       case ProductFilterType.featured:
+  //         filtered = jsonData.where((item) => item["product_is_featured"] == true);
+  //         break;
+  //       case ProductFilterType.flashSale:
+  //         filtered = jsonData.where((item) => item["product_is_flashsale"] == true);
+  //         break;
+  //       case ProductFilterType.popular:
+  //         filtered = jsonData;
+  //         break;
+  //       default:
+  //         break;
+  //     }
+  //
+  //     List<ProductsModel> result = filtered
+  //         .map((item) => ProductsModel.fromJson(item))
+  //         .toList();
+  //
+  //     // Sort if needed
+  //     if (filterType == ProductFilterType.popular) {
+  //       result.sort((a, b) => b.productTotalSold!.compareTo(a.productTotalSold!.toInt()));
+  //     }
+  //
+  //     // Apply limit
+  //     result = result.take(limit).toList();
+  //
+  //     productsList.assignAll(result);
+  //     status.value = ProductsStatus.SUCCESS;
+  //
+  //     if (kDebugMode) {
+  //       print("Fetched ${filterType.name} products: ${result.length}");
+  //     }
+  //   } catch (e) {
+  //     status.value = ProductsStatus.FAILURE;
+  //     if (kDebugMode) {
+  //       print("Error loading products: $e");
+  //     }
+  //   }
+  // }
 
 
 }

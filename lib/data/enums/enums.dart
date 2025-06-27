@@ -21,5 +21,10 @@ enum NotificationsStatus {
 }
 enum CategoriesStatus { IDLE, LOADING, SUCCESS, FAILURE }
 enum ProductsStatus { IDLE, LOADING, SUCCESS, FAILURE }
-
+enum ProductFilterType {
+  all,
+  featured,
+  flashSale,
+  popular,
+}
 
