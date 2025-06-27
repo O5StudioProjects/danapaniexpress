@@ -57,3 +57,5 @@ export 'package:danapaniexpress/ui/screens/pages/home_screen/home_screen_widgets
 export 'package:danapaniexpress/ui/screens/pages/home_screen/home_screen_widgets/notification_bar.dart';
 export 'package:danapaniexpress/ui/screens/pages/home_screen/home_screen_widgets/body_image_pager.dart';
 
+export 'package:danapaniexpress/ui/screens/pages/home_screen/home_screen_widgets/common_widgets.dart';
+

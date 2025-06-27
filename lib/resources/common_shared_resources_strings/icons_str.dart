@@ -64,4 +64,5 @@ const String icInAppPurchase = '${COMMON_ICON_PATH}ic_in_app_purchase.png';
 const String icPremium = '${COMMON_ICON_PATH}ic_premium.png';
 const String icWhatsAppGroup = '${COMMON_ICON_PATH}ic_whatsapp_group.png';
 const String icGoogle = '${COMMON_ICON_PATH}ic_google.png';
+const String icFlashSale = '${COMMON_ICON_PATH}ic_flash_sale.png';
 

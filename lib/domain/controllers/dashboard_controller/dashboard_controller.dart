@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/data_model_imports.dart';
@@ -29,11 +28,28 @@ class DashBoardController extends GetxController {
   final CarouselSliderController bodyPagerController = CarouselSliderController();
   final RxInt currentSlide = 0.obs;
 
-  // Products
-  RxList<ProductsModel> productsList = <ProductsModel>[].obs;
-  Rx<ProductsStatus> productsStatus = ProductsStatus.IDLE.obs;
-  int _currentProductLimit = 20;
-  bool _isLoadingMore = false;
+
+  // Status
+  Rx<ProductsStatus> allStatus = ProductsStatus.IDLE.obs;
+  Rx<ProductsStatus> featuredStatus = ProductsStatus.IDLE.obs;
+  Rx<ProductsStatus> flashSaleStatus = ProductsStatus.IDLE.obs;
+  Rx<ProductsStatus> popularStatus = ProductsStatus.IDLE.obs;
+
+  // Lists
+  RxList<ProductsModel> allProducts = <ProductsModel>[].obs;
+  RxList<ProductsModel> featuredProducts = <ProductsModel>[].obs;
+  RxList<ProductsModel> flashSaleProducts = <ProductsModel>[].obs;
+  RxList<ProductsModel> popularProducts = <ProductsModel>[].obs;
+
+  // Limits
+  int _allLimit = 20;
+  int _featuredLimit = 20;
+  int _flashSaleLimit = 20;
+
+  // Loading Flags
+  bool _isLoadingAll = false;
+  bool _isLoadingFeatured = false;
+  bool _isLoadingFlashSale = false;
 
   // Init
   @override
@@ -43,7 +59,7 @@ class DashBoardController extends GetxController {
     fetchNotifications();
     fetchCategories();
     fetchBodyPagerImages();
-    fetchProducts(); // Fetch initial 20 products
+    fetchAllProductLists();
   }
 
   // Bottom nav change
@@ -94,29 +110,99 @@ class DashBoardController extends GetxController {
     );
   }
 
-  // Fetch Products (initial 20)
-  Future<void> fetchProducts({int limit = 20}) async {
-    _currentProductLimit = limit;
-    await dashboardRepo.fetchProductsListEvent(
-      productsStatus,
-      productsList,
-      limit: _currentProductLimit,
-    );
+
+  // ✅ Fetch All Lists at Once
+  Future<void> fetchAllProductLists() async {
+    await Future.wait([
+      fetchAllProducts(),
+      fetchFeaturedProducts(),
+      fetchFlashSaleProducts(),
+    ]);
+    _generatePopularProducts();
   }
 
-  // Load More Products
-  Future<void> loadMoreProducts() async {
-    if (_isLoadingMore) return;
-    _isLoadingMore = true;
+  // ✅ All Products (used to build popular)
+  Future<void> fetchAllProducts({bool loadMore = false}) async {
+    if (_isLoadingAll) return;
+    _isLoadingAll = true;
 
-    _currentProductLimit += 20;
-    await dashboardRepo.fetchProductsListEvent(
-      productsStatus,
-      productsList,
-      limit: _currentProductLimit,
-    );
+    if (loadMore) _allLimit += 20;
 
-    _isLoadingMore = false;
+    allStatus.value = ProductsStatus.LOADING;
+
+    try {
+      final result = await dashboardRepo.fetchProductsListEvent(
+        filterType: ProductFilterType.all,
+        limit: _allLimit,
+      );
+      allProducts.assignAll(result);
+      allStatus.value = ProductsStatus.SUCCESS;
+      _generatePopularProducts(); // refresh popular when all changes
+    } catch (e) {
+      allStatus.value = ProductsStatus.FAILURE;
+    }
+
+    _isLoadingAll = false;
+  }
+
+  // ✅ Featured
+  Future<void> fetchFeaturedProducts({bool loadMore = false}) async {
+    if (_isLoadingFeatured) return;
+    _isLoadingFeatured = true;
+
+    if (loadMore) _featuredLimit += 20;
+
+    featuredStatus.value = ProductsStatus.LOADING;
+
+    try {
+      final result = await dashboardRepo.fetchProductsListEvent(
+        filterType: ProductFilterType.featured,
+        limit: _featuredLimit,
+      );
+      featuredProducts.assignAll(result);
+      featuredStatus.value = ProductsStatus.SUCCESS;
+    } catch (e) {
+      featuredStatus.value = ProductsStatus.FAILURE;
+    }
+
+    _isLoadingFeatured = false;
+  }
+
+  // ✅ Flash Sale
+  Future<void> fetchFlashSaleProducts({bool loadMore = false}) async {
+    if (_isLoadingFlashSale) return;
+    _isLoadingFlashSale = true;
+
+    if (loadMore) _flashSaleLimit += 20;
+
+    flashSaleStatus.value = ProductsStatus.LOADING;
+
+    try {
+      final result = await dashboardRepo.fetchProductsListEvent(
+        filterType: ProductFilterType.flashSale,
+        limit: _flashSaleLimit,
+      );
+      flashSaleProducts.assignAll(result);
+      flashSaleStatus.value = ProductsStatus.SUCCESS;
+    } catch (e) {
+      flashSaleStatus.value = ProductsStatus.FAILURE;
+    }
+
+    _isLoadingFlashSale = false;
+  }
+
+  // ✅ Build Popular List from All Products
+  void _generatePopularProducts() {
+    popularStatus.value = ProductsStatus.LOADING;
+
+    try {
+      final sorted = List<ProductsModel>.from(allProducts)
+        ..sort((a, b) => b.productTotalSold!.compareTo(a.productTotalSold!));
+      popularProducts.assignAll(sorted);
+      popularStatus.value = ProductsStatus.SUCCESS;
+    } catch (e) {
+      popularStatus.value = ProductsStatus.FAILURE;
+    }
   }
 
   @override
