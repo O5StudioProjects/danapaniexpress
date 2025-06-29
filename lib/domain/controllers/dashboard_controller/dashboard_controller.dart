@@ -51,6 +51,14 @@ class DashBoardController extends GetxController {
   bool _isLoadingFeatured = false;
   bool _isLoadingFlashSale = false;
 
+
+  // SINGLE BANNER ON HOME SCREEN
+  Rx<PagerImagesModel?> singleBannerOne = Rx<PagerImagesModel?>(null);
+  Rx<SingleBannerOneStatus> singleBannerOneStatus = SingleBannerOneStatus.IDLE.obs;
+
+  Rx<PagerImagesModel?> singleBannerTwo = Rx<PagerImagesModel?>(null);
+  Rx<SingleBannerTwoStatus> singleBannerTwoStatus = SingleBannerTwoStatus.IDLE.obs;
+
   // Init
   @override
   void onInit() {
@@ -60,6 +68,9 @@ class DashBoardController extends GetxController {
     fetchCategories();
     fetchBodyPagerImages();
     fetchAllProductLists();
+    fetchSingleBannerOne();
+    fetchSingleBannerTwo();
+
   }
 
   // Bottom nav change
@@ -110,6 +121,20 @@ class DashBoardController extends GetxController {
     );
   }
 
+  // SIGNLE BANNER HOME
+  Future<void> fetchSingleBannerOne() async {
+    await dashboardRepo.fetchSingleBannerOneEvent(
+      singleBannerOneStatus,
+      singleBannerOne,
+    );
+  }
+
+  Future<void> fetchSingleBannerTwo() async {
+    await dashboardRepo.fetchSingleBannerTwoEvent(
+        singleBannerTwoStatus,
+        singleBannerTwo,
+    );
+  }
 
   // ✅ Fetch All Lists at Once
   Future<void> fetchAllProductLists() async {

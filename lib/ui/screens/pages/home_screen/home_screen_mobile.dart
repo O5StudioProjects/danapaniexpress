@@ -1,5 +1,8 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/ui/screens/pages/home_screen/home_screen_widgets/featured_products.dart';
+import 'package:danapaniexpress/ui/screens/pages/home_screen/home_screen_widgets/flash_sale_products.dart';
+import 'package:danapaniexpress/ui/screens/pages/home_screen/home_screen_widgets/popular_products.dart';
+import 'package:danapaniexpress/ui/screens/pages/home_screen/home_screen_widgets/single_banner.dart';
 
 class HomeScreenMobile extends StatelessWidget {
   const HomeScreenMobile({super.key});
@@ -19,99 +22,16 @@ class HomeScreenMobile extends StatelessWidget {
             SliverToBoxAdapter(
               child: Column(
                 children: [
-                  setHeight(12.0),
+                  setHeight(MAIN_VERTICAL_PADDING),
                   NotificationBar(),
                   ProductCategories(),
                   BodyImagePager(),
                   FeaturedProducts(),
-                  Padding(
-                    padding: const EdgeInsets.all(0.0),
-                    child: Container(
-                      color: Colors.red,
-                      width: size.width,
-                      height: 100.0,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      color: Colors.red,
-                      width: size.width,
-                      height: 100.0,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      color: Colors.red,
-                      width: size.width,
-                      height: 100.0,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      color: Colors.red,
-                      width: size.width,
-                      height: 100.0,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      color: Colors.red,
-                      width: size.width,
-                      height: 100.0,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      color: Colors.red,
-                      width: size.width,
-                      height: 100.0,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      color: Colors.red,
-                      width: size.width,
-                      height: 100.0,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      color: Colors.red,
-                      width: size.width,
-                      height: 100.0,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      color: Colors.red,
-                      width: size.width,
-                      height: 100.0,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      color: Colors.red,
-                      width: size.width,
-                      height: 100.0,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      color: Colors.red,
-                      width: size.width,
-                      height: 100.0,
-                    ),
-                  ),
+                  SingleBanner(homeSingleBanner: HomeSingleBanner.ONE),
+                  FlashSaleProducts(),
+                  SingleBanner(homeSingleBanner: HomeSingleBanner.TWO),
+                  PopularProducts(),
+
 
                 ],
               ),

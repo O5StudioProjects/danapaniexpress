@@ -18,6 +18,8 @@ const String jsonBodyPager = 'assets/json/body_pager.json';
 const String jsonNotification = 'assets/json/notifications.json';
 const String jsonCategories = 'assets/json/categories.json';
 const String jsonProducts = 'assets/json/products.json';
+const String jsonSingleBannerHomeOne = 'assets/json/single_banner_home_one.json';
+const String jsonSingleBannerHomeTwo = 'assets/json/single_banner_home_two.json';
 
 
 ///IMAGE PAGER TYPES

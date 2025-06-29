@@ -14,60 +14,35 @@ class ProductCategories extends StatelessWidget {
       if (controller.categoriesList.isNotEmpty) {
         return Padding(
           padding: const EdgeInsets.only(
-            top: 0.0,
             bottom: MAIN_VERTICAL_PADDING,
-            left: MAIN_HORIZONTAL_PADDING,
+            // top: 0.0,
+            // left: MAIN_HORIZONTAL_PADDING,
             // right: MAIN_HORIZONTAL_PADDING,
           ),
           child: Column(
 
             children: [
-              Padding(
-                padding: const EdgeInsets.only(right: MAIN_HORIZONTAL_PADDING),
-                child: appLanguage == URDU_LANGUAGE
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          appText(
-                            text: 'مزید دیکھیے',
-                            textStyle: secondaryTextStyle(),
-                          ),
-
-                          GestureDetector(
-                            onTap: (){},
-                            child: appText(
-                              text: 'مصنوعات کی کیٹیگریز',
-                              textStyle: headingTextStyle(),
-                            ),
-                          ),
-
-                        ],
-                      )
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          appText(
-                            text: 'Products By Categories',
-                            textStyle: headingTextStyle(),
-                          ),
-                          appText(
-                            text: 'See All',
-                            textStyle: secondaryTextStyle(),
-                          ),
-                        ],
-                      ),
-              ),
+              HomeHeadings(
+                  mainHeadingText:AppLanguage.productsByCategoriesStr(appLanguage).toString(),
+                  onTapSeeAllText: (){}),
               //  setHeight(MAIN_HORIZONTAL_PADDING),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 physics: BouncingScrollPhysics(),
-                child: Row(
-                  children: List.generate( controller.categoriesList.length > 10 ? 10 : controller.categoriesList.length, (
-                    index,
-                  ) {
-                    var data = controller.categoriesList[index];
-                    return productCategoriesItem(data: data);
-                  }),
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minWidth: size.width),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: List.generate( controller.categoriesList.length > 10 ? 10 : controller.categoriesList.length, (
+                      index,
+                    ) {
+                      var data = controller.categoriesList[index];
+                      return Padding(
+                        padding: EdgeInsets.only(left: index == 0 ? MAIN_HORIZONTAL_PADDING : 0.0),
+                        child: productCategoriesItem(data: data),
+                      );
+                    }),
+                  ),
                 ),
               ),
             ],

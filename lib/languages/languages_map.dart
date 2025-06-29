@@ -50,6 +50,13 @@ Map<String, Map<String, String>> allLang = {
     FAVORITES: 'Favorites',
     CART: 'Cart',
     ACCOUNT: 'Account',
+    SEE_ALL: 'See All',
+    FEATURE: 'Feature',
+    FEATURED_PRODUCTS: 'Featured Products',
+    FLASH_SALE: 'Flash Sale',
+    OUT_OF_STOCK: 'Out of stock',
+    PRODUCTS_BY_CATEGORY: 'Products By Categories',
+    POPULAR_PRODUCTS: 'Popular Products',
 
   },
 
@@ -102,6 +109,12 @@ Map<String, Map<String, String>> allLang = {
     FAVORITES: 'پسندیدہ',
     CART: 'ٹوکری',
     ACCOUNT: 'اکاؤنٹ',
-
+    SEE_ALL: 'تمام دیکھیں',
+    FEATURE: 'خاص/نمایاں',
+    FEATURED_PRODUCTS: 'نمایاں مصنوعات',
+    FLASH_SALE: 'فلیش سیل',
+    OUT_OF_STOCK: 'ختم ہو گیا',
+    PRODUCTS_BY_CATEGORY: 'مصنوعات کی کیٹیگریز',
+    POPULAR_PRODUCTS: 'مشہور مصنوعات',
   },
 };
