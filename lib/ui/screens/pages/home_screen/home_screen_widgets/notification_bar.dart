@@ -21,7 +21,7 @@ class NotificationBar extends StatelessWidget {
       }
 
       return Padding(
-        padding: const EdgeInsets.only(bottom: 12.0),
+        padding: const EdgeInsets.only(bottom: MAIN_VERTICAL_PADDING),
         child: GestureDetector(
           onTap: () {
             // Your notification dialog code here

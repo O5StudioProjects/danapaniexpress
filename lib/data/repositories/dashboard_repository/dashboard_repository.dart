@@ -4,6 +4,7 @@ import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/data_model_imports.dart';
 
 class DashboardRepository {
+
   Future<void> fetchAppbarPagerImagesListEvent(
     Rx<AppbarPagerImagesStatus> status,
     RxList<PagerImagesModel> sliderList,
@@ -107,41 +108,6 @@ class DashboardRepository {
     }
   }
 
-
-  // Future<void> fetchProductsListEvent(
-  //     Rx<ProductsStatus> status,
-  //     RxList<ProductsModel> productsList, {
-  //       int limit = 20,
-  //       bool onlyFeatured = false,
-  //
-  //     }) async {
-  //   try {
-  //     status.value = ProductsStatus.LOADING;
-  //     String jsonString = await rootBundle.loadString(jsonProducts);
-  //     List<dynamic> jsonData = json.decode(jsonString);
-  //
-  //     List<ProductsModel> result = jsonData
-  //         .where((item) =>
-  //     onlyFeatured ? item[ProductsFields.productIsFeatured] == true : true)
-  //         .map((item) => ProductsModel.fromJson(item))
-  //         .take(limit)
-  //         .toList();
-  //
-  //     productsList.assignAll(result);
-  //     status.value = ProductsStatus.SUCCESS;
-  //
-  //     if (kDebugMode) {
-  //       print("Fetched $limit products");
-  //     }
-  //   } catch (e) {
-  //     status.value = ProductsStatus.FAILURE;
-  //     if (kDebugMode) {
-  //       print("Error loading products: $e");
-  //     }
-  //   }
-  // }
-
-
   Future<List<ProductsModel>> fetchProductsListEvent({
     required ProductFilterType filterType,
     required int limit,
@@ -154,10 +120,10 @@ class DashboardRepository {
     // Apply filter
     switch (filterType) {
       case ProductFilterType.featured:
-        filtered = jsonData.where((item) => item["product_is_featured"] == true);
+        filtered = jsonData.where((item) => item[ProductsFields.productIsFeatured] == true);
         break;
       case ProductFilterType.flashSale:
-        filtered = jsonData.where((item) => item["product_is_flashsale"] == true);
+        filtered = jsonData.where((item) => item[ProductsFields.productIsFlashsale] == true);
         break;
       case ProductFilterType.all:
       case ProductFilterType.popular: // fallback to all for popular
@@ -172,60 +138,56 @@ class DashboardRepository {
     return result.take(limit).toList();
   }
 
-  // Future<void> fetchProductsListEvent(
-  //     Rx<ProductsStatus> status,
-  //     RxList<ProductsModel> productsList, {
-  //       int limit = 20,
-  //       ProductFilterType filterType = ProductFilterType.all,
-  //     }) async {
-  //   try {
-  //     status.value = ProductsStatus.LOADING;
-  //
-  //     String jsonString = await rootBundle.loadString(jsonProducts);
-  //     List<dynamic> jsonData = json.decode(jsonString);
-  //
-  //     Iterable filtered = jsonData;
-  //
-  //     // Apply filtering
-  //     switch (filterType) {
-  //       case ProductFilterType.featured:
-  //         filtered = jsonData.where((item) => item["product_is_featured"] == true);
-  //         break;
-  //       case ProductFilterType.flashSale:
-  //         filtered = jsonData.where((item) => item["product_is_flashsale"] == true);
-  //         break;
-  //       case ProductFilterType.popular:
-  //         filtered = jsonData;
-  //         break;
-  //       default:
-  //         break;
-  //     }
-  //
-  //     List<ProductsModel> result = filtered
-  //         .map((item) => ProductsModel.fromJson(item))
-  //         .toList();
-  //
-  //     // Sort if needed
-  //     if (filterType == ProductFilterType.popular) {
-  //       result.sort((a, b) => b.productTotalSold!.compareTo(a.productTotalSold!.toInt()));
-  //     }
-  //
-  //     // Apply limit
-  //     result = result.take(limit).toList();
-  //
-  //     productsList.assignAll(result);
-  //     status.value = ProductsStatus.SUCCESS;
-  //
-  //     if (kDebugMode) {
-  //       print("Fetched ${filterType.name} products: ${result.length}");
-  //     }
-  //   } catch (e) {
-  //     status.value = ProductsStatus.FAILURE;
-  //     if (kDebugMode) {
-  //       print("Error loading products: $e");
-  //     }
-  //   }
-  // }
 
+  /// SINGLE BANNER ON HOME
+  Future<void> fetchSingleBannerOneEvent(
+      Rx<SingleBannerOneStatus> status,
+      Rx<PagerImagesModel?> singleBanner,
+      ) async {
+    try {
+      status.value = SingleBannerOneStatus.LOADING;
+
+      String jsonString = await rootBundle.loadString(jsonSingleBannerHomeOne);
+      Map<String, dynamic> jsonData = json.decode(jsonString);
+
+      PagerImagesModel model = PagerImagesModel.fromJson(jsonData);
+      singleBanner.value = model;
+
+      status.value = SingleBannerOneStatus.SUCCESS;
+      if (kDebugMode) {
+        print("Single Banner Fetched: ${model.imageUrl}");
+      }
+    } catch (e) {
+      status.value = SingleBannerOneStatus.FAILURE;
+      if (kDebugMode) {
+        print("Error loading single banner: $e");
+      }
+    }
+  }
+
+  Future<void> fetchSingleBannerTwoEvent(
+      Rx<SingleBannerTwoStatus> status,
+      Rx<PagerImagesModel?> singleBanner,
+      ) async {
+    try {
+      status.value = SingleBannerTwoStatus.LOADING;
+
+      String jsonString = await rootBundle.loadString(jsonSingleBannerHomeTwo);
+      Map<String, dynamic> jsonData = json.decode(jsonString);
+
+      PagerImagesModel model = PagerImagesModel.fromJson(jsonData);
+      singleBanner.value = model;
+
+      status.value = SingleBannerTwoStatus.SUCCESS;
+      if (kDebugMode) {
+        print("Single Banner Fetched: ${model.imageUrl}");
+      }
+    } catch (e) {
+      status.value = SingleBannerTwoStatus.FAILURE;
+      if (kDebugMode) {
+        print("Error loading single banner: $e");
+      }
+    }
+  }
 
 }

@@ -19,6 +19,18 @@ enum BodyPagerImagesStatus {
 enum NotificationsStatus {
   IDLE, LOADING, SUCCESS, FAILURE
 }
+enum SingleBannerOneStatus {
+  IDLE, LOADING, SUCCESS, FAILURE
+}
+
+enum SingleBannerTwoStatus {
+  IDLE, LOADING, SUCCESS, FAILURE
+}
+
+enum HomeSingleBanner {
+  ONE, TWO
+}
+
 enum CategoriesStatus { IDLE, LOADING, SUCCESS, FAILURE }
 enum ProductsStatus { IDLE, LOADING, SUCCESS, FAILURE }
 enum ProductFilterType {

@@ -159,4 +159,26 @@ class AppLanguage {
     return allLang[appLanguage]?[ACCOUNT];
   }
 
+  static String? seeAllStr(String appLanguage){
+    return allLang[appLanguage]?[SEE_ALL];
+  }
+  static String? featureStr(String appLanguage){
+    return allLang[appLanguage]?[FEATURE];
+  }
+  static String? featuredProductStr(String appLanguage){
+    return allLang[appLanguage]?[FEATURED_PRODUCTS];
+  }
+  static String? flashSaleStr(String appLanguage){
+    return allLang[appLanguage]?[FLASH_SALE];
+  }
+  static String? outOfStockStr(String appLanguage){
+    return allLang[appLanguage]?[OUT_OF_STOCK];
+  }
+  static String? productsByCategoriesStr(String appLanguage){
+    return allLang[appLanguage]?[PRODUCTS_BY_CATEGORY];
+  }
+  static String? popularProductsStr(String appLanguage){
+    return allLang[appLanguage]?[POPULAR_PRODUCTS];
+  }
+
 }
