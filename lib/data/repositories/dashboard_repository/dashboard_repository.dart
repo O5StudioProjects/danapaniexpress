@@ -31,31 +31,34 @@ class DashboardRepository {
     }
   }
 
-  Future<void> fetchNotificationsListEvent(
-    Rx<NotificationsStatus> status,
-    RxList<NotificationModel> notificationsList,
-  ) async {
+  Future<void> fetchMarqueeEvent(
+      Rx<MarqueeStatus> status,
+      Rx<MarqueeModel?> marquee,
+      ) async {
     try {
-      status.value = NotificationsStatus.LOADING;
-      String jsonString = await rootBundle.loadString(jsonNotification);
+      status.value = MarqueeStatus.LOADING;
 
-      List<dynamic> jsonData = json.decode(jsonString);
-      List<NotificationModel> value = jsonData
-          .map((item) => NotificationModel.fromJson(item))
-          .toList();
+      // Load and decode JSON
+      String jsonString = await rootBundle.loadString(jsonMarquee); // Update with your actual path
+      Map<String, dynamic> jsonData = json.decode(jsonString);
 
-      notificationsList.assignAll(value);
-      status.value = NotificationsStatus.SUCCESS;
+      // Convert to model
+      MarqueeModel model = MarqueeModel.fromJson(jsonData);
+      marquee.value = model;
+
+      status.value = MarqueeStatus.SUCCESS;
+
       if (kDebugMode) {
-        print("Notifications Fetched");
+        print("Marquee Fetched: ${model.marqueeTitleEnglish}");
       }
     } catch (e) {
-      status.value = NotificationsStatus.FAILURE;
+      status.value = MarqueeStatus.FAILURE;
       if (kDebugMode) {
-        print("Error loading notifications: $e");
+        print("Error loading marquee: $e");
       }
     }
   }
+
 
   Future<void> fetchCategoriesListEvent(
     Rx<CategoriesStatus> status,

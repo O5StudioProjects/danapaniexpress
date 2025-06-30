@@ -236,6 +236,34 @@
         "sub_category_name_urdu": "ہلدی",
         "sub_category_image": "https://domf5oio6qrcr.cloudfront.net/medialibrary/15065/conversions/fa246ce0-054b-4892-bf30-5eb43cd938aa-thumb.jpg",
         "sub_category_is_featued": false
+      },
+      {
+        "sub_category_id": "Red Chili",
+        "sub_category_name_english": "Red Chili",
+        "sub_category_name_urdu": "لال مرچ",
+        "sub_category_image": "https://www.chandigarhayurvedcentre.com/wp-content/uploads/2021/10/RED-CHILI-OF-BENEFITS-AND-DISADVANTAGES.jpg",
+        "sub_category_is_featued": false
+      },
+      {
+        "sub_category_id": "Turmeric",
+        "sub_category_name_english": "Turmeric",
+        "sub_category_name_urdu": "ہلدی",
+        "sub_category_image": "https://domf5oio6qrcr.cloudfront.net/medialibrary/15065/conversions/fa246ce0-054b-4892-bf30-5eb43cd938aa-thumb.jpg",
+        "sub_category_is_featued": false
+      },
+      {
+        "sub_category_id": "Red Chili",
+        "sub_category_name_english": "Red Chili",
+        "sub_category_name_urdu": "لال مرچ",
+        "sub_category_image": "https://www.chandigarhayurvedcentre.com/wp-content/uploads/2021/10/RED-CHILI-OF-BENEFITS-AND-DISADVANTAGES.jpg",
+        "sub_category_is_featued": false
+      },
+      {
+        "sub_category_id": "Turmeric",
+        "sub_category_name_english": "Turmeric",
+        "sub_category_name_urdu": "ہلدی",
+        "sub_category_image": "https://domf5oio6qrcr.cloudfront.net/medialibrary/15065/conversions/fa246ce0-054b-4892-bf30-5eb43cd938aa-thumb.jpg",
+        "sub_category_is_featued": false
       }
     ]
   }

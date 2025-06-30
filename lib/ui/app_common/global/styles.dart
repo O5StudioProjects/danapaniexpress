@@ -191,8 +191,8 @@ TextStyle marqueeTextStyle({data}){
       fontSize: appLanguage == URDU_LANGUAGE ? (NORMAL_TEXT_FONT_SIZE + 2.0) : NORMAL_TEXT_FONT_SIZE,
       height: 0.0,
       fontFamily:  setFont(appLanguage,
-        urdu: setFontDynamicDataTopNotifications(language: appLanguage, data: data, urdu: urduRegular,  english: poppinsRegular),
-        englishFont: setFontDynamicDataTopNotifications(language: appLanguage, data: data, urdu: urduRegular, english: poppinsRegular),
+        urdu: setFontDynamicDataMarquee(language: appLanguage, data: data, urdu: urduRegular,  english: poppinsRegular),
+        englishFont: setFontDynamicDataMarquee(language: appLanguage, data: data, urdu: urduRegular, english: poppinsRegular),
       )
   );
 }

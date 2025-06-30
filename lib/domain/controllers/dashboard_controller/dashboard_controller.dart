@@ -7,16 +7,19 @@ import '../../../data/repositories/dashboard_repository/dashboard_repository.dar
 class DashBoardController extends GetxController {
   final dashboardRepo = DashboardRepository();
 
+
   // Bottom nav
   RxInt navIndex = 0.obs;
+
+  ///HOME SCREEN
 
   // AppBar Slider
   RxList<PagerImagesModel> appbarPagerList = <PagerImagesModel>[].obs;
   Rx<AppbarPagerImagesStatus> appbarPagerStatus = AppbarPagerImagesStatus.IDLE.obs;
 
-  // Notifications
-  RxList<NotificationModel> notificationsList = <NotificationModel>[].obs;
-  Rx<NotificationsStatus> notificationStatus = NotificationsStatus.IDLE.obs;
+  // MARQUEE
+  Rx<MarqueeModel?> marqueeData = Rx<MarqueeModel?>(null);
+  Rx<MarqueeStatus> marqueeStatus = MarqueeStatus.IDLE.obs;
 
   // Categories
   RxList<CategoryModel> categoriesList = <CategoryModel>[].obs;
@@ -59,12 +62,17 @@ class DashBoardController extends GetxController {
   Rx<PagerImagesModel?> singleBannerTwo = Rx<PagerImagesModel?>(null);
   Rx<SingleBannerTwoStatus> singleBannerTwoStatus = SingleBannerTwoStatus.IDLE.obs;
 
+  /// CATEGORIES SECTION
+
+  RxInt categoryIndex = 0.obs;
+
+
   // Init
   @override
   void onInit() {
     super.onInit();
     fetchAppbarPagerImages();
-    fetchNotifications();
+    fetchMarquee();
     fetchCategories();
     fetchBodyPagerImages();
     fetchAllProductLists();
@@ -86,22 +94,12 @@ class DashBoardController extends GetxController {
     );
   }
 
-  // Fetch marquee notification
-  NotificationModel? get marqueeNotification {
-    try {
-      return notificationsList.firstWhere(
-            (e) => e.notificationType.toLowerCase() == 'marquee',
-      );
-    } catch (e) {
-      return null;
-    }
-  }
 
   // Fetch Notifications
-  Future<void> fetchNotifications() async {
-    await dashboardRepo.fetchNotificationsListEvent(
-      notificationStatus,
-      notificationsList,
+  Future<void> fetchMarquee() async {
+    await dashboardRepo.fetchMarqueeEvent(
+      marqueeStatus,
+      marqueeData,
     );
   }
 
@@ -222,12 +220,32 @@ class DashBoardController extends GetxController {
 
     try {
       final sorted = List<ProductsModel>.from(allProducts)
-        ..sort((a, b) => b.productTotalSold!.compareTo(a.productTotalSold!));
+        ..sort((a, b) {
+          // Handle nulls explicitly
+          final aAvailable = a.productAvailability ?? false;
+          final bAvailable = b.productAvailability ?? false;
+
+          // Prioritize available products
+          if (aAvailable != bAvailable) {
+            return bAvailable ? 1 : -1;
+          }
+
+          // If both have same availability, sort by total sold
+          return b.productTotalSold!.compareTo(a.productTotalSold!);
+        });
+
       popularProducts.assignAll(sorted);
       popularStatus.value = ProductsStatus.SUCCESS;
     } catch (e) {
       popularStatus.value = ProductsStatus.FAILURE;
     }
+  }
+
+
+  ///CATEGORIES SECTION METHODS
+
+  Future<void> onTapCategories(int index)async {
+    categoryIndex.value = index;
   }
 
   @override

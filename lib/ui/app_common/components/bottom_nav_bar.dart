@@ -1,5 +1,6 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/domain/controllers/dashboard_controller/dashboard_controller.dart';
+import 'package:danapaniexpress/ui/screens/pages/categories/categories_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/home_screen/home_screen.dart';
 
 // var navBarItemsList = [
@@ -12,10 +13,7 @@ import 'package:danapaniexpress/ui/screens/pages/home_screen/home_screen.dart';
 
 var screenList = [
   HomeScreen(),
-  Container(color: Colors.amber,
-    child: Center(
-      child: appText(text: 'Categories', textStyle: headingTextStyle()),
-    ),),
+  CategoriesScreen(),
   Container(color: Colors.blue,
     child: Center(
       child: appText(text: 'Favorites', textStyle: headingTextStyle()),

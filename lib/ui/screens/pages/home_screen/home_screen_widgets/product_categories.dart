@@ -37,9 +37,12 @@ class ProductCategories extends StatelessWidget {
                       index,
                     ) {
                       var data = controller.categoriesList[index];
+
                       return Padding(
-                        padding: EdgeInsets.only(left: index == 0 ? MAIN_HORIZONTAL_PADDING : 0.0),
-                        child: productCategoriesItem(data: data),
+                        padding: EdgeInsets.only(left: index == 0 ? MAIN_HORIZONTAL_PADDING : 0.0, right: MAIN_HORIZONTAL_PADDING, top: MAIN_VERTICAL_PADDING),
+                        child: SizedBox(
+                            width: size.width * 0.2,
+                            child: CategoryItem(data: data)),
                       );
                     }),
                   ),

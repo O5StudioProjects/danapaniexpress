@@ -20,7 +20,8 @@
     "product_is_flashsale": false,
     "product_flashsale_id": "",
     "product_favorite_list": ["user_001", "user_007"],
-    "product_availability": true
+    "product_availability": true,
+    "is_selected": false
   },
   {
     "product_id": "P002",
@@ -43,7 +44,8 @@
     "product_is_flashsale": true,
     "product_flashsale_id": "FS001",
     "product_favorite_list": ["user_002", "user_005"],
-    "product_availability": true
+    "product_availability": true,
+    "is_selected": false
   },
   {
     "product_id": "P003",
@@ -66,7 +68,8 @@
     "product_is_flashsale": false,
     "product_flashsale_id": "",
     "product_favorite_list": ["user_004"],
-    "product_availability": true
+    "product_availability": true,
+    "is_selected": false
   },
   {
     "product_id": "P004",
@@ -88,7 +91,8 @@
     "product_featured_id": "F003",
     "product_is_flashsale": false,
     "product_flashsale_id": "FS002",
-    "product_favorite_list": ["user_003", "user_006", "user_009"]
+    "product_favorite_list": ["user_003", "user_006", "user_009"],
+    "is_selected": false
   },
   {
     "product_id": "P005",
@@ -111,6 +115,7 @@
     "product_is_flashsale": false,
     "product_flashsale_id": "",
     "product_favorite_list": [],
-    "product_availability": false
+    "product_availability": false,
+    "is_selected": false
   }
 ]
