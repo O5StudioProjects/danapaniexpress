@@ -16,7 +16,7 @@ enum AppbarPagerImagesStatus {
 enum BodyPagerImagesStatus {
   IDLE, LOADING, SUCCESS, FAILURE
 }
-enum NotificationsStatus {
+enum MarqueeStatus {
   IDLE, LOADING, SUCCESS, FAILURE
 }
 enum SingleBannerOneStatus {

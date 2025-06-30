@@ -12,15 +12,15 @@ String setMultiLanguageText({language, urdu, english}){
   }
 }
 
-String? setFontDynamicDataTopNotifications({language, NotificationModel? data, urdu, english}){
+String? setFontDynamicDataMarquee({language, MarqueeModel? data, urdu, english}){
 
-  if(language == URDU_LANGUAGE && data!.notificationTitleUrdu.isNotEmpty && data.notificationDetailUrdu.isNotEmpty){
+  if(language == URDU_LANGUAGE && data!.marqueeTitleUrdu.isNotEmpty && data.marqueeDetailUrdu.isNotEmpty){
     return urdu;
-  } else if(language == URDU_LANGUAGE && data!.notificationTitleEnglish.isNotEmpty && data.notificationDetailEnglish.isNotEmpty){
+  } else if(language == URDU_LANGUAGE && data!.marqueeTitleEnglish.isNotEmpty && data.marqueeDetailEnglish.isNotEmpty){
     return english;
-  } else if(language == ENGLISH_LANGUAGE && data!.notificationTitleEnglish.isNotEmpty && data.notificationDetailEnglish.isNotEmpty){
+  } else if(language == ENGLISH_LANGUAGE && data!.marqueeTitleEnglish.isNotEmpty && data.marqueeDetailEnglish.isNotEmpty){
     return english;
-  } else if(language == ENGLISH_LANGUAGE && data!.notificationTitleUrdu.isNotEmpty && data.notificationDetailUrdu.isNotEmpty){
+  } else if(language == ENGLISH_LANGUAGE && data!.marqueeTitleUrdu.isNotEmpty && data.marqueeDetailUrdu.isNotEmpty){
     return urdu;
   } else{
     return null;

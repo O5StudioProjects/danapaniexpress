@@ -2,7 +2,7 @@ import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/core/packages_import.dart';
 
-import '../../../../../data/models/notification_model.dart';
+import '../../../../../data/models/marquee_model.dart';
 
 class NotificationBar extends StatelessWidget {
   const NotificationBar({super.key});
@@ -12,11 +12,11 @@ class NotificationBar extends StatelessWidget {
     final controller = Get.find<DashBoardController>();
 
     return Obx(() {
-      final data = controller.marqueeNotification;
+      final data = controller.marqueeData.value;
 
       if (data == null ||
-          (data.notificationDetailEnglish.isEmpty &&
-              data.notificationDetailUrdu.isEmpty)) {
+          (data.marqueeDetailEnglish.isEmpty &&
+              data.marqueeDetailUrdu.isEmpty)) {
         return const SizedBox();
       }
 
@@ -33,13 +33,13 @@ class NotificationBar extends StatelessWidget {
               isUrdu: true,
               title: setMultiLanguageText(
                 language: appLanguage,
-                urdu: data.notificationTitleUrdu,
-                english: data.notificationTitleEnglish,
+                urdu: data.marqueeTitleUrdu,
+                english: data.marqueeTitleEnglish,
               ),
               detail: setMultiLanguageText(
                 language: appLanguage,
-                urdu: data.notificationDetailUrdu,
-                english: data.notificationDetailEnglish,
+                urdu: data.marqueeDetailUrdu,
+                english: data.marqueeDetailEnglish,
               ),
               data: data
             )
@@ -47,13 +47,13 @@ class NotificationBar extends StatelessWidget {
               isUrdu: false,
               title: setMultiLanguageText(
                 language: appLanguage,
-                urdu: data.notificationTitleUrdu,
-                english: data.notificationTitleEnglish,
+                urdu: data.marqueeTitleUrdu,
+                english: data.marqueeTitleEnglish,
               ),
               detail: setMultiLanguageText(
                 language: appLanguage,
-                urdu: data.notificationDetailUrdu,
-                english: data.notificationDetailEnglish,
+                urdu: data.marqueeDetailUrdu,
+                english: data.marqueeDetailEnglish,
               ),
               data: data
             ),
@@ -67,7 +67,7 @@ class NotificationBar extends StatelessWidget {
     required bool isUrdu,
     required String title,
     required String detail,
-    required NotificationModel data,
+    required MarqueeModel data,
   }) {
     final content = '$title : $detail';
 

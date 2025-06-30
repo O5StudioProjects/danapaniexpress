@@ -23,6 +23,7 @@ class ProductsFields {
     productFlashsaleId,
     productFavoriteList,
     productAvailability,
+    isSelected,
   ];
 
   static const String productId = 'product_id';
@@ -46,6 +47,7 @@ class ProductsFields {
   static const String productFlashsaleId = 'product_flashsale_id';
   static const String productFavoriteList = 'product_favorite_list';
   static const String productAvailability = 'product_availability';
+  static const String isSelected = 'is_selected';
 }
 
 class ProductsModel {
@@ -70,6 +72,7 @@ class ProductsModel {
   final String? productFlashsaleId;
   final List<String>? productFavoriteList;
   final bool? productAvailability;
+  final bool? isSelected;
 
   const ProductsModel({
     required this.productId,
@@ -93,6 +96,7 @@ class ProductsModel {
     required this.productFlashsaleId,
     required this.productFavoriteList,
     required this.productAvailability,
+    required this.isSelected,
   });
 
   Map<String, Object?> toJson() => {
@@ -117,6 +121,7 @@ class ProductsModel {
     ProductsFields.productFlashsaleId: productFlashsaleId,
     ProductsFields.productFavoriteList: productFavoriteList,
     ProductsFields.productAvailability: productAvailability,
+    ProductsFields.isSelected: isSelected,
   };
 
   static ProductsModel fromJson(Map<String, Object?> json) => ProductsModel(
@@ -143,6 +148,7 @@ class ProductsModel {
         ?.map((e) => e.toString())
         .toList(),
     productAvailability: json[ProductsFields.productAvailability] as bool?,
+    isSelected: json[ProductsFields.isSelected] as bool?,
 
   );
 
@@ -168,6 +174,7 @@ class ProductsModel {
     String? productFlashsaleId,
     List<String>? productFavoriteList,
     bool? productAvailability,
+    bool? isSelected,
 
   }) =>
       ProductsModel(
@@ -192,5 +199,6 @@ class ProductsModel {
         productFlashsaleId: productFlashsaleId ?? this.productFlashsaleId,
         productFavoriteList: productFavoriteList ?? this.productFavoriteList,
         productAvailability: productAvailability ?? this.productAvailability,
+        isSelected: isSelected ?? this.isSelected,
       );
 }
