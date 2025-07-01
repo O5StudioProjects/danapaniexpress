@@ -57,6 +57,10 @@ Map<String, Map<String, String>> allLang = {
     OUT_OF_STOCK: 'Out of stock',
     PRODUCTS_BY_CATEGORY: 'Products By Categories',
     POPULAR_PRODUCTS: 'Popular Products',
+    CATEGORIES_UNAVAILABLE: 'Categories Unavailable',
+    NO_FAVORITES: 'No Favorite Products',
+    EMPTY_CART: 'Cart is Empty',
+    PRODUCTS_UNAVAILABLE: 'Products Unavailable',
 
   },
 
@@ -116,5 +120,9 @@ Map<String, Map<String, String>> allLang = {
     OUT_OF_STOCK: 'ختم ہو گیا',
     PRODUCTS_BY_CATEGORY: 'مصنوعات کی کیٹیگریز',
     POPULAR_PRODUCTS: 'مشہور مصنوعات',
+    CATEGORIES_UNAVAILABLE: 'کیٹیگریز دستیاب نہیں',
+    NO_FAVORITES: 'پسندیدہ مصنوعات نہیں ملیں',
+    EMPTY_CART: 'ٹوکری خالی ہے',
+    PRODUCTS_UNAVAILABLE: 'مصنوعات دستیاب نہیں',
   },
 };

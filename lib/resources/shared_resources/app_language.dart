@@ -181,4 +181,20 @@ class AppLanguage {
     return allLang[appLanguage]?[POPULAR_PRODUCTS];
   }
 
+  static String? noCategoriesStr(String appLanguage){
+    return allLang[appLanguage]?[CATEGORIES_UNAVAILABLE];
+  }
+  static String? noFavoritesStr(String appLanguage){
+    return allLang[appLanguage]?[NO_FAVORITES];
+  }
+  static String? emptyCartStr(String appLanguage){
+    return allLang[appLanguage]?[EMPTY_CART];
+  }
+  static String? noProductsStr(String appLanguage){
+    return allLang[appLanguage]?[PRODUCTS_UNAVAILABLE];
+  }
+
+
+
+
 }

@@ -97,6 +97,17 @@ TextStyle itemTextStyle({height = 0.0}){
   );
 }
 
+TextStyle tabItemTextStyle({height = 0.0, required bool isSelected}){
+  return TextStyle(
+      color: isSelected ? AppColors.selectedTabItemsTextColorSkin(isDark) : AppColors.tabItemsTextColorSkin(isDark),
+      height: height,
+      fontSize: appLanguage == URDU_LANGUAGE ? (NORMAL_TEXT_FONT_SIZE) : NORMAL_TEXT_FONT_SIZE -2.0,
+      //fontSize: NORMAL_TEXT_FONT_SIZE,
+      fontFamily:  setFont(appLanguage, urdu: urduRegular, englishFont: nunitoSemibold),
+      fontWeight: FontWeight.w800
+  );
+}
+
 TextStyle cutPriceTextStyle({height = 0.0}){
   return TextStyle(
       color: AppColors.secondaryTextColorSkin(isDark),

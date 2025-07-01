@@ -7,6 +7,7 @@ class MainDashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var dashboardController = Get.put(DashBoardController());
+    var navigation = Get.put(NavigationController());
     return Scaffold(
       bottomNavigationBar: Obx(
         ()=> Container(

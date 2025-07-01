@@ -118,6 +118,34 @@ class AppColors {
       return EnvColors.dividerColorLight;
     }
   }
+  static Color selectedTabItemsColorSkin(isDark) {
+    if (isDark) {
+      return EnvColors.accentCTAColorDark;
+    } else {
+      return EnvColors.primaryColorDark;
+    }
+  }
+  static Color tabItemsColorSkin(isDark) {
+    if (isDark) {
+      return EnvColors.cardColorDark;
+    } else {
+      return EnvColors.cardColorLight;
+    }
+  }
 
+  static Color selectedTabItemsTextColorSkin(isDark) {
+    if (isDark) {
+      return EnvColors.backgroundColorDark;
+    } else {
+      return EnvColors.primaryTextColorDark;
+    }
+  }
+  static Color tabItemsTextColorSkin(isDark) {
+    if (isDark) {
+      return EnvColors.secondaryTextColorDark;
+    } else {
+      return EnvColors.secondaryTextColorLight;
+    }
+  }
 
 }

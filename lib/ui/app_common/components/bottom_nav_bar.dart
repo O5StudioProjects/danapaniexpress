@@ -1,6 +1,9 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/domain/controllers/dashboard_controller/dashboard_controller.dart';
+import 'package:danapaniexpress/ui/screens/pages/account/account_screen.dart';
+import 'package:danapaniexpress/ui/screens/pages/cart/cart_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/categories/categories_screen.dart';
+import 'package:danapaniexpress/ui/screens/pages/favorites/favorites_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/home_screen/home_screen.dart';
 
 // var navBarItemsList = [
@@ -14,20 +17,9 @@ import 'package:danapaniexpress/ui/screens/pages/home_screen/home_screen.dart';
 var screenList = [
   HomeScreen(),
   CategoriesScreen(),
-  Container(color: Colors.blue,
-    child: Center(
-      child: appText(text: 'Favorites', textStyle: headingTextStyle()),
-    ),
-  ),
-  Container(color: Colors.green,
-    child: Center(
-      child: appText(text: 'Cart', textStyle: headingTextStyle()),
-    ),),
-  Container(color: Colors.indigo,
-    child: Center(
-      child: appText(text: 'Account', textStyle: headingTextStyle()),
-    ),),
-
+  FavoritesScreen(),
+  CartScreen(),
+  AccountScreen()
 ];
 
 Widget appBottomNavBar() {

@@ -40,3 +40,4 @@ enum ProductFilterType {
   popular,
 }
 
+enum ProductsByCatStatus { IDLE, LOADING, SUCCESS, FAILURE }

@@ -1,7 +1,5 @@
 import 'package:danapaniexpress/core/common_imports.dart';
-
-import '../../../../../data/models/sub_categories_model.dart';
-import '../../../../../domain/controllers/dashboard_controller/dashboard_controller.dart';
+import 'package:danapaniexpress/core/controllers_import.dart';
 
 class ProductCategories extends StatelessWidget {
   const ProductCategories({super.key});
@@ -9,6 +7,7 @@ class ProductCategories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<DashBoardController>();
+    final navigation = Get.find<NavigationController>();
 
     return Obx(() {
       if (controller.categoriesList.isNotEmpty) {
@@ -24,7 +23,9 @@ class ProductCategories extends StatelessWidget {
             children: [
               HomeHeadings(
                   mainHeadingText:AppLanguage.productsByCategoriesStr(appLanguage).toString(),
-                  onTapSeeAllText: (){}),
+                  onTapSeeAllText: (){
+                    controller.navIndex.value = 1;
+                  }),
               //  setHeight(MAIN_HORIZONTAL_PADDING),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
@@ -42,7 +43,9 @@ class ProductCategories extends StatelessWidget {
                         padding: EdgeInsets.only(left: index == 0 ? MAIN_HORIZONTAL_PADDING : 0.0, right: MAIN_HORIZONTAL_PADDING, top: MAIN_VERTICAL_PADDING),
                         child: SizedBox(
                             width: size.width * 0.2,
-                            child: CategoryItem(data: data)),
+                            child: GestureDetector(
+                                onTap: ()=> navigation.gotoProductsScreen(data: data),
+                                child: CategoryItem(data: data))),
                       );
                     }),
                   ),
