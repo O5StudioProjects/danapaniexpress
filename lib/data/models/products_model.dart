@@ -7,6 +7,8 @@ class ProductsFields {
     productImage,
     productNameEng,
     productNameUrdu,
+    productDetailEng,
+    productDetailUrdu,
     productCategory,
     productSubCategory,
     productCutPrice,
@@ -31,6 +33,8 @@ class ProductsFields {
   static const String productImage = 'product_image';
   static const String productNameEng = 'product_name_eng';
   static const String productNameUrdu = 'product_name_urdu';
+  static const String productDetailEng = 'product_detail_eng';
+  static const String productDetailUrdu = 'product_detail_urdu';
   static const String productCategory = 'product_category';
   static const String productSubCategory = 'product_sub_category';
   static const String productCutPrice = 'product_cut_price';
@@ -56,6 +60,8 @@ class ProductsModel {
   final String? productImage;
   final String? productNameEng;
   final String? productNameUrdu;
+  final String? productDetailEng;
+  final String? productDetailUrdu;
   final String? productCategory;
   final String? productSubCategory;
   final double? productCutPrice;
@@ -80,6 +86,8 @@ class ProductsModel {
     required this.productImage,
     required this.productNameEng,
     required this.productNameUrdu,
+    required this.productDetailEng,
+    required this.productDetailUrdu,
     required this.productCategory,
     required this.productSubCategory,
     required this.productCutPrice,
@@ -105,6 +113,8 @@ class ProductsModel {
     ProductsFields.productImage: productImage,
     ProductsFields.productNameEng: productNameEng,
     ProductsFields.productNameUrdu: productNameUrdu,
+    ProductsFields.productDetailEng: productDetailEng,
+    ProductsFields.productDetailUrdu: productDetailUrdu,
     ProductsFields.productCategory: productCategory,
     ProductsFields.productSubCategory: productSubCategory,
     ProductsFields.productCutPrice: productCutPrice,
@@ -130,6 +140,8 @@ class ProductsModel {
     productImage: json[ProductsFields.productImage] as String?,
     productNameEng: json[ProductsFields.productNameEng] as String?,
     productNameUrdu: json[ProductsFields.productNameUrdu] as String?,
+    productDetailEng: json[ProductsFields.productDetailEng] as String?,
+    productDetailUrdu: json[ProductsFields.productDetailUrdu] as String?,
     productCategory: json[ProductsFields.productCategory] as String?,
     productSubCategory: json[ProductsFields.productSubCategory] as String?,
     productCutPrice: (json[ProductsFields.productCutPrice] as num?)?.toDouble(),
@@ -158,6 +170,8 @@ class ProductsModel {
     String? productImage,
     String? productNameEng,
     String? productNameUrdu,
+    String? productDetailEng,
+    String? productDetailUrdu,
     String? productCategory,
     String? productSubCategory,
     double? productCutPrice,
@@ -183,6 +197,8 @@ class ProductsModel {
         productImage: productImage ?? this.productImage,
         productNameEng: productNameEng ?? this.productNameEng,
         productNameUrdu: productNameUrdu ?? this.productNameUrdu,
+        productDetailEng: productDetailEng ?? this.productDetailEng,
+        productDetailUrdu: productDetailUrdu ?? this.productDetailUrdu,
         productCategory: productCategory ?? this.productCategory,
         productSubCategory: productSubCategory ?? this.productSubCategory,
         productCutPrice: productCutPrice ?? this.productCutPrice,

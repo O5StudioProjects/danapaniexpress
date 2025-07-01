@@ -3,3 +3,5 @@ export 'package:danapaniexpress/domain/controllers/startup_controller/startup_co
 export 'package:danapaniexpress/domain/controllers/dashboard_controller/dashboard_controller.dart';
 export 'package:danapaniexpress/domain/controllers/home_screen_controller/home_screen_controller.dart';
 export 'package:danapaniexpress/domain/controllers/splash_controller/splash_controller.dart';
+export 'package:danapaniexpress/domain/controllers/navigation_controller/navigation_controller.dart';
+export 'package:danapaniexpress/domain/controllers/product_controller/product_controller.dart';

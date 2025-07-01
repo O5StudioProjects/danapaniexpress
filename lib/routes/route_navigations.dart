@@ -1,4 +1,5 @@
 import 'package:danapaniexpress/core/common_imports.dart';
+import 'package:danapaniexpress/core/data_model_imports.dart';
 
 class JumpTo {
   static gotoHomeScreen() {
@@ -36,5 +37,12 @@ class JumpTo {
   static gotoDashboardScreen() {
     Get.offAndToNamed(RouteNames.MainDashboardScreenRoute);
   }
+  static gotoProductsScreen({required CategoryModel data, int subCategoryIndex = 0}) {
+    Get.toNamed(RouteNames.ProductsScreenRoute, arguments: {
+      DATA_CATEGORY: data,
+      SUB_CATEGORY_INDEX: subCategoryIndex
+});
+  }
+
 
 }

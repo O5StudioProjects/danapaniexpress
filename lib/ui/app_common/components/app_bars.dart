@@ -155,7 +155,7 @@ Widget appBarCommon({title, isBackNavigation = false}) {
                     },
                     child: appSvgIcon(
                       icon: icArrowLeft,
-                      color: AppColors.cardColorSkin(isDark),
+                      color: AppColors.primaryTextColorSkin(isDark),
                       width: 24.0,
                     ),
                   )

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:danapaniexpress/core/common_imports.dart';
+import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/core/data_model_imports.dart';
 import '../../../data/repositories/dashboard_repository/dashboard_repository.dart';
 
@@ -65,6 +66,8 @@ class DashBoardController extends GetxController {
   /// CATEGORIES SECTION
 
   RxInt categoryIndex = 0.obs;
+
+  var navigationController = Get.find<NavigationController>();
 
 
   // Init
@@ -247,6 +250,13 @@ class DashBoardController extends GetxController {
   Future<void> onTapCategories(int index)async {
     categoryIndex.value = index;
   }
+
+  Future<void> onTapSubCategories(int index, CategoryModel categoryData)async {
+    navigationController.gotoProductsScreen(data: categoryData, subCategoryIndex: index);
+
+  }
+
+
 
   @override
   void onClose() {

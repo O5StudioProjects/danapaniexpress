@@ -1,6 +1,7 @@
 import 'package:danapaniexpress/domain/di/dashboard_binding.dart';
 import 'package:danapaniexpress/ui/screens/auth_screen/sign_in_screen/sign_in_screen.dart';
 import 'package:danapaniexpress/ui/screens/main_dashboard_screen/main_dashboard_screen.dart';
+import 'package:danapaniexpress/ui/screens/pages/categories/products/products_screen.dart';
 import 'package:danapaniexpress/ui/screens/splash_screen/splash_screen.dart';
 import 'package:danapaniexpress/ui/screens/startup_screens/language_theme_screen.dart';
 import 'package:danapaniexpress/core/common_imports.dart';
@@ -60,6 +61,14 @@ class AppRouter {
       transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
       page: () => const MainDashboardScreen(),
       binding: DashboardBinding()
+    ),
+
+    GetPage(
+        name: RouteNames.ProductsScreenRoute,
+        transition: Transition.fadeIn,
+        transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
+        page: () => const ProductsScreen(),
+        binding: DashboardBinding()
     ),
 
 
