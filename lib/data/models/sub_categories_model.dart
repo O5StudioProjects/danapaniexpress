@@ -2,6 +2,7 @@ const String subCategoriesTable = 'sub_categories';
 
 class SubCategoryFields {
   static final List<String> values = [
+    categoryId,
     subCategoryId,
     subCategoryNameEnglish,
     subCategoryNameUrdu,
@@ -9,6 +10,7 @@ class SubCategoryFields {
     subCategoryIsFeatured,
   ];
 
+  static const String categoryId = 'category_id';
   static const String subCategoryId = 'sub_category_id';
   static const String subCategoryNameEnglish = 'sub_category_name_english';
   static const String subCategoryNameUrdu = 'sub_category_name_urdu';
@@ -17,6 +19,7 @@ class SubCategoryFields {
 }
 
 class SubCategoriesModel {
+  final String? categoryId;
   final String? subCategoryId;
   final String? subCategoryNameEnglish;
   final String? subCategoryNameUrdu;
@@ -24,6 +27,7 @@ class SubCategoriesModel {
   final bool? subCategoryIsFeatured;
 
   const SubCategoriesModel({
+    this.categoryId,
     this.subCategoryId,
     this.subCategoryNameEnglish,
     this.subCategoryNameUrdu,
@@ -32,6 +36,7 @@ class SubCategoriesModel {
   });
 
   Map<String, Object?> toJson() => {
+    SubCategoryFields.categoryId: categoryId,
     SubCategoryFields.subCategoryId: subCategoryId,
     SubCategoryFields.subCategoryNameEnglish: subCategoryNameEnglish,
     SubCategoryFields.subCategoryNameUrdu: subCategoryNameUrdu,
@@ -40,6 +45,7 @@ class SubCategoriesModel {
   };
 
   static SubCategoriesModel fromJson(Map<String, Object?> json) => SubCategoriesModel(
+    categoryId: json[SubCategoryFields.categoryId] as String?,
     subCategoryId: json[SubCategoryFields.subCategoryId] as String?,
     subCategoryNameEnglish: json[SubCategoryFields.subCategoryNameEnglish] as String?,
     subCategoryNameUrdu: json[SubCategoryFields.subCategoryNameUrdu] as String?,
@@ -48,6 +54,7 @@ class SubCategoriesModel {
   );
 
   SubCategoriesModel copy({
+    String? categoryId,
     String? subCategoryId,
     String? subCategoryNameEnglish,
     String? subCategoryNameUrdu,
@@ -55,6 +62,7 @@ class SubCategoriesModel {
     bool? subCategoryIsFeatured,
   }) =>
       SubCategoriesModel(
+        categoryId: categoryId ?? this.categoryId,
         subCategoryId: subCategoryId ?? this.subCategoryId,
         subCategoryNameEnglish: subCategoryNameEnglish ?? this.subCategoryNameEnglish,
         subCategoryNameUrdu: subCategoryNameUrdu ?? this.subCategoryNameUrdu,

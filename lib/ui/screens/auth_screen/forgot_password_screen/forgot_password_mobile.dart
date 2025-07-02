@@ -21,7 +21,7 @@ class ForgotPasswordMobile extends StatelessWidget {
                 appText(
                   text: AppLanguage.forgotPasswordStr(appLanguage),
                   textDirection: setTextDirection(appLanguage),
-                  textStyle: loginHeadingTextStyle(),
+                  textStyle: bigBoldHeadingTextStyle(),
                 ),
                 setHeight(10.0),
                 appText(

@@ -5,3 +5,4 @@ export 'package:danapaniexpress/domain/controllers/home_screen_controller/home_s
 export 'package:danapaniexpress/domain/controllers/splash_controller/splash_controller.dart';
 export 'package:danapaniexpress/domain/controllers/navigation_controller/navigation_controller.dart';
 export 'package:danapaniexpress/domain/controllers/product_controller/product_controller.dart';
+export 'package:danapaniexpress/domain/controllers/product_controller/product_detail_controller.dart';

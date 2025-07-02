@@ -8,6 +8,7 @@
     "category_is_featured": false,
     "sub_categories": [
       {
+        "category_id": "Fruits",
         "sub_category_id": "Apples",
         "sub_category_name_english": "Apples",
         "sub_category_name_urdu": "سیب",
@@ -15,6 +16,7 @@
         "sub_category_is_featued": false
       },
       {
+        "category_id": "Fruits",
         "sub_category_id": "Bananas",
         "sub_category_name_english": "Bananas",
         "sub_category_name_urdu": "کیلا",
@@ -32,6 +34,7 @@
     "category_is_featured": true,
     "sub_categories": [
       {
+        "category_id": "Vegetables",
         "sub_category_id": "Tomatoes",
         "sub_category_name_english": "Tomatoes",
         "sub_category_name_urdu": "ٹماٹر",
@@ -39,6 +42,7 @@
         "sub_category_is_featued": false
       },
       {
+        "category_id": "Vegetables",
         "sub_category_id": "Potatoes",
         "sub_category_name_english": "Potatoes",
         "sub_category_name_urdu": "آلو",
@@ -56,6 +60,7 @@
     "category_is_featured": false,
     "sub_categories": [
       {
+        "category_id": "Dairy",
         "sub_category_id": "Milk",
         "sub_category_name_english": "Milk",
         "sub_category_name_urdu": "دودھ",
@@ -63,6 +68,7 @@
         "sub_category_is_featued": false
       },
       {
+        "category_id": "Dairy",
         "sub_category_id": "Cheese",
         "sub_category_name_english": "Cheese",
         "sub_category_name_urdu": "پنیر",
@@ -80,6 +86,7 @@
     "category_is_featured": false,
     "sub_categories": [
       {
+        "category_id": "Bakery",
         "sub_category_id": "Bread",
         "sub_category_name_english": "Bread",
         "sub_category_name_urdu": "روٹی",
@@ -87,6 +94,7 @@
         "sub_category_is_featued": false
       },
       {
+        "category_id": "Bakery",
         "sub_category_id": "Buns",
         "sub_category_name_english": "Buns",
         "sub_category_name_urdu": "بن",
@@ -104,6 +112,7 @@
     "category_is_featured": false,
     "sub_categories": [
       {
+        "category_id": "Beverages",
         "sub_category_id": "Soft Drinks",
         "sub_category_name_english": "Soft Drinks",
         "sub_category_name_urdu": "سافٹ ڈرنکس",
@@ -111,6 +120,7 @@
         "sub_category_is_featued": false
       },
       {
+        "category_id": "Beverages",
         "sub_category_id": "Juices",
         "sub_category_name_english": "Juices",
         "sub_category_name_urdu": "جوس",
@@ -128,6 +138,7 @@
     "category_is_featured": false,
     "sub_categories": [
       {
+        "category_id": "Snacks",
         "sub_category_id": "Chips",
         "sub_category_name_english": "Chips",
         "sub_category_name_urdu": "چپس",
@@ -135,6 +146,7 @@
         "sub_category_is_featued": false
       },
       {
+        "category_id": "Snacks",
         "sub_category_id": "Nimko",
         "sub_category_name_english": "Nimko",
         "sub_category_name_urdu": "نمکو",
@@ -152,6 +164,7 @@
     "category_is_featured": false,
     "sub_categories": [
       {
+        "category_id": "Meat",
         "sub_category_id": "Chicken",
         "sub_category_name_english": "Chicken",
         "sub_category_name_urdu": "چکن",
@@ -159,6 +172,7 @@
         "sub_category_is_featued": false
       },
       {
+        "category_id": "Meat",
         "sub_category_id": "Mutton",
         "sub_category_name_english": "Mutton",
         "sub_category_name_urdu": "مٹن",
@@ -176,6 +190,7 @@
     "category_is_featured": false,
     "sub_categories": [
       {
+        "category_id": "Frozen Food",
         "sub_category_id": "Frozen Nuggets",
         "sub_category_name_english": "Frozen Nuggets",
         "sub_category_name_urdu": "فرائز",
@@ -183,6 +198,7 @@
         "sub_category_is_featued": false
       },
       {
+        "category_id": "Frozen Food",
         "sub_category_id": "Frozen Paratha",
         "sub_category_name_english": "Frozen Paratha",
         "sub_category_name_urdu": "پراٹھا",
@@ -200,6 +216,7 @@
     "category_is_featured": false,
     "sub_categories": [
       {
+        "category_id": "Grains & Rice",
         "sub_category_id": "Wheat",
         "sub_category_name_english": "Wheat",
         "sub_category_name_urdu": "گندم",
@@ -207,6 +224,7 @@
         "sub_category_is_featued": false
       },
       {
+        "category_id": "Grains & Rice",
         "sub_category_id": "Rice",
         "sub_category_name_english": "Rice",
         "sub_category_name_urdu": "چاول",
@@ -224,6 +242,7 @@
     "category_is_featured": false,
     "sub_categories": [
       {
+        "category_id": "Spices",
         "sub_category_id": "Red Chili",
         "sub_category_name_english": "Red Chili",
         "sub_category_name_urdu": "لال مرچ",
@@ -231,6 +250,7 @@
         "sub_category_is_featued": false
       },
       {
+        "category_id": "Spices",
         "sub_category_id": "Turmeric",
         "sub_category_name_english": "Turmeric",
         "sub_category_name_urdu": "ہلدی",
@@ -238,6 +258,7 @@
         "sub_category_is_featued": false
       },
       {
+        "category_id": "Spices",
         "sub_category_id": "Red Chili",
         "sub_category_name_english": "Red Chili",
         "sub_category_name_urdu": "لال مرچ",
@@ -245,6 +266,7 @@
         "sub_category_is_featued": false
       },
       {
+        "category_id": "Spices",
         "sub_category_id": "Turmeric",
         "sub_category_name_english": "Turmeric",
         "sub_category_name_urdu": "ہلدی",
@@ -252,6 +274,7 @@
         "sub_category_is_featued": false
       },
       {
+        "category_id": "Spices",
         "sub_category_id": "Red Chili",
         "sub_category_name_english": "Red Chili",
         "sub_category_name_urdu": "لال مرچ",
@@ -259,6 +282,7 @@
         "sub_category_is_featued": false
       },
       {
+        "category_id": "Spices",
         "sub_category_id": "Turmeric",
         "sub_category_name_english": "Turmeric",
         "sub_category_name_urdu": "ہلدی",

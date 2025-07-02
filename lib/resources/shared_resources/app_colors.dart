@@ -37,6 +37,21 @@ class AppColors {
       return EnvColors.primaryColorLight;
     }
   }
+  static Color sellingPriceDetailTextSkin(isDark) {
+    if (isDark) {
+      return EnvColors.primaryColorLight;
+    } else {
+      return EnvColors.accentCTAColorDark;
+    }
+  }
+
+  static Color cutPriceDetailTextColorSkin(isDark) {
+    if (isDark) {
+      return EnvColors.accentCTAColorDark;
+    } else {
+      return EnvColors.secondaryTextColorLight;
+    }
+  }
 
   static Color percentageTextSkin(isDark) {
     if (isDark) {
@@ -48,7 +63,7 @@ class AppColors {
 
   static Color floatingButtonSkin(isDark) {
     if (isDark) {
-      return EnvColors.cardColorDark;
+      return EnvColors.accentCTAColorDark;
     } else {
       return EnvColors.primaryColorLight;
     }

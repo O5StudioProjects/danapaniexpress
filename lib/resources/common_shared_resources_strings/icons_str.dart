@@ -66,4 +66,6 @@ const String icWhatsAppGroup = '${COMMON_ICON_PATH}ic_whatsapp_group.png';
 const String icGoogle = '${COMMON_ICON_PATH}ic_google.png';
 const String icFlashSale = '${COMMON_ICON_PATH}ic_flash_sale.png';
 const String icSubCategories = '${COMMON_ICON_PATH}ic_sub_categories.png';
+const String icPlus = '${COMMON_ICON_PATH}ic_plus.png';
+const String icMinus = '${COMMON_ICON_PATH}ic_minus.png';
 

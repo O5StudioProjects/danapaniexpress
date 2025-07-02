@@ -37,12 +37,24 @@ class JumpTo {
   static gotoDashboardScreen() {
     Get.offAndToNamed(RouteNames.MainDashboardScreenRoute);
   }
-  static gotoProductsScreen({required CategoryModel data, int subCategoryIndex = 0}) {
-    Get.toNamed(RouteNames.ProductsScreenRoute, arguments: {
-      DATA_CATEGORY: data,
-      SUB_CATEGORY_INDEX: subCategoryIndex
-});
+
+  static gotoProductsScreen({
+    required CategoryModel data,
+    int subCategoryIndex = 0,
+  }) {
+    Get.toNamed(
+      RouteNames.ProductsScreenRoute,
+      arguments: {DATA_CATEGORY: data, SUB_CATEGORY_INDEX: subCategoryIndex},
+    );
   }
 
+  static gotoProductDetailScreen({
+    required ProductsModel data,
+  }) {
+    Get.toNamed(
+      RouteNames.ProductDetailScreenRoute,
+      arguments: {DATA_PRODUCT: data},
+    );
+  }
 
 }
