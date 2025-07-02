@@ -4,6 +4,8 @@ import 'package:danapaniexpress/ui/app_common/components/expandable_text.dart';
 import 'package:danapaniexpress/ui/screens/pages/categories/product_detail/product_detail_utils.dart';
 import 'package:readmore/readmore.dart';
 import '../../../../../core/data_model_imports.dart';
+import '../../home_screen/home_screen_widgets/featured_products.dart';
+import '../../home_screen/home_screen_widgets/single_banner.dart';
 
 class ProductDetailScreenMobile extends StatelessWidget {
   const ProductDetailScreenMobile({super.key});
@@ -13,31 +15,33 @@ class ProductDetailScreenMobile extends StatelessWidget {
     var product = Get.put(ProductDetailController());
     return Obx(() {
       var data = product.productData.value!;
-      return Container(
-        width: size.width,
-        height: size.height,
-        color: AppColors.cardColorSkin(isDark),
-        child: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                // physics: BouncingScrollPhysics(),
-                child: Column(
-                  children: [
+      return Scaffold(
+        bottomNavigationBar: cartSectionUI(data: data),
+        body: Container(
+          width: size.width,
+          height: size.height,
+          
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
 
-                    ///TOP IMAGE SECTION
-                    centerImageForProductsUI(data.productImage),
-
-                    ///PRODUCT DETAIL PART
-                    productDetailPartUI(data: data),
-                  ],
+                /// TOP IMAGE SECTION
+                Container(
+                  height: size.height * 0.4,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(image: AssetImage(imgProductBackground), fit: BoxFit.cover)
+                  ),
+                  child: centerImageForProductsUI(data: data),
                 ),
-              ),
-            ),
 
-            /// Bottom Part -- Add to cart and calculator
-            cartSectionUI(data: data),
-          ],
+                productDetailPartUI(data: data)
+
+
+
+
+              ],
+            ),
+          )
         ),
       );
     });
@@ -45,19 +49,22 @@ class ProductDetailScreenMobile extends StatelessWidget {
 }
 
 ///TOP IMAGE SECTION
-Widget centerImageForProductsUI(image) {
-  return SizedBox(
-    width: size.width,
-    height: size.height * 0.4,
-    //  decoration: BoxDecoration(color: AppColors.cardColorSkin(isDark)),
+Widget centerImageForProductsUI({required ProductsModel data}) {
+  return Container(
+      width: size.width,
+      height: size.height * 0.45,
+      decoration: BoxDecoration(
+          color: Colors.black.withValues(alpha: 0.5)
+      ),
     child: Stack(
       children: [
 
         ///CENTER IMAGE FOR PRODUCT
         Positioned(
-          top: 60,
+         top: 50,
           left: 0,
           right: 0,
+         // bottom: 0,
           child: Align(
             alignment: Alignment.bottomCenter,
             child: ClipRRect(
@@ -68,7 +75,7 @@ Widget centerImageForProductsUI(image) {
                 // or use min(size.width, size.height) * 0.5
                 child: AspectRatio(
                   aspectRatio: 1,
-                  child: appAsyncImage(image, boxFit: BoxFit.contain),
+                  child: appAsyncImage(data.productImage, boxFit: BoxFit.cover),
                 ),
               ),
             ),
@@ -77,7 +84,7 @@ Widget centerImageForProductsUI(image) {
 
         ///BACK NAVIGATION BUTTON
         Positioned(
-          top: 50.0,
+          top: 10.0,
           left: MAIN_HORIZONTAL_PADDING,
           child: appFloatingButton(icon: icArrowLeft, onTap: (){
             Get.back();
@@ -88,6 +95,30 @@ Widget centerImageForProductsUI(image) {
             // }
           }),
         ),
+
+        /// DISCOUNT
+        if(data.productCutPrice != null)
+          Positioned(
+            bottom: MAIN_HORIZONTAL_PADDING,
+            right: MAIN_HORIZONTAL_PADDING,
+            child: Container(
+              width: 50.0,
+              height: 50.0,
+              //padding: EdgeInsets.all(8.0),
+              decoration: BoxDecoration(
+                color: AppColors.floatingButtonSkin(isDark),
+                borderRadius: BorderRadius.circular(100.0),
+              ),
+              child: Center(
+                child: appText(
+                  text: '-${calculateDiscount(data.productCutPrice!, data.productSellingPrice!)}%',
+                  textStyle: sellingPriceTextStyle().copyWith(
+                    color: whiteColor,
+                  ),
+                ),
+              ),
+            ),
+          ),
       ],
     ),
   );
@@ -95,29 +126,28 @@ Widget centerImageForProductsUI(image) {
 
 ///PRODUCT DETAIL BACKGROUND LAYOUT
 Widget productDetailPartUI({required ProductsModel data}) {
-  return ConstrainedBox(
-    constraints: BoxConstraints(minHeight: size.height,minWidth: size.width),
-    child: Container(
-        decoration: BoxDecoration(
-          color: AppColors.backgroundColorSkin(isDark),
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(26.0),
-            topRight: Radius.circular(26.0),
-          ),
-          // boxShadow: [
-          //   BoxShadow(
-          //     color: Colors.black.withAlpha(10),
-          //     blurRadius: 4,
-          //     spreadRadius: 2,
-          //     offset: const Offset(2, 1),
-          //   ),
-          // ],
+  return Container(
+    width: size.width,
+   //  height: size.height,
+      decoration: BoxDecoration(
+        color: AppColors.backgroundColorSkin(isDark),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(26.0),
+          topRight: Radius.circular(26.0),
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(MAIN_HORIZONTAL_PADDING),
-          child: productDetailLDataUI(data: data),
-        )
-    ),
+        // boxShadow: [
+        //   BoxShadow(
+        //     color: Colors.black.withAlpha(10),
+        //     blurRadius: 4,
+        //     spreadRadius: 2,
+        //     offset: const Offset(2, 1),
+        //   ),
+        // ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(MAIN_HORIZONTAL_PADDING),
+        child: productDetailLDataUI(data: data),
+      )
   );
 }
 
@@ -125,7 +155,7 @@ Widget productDetailPartUI({required ProductsModel data}) {
 Column productDetailLDataUI({required ProductsModel data}) {
   var product = Get.find<ProductDetailController>();
   return Column(
-    mainAxisSize: MainAxisSize.max,
+   // mainAxisSize: MainAxisSize.max,
     crossAxisAlignment: appLanguage == URDU_LANGUAGE ? CrossAxisAlignment.end : CrossAxisAlignment.start,
     children: [
       ///CATEGORY AND SUBCATEGORY - FAVORITE BUTTON
@@ -154,45 +184,28 @@ Column productDetailLDataUI({required ProductsModel data}) {
           textStyle: bigBoldHeadingTextStyle()),
 
       /// PRODUCT PRICE
-      Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          appText(
-            text: 'Rs. ${data.productSellingPrice!.toStringAsFixed(1)}', textStyle: sellingPriceDetailTextStyle(),
-          ),
-          if(data.productCutPrice != null)
-          Padding(
-            padding: const EdgeInsets.only(left: 5.0),
-            child: appText(
-              text: 'Rs. ${data.productCutPrice?.toStringAsFixed(1)}', textStyle: cutPriceTextStyle(isDetail: true),
+      Padding(
+        padding: const EdgeInsets.only(top: 6.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            appText(
+              text: 'Rs. ${data.productSellingPrice!.toStringAsFixed(1)}', textStyle: sellingPriceDetailTextStyle(),
             ),
-          ),
-          Spacer(),
-          /// DISCOUNT
-          if(data.productCutPrice != null)
-            Container(
-              width: 50.0,
-              height: 50.0,
-              //padding: EdgeInsets.all(8.0),
-              decoration: BoxDecoration(
-                color: AppColors.materialButtonSkin(isDark),
-                borderRadius: BorderRadius.circular(100.0),
-              ),
-              child: Center(
-                child: appText(
-                  text: '-${calculateDiscount(data.productCutPrice!, data.productSellingPrice!)}%',
-                  textStyle: sellingPriceTextStyle().copyWith(
-                    color: AppColors.percentageTextSkin(isDark),
-                  ),
-                ),
+            if(data.productCutPrice != null)
+            Padding(
+              padding: const EdgeInsets.only(left: 5.0),
+              child: appText(
+                text: 'Rs. ${data.productCutPrice?.toStringAsFixed(1)}', textStyle: cutPriceTextStyle(isDetail: true),
               ),
             ),
-        ],
+          ],
+        ),
       ),
 
       /// WEIGHT AND SIZE
       Padding(
-        padding: const EdgeInsets.symmetric(vertical: 5.0),
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Row(
           children: [
             Padding(
@@ -300,7 +313,7 @@ Column productDetailLDataUI({required ProductsModel data}) {
               padding: const EdgeInsets.all(0.0),
               child: Center(
                 child: appText(text: product.quantity.string, textStyle: headingTextStyle().copyWith(
-                  fontSize: 28.0,
+                  fontSize: 22.0,
                   fontFamily: oswaldRegular
                 )),
               ),
@@ -342,7 +355,16 @@ Column productDetailLDataUI({required ProductsModel data}) {
        
 
         ],
+      ),
+
+      /// FEATURED PRODUCTS
+      Container(
+        padding: EdgeInsets.only(top: MAIN_HORIZONTAL_PADDING),
+        color: AppColors.backgroundColorSkin(isDark),
+        child: SingleBanner(homeSingleBanner: HomeSingleBanner.TWO),
       )
+
+
 
 
     ],
