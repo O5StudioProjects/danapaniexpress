@@ -1,6 +1,5 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 
-import '../../screens/pages/home_screen/home_utils.dart';
 
 TextStyle splashHeadingTextStyle(){
   return TextStyle(
@@ -53,7 +52,7 @@ TextStyle startupHeadingTextStyle({height = 0.0}){
   );
 }
 
-TextStyle loginHeadingTextStyle({height = 0.0}){
+TextStyle bigBoldHeadingTextStyle({height = 0.0}){
   return TextStyle(
     color: AppColors.primaryHeadingTextSkin(isDark),
     height: height,
@@ -108,9 +107,9 @@ TextStyle tabItemTextStyle({height = 0.0, required bool isSelected}){
   );
 }
 
-TextStyle cutPriceTextStyle({height = 0.0}){
+TextStyle cutPriceTextStyle({height = 0.0, isDetail = false}){
   return TextStyle(
-      color: AppColors.secondaryTextColorSkin(isDark),
+      color: isDetail ? AppColors.cutPriceDetailTextColorSkin(isDark) : AppColors.secondaryTextColorSkin(isDark),
       height: height,
       decoration: TextDecoration.lineThrough,
       decorationThickness: 2,
@@ -120,11 +119,22 @@ TextStyle cutPriceTextStyle({height = 0.0}){
       fontFamily:  setFont(appLanguage, urdu: nunitoSemibold, englishFont: nunitoSemibold)
   );
 }
+
+
 TextStyle sellingPriceTextStyle({height = 0.0}){
   return TextStyle(
       color: AppColors.sellingPriceTextSkin(isDark),
       height: height,
       fontSize: NORMAL_TEXT_FONT_SIZE ,
+      //fontSize: NORMAL_TEXT_FONT_SIZE,
+      fontFamily:  setFont(appLanguage, urdu: oswaldSemibold, englishFont: oswaldSemibold)
+  );
+}
+TextStyle sellingPriceDetailTextStyle({height = 0.0}){
+  return TextStyle(
+      color: AppColors.sellingPriceDetailTextSkin(isDark),
+      height: height,
+      fontSize: INDEX_FONT_SIZE ,
       //fontSize: NORMAL_TEXT_FONT_SIZE,
       fontFamily:  setFont(appLanguage, urdu: oswaldSemibold, englishFont: oswaldSemibold)
   );

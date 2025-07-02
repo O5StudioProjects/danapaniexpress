@@ -227,3 +227,19 @@ Widget appDetailTextButton({detailText, buttonText, onTapButton}){
     ),
   );
 }
+
+Widget appFloatingButton({
+  icon, iconType = IconType.SVG, iconWidth = 20.0, circlePadding = 6.0,  onTap
+}){
+  return GestureDetector(
+    onTap: onTap,
+    child: Container(
+      padding: EdgeInsets.all(circlePadding),
+      decoration: BoxDecoration(
+          color: AppColors.floatingButtonSkin(isDark),
+          borderRadius: BorderRadius.circular(100.0)
+      ),
+      child: appIcon(iconType: iconType, icon: icon, color: EnvColors.backgroundColorLight, width: iconWidth),
+    ),
+  );
+}
