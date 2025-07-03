@@ -31,7 +31,9 @@ class BodyImagePager extends StatelessWidget {
                   items: controller.bodyPagerList.map((slider) {
                     return Builder(
                       builder: (BuildContext context) {
-                        return appAsyncImage(slider.imageUrl, width: size.width);
+                        return GestureDetector(
+                            onTap: () => controller.onTapBodyPager(index: controller.bodyPagerList.indexOf(slider)),
+                            child: appAsyncImage(slider.imageUrl, width: size.width));
                       },
                     );
                   }).toList(),

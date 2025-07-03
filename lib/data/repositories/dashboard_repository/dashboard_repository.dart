@@ -86,6 +86,49 @@ class DashboardRepository {
     }
   }
 
+  /// SINGLE CATEGORY
+  Future<void> fetchSingleCategoryEvent({
+    required String categoryId,
+    required Rx<CategoryModel?> categoryData,
+    required Rx<CategoriesStatus> status,
+  }) async {
+    try {
+      status.value = CategoriesStatus.LOADING;
+
+      String jsonString = await rootBundle.loadString(jsonCategories);
+      List<dynamic> jsonData = json.decode(jsonString);
+
+      // Safely find category by ID
+      final category = jsonData
+          .map((item) => CategoryModel.fromJson(item))
+          .firstWhere(
+            (item) => item.categoryId == categoryId,
+        orElse: () => CategoryModel(), // or a default empty model
+      );
+
+      // Check if match was found (optional, based on your model)
+      if (category.categoryId == null || category.categoryId!.isEmpty) {
+        categoryData.value = null;
+      } else {
+        categoryData.value = category;
+      }
+
+      status.value = CategoriesStatus.SUCCESS;
+
+      if (kDebugMode) {
+        print("Fetched Category: ${category.categoryId}");
+      }
+    } catch (e) {
+      categoryData.value = null;
+      status.value = CategoriesStatus.FAILURE;
+      if (kDebugMode) {
+        print("Error loading category: $e");
+      }
+    }
+  }
+
+
+
   Future<void> fetchBodyPagerImagesListEvent(
     Rx<BodyPagerImagesStatus> bodyPagerStatus,
     RxList<PagerImagesModel> bodyPagerList,
@@ -114,6 +157,7 @@ class DashboardRepository {
   Future<List<ProductsModel>> fetchProductsListEvent({
     required ProductFilterType filterType,
     required int limit,
+    required int offset, // add this
   }) async {
     String jsonString = await rootBundle.loadString(jsonProducts);
     List<dynamic> jsonData = json.decode(jsonString);
@@ -129,7 +173,7 @@ class DashboardRepository {
         filtered = jsonData.where((item) => item[ProductsFields.productIsFlashsale] == true);
         break;
       case ProductFilterType.all:
-      case ProductFilterType.popular: // fallback to all for popular
+      case ProductFilterType.popular:
         filtered = jsonData;
         break;
     }
@@ -138,9 +182,30 @@ class DashboardRepository {
         .map((item) => ProductsModel.fromJson(item))
         .toList();
 
-    return result.take(limit).toList();
+    // ✅ Apply offset and limit
+    final paginated = result.skip(offset).take(limit).toList();
+
+    return paginated;
   }
 
+  /// Fetch Single Product
+  Future<ProductsModel?> fetchSingleProductById(String id) async {
+    try {
+      String jsonString = await rootBundle.loadString(jsonProducts);
+      List<dynamic> jsonData = json.decode(jsonString);
+
+      final matched = jsonData.firstWhere(
+            (item) => item[ProductsFields.productId].toString() == id,
+      );
+
+      return ProductsModel.fromJson(matched);
+    } catch (e) {
+      if (kDebugMode) {
+        print("Error fetching product with id $id: $e");
+      }
+      return null;
+    }
+  }
 
   /// SINGLE BANNER ON HOME
   Future<void> fetchSingleBannerOneEvent(

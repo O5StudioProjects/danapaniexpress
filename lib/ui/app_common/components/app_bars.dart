@@ -28,7 +28,9 @@ Widget appSliverAppbarHome() {
                 items: controller.appbarPagerList.map((slider) {
                   return Builder(
                     builder: (BuildContext context) {
-                      return appAsyncImage(slider.imageUrl, width: size.width);
+                      return GestureDetector(
+                          onTap: () => controller.onTapAppbarImagePager(index: controller.appbarPagerList.indexOf(slider)),
+                          child: appAsyncImage(slider.imageUrl, width: size.width));
                     },
                   );
                 }).toList(),

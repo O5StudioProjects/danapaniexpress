@@ -8,23 +8,29 @@ class MainDashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var dashboardController = Get.put(DashBoardController(), permanent: true);
     var navigation = Get.put(NavigationController(), permanent: true);
-    return Scaffold(
-      bottomNavigationBar: Obx(
-        ()=> Container(
-          width: size.width,
-          height: BOTTOM_NAV_BAR_SIZE,
-          decoration: BoxDecoration(
-            color: AppColors.backgroundColorSkin(isDark),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (res, onPop){
+        dashboardController.onDashboardBackPress();
+      },
+      child: Scaffold(
+        bottomNavigationBar: Obx(
+          ()=> Container(
+            width: size.width,
+            height: BOTTOM_NAV_BAR_SIZE,
+            decoration: BoxDecoration(
+              color: AppColors.backgroundColorSkin(isDark),
+            ),
+            child: appBottomNavBar(),
           ),
-          child: appBottomNavBar(),
         ),
-      ),
-      body: SafeArea(
-        top: false,
-        child: ResponsiveLayout(
-          mobileView: buildMobileUI(),
-          tabletView: buildTabletUI(),
-          desktopView: buildDesktopUI(),
+        body: SafeArea(
+          top: false,
+          child: ResponsiveLayout(
+            mobileView: buildMobileUI(),
+            tabletView: buildTabletUI(),
+            desktopView: buildDesktopUI(),
+          ),
         ),
       ),
     );

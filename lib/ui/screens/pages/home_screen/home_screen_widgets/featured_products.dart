@@ -7,14 +7,14 @@ class FeaturedProducts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<DashBoardController>();
-
+    final navigation  = Get.find<NavigationController>();
     return Obx(() {
       if (controller.featuredProducts.isNotEmpty) {
         return Column(
           children: [
             HomeHeadings(
                 mainHeadingText: AppLanguage.featuredProductStr(appLanguage).toString(),
-                onTapSeeAllText: (){},
+                onTapSeeAllText: ()=> navigation.gotoOtherProductsScreen(screenType: ProductsScreenType.FEATURED),
             ),
 
             SingleChildScrollView(

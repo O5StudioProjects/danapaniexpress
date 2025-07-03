@@ -9,6 +9,11 @@ class NavigationController extends GetxController{
     JumpTo.gotoProductsScreen(data: data, subCategoryIndex: subCategoryIndex);
   }
 
+  Future<void> gotoOtherProductsScreen({required ProductsScreenType screenType}) async {
+    JumpTo.gotoOtherProductsScreen(productScreenType: screenType);
+  }
+
+
   Future<void> gotoProductDetailScreen({required ProductsModel data}) async {
     JumpTo.gotoProductDetailScreen(data: data);
   }

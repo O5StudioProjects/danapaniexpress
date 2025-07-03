@@ -17,7 +17,9 @@ class SingleBanner extends StatelessWidget {
             width: size.width,
             height: size.height * 0.2,
             color: AppColors.backgroundColorSkin(isDark),
-            child: appAsyncImage(banner.imageUrl, boxFit: BoxFit.cover),
+            child: GestureDetector(
+                onTap: ()=> controller.onTapSingleBanners(singleBanner: homeSingleBanner),
+                child: appAsyncImage(banner.imageUrl, boxFit: BoxFit.cover)),
           ),
         );
       } else {

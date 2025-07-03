@@ -7,6 +7,7 @@ class PopularProducts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<DashBoardController>();
+    final navigation  = Get.find<NavigationController>();
 
     return Obx(() {
       if (controller.popularProducts.isNotEmpty) {
@@ -14,7 +15,7 @@ class PopularProducts extends StatelessWidget {
           children: [
             HomeHeadings(
               mainHeadingText: AppLanguage.popularProductsStr(appLanguage).toString(),
-              onTapSeeAllText: (){},
+              onTapSeeAllText: ()=> navigation.gotoOtherProductsScreen(screenType: ProductsScreenType.POPULAR),
             ),
             //  setHeight(MAIN_HORIZONTAL_PADDING),
             ConstrainedBox(

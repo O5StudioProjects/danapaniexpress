@@ -27,14 +27,14 @@ class ImagePagerType {
   static const String CATEGORY = 'category';
   static const String PRODUCT = 'product';
   static const String FEATURED = 'featured';
+  static const String POPULAR = 'popular';
   static const String FLASH_SALE = 'flash_sale';
 }
 
 ///MARQUEE TYPES
 class MarqueeType {
-  static const String CATEGORY = 'category';
-  static const String PRODUCT = 'product';
   static const String FEATURED = 'featured';
+  static const String POPULAR = 'popular';
   static const String FLASH_SALE = 'flash_sale';
 }
 

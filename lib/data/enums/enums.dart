@@ -33,6 +33,7 @@ enum HomeSingleBanner {
 
 enum CategoriesStatus { IDLE, LOADING, SUCCESS, FAILURE }
 enum ProductsStatus { IDLE, LOADING, SUCCESS, FAILURE }
+enum OtherProductsStatus { IDLE, LOADING, SUCCESS, FAILURE }
 enum ProductFilterType {
   all,
   featured,
@@ -41,3 +42,7 @@ enum ProductFilterType {
 }
 
 enum ProductsByCatStatus { IDLE, LOADING, SUCCESS, FAILURE }
+
+enum ProductsScreenType {
+  CATEGORIES, FEATURED, FLASHSALE, POPULAR
+}

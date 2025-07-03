@@ -21,13 +21,14 @@ class ProductController extends GetxController {
   @override
   void onInit() {
     // Optional: Set initial category from navigation arguments
-    categoryDataInitial.value = Get.arguments[DATA_CATEGORY] as CategoryModel;
+    categoryDataInitial.value = Get.arguments[DATA_CATEGORY] as CategoryModel?;
     subCategoryIndex.value = Get.arguments[SUB_CATEGORY_INDEX] ?? 0;
 
     fetchProductsByCategories(
       categoryData: categoryDataInitial.value!,
       subCategoryIndex: subCategoryIndex.value,
     );
+
 
     super.onInit();
   }
