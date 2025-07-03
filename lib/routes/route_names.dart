@@ -14,6 +14,7 @@ class RouteNames {
   ///DASHBOARD SCREEN AND PAGES SCREENS
   static const String MainDashboardScreenRoute = "/main_dashboard_screen";
   static const String ProductsScreenRoute = "/products_screen";
+  static const String OtherProductsScreenRoute = "/other_products_screen";
   static const String ProductDetailScreenRoute = "/product_detail_screen";
 
   static const String HomeScreenRoute = "/home_screen";

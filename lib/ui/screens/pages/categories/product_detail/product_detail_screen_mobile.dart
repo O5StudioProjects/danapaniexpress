@@ -20,14 +20,14 @@ class ProductDetailScreenMobile extends StatelessWidget {
         body: Container(
           width: size.width,
           height: size.height,
-          
+          color: AppColors.backgroundColorSkin(isDark),
           child: SingleChildScrollView(
             child: Column(
               children: [
 
                 /// TOP IMAGE SECTION
                 Container(
-                  height: size.height * 0.4,
+                  height: size.height * 0.45,
                   decoration: BoxDecoration(
                     image: DecorationImage(image: AssetImage(imgProductBackground), fit: BoxFit.cover)
                   ),
@@ -35,9 +35,6 @@ class ProductDetailScreenMobile extends StatelessWidget {
                 ),
 
                 productDetailPartUI(data: data)
-
-
-
 
               ],
             ),
@@ -54,23 +51,23 @@ Widget centerImageForProductsUI({required ProductsModel data}) {
       width: size.width,
       height: size.height * 0.45,
       decoration: BoxDecoration(
-          color: Colors.black.withValues(alpha: 0.5)
+          color: Colors.black.withValues(alpha: 0.7)
       ),
     child: Stack(
       children: [
 
         ///CENTER IMAGE FOR PRODUCT
         Positioned(
-         top: 50,
+         top: 0,
           left: 0,
           right: 0,
-         // bottom: 0,
+         bottom: 20,
           child: Align(
-            alignment: Alignment.bottomCenter,
+            alignment: Alignment.center,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12.0),
               child: Container(
-                color: AppColors.backgroundColorSkin(isDark),
+                color: whiteColor,
                 width: size.width * 0.6,
                 // or use min(size.width, size.height) * 0.5
                 child: AspectRatio(
@@ -99,7 +96,7 @@ Widget centerImageForProductsUI({required ProductsModel data}) {
         /// DISCOUNT
         if(data.productCutPrice != null)
           Positioned(
-            bottom: MAIN_HORIZONTAL_PADDING,
+            bottom: MAIN_HORIZONTAL_PADDING + 20.0,
             right: MAIN_HORIZONTAL_PADDING,
             child: Container(
               width: 50.0,
@@ -119,6 +116,28 @@ Widget centerImageForProductsUI({required ProductsModel data}) {
               ),
             ),
           ),
+
+        Positioned(
+          bottom: 0,
+            child: Container(
+              width: size.width,
+              height: 20.0,
+              decoration: BoxDecoration(
+                color: AppColors.backgroundColorSkin(isDark),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(26.0),
+                  topRight: Radius.circular(26.0),
+                ),
+                // boxShadow: [
+                //   BoxShadow(
+                //     color: Colors.black.withAlpha(10),
+                //     blurRadius: 4,
+                //     spreadRadius: 2,
+                //     offset: const Offset(2, 1),
+                //   ),
+                // ],
+              ),
+            ))
       ],
     ),
   );
@@ -126,26 +145,11 @@ Widget centerImageForProductsUI({required ProductsModel data}) {
 
 ///PRODUCT DETAIL BACKGROUND LAYOUT
 Widget productDetailPartUI({required ProductsModel data}) {
-  return Container(
+  return SizedBox(
     width: size.width,
    //  height: size.height,
-      decoration: BoxDecoration(
-        color: AppColors.backgroundColorSkin(isDark),
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(26.0),
-          topRight: Radius.circular(26.0),
-        ),
-        // boxShadow: [
-        //   BoxShadow(
-        //     color: Colors.black.withAlpha(10),
-        //     blurRadius: 4,
-        //     spreadRadius: 2,
-        //     offset: const Offset(2, 1),
-        //   ),
-        // ],
-      ),
       child: Padding(
-        padding: const EdgeInsets.all(MAIN_HORIZONTAL_PADDING),
+        padding: const EdgeInsets.only(left: MAIN_HORIZONTAL_PADDING, right: MAIN_HORIZONTAL_PADDING, bottom: MAIN_HORIZONTAL_PADDING),
         child: productDetailLDataUI(data: data),
       )
   );
@@ -175,7 +179,7 @@ Column productDetailLDataUI({required ProductsModel data}) {
               child: appIcon(iconType: IconType.PNG, icon: icHeart, width: 20.0, color: AppColors.backgroundColorInverseSkin(isDark)))
         ],
       ),
-      setHeight(MAIN_HORIZONTAL_PADDING),
+    //  setHeight(MAIN_HORIZONTAL_PADDING),
 
       /// PRODUCT NAME
       appText(text: appLanguage == URDU_LANGUAGE ? data.productNameUrdu : data.productNameEng, 
@@ -356,15 +360,6 @@ Column productDetailLDataUI({required ProductsModel data}) {
 
         ],
       ),
-
-      /// FEATURED PRODUCTS
-      Container(
-        padding: EdgeInsets.only(top: MAIN_HORIZONTAL_PADDING),
-        color: AppColors.backgroundColorSkin(isDark),
-        child: SingleBanner(homeSingleBanner: HomeSingleBanner.TWO),
-      )
-
-
 
 
     ],

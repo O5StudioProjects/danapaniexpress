@@ -44,7 +44,21 @@ class JumpTo {
   }) {
     Get.toNamed(
       RouteNames.ProductsScreenRoute,
-      arguments: {DATA_CATEGORY: data, SUB_CATEGORY_INDEX: subCategoryIndex},
+      arguments: {
+        DATA_CATEGORY: data,
+        SUB_CATEGORY_INDEX: subCategoryIndex,
+      },
+    );
+  }
+
+  static gotoOtherProductsScreen({
+    required ProductsScreenType productScreenType
+  }) {
+    Get.toNamed(
+      RouteNames.OtherProductsScreenRoute,
+      arguments: {
+        PRODUCT_SCREEN_TYPE: productScreenType
+      },
     );
   }
 

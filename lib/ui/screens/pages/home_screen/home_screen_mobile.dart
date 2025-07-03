@@ -32,7 +32,6 @@ class HomeScreenMobile extends StatelessWidget {
                   SingleBanner(homeSingleBanner: HomeSingleBanner.TWO),
                   PopularProducts(),
 
-
                 ],
               ),
             ),

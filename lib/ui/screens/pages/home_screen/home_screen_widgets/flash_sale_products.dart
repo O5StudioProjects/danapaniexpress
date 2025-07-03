@@ -8,6 +8,7 @@ class FlashSaleProducts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<DashBoardController>();
+    final navigation  = Get.find<NavigationController>();
 
     return Obx(() {
       if (controller.flashSaleProducts.isNotEmpty) {
@@ -16,7 +17,7 @@ class FlashSaleProducts extends StatelessWidget {
           children: [
             HomeHeadings(
               mainHeadingText: AppLanguage.flashSaleStr(appLanguage).toString(),
-              onTapSeeAllText: (){},
+              onTapSeeAllText: ()=> navigation.gotoOtherProductsScreen(screenType: ProductsScreenType.FLASHSALE),
               isLeadingIcon: true,
               leadingIcon: icFlashSale,
             ),
