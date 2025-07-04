@@ -1,11 +1,8 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
-import 'package:danapaniexpress/ui/app_common/components/expandable_text.dart';
 import 'package:danapaniexpress/ui/screens/pages/categories/product_detail/product_detail_utils.dart';
 import 'package:readmore/readmore.dart';
 import '../../../../../core/data_model_imports.dart';
-import '../../home_screen/home_screen_widgets/featured_products.dart';
-import '../../home_screen/home_screen_widgets/single_banner.dart';
 
 class ProductDetailScreenMobile extends StatelessWidget {
   const ProductDetailScreenMobile({super.key});
@@ -26,12 +23,36 @@ class ProductDetailScreenMobile extends StatelessWidget {
               children: [
 
                 /// TOP IMAGE SECTION
-                Container(
-                  height: size.height * 0.48,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(image: AssetImage(imgProductBackground), fit: BoxFit.cover)
+
+                SizedBox(
+                  width: size.width,
+                  height: size.height * 0.444,
+                  child: Stack(
+                    children: [
+                      Container(
+                        width: size.width,
+                        height: size.height * 0.44,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(image: AssetImage(imgProductBackground), fit: BoxFit.cover)
+                        ),
+                        child: centerImageForProductsUI(data: data),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        child: Container(
+                          width: size.width,
+                          height: 20.0,
+                          decoration: BoxDecoration(
+                            color: AppColors.backgroundColorSkin(isDark),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(26.0),
+                              topRight: Radius.circular(26.0),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
                   ),
-                  child: centerImageForProductsUI(data: data),
                 ),
 
                 productDetailPartUI(data: data)
@@ -51,7 +72,7 @@ Widget centerImageForProductsUI({required ProductsModel data}) {
       width: size.width,
       height: size.height * 0.45,
       decoration: BoxDecoration(
-          color: Colors.black.withValues(alpha: 0.7)
+          color: Colors.black.withValues(alpha: 0.2)
       ),
     child: Stack(
       children: [
@@ -61,7 +82,7 @@ Widget centerImageForProductsUI({required ProductsModel data}) {
          top: 0,
           left: 0,
           right: 0,
-         bottom: 10,
+         bottom: 0,
           child: Align(
             alignment: Alignment.center,
             child: ClipRRect(
@@ -112,27 +133,27 @@ Widget centerImageForProductsUI({required ProductsModel data}) {
             ),
           ),
 
-        Positioned(
-          bottom: -2,
-            child: Container(
-              width: size.width,
-              height: 20.0,
-              decoration: BoxDecoration(
-                color: AppColors.backgroundColorSkin(isDark),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(26.0),
-                  topRight: Radius.circular(26.0),
-                ),
-                // boxShadow: [
-                //   BoxShadow(
-                //     color: Colors.black.withAlpha(10),
-                //     blurRadius: 4,
-                //     spreadRadius: 2,
-                //     offset: const Offset(2, 1),
-                //   ),
-                // ],
-              ),
-            ))
+        // Positioned(
+        //   bottom: -2,
+        //     child: Container(
+        //       width: size.width,
+        //       height: 20.0,
+        //       decoration: BoxDecoration(
+        //         color: AppColors.backgroundColorSkin(isDark),
+        //         borderRadius: BorderRadius.only(
+        //           topLeft: Radius.circular(26.0),
+        //           topRight: Radius.circular(26.0),
+        //         ),
+        //         // boxShadow: [
+        //         //   BoxShadow(
+        //         //     color: Colors.black.withAlpha(10),
+        //         //     blurRadius: 4,
+        //         //     spreadRadius: 2,
+        //         //     offset: const Offset(2, 1),
+        //         //   ),
+        //         // ],
+        //       ),
+        //     ))
       ],
     ),
   );
@@ -141,8 +162,8 @@ Widget centerImageForProductsUI({required ProductsModel data}) {
 ///PRODUCT DETAIL BACKGROUND LAYOUT
 Widget productDetailPartUI({required ProductsModel data}) {
   return SizedBox(
-    width: size.width,
-   //  height: size.height,
+      width: size.width,
+      //  height: size.height,
       child: Padding(
         padding: const EdgeInsets.only(left: MAIN_HORIZONTAL_PADDING, right: MAIN_HORIZONTAL_PADDING, bottom: MAIN_HORIZONTAL_PADDING),
         child: productDetailLDataUI(data: data),
@@ -336,15 +357,15 @@ Column productDetailLDataUI({required ProductsModel data}) {
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          appText(text: 'Description', textStyle: headingTextStyle()),
+          appText(text: AppLanguage.descriptionStr(appLanguage), textStyle: headingTextStyle()),
           setHeight(MAIN_HORIZONTAL_PADDING),
           ReadMoreText(
           appLanguage == URDU_LANGUAGE ? data.productDetailUrdu.toString() : data.productDetailEng.toString(),
             trimLines: 2,
             colorClickableText: Colors.blue,
             trimMode: TrimMode.Line,
-            trimCollapsedText: ' See more',
-            trimExpandedText: ' See less',
+            trimCollapsedText: ' ${AppLanguage.seeMoreStr(appLanguage)}',
+            trimExpandedText: ' ${AppLanguage.seeLessStr(appLanguage)}',
             style: secondaryTextStyle(),
             textDirection: setTextDirection(appLanguage),
             textAlign: setTextAlignment(appLanguage),
@@ -383,13 +404,13 @@ Widget cartSectionUI({required ProductsModel data}){
               textStyle: sellingPriceDetailTextStyle()
               ),
               setHeight(4.0),
-              appText(text: 'Total Amount', textStyle: itemTextStyle()),
+              appText(text: AppLanguage.totalAmountStr(appLanguage), textStyle: itemTextStyle()),
 
             ],
           ),
 
           ///ADD TO CART
-          appMaterialButton(text: 'Add To Cart', onTap: (){})
+          appMaterialButton(text: AppLanguage.addToCartStr(appLanguage), onTap: (){})
         ],
       ),
     ),

@@ -61,6 +61,11 @@ Map<String, Map<String, String>> allLang = {
     NO_FAVORITES: 'No Favorite Products',
     EMPTY_CART: 'Cart is Empty',
     PRODUCTS_UNAVAILABLE: 'Products Unavailable',
+    DESCRIPTION: 'Description',
+    ADD_TO_CART: 'Add To Cart',
+    TOTAL_AMOUNT: 'Total Amount',
+    SEE_MORE: 'See More',
+    SEE_LESS: 'See Less',
 
   },
 
@@ -124,5 +129,11 @@ Map<String, Map<String, String>> allLang = {
     NO_FAVORITES: 'پسندیدہ مصنوعات نہیں ملیں',
     EMPTY_CART: 'ٹوکری خالی ہے',
     PRODUCTS_UNAVAILABLE: 'مصنوعات دستیاب نہیں',
+    DESCRIPTION: 'تفصیل',
+    ADD_TO_CART: 'ٹوکری میں ڈالیں',
+    TOTAL_AMOUNT: 'کل رقم',
+    SEE_MORE: 'مزید دیکھیں',
+    SEE_LESS: 'کم دیکھیں',
+
   },
 };

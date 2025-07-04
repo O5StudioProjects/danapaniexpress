@@ -39,17 +39,24 @@ class CategoriesScreenMobile extends StatelessWidget {
                                     onTap: () {
                                       controller.onTapCategories(index);
                                     },
-                                    child: Container(
-                                      color:
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          color:
                                           controller.categoryIndex.value == index
-                                          ? AppColors.secondaryTextColorSkin(isDark,).withValues(alpha: 0.4)
-                                          : Colors.transparent,
-                                      child: Padding(
-                                        padding: EdgeInsets.all(MAIN_HORIZONTAL_PADDING,),
-                                        child: CategoryItem(
-                                          data: controller.categoriesList[index],
+                                              ? AppColors.secondaryTextColorSkin(isDark).withValues(alpha: 0.4)
+                                              : Colors.transparent,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(MAIN_HORIZONTAL_PADDING),
+                                            child: CategoryItem(
+                                              data: controller.categoriesList[index],
+                                            ),
+                                          ),
                                         ),
-                                      ),
+                                        if(index != controller.categoriesList.length -1)
+                                          appDivider()
+                                      ],
                                     ),
                                   );
                                 },
@@ -68,29 +75,44 @@ class CategoriesScreenMobile extends StatelessWidget {
                                   constraints: BoxConstraints(
                                     minHeight: size.height,
                                   ),
-                                  child: GridView.builder(
-                                    shrinkWrap: true,
+                                  child: SingleChildScrollView(
+                                    scrollDirection: Axis.vertical,
                                     physics: BouncingScrollPhysics(),
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: MAIN_HORIZONTAL_PADDING,
-                                      vertical: MAIN_HORIZONTAL_PADDING,
-                                    ),
-                                    gridDelegate:
-                                        SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount: 3,
-                                          crossAxisSpacing: MAIN_HORIZONTAL_PADDING,
-                                          mainAxisSpacing:
-                                          MAIN_HORIZONTAL_PADDING,
-                                          childAspectRatio: 0.7, // tweak this for height vs width
+                                    child: Column(
+                                      crossAxisAlignment: appLanguage == URDU_LANGUAGE ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: MAIN_HORIZONTAL_PADDING, top: MAIN_HORIZONTAL_PADDING, right: MAIN_HORIZONTAL_PADDING),
+                                          child: appText(text: appLanguage == URDU_LANGUAGE ? controller.categoriesList[controller.categoryIndex.value].categoryNameUrdu :  controller.categoriesList[controller.categoryIndex.value].categoryNameEnglish,
+                                            textStyle: headingTextStyle()
+                                          ),
                                         ),
-                                    itemCount: controller.categoriesList[controller.categoryIndex.value].subCategories!.length,
-                                    itemBuilder: (context, index) {
-                                      var data = controller.categoriesList[controller.categoryIndex.value];
-                                      var listData = controller.categoriesList[controller.categoryIndex.value].subCategories![index];
-                                      return GestureDetector(
-                                          onTap: ()=> controller.onTapSubCategories(index, data),
-                                          child: SubCategoryItem(data: listData));
-                                    },
+                                        GridView.builder(
+                                          shrinkWrap: true,
+                                          physics: NeverScrollableScrollPhysics(),
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: MAIN_HORIZONTAL_PADDING,
+                                            vertical: MAIN_HORIZONTAL_PADDING,
+                                          ),
+                                          gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 3,
+                                            crossAxisSpacing: MAIN_HORIZONTAL_PADDING,
+                                            mainAxisSpacing:
+                                            MAIN_HORIZONTAL_PADDING,
+                                            childAspectRatio: 0.7, // tweak this for height vs width
+                                          ),
+                                          itemCount: controller.categoriesList[controller.categoryIndex.value].subCategories!.length,
+                                          itemBuilder: (context, index) {
+                                            var data = controller.categoriesList[controller.categoryIndex.value];
+                                            var listData = controller.categoriesList[controller.categoryIndex.value].subCategories![index];
+                                            return GestureDetector(
+                                                onTap: ()=> controller.onTapSubCategories(index, data),
+                                                child: SubCategoryItem(data: listData));
+                                          },
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               )
