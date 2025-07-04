@@ -50,7 +50,7 @@ Widget loadingIndicator() {
     child: SizedBox(
       width: 30.0,
       height: 30.0,
-      child: Lottie.asset(AppAnims.animLoadingSkin(isDark).toString(), repeat: true),
+      child: Lottie.asset(AppAnims.animLoading2Skin(isDark).toString(), repeat: true),
     ),
   );
 }
@@ -241,5 +241,19 @@ Widget appFloatingButton({
       ),
       child: appIcon(iconType: iconType, icon: icon, color: EnvColors.backgroundColorLight, width: iconWidth),
     ),
+  );
+}
+
+Widget appBackNavigationButton(){
+  return appFloatingButton(icon: icArrowLeft, onTap: (){
+    Get.back();
+  });
+}
+
+Widget appSearchButton(){
+  return appSvgIcon(
+    icon: icSearch,
+    width: 24.0,
+    color: whiteColor
   );
 }

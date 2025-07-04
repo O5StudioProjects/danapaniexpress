@@ -13,7 +13,7 @@ class AccountScreenMobile extends StatelessWidget {
       child: Column(
         children: [
           appBarCommon(title: AppLanguage.accountStr(appLanguage), isBackNavigation: false),
-          EmptyScreen(icon: icAccount, text: 'Account is Empty'),
+          EmptyScreen(icon: AppAnims.animEmptyBoxSkin(isDark), text: 'Account is Empty'),
         ],
       )
     );

@@ -1,6 +1,5 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
-import 'package:danapaniexpress/ui/app_common/components/empty_screen.dart';
 
 class CategoriesScreenMobile extends StatelessWidget {
   const CategoriesScreenMobile({super.key});
@@ -96,14 +95,14 @@ class CategoriesScreenMobile extends StatelessWidget {
                                 ),
                               )
                             : EmptyScreen(
-                                icon: icSubCategories,
+                                icon: AppAnims.animEmptyBoxSkin(isDark),
                                 text: AppLanguage.noCategoriesStr(appLanguage,).toString(),
                               ),
                       ],
                     ),
                   )
                 : EmptyScreen(
-                    icon: icCategories,
+                    icon: AppAnims.animEmptyBoxSkin(isDark),
                     text: AppLanguage.noCategoriesStr(appLanguage).toString(),
                   ),
           ],

@@ -13,7 +13,7 @@ class FavoritesScreenMobile extends StatelessWidget {
       child: Column(
         children: [
           appBarCommon(title: AppLanguage.favoritesStr(appLanguage), isBackNavigation: false),
-          EmptyScreen(icon: icHeart, text: AppLanguage.noFavoritesStr(appLanguage).toString()),
+          EmptyScreen(icon: AppAnims.animEmptyFavoritesSkin(isDark), text: AppLanguage.noFavoritesStr(appLanguage).toString()),
         ],
       )
     );

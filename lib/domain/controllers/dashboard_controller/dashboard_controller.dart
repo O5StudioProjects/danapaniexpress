@@ -220,8 +220,9 @@ class DashBoardController extends GetxController {
 
   // ✅ Featured
   Future<void> fetchFeaturedProducts({bool loadMore = false}) async {
-    if (_isLoadingFeatured || isLoadingMore.value || !hasMoreFeatured.value)
+    if (_isLoadingFeatured || isLoadingMore.value || !hasMoreFeatured.value) {
       return;
+    }
 
     if (loadMore) {
       isLoadingMore.value = true;

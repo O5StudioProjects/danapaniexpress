@@ -44,3 +44,5 @@ const String imgSale = 'assets/common/images/img_sale.png';
 const String imgDailyPoetryCardLeft = '${COMMON_IMG_PATH}img_daily_poetry_card_left.png';
 const String imgProductBackground = '${COMMON_IMG_PATH}img_product_background.jpg';
 
+const String imgErrorLight = '${COMMON_IMG_PATH}img_error_light.png';
+const String imgErrorDark = '${COMMON_IMG_PATH}img_error_dark.png';
