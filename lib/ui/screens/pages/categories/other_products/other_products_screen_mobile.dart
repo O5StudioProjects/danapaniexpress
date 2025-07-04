@@ -25,28 +25,33 @@ class OtherProductsScreenMobile extends StatelessWidget {
            ? dashboardController.flashSaleProducts
            : dashboardController.popularProducts;
 
-       final hasMore = screenType == ProductsScreenType.FEATURED
-           ? dashboardController.hasMoreFeatured.value
+       final screenName = screenType == ProductsScreenType.FEATURED
+           ? AppLanguage.featuredProductStr(appLanguage)
            : screenType == ProductsScreenType.FLASHSALE
-           ? dashboardController.hasMoreFlashSale.value
-           : dashboardController.hasMoreAllProducts.value;
+           ? AppLanguage.flashSaleStr(appLanguage)
+           : screenType == ProductsScreenType.POPULAR
+           ? AppLanguage.popularProductsStr(appLanguage)
+           : null;
 
-       final isLoadingMore = dashboardController.isLoadingMore.value;
+       final loadStatus = screenType == ProductsScreenType.FEATURED
+           ? dashboardController.featuredStatus.value
+           : screenType == ProductsScreenType.FLASHSALE
+           ? dashboardController.flashSaleStatus.value
+           : dashboardController.popularStatus.value;
+
 
        return Column(
          children: [
            // Top Banner
-           SizedBox(
-             height: size.height * 0.2,
-             width: size.width,
-             child: appAsyncImage(
-               dashboardController.singleBannerTwo.value?.imageUrl ?? "",
-               boxFit: BoxFit.cover,
-             ),
-           ),
-
+           TopImageHeader(title: screenName!, coverImage: dashboardController.singleBannerTwo.value?.imageUrl ?? ""),
            // Product List
-           Expanded(
+           loadStatus == ProductsStatus.LOADING
+               ? Expanded(child: loadingIndicator())
+               : loadStatus  == ProductsStatus.FAILURE
+               ? Expanded(child: appText(text: 'Error Screen'))
+               : productsList.isEmpty
+               ? EmptyScreen(icon: AppAnims.animEmptyBoxSkin(isDark), text: AppLanguage.noProductsStr(appLanguage).toString())
+               : Expanded(
              child: GridView.builder(
                controller: otherProductsController.scrollController,
                padding: EdgeInsets.symmetric(

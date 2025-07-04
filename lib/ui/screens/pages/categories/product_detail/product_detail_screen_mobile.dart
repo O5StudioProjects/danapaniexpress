@@ -27,7 +27,7 @@ class ProductDetailScreenMobile extends StatelessWidget {
 
                 /// TOP IMAGE SECTION
                 Container(
-                  height: size.height * 0.45,
+                  height: size.height * 0.48,
                   decoration: BoxDecoration(
                     image: DecorationImage(image: AssetImage(imgProductBackground), fit: BoxFit.cover)
                   ),
@@ -61,7 +61,7 @@ Widget centerImageForProductsUI({required ProductsModel data}) {
          top: 0,
           left: 0,
           right: 0,
-         bottom: 20,
+         bottom: 10,
           child: Align(
             alignment: Alignment.center,
             child: ClipRRect(
@@ -85,11 +85,6 @@ Widget centerImageForProductsUI({required ProductsModel data}) {
           left: MAIN_HORIZONTAL_PADDING,
           child: appFloatingButton(icon: icArrowLeft, onTap: (){
             Get.back();
-            // if(appLanguage == ENGLISH_LANGUAGE) {
-            //   Get.find<ThemeController>().changeLanguage(language: URDU_LANGUAGE);
-            // } else {
-            //   Get.find<ThemeController>().changeLanguage(language: ENGLISH_LANGUAGE);
-            // }
           }),
         ),
 
@@ -118,7 +113,7 @@ Widget centerImageForProductsUI({required ProductsModel data}) {
           ),
 
         Positioned(
-          bottom: 0,
+          bottom: -2,
             child: Container(
               width: size.width,
               height: 20.0,

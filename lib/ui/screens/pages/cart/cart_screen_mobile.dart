@@ -13,7 +13,8 @@ class CartScreenMobile extends StatelessWidget {
       child: Column(
         children: [
           appBarCommon(title: AppLanguage.cartStr(appLanguage), isBackNavigation: false),
-          EmptyScreen(icon: icCart, text: AppLanguage.emptyCartStr(appLanguage).toString()),
+          EmptyScreen(icon: AppAnims.animEmptyCartSkin(isDark), text: AppLanguage.emptyCartStr(appLanguage).toString()),
+         // EmptyScreen(icon: icCart, text: AppLanguage.emptyCartStr(appLanguage).toString()),
         ],
       )
     );
