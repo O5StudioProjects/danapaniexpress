@@ -81,13 +81,13 @@ class CategoryItem extends StatelessWidget {
     return LayoutBuilder(builder: (context, constraints) {
       final itemWidth = constraints.maxWidth;
       final imageSize = itemWidth; // square container
-    //  final nameHeight = 34.0;     // enough for 2 lines
-    //  final padding = 16.0 * 2;     // vertical spacing
+     final nameHeight = 24.0;     // enough for 2 lines
+     final padding = 4.0 * 2;     // vertical spacing
 
-     // final totalHeight = imageSize + padding;
+     final totalHeight = imageSize + nameHeight +padding;
 
       return SizedBox(
-        //height: totalHeight,
+       // height: totalHeight,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -98,14 +98,7 @@ class CategoryItem extends StatelessWidget {
               decoration: BoxDecoration(
                 color: AppColors.cardColorSkin(isDark),
                 borderRadius: BorderRadius.circular(12.0),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withAlpha(40),
-                    blurRadius: 6,
-                    spreadRadius: 1,
-                    offset: const Offset(0, 3),
-                  ),
-                ],
+
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12.0),
@@ -119,7 +112,8 @@ class CategoryItem extends StatelessWidget {
             const SizedBox(height: 8.0),
 
             // 🔹 Text
-            Flexible(
+            SizedBox(
+             // height: nameHeight,
               child: Center(
                 child: appText(
                   text: appLanguage == URDU_LANGUAGE
@@ -130,8 +124,8 @@ class CategoryItem extends StatelessWidget {
                   textAlign: TextAlign.center,
                   textStyle: bodyTextStyle().copyWith(
                     fontSize: appLanguage == URDU_LANGUAGE
-                        ? SUB_HEADING_TEXT_BUTTON_FONT_SIZE + 2
-                        : SUB_HEADING_TEXT_BUTTON_FONT_SIZE,
+                        ? TAGS_FONT_SIZE + 2
+                        : TAGS_FONT_SIZE,
                   ),
                 ),
               ),

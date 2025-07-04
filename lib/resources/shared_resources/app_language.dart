@@ -193,6 +193,21 @@ class AppLanguage {
   static String? noProductsStr(String appLanguage){
     return allLang[appLanguage]?[PRODUCTS_UNAVAILABLE];
   }
+  static String? descriptionStr(String appLanguage){
+    return allLang[appLanguage]?[DESCRIPTION];
+  }
+  static String? totalAmountStr(String appLanguage){
+    return allLang[appLanguage]?[TOTAL_AMOUNT];
+  }
+  static String? addToCartStr(String appLanguage){
+    return allLang[appLanguage]?[ADD_TO_CART];
+  }
+  static String? seeMoreStr(String appLanguage){
+    return allLang[appLanguage]?[SEE_MORE];
+  }
+  static String? seeLessStr(String appLanguage){
+    return allLang[appLanguage]?[SEE_LESS];
+  }
 
 
 

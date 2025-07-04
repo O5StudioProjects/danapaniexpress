@@ -14,16 +14,6 @@ class MainDashboardScreen extends StatelessWidget {
         dashboardController.onDashboardBackPress();
       },
       child: Scaffold(
-        bottomNavigationBar: Obx(
-          ()=> Container(
-            width: size.width,
-            height: BOTTOM_NAV_BAR_SIZE,
-            decoration: BoxDecoration(
-              color: AppColors.backgroundColorSkin(isDark),
-            ),
-            child: appBottomNavBar(),
-          ),
-        ),
         body: SafeArea(
           top: false,
           child: ResponsiveLayout(

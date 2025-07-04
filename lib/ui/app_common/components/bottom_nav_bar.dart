@@ -6,13 +6,6 @@ import 'package:danapaniexpress/ui/screens/pages/categories/categories_screen.da
 import 'package:danapaniexpress/ui/screens/pages/favorites/favorites_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/home_screen/home_screen.dart';
 
-// var navBarItemsList = [
-//   BottomNavItemsModel(icHome, icHomeFill, AppLanguage.navHomeStr(appLanguage).toString()),
-//   BottomNavItemsModel(icCategories, icCategoriesFill, AppLanguage.categoriesStr(appLanguage).toString()),
-//   BottomNavItemsModel(icHeart, icHeartFill, AppLanguage.favoritesStr(appLanguage).toString()),
-//   BottomNavItemsModel(icCart, icCartFill, AppLanguage.cartStr(appLanguage).toString()),
-//   BottomNavItemsModel(icAccount, icAccountFill, AppLanguage.accountStr(appLanguage).toString()),
-// ];
 
 var screenList = [
   HomeScreen(),
