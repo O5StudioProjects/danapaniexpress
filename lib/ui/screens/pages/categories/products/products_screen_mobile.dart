@@ -17,12 +17,28 @@ class ProductsScreenMobile extends StatelessWidget {
         child: Column(
           children: [
             // Top Banner
-            TopImageHeader(
-              title: appLanguage == URDU_LANGUAGE
-                  ? data.categoryNameUrdu.toString()
-                  : data.categoryNameEnglish.toString(),
-              coverImage: data.categoryCoverImage ?? "",
-            ),
+
+            Obx(() {
+              return AnimatedSwitcher(
+                duration: const Duration(milliseconds: 250),
+                child: productController.showTopHeader.value
+                    ? TopImageHeader(
+                  title: appLanguage == URDU_LANGUAGE
+                      ? data.categoryNameUrdu.toString()
+                      : data.categoryNameEnglish.toString(),
+                  coverImage: data.categoryCoverImage ?? "",
+                )
+                    : appBarCommon(
+                  title: appLanguage == URDU_LANGUAGE
+                      ? data.categoryNameUrdu.toString()
+                      : data.categoryNameEnglish.toString(),
+                  isBackNavigation: true,
+                  isTrailing: true,
+                  trailingIcon: icSearch,
+                  trailingOnTap: () {},
+                ),
+              );
+            }),
 
             //  setHeight(MAIN_VERTICAL_PADDING),
 

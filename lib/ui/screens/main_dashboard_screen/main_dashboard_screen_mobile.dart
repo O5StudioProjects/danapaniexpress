@@ -9,6 +9,7 @@ class MainDashboardScreenMobile extends StatelessWidget {
     var dashboardController = Get.find<DashBoardController>();
     return Obx(() {
       return Scaffold(
+        backgroundColor: AppColors.backgroundColorSkin(isDark),
         body: SafeArea(
             top: false,
             child: Column(

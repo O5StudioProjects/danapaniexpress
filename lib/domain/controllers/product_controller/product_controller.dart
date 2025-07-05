@@ -26,12 +26,9 @@ class ProductController extends GetxController {
   int categoryOffset = 0;
   final int categoryLimit = 10;
 
-  //
-  // @override
-  // void onInit() {
-  //  fetchProductsByCategories(categoryData: categoryDataInitial.value!, subCategoryIndex: subCategoryIndex.value);
-  //   super.onInit();
-  // }
+  final RxBool showTopHeader = true.obs;
+  double _lastHeaderVisibilityOffset = 0.0;
+
   @override
   void onInit() {
     // Optional: Set initial category from navigation arguments
@@ -60,23 +57,38 @@ class ProductController extends GetxController {
       final currentOffset = scrollController.position.pixels;
       final maxOffset = scrollController.position.maxScrollExtent;
 
-      // Scroll direction visibility logic (optional)
+      // ✅ Bottom message visibility
       if (currentOffset > _previousOffset) {
         showBottomMessage.value = true;
       } else {
         showBottomMessage.value = false;
       }
+
+      // ✅ Header visibility logic
+      if (currentOffset <= 0) {
+        // At top
+        if (!showTopHeader.value) showTopHeader.value = true;
+      } else if (currentOffset > _lastHeaderVisibilityOffset + 10) {
+        // Scrolling down
+        if (showTopHeader.value) showTopHeader.value = false;
+      } else if (currentOffset < _lastHeaderVisibilityOffset - 10) {
+        // Scrolling up
+        if (!showTopHeader.value) showTopHeader.value = true;
+      }
+
+      _lastHeaderVisibilityOffset = currentOffset;
       _previousOffset = currentOffset;
 
-      // ✅ End of scroll
+      // ✅ End of scroll detection
       reachedEndOfScroll.value = currentOffset >= maxOffset - 10;
 
-      // ✅ Trigger load more
+      // ✅ Load more trigger
       if (currentOffset >= maxOffset - 300) {
         _loadMoreCategoryProducts(categoryData, subCategoryIndex);
       }
     });
   }
+
 
   void _loadMoreCategoryProducts(CategoryModel categoryData, int subCategoryIndex) {
     if (!isLoadingMoreCategory.value && hasMoreCategoryProducts.value) {

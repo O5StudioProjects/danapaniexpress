@@ -4,4 +4,6 @@ export 'package:danapaniexpress/data/models/marquee_model.dart';
 export 'package:danapaniexpress/data/models/categories_model.dart';
 export 'package:danapaniexpress/data/models/sub_categories_model.dart';
 export 'package:danapaniexpress/data/models/products_model.dart';
+export 'package:danapaniexpress/data/models/favorites_model.dart';
+export 'package:danapaniexpress/data/models/cover_images_model.dart';
 

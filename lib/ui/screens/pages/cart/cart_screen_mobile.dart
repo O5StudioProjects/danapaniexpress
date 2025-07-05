@@ -1,5 +1,6 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/ui/app_common/components/empty_screen.dart';
+import 'package:danapaniexpress/ui/screens/pages/cart/common/cart_product_item.dart';
 
 class CartScreenMobile extends StatelessWidget {
   const CartScreenMobile({super.key});
@@ -13,8 +14,20 @@ class CartScreenMobile extends StatelessWidget {
       child: Column(
         children: [
           appBarCommon(title: AppLanguage.cartStr(appLanguage), isBackNavigation: false),
-          EmptyScreen(icon: AppAnims.animEmptyCartSkin(isDark), text: AppLanguage.emptyCartStr(appLanguage).toString()),
-         // EmptyScreen(icon: icCart, text: AppLanguage.emptyCartStr(appLanguage).toString()),
+         // EmptyScreen(icon: AppAnims.animEmptyCartSkin(isDark), text: AppLanguage.emptyCartStr(appLanguage).toString()),
+          Expanded(
+            child: ListView.builder(
+              physics: BouncingScrollPhysics(),
+              padding: const EdgeInsets.symmetric(
+                horizontal: MAIN_HORIZONTAL_PADDING,
+                vertical: MAIN_VERTICAL_PADDING,
+              ),
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return CartProductItem();
+              },
+            ),
+          )
         ],
       )
     );

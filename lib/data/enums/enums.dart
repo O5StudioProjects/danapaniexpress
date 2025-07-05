@@ -19,6 +19,9 @@ enum BodyPagerImagesStatus {
 enum MarqueeStatus {
   IDLE, LOADING, SUCCESS, FAILURE
 }
+enum CoverImagesStatus {
+  IDLE, LOADING, SUCCESS, FAILURE
+}
 enum SingleBannerOneStatus {
   IDLE, LOADING, SUCCESS, FAILURE
 }

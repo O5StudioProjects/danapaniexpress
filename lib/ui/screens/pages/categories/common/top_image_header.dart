@@ -19,7 +19,7 @@ class TopImageHeader extends StatelessWidget {
             width: size.width,
             child: (coverImage != null && coverImage!.isNotEmpty)
                 ? appAsyncImage(coverImage!, boxFit: BoxFit.cover)
-                : appAssetImage(image: imgProductBackground, fit: BoxFit.cover),
+                : appAssetImage(image: imgDPEBanner, fit: BoxFit.cover),
           ),
 
           /// IMAGE SECTION BLACK OVERLAY

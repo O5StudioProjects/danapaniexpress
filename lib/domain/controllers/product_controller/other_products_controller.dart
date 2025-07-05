@@ -16,29 +16,47 @@ class OtherProductsController extends GetxController {
   double _previousOffset = 0;
 
 
+  final RxBool showTopHeader = true.obs;
+  double _lastHeaderVisibilityOffset = 0.0;
+
   void initScrollListener(DashBoardController dashboardController) {
     scrollController.addListener(() {
       final currentOffset = scrollController.position.pixels;
       final maxOffset = scrollController.position.maxScrollExtent;
 
-      // Show/hide based on scroll direction
+      // ✅ Show/hide bottom message
       if (currentOffset > _previousOffset) {
         showBottomMessage.value = true;
       } else {
         showBottomMessage.value = false;
       }
 
+      // ✅ Show Top Header when scrolling up OR at the top
+      if (currentOffset <= 0) {
+        // At the very top of the list
+        if (!showTopHeader.value) showTopHeader.value = true;
+      } else if (currentOffset > _lastHeaderVisibilityOffset + 10) {
+        // Scrolling down
+        if (showTopHeader.value) showTopHeader.value = false;
+      } else if (currentOffset < _lastHeaderVisibilityOffset - 10) {
+        // Scrolling up
+        if (!showTopHeader.value) showTopHeader.value = true;
+      }
+
+      _lastHeaderVisibilityOffset = currentOffset;
       _previousOffset = currentOffset;
 
-      // ✅ Set end of scroll state
+      // ✅ Reached end of scroll
       reachedEndOfScroll.value = currentOffset >= maxOffset - 10;
 
-      // ✅ Trigger load more
+      // ✅ Load more
       if (currentOffset >= maxOffset - 300) {
         _loadMoreProducts(dashboardController);
       }
     });
   }
+
+
 
 
   void _loadMoreProducts(DashBoardController dashboardController) {
@@ -67,6 +85,7 @@ class OtherProductsController extends GetxController {
     productScreenType.value = Get.arguments[PRODUCT_SCREEN_TYPE] as ProductsScreenType;
 
     print(productScreenType.value);
+    initScrollListener(Get.find<DashBoardController>());
     super.onInit();
   }
 
