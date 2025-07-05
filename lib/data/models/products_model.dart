@@ -1,3 +1,5 @@
+import 'package:danapaniexpress/core/data_model_imports.dart';
+
 const String productsTable = 'products';
 
 class ProductsFields {
@@ -76,35 +78,35 @@ class ProductsModel {
   final String? productFeaturedId;
   final bool? productIsFlashsale;
   final String? productFlashsaleId;
-  final List<String>? productFavoriteList;
+  final List<FavoritesModel>? productFavoriteList;
   final bool? productAvailability;
   final bool? isSelected;
 
   const ProductsModel({
-    required this.productId,
-    required this.productCode,
-    required this.productImage,
-    required this.productNameEng,
-    required this.productNameUrdu,
-    required this.productDetailEng,
-    required this.productDetailUrdu,
-    required this.productCategory,
-    required this.productSubCategory,
-    required this.productCutPrice,
-    required this.productSellingPrice,
-    required this.productBuyingPrice,
-    required this.productSize,
-    required this.productWeightGrams,
-    required this.productBrand,
-    required this.productTotalSold,
-    required this.productRating,
-    required this.productIsFeatured,
-    required this.productFeaturedId,
-    required this.productIsFlashsale,
-    required this.productFlashsaleId,
-    required this.productFavoriteList,
-    required this.productAvailability,
-    required this.isSelected,
+    this.productId,
+    this.productCode,
+    this.productImage,
+    this.productNameEng,
+    this.productNameUrdu,
+    this.productDetailEng,
+    this.productDetailUrdu,
+    this.productCategory,
+    this.productSubCategory,
+    this.productCutPrice,
+    this.productSellingPrice,
+    this.productBuyingPrice,
+    this.productSize,
+    this.productWeightGrams,
+    this.productBrand,
+    this.productTotalSold,
+    this.productRating,
+    this.productIsFeatured,
+    this.productFeaturedId,
+    this.productIsFlashsale,
+    this.productFlashsaleId,
+    this.productFavoriteList,
+    this.productAvailability,
+    this.isSelected,
   });
 
   Map<String, Object?> toJson() => {
@@ -129,7 +131,7 @@ class ProductsModel {
     ProductsFields.productFeaturedId: productFeaturedId,
     ProductsFields.productIsFlashsale: productIsFlashsale,
     ProductsFields.productFlashsaleId: productFlashsaleId,
-    ProductsFields.productFavoriteList: productFavoriteList,
+    ProductsFields.productFavoriteList: productFavoriteList?.map((e) => e.toJson()).toList(),
     ProductsFields.productAvailability: productAvailability,
     ProductsFields.isSelected: isSelected,
   };
@@ -157,11 +159,10 @@ class ProductsModel {
     productIsFlashsale: json[ProductsFields.productIsFlashsale] as bool?,
     productFlashsaleId: json[ProductsFields.productFlashsaleId] as String?,
     productFavoriteList: (json[ProductsFields.productFavoriteList] as List<dynamic>?)
-        ?.map((e) => e.toString())
+        ?.map((e) => FavoritesModel.fromJson(e as Map<String, Object?>))
         .toList(),
     productAvailability: json[ProductsFields.productAvailability] as bool?,
     isSelected: json[ProductsFields.isSelected] as bool?,
-
   );
 
   ProductsModel copy({
@@ -186,10 +187,9 @@ class ProductsModel {
     String? productFeaturedId,
     bool? productIsFlashsale,
     String? productFlashsaleId,
-    List<String>? productFavoriteList,
+    List<FavoritesModel>? productFavoriteList,
     bool? productAvailability,
     bool? isSelected,
-
   }) =>
       ProductsModel(
         productId: productId ?? this.productId,
@@ -218,3 +218,4 @@ class ProductsModel {
         isSelected: isSelected ?? this.isSelected,
       );
 }
+

@@ -59,6 +59,34 @@ class DashboardRepository {
     }
   }
 
+  Future<void> fetchCoverImagesEvent(
+      Rx<CoverImagesStatus> status,
+      Rx<CoverImagesModel?> covers,
+      ) async {
+    try {
+      status.value = CoverImagesStatus.LOADING;
+
+      // Load and decode JSON
+      String jsonString = await rootBundle.loadString(jsonCoverImages); // Update with your actual path
+      Map<String, dynamic> jsonData = json.decode(jsonString);
+
+      // Convert to model
+      CoverImagesModel model = CoverImagesModel.fromJson(jsonData);
+      covers.value = model;
+
+      status.value = CoverImagesStatus.SUCCESS;
+
+      if (kDebugMode) {
+        print("Cover Images Fetched: ${model}");
+      }
+    } catch (e) {
+      status.value = CoverImagesStatus.FAILURE;
+      if (kDebugMode) {
+        print("Error loading Cover Images: $e");
+      }
+    }
+  }
+
 
   Future<void> fetchCategoriesListEvent(
     Rx<CategoriesStatus> status,

@@ -250,10 +250,27 @@ Widget appBackNavigationButton(){
   });
 }
 
-Widget appSearchButton(){
-  return appSvgIcon(
-    icon: icSearch,
-    width: 24.0,
-    color: whiteColor
+Widget appSearchButton({iconColor = whiteColor}){
+  return GestureDetector(
+    onTap: (){},
+    child: appSvgIcon(
+      icon: icSearch,
+      width: 24.0,
+      color: iconColor
+    ),
+  );
+}
+
+Widget counterButton({icon, iconType, onTap}){
+  return GestureDetector(
+    onTap: onTap,
+    child: Container(
+      decoration: BoxDecoration(
+          color: AppColors.materialButtonSkin(isDark),
+          borderRadius: BorderRadius.circular(12.0)
+      ),
+      padding: EdgeInsets.all(10.0),
+      child: appIcon(iconType: iconType, icon: icon, width: 12.0, color: AppColors.materialButtonTextSkin(isDark)),
+    ),
   );
 }

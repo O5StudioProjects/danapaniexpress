@@ -10,14 +10,16 @@ class OtherProductsScreenMobile extends StatelessWidget {
      final dashboardController = Get.find<DashBoardController>();
      final otherProductsController = Get.find<OtherProductsController>();
 
-     WidgetsBinding.instance.addPostFrameCallback((_) {
-       if (!otherProductsController.scrollController.hasListeners) {
-         otherProductsController.initScrollListener(dashboardController);
-       }
-     });
-
      return Obx(() {
        final screenType = otherProductsController.productScreenType.value;
+
+       final coverImage = screenType == ProductsScreenType.FEATURED
+           ? dashboardController.coverImages.value!.featured
+           : screenType == ProductsScreenType.FLASHSALE
+           ? dashboardController.coverImages.value!.flashSale
+           : screenType == ProductsScreenType.POPULAR
+           ? dashboardController.coverImages.value!.popular
+           : null ;
 
        final productsList = screenType == ProductsScreenType.FEATURED
            ? dashboardController.featuredProducts
@@ -43,7 +45,24 @@ class OtherProductsScreenMobile extends StatelessWidget {
        return Column(
          children: [
            // Top Banner
-           TopImageHeader(title: screenName!, coverImage: dashboardController.singleBannerTwo.value?.imageUrl ?? ""),
+           Obx(() {
+             return AnimatedSwitcher(
+               duration: const Duration(milliseconds: 250),
+               child: otherProductsController.showTopHeader.value
+                   ? TopImageHeader(
+                 title: screenName!,
+                 coverImage: coverImage ?? "",
+               )
+                   : appBarCommon(
+                 title: screenName!,
+                 isBackNavigation: true,
+                 isTrailing: true,
+                 trailingIcon: icSearch,
+                 trailingOnTap: () {},
+               ),
+             );
+           }),
+
            // Product List
            loadStatus == ProductsStatus.LOADING
                ? Expanded(child: loadingIndicator())

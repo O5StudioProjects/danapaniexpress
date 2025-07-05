@@ -128,7 +128,7 @@ Widget appSliverAppbarHome() {
   );
 }
 
-Widget appBarCommon({title, isBackNavigation = false}) {
+Widget appBarCommon({title, isBackNavigation = false, isTrailing = false, trailingIcon, trailingOnTap}) {
   return Container(
     width: size.width,
     height: 80,
@@ -148,12 +148,7 @@ Widget appBarCommon({title, isBackNavigation = false}) {
             isBackNavigation
                 ? GestureDetector(
                     onTap: () async {
-                      // Navigator.pop(context);
-                      // NavigationBlocHelper.instance.clearTextControllersEvent();
-                      // SearchBlocHelper.instance.clearSearchFilterEvent();
-                      // ThemeBlocHelper.instance.selectIconEvent(iconSelection: IconSelection.NULL);
-                      // Navigator.pop(context);
-                      // context.read(context).pop()<HomeBloc>().add(ClearContentFilterEvent());
+                      Get.back();
                     },
                     child: appSvgIcon(
                       icon: icArrowLeft,
@@ -171,7 +166,17 @@ Widget appBarCommon({title, isBackNavigation = false}) {
               ),
             ),
             setWidth(12.0),
-            const SizedBox(width: 24.0),
+
+            isTrailing
+                ? GestureDetector(
+              onTap: trailingOnTap,
+              child: appSvgIcon(
+                icon: trailingIcon,
+                color: AppColors.primaryTextColorSkin(isDark),
+                width: 24.0,
+              ),
+            )
+                :const SizedBox(width: 24.0),
           ],
         ),
       ),

@@ -20,6 +20,7 @@ const String jsonCategories = 'assets/json/categories.json';
 const String jsonProducts = 'assets/json/products.json';
 const String jsonSingleBannerHomeOne = 'assets/json/single_banner_home_one.json';
 const String jsonSingleBannerHomeTwo = 'assets/json/single_banner_home_two.json';
+const String jsonCoverImages = 'assets/json/cover_images.json';
 
 
 ///IMAGE PAGER TYPES

@@ -23,6 +23,10 @@ class DashBoardController extends GetxController {
   Rx<MarqueeModel?> marqueeData = Rx<MarqueeModel?>(null);
   Rx<MarqueeStatus> marqueeStatus = MarqueeStatus.IDLE.obs;
 
+  // COVER IMAGES
+  Rx<CoverImagesModel?> coverImages = Rx<CoverImagesModel?>(null);
+  Rx<CoverImagesStatus> coverImagesStatus = CoverImagesStatus.IDLE.obs;
+
   // Categories
   RxList<CategoryModel> categoriesList = <CategoryModel>[].obs;
   Rx<CategoriesStatus> categoriesStatus = CategoriesStatus.IDLE.obs;
@@ -94,6 +98,7 @@ class DashBoardController extends GetxController {
     super.onInit();
     fetchAppbarPagerImages();
     fetchMarquee();
+    fetchCoverImages();
     fetchCategories();
     fetchBodyPagerImages();
     fetchAllProductLists();
@@ -117,6 +122,11 @@ class DashBoardController extends GetxController {
   // Fetch Notifications
   Future<void> fetchMarquee() async {
     await dashboardRepo.fetchMarqueeEvent(marqueeStatus, marqueeData);
+  }
+
+  // Fetch Cover Images
+  Future<void> fetchCoverImages() async {
+    await dashboardRepo.fetchCoverImagesEvent(coverImagesStatus, coverImages);
   }
 
   // Fetch Categories
