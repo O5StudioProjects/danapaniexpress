@@ -6,6 +6,7 @@ import '../../../core/common_imports.dart';
 
 class ProductRepository {
 
+  ///FETCH PRODUCTS BY CATEGORIES
   Future<List<ProductsModel>> fetchProductsByCategoriesEvent({
     required CategoryModel categoryData,
     int subCategoryIndex = 0,
@@ -35,6 +36,40 @@ class ProductRepository {
       }
       return [];
     }
+  }
+
+  Future<List<ProductsModel>> fetchProductsListEvent({
+    required ProductFilterType filterType,
+    required int limit,
+    required int offset, // add this
+  }) async {
+    String jsonString = await rootBundle.loadString(jsonProducts);
+    List<dynamic> jsonData = json.decode(jsonString);
+
+    Iterable filtered = jsonData;
+
+    // Apply filter
+    switch (filterType) {
+      case ProductFilterType.featured:
+        filtered = jsonData.where((item) => item[ProductsFields.productIsFeatured] == true);
+        break;
+      case ProductFilterType.flashSale:
+        filtered = jsonData.where((item) => item[ProductsFields.productIsFlashsale] == true);
+        break;
+      case ProductFilterType.all:
+      case ProductFilterType.popular:
+        filtered = jsonData;
+        break;
+    }
+
+    List<ProductsModel> result = filtered
+        .map((item) => ProductsModel.fromJson(item))
+        .toList();
+
+    // ✅ Apply offset and limit
+    final paginated = result.skip(offset).take(limit).toList();
+
+    return paginated;
   }
 
 

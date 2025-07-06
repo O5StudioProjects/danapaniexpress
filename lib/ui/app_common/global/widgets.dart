@@ -119,6 +119,8 @@ Widget appMaterialButton({
   isCustomColor = false,
   textColor,
   buttonColor,
+  appLanguage,
+  fontSize = NORMAL_TEXT_FONT_SIZE
 }) {
   return GestureDetector(
     onTap: onTap,
@@ -139,6 +141,8 @@ Widget appMaterialButton({
             color: isCustomColor
                 ? textColor
                 : AppColors.materialButtonTextSkin(isDark),
+          ).copyWith(
+            fontSize: appLanguage == URDU_LANGUAGE ? fontSize + 2 : fontSize
           ),
         ),
       ),
@@ -261,16 +265,16 @@ Widget appSearchButton({iconColor = whiteColor}){
   );
 }
 
-Widget counterButton({icon, iconType, onTap}){
+Widget counterButton({icon, iconType, onTap, isLimitExceed = false}){
   return GestureDetector(
     onTap: onTap,
     child: Container(
       decoration: BoxDecoration(
-          color: AppColors.materialButtonSkin(isDark),
+          color: isLimitExceed ? EnvColors.secondaryTextColorLight : AppColors.materialButtonSkin(isDark),
           borderRadius: BorderRadius.circular(12.0)
       ),
       padding: EdgeInsets.all(10.0),
-      child: appIcon(iconType: iconType, icon: icon, width: 12.0, color: AppColors.materialButtonTextSkin(isDark)),
+      child: appIcon(iconType: iconType, icon: icon, width: 10.0, color: AppColors.materialButtonTextSkin(isDark)),
     ),
   );
 }

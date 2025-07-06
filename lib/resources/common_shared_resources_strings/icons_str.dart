@@ -68,4 +68,9 @@ const String icFlashSale = '${COMMON_ICON_PATH}ic_flash_sale.png';
 const String icSubCategories = '${COMMON_ICON_PATH}ic_sub_categories.png';
 const String icPlus = '${COMMON_ICON_PATH}ic_plus.png';
 const String icMinus = '${COMMON_ICON_PATH}ic_minus.png';
+const String icDeleteCart = '${COMMON_ICON_PATH}ic_delete_cart.png';
 
+const String icOrderActive = '${COMMON_ICON_PATH}ic_order_active.png';
+const String icOrderCancel = '${COMMON_ICON_PATH}ic_order_cancel.png';
+const String icOrderCompleted = '${COMMON_ICON_PATH}ic_order_completed.png';
+const String icOrderConfirmed = '${COMMON_ICON_PATH}ic_order_confirmed.png';

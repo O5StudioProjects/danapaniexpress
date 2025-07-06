@@ -1,4 +1,5 @@
 import 'package:danapaniexpress/core/common_imports.dart';
+import 'package:danapaniexpress/domain/controllers/favorites_controller/favorites_controller.dart';
 import 'package:danapaniexpress/ui/screens/pages/favorites/favorites_screen_mobile.dart';
 
 class FavoritesScreen extends StatelessWidget {
@@ -6,7 +7,7 @@ class FavoritesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+     return Scaffold(
       body: SafeArea(
         top: false,
         child: ResponsiveLayout(

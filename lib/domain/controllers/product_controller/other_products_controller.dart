@@ -1,6 +1,7 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/data/repositories/dashboard_repository/dashboard_repository.dart';
+import 'package:danapaniexpress/data/repositories/products_repository/products_repository.dart';
 
 import '../../../core/data_model_imports.dart';
 
@@ -18,6 +19,7 @@ class OtherProductsController extends GetxController {
 
   final RxBool showTopHeader = true.obs;
   double _lastHeaderVisibilityOffset = 0.0;
+
 
   void initScrollListener(DashBoardController dashboardController) {
     scrollController.addListener(() {
@@ -56,9 +58,6 @@ class OtherProductsController extends GetxController {
     });
   }
 
-
-
-
   void _loadMoreProducts(DashBoardController dashboardController) {
     final screenType = productScreenType.value;
 
@@ -88,6 +87,7 @@ class OtherProductsController extends GetxController {
     initScrollListener(Get.find<DashBoardController>());
     super.onInit();
   }
+
 
 
 

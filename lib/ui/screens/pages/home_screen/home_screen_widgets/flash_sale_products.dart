@@ -1,17 +1,18 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 
 import 'package:danapaniexpress/core/controllers_import.dart';
+import 'package:danapaniexpress/domain/controllers/product_controller/other_products_controller.dart';
 
 class FlashSaleProducts extends StatelessWidget {
   const FlashSaleProducts({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<DashBoardController>();
+    final dashboard = Get.find<DashBoardController>();
     final navigation  = Get.find<NavigationController>();
 
     return Obx(() {
-      if (controller.flashSaleProducts.isNotEmpty) {
+      if (dashboard.flashSaleProducts.isNotEmpty) {
         return Column(
 
           children: [
@@ -30,8 +31,8 @@ class FlashSaleProducts extends StatelessWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: List.generate(
-                      controller.flashSaleProducts.length > 10 ? 10 : controller.flashSaleProducts.length, (index,) {
-                    var data = controller.flashSaleProducts[index];
+                      dashboard.flashSaleProducts.length > 10 ? 10 : dashboard.flashSaleProducts.length, (index,) {
+                    var data = dashboard.flashSaleProducts[index];
                     return Padding(
                         padding: EdgeInsets.only(left: index == 0 ? MAIN_HORIZONTAL_PADDING : 0.0,
                             top: MAIN_VERTICAL_PADDING,

@@ -7,9 +7,12 @@ import 'package:danapaniexpress/core/data_model_imports.dart';
 class HomeHeadings extends StatelessWidget {
   final String mainHeadingText;
   final bool isLeadingIcon;
+  final bool isSeeAll;
+  final bool isTrailingText;
+  final String? trailingText;
   final String? leadingIcon;
-  final GestureTapCallback onTapSeeAllText;
-  const HomeHeadings({super.key, required this.mainHeadingText, required this.onTapSeeAllText,  this.isLeadingIcon = false,  this.leadingIcon});
+  final GestureTapCallback? onTapSeeAllText;
+  const HomeHeadings({super.key, required this.mainHeadingText,  this.onTapSeeAllText,  this.isLeadingIcon = false,  this.leadingIcon, this.isSeeAll = true, this.trailingText, this.isTrailingText =false});
 
   @override
   Widget build(BuildContext context) {
@@ -54,13 +57,15 @@ class HomeHeadings extends StatelessWidget {
               textStyle: headingTextStyle(),
             ),
             Spacer(),
-            GestureDetector(
+            isSeeAll
+            ? GestureDetector(
               onTap: onTapSeeAllText,
               child: appText(
-                text: AppLanguage.seeAllStr(appLanguage),
+                text: isTrailingText ? trailingText : AppLanguage.seeAllStr(appLanguage) ,
                 textStyle: secondaryTextStyle(),
               ),
-            ),
+            )
+                : SizedBox()
           ],
         ),
       ),

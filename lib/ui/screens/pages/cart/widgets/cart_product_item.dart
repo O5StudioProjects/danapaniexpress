@@ -9,11 +9,11 @@ class CartProductItem extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: MAIN_HORIZONTAL_PADDING),
       child: LayoutBuilder(
         builder: (context, constraints) {
-          final imageSize = constraints.maxWidth * 0.16;
+          final imageSize = constraints.maxWidth * 0.2;
 
           return Container(
             width: size.width,
-            height: imageSize * 3, // fixes container height based on image size + padding
+          //  height: imageSize * 3, // fixes container height based on image size + padding
             padding: const EdgeInsets.all(12.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12.0),
@@ -43,7 +43,7 @@ class CartProductItem extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(width: MAIN_HORIZONTAL_PADDING),
+                    setWidth(MAIN_HORIZONTAL_PADDING),
                     Expanded(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -51,11 +51,11 @@ class CartProductItem extends StatelessWidget {
                         children: [
                           appText(
                             text: 'Product Name Here',
-                            textStyle: headingTextStyle().copyWith(fontSize: NORMAL_TEXT_FONT_SIZE),
+                            textStyle: itemTextStyle().copyWith(fontSize: HEADING_FONT_SIZE),
                             textDirection: setTextDirection(appLanguage),
-                            maxLines: 2,
+                            maxLines: 1,
                           ),
-                          const SizedBox(height: 6),
+                          const SizedBox(height: 4),
                           Row(
                             children: [
                               appText(
@@ -98,31 +98,32 @@ class CartProductItem extends StatelessWidget {
                         ],
                       ),
                     ),
+                   // setWidth(MAIN_HORIZONTAL_PADDING),
+
+
                   ],
                 ),
-                Spacer(),
-                Container(
-                  height: 45.0,
-                  color: Colors.transparent,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      appIcon(
-                          icon: icDelete,
-                          iconType: IconType.PNG,
-                          width: 24.0,
-                          color: EnvColors.specialFestiveColorDark
-                      ),
-                      Spacer(),
-                      counterButton(icon: icMinus, iconType: IconType.PNG, onTap: (){}),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: MAIN_VERTICAL_PADDING),
-                        child: appText(text: '1', textStyle: headingTextStyle(). copyWith(fontSize: 24.0)),
-                      ),
-                      counterButton(icon: icPlus, iconType: IconType.PNG, onTap: (){}),
+              //  Spacer(),
+                setHeight(MAIN_HORIZONTAL_PADDING),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
-                    ],
-                  ),
+                  children: [
+                    appIcon(
+                        icon: icDeleteCart,
+                        iconType: IconType.PNG,
+                        width: 24.0,
+                        color: EnvColors.specialFestiveColorDark
+                    ),
+                   Spacer(),
+                    counterButton(icon: icMinus, iconType: IconType.PNG, onTap: (){}),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: MAIN_HORIZONTAL_PADDING),
+                      child: appText(text: '1', textStyle: bodyTextStyle(). copyWith(fontSize: 24.0)),
+                    ),
+                    counterButton(icon: icPlus, iconType: IconType.PNG, onTap: (){}),
+
+                  ],
                 )
 
               ],

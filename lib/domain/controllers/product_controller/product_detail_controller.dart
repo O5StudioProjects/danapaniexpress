@@ -24,8 +24,8 @@ class ProductDetailController extends GetxController {
     }
   }
 
-  onTapPlus(){ //LIMIT TO 5 ITEMS AS QUANTITY
-    if(quantity.value < 5){
+  onTapPlus({productLimit = 5}){ //LIMIT TO 5 ITEMS AS QUANTITY
+    if(quantity.value < productLimit){
       quantity.value +=1;
     } else {
       print('Limit Exceeded');

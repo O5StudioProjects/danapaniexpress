@@ -6,3 +6,6 @@ export 'package:danapaniexpress/domain/controllers/splash_controller/splash_cont
 export 'package:danapaniexpress/domain/controllers/navigation_controller/navigation_controller.dart';
 export 'package:danapaniexpress/domain/controllers/product_controller/product_controller.dart';
 export 'package:danapaniexpress/domain/controllers/product_controller/product_detail_controller.dart';
+export 'package:danapaniexpress/domain/controllers/cart_controller/cart_controller.dart';
+export 'package:danapaniexpress/domain/controllers/categories_controller/categories_controller.dart';
+export 'package:danapaniexpress/domain/controllers/favorites_controller/favorites_controller.dart';

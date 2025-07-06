@@ -70,7 +70,6 @@ class AppRouter {
         transition: Transition.rightToLeft,
         transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
         page: () => const ProductsScreen(),
-        binding: DashboardBinding()
     ),
 
     GetPage(
@@ -78,7 +77,6 @@ class AppRouter {
         transition: Transition.rightToLeft,
         transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
         page: () => const OtherProductsScreen(),
-        binding: DashboardBinding()
     ),
 
     GetPage(
@@ -86,7 +84,6 @@ class AppRouter {
         transition: Transition.downToUp,
         transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
         page: () => const ProductDetailScreen(),
-        binding: DashboardBinding()
     ),
 
 
