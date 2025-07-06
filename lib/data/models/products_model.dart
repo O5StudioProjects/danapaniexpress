@@ -27,7 +27,9 @@ class ProductsFields {
     productFlashsaleId,
     productFavoriteList,
     productAvailability,
+    productQuantityLimit,
     isSelected,
+    dateTime,
   ];
 
   static const String productId = 'product_id';
@@ -53,7 +55,9 @@ class ProductsFields {
   static const String productFlashsaleId = 'product_flashsale_id';
   static const String productFavoriteList = 'product_favorite_list';
   static const String productAvailability = 'product_availability';
+  static const String productQuantityLimit = 'prodcut_quantity_limit';
   static const String isSelected = 'is_selected';
+  static const String dateTime = 'date_time';
 }
 
 class ProductsModel {
@@ -80,7 +84,10 @@ class ProductsModel {
   final String? productFlashsaleId;
   final List<FavoritesModel>? productFavoriteList;
   final bool? productAvailability;
+  final int? productQuantityLimit;
   final bool? isSelected;
+  final String? dateTime;
+
 
   const ProductsModel({
     this.productId,
@@ -106,7 +113,9 @@ class ProductsModel {
     this.productFlashsaleId,
     this.productFavoriteList,
     this.productAvailability,
+    this.productQuantityLimit,
     this.isSelected,
+    this.dateTime,
   });
 
   Map<String, Object?> toJson() => {
@@ -133,7 +142,9 @@ class ProductsModel {
     ProductsFields.productFlashsaleId: productFlashsaleId,
     ProductsFields.productFavoriteList: productFavoriteList?.map((e) => e.toJson()).toList(),
     ProductsFields.productAvailability: productAvailability,
+    ProductsFields.productQuantityLimit: productQuantityLimit,
     ProductsFields.isSelected: isSelected,
+    ProductsFields.dateTime: dateTime,
   };
 
   static ProductsModel fromJson(Map<String, Object?> json) => ProductsModel(
@@ -162,7 +173,9 @@ class ProductsModel {
         ?.map((e) => FavoritesModel.fromJson(e as Map<String, Object?>))
         .toList(),
     productAvailability: json[ProductsFields.productAvailability] as bool?,
+    productQuantityLimit: json[ProductsFields.productQuantityLimit] as int?,
     isSelected: json[ProductsFields.isSelected] as bool?,
+    dateTime: json[ProductsFields.dateTime] as String?,
   );
 
   ProductsModel copy({
@@ -189,7 +202,9 @@ class ProductsModel {
     String? productFlashsaleId,
     List<FavoritesModel>? productFavoriteList,
     bool? productAvailability,
+    int? productQuantityLimit,
     bool? isSelected,
+    String? dateTime,
   }) =>
       ProductsModel(
         productId: productId ?? this.productId,
@@ -215,7 +230,9 @@ class ProductsModel {
         productFlashsaleId: productFlashsaleId ?? this.productFlashsaleId,
         productFavoriteList: productFavoriteList ?? this.productFavoriteList,
         productAvailability: productAvailability ?? this.productAvailability,
+        productQuantityLimit: productQuantityLimit ?? this.productQuantityLimit,
         isSelected: isSelected ?? this.isSelected,
+        dateTime: dateTime ?? this.dateTime,
       );
 }
 

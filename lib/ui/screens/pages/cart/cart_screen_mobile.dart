@@ -1,6 +1,6 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/ui/app_common/components/empty_screen.dart';
-import 'package:danapaniexpress/ui/screens/pages/cart/common/cart_product_item.dart';
+import 'package:danapaniexpress/ui/screens/pages/cart/widgets/cart_product_item.dart';
 
 class CartScreenMobile extends StatelessWidget {
   const CartScreenMobile({super.key});

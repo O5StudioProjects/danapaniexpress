@@ -1,5 +1,6 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
+import 'package:danapaniexpress/domain/controllers/categories_controller/categories_controller.dart';
 
 class CategoriesScreenMobile extends StatelessWidget {
   const CategoriesScreenMobile({super.key});
@@ -7,6 +8,7 @@ class CategoriesScreenMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller = Get.find<DashBoardController>();
+    var categories = Get.find<CategoriesController>();
     var navigation = Get.find<NavigationController>();
     return Obx(() {
       return Container(
@@ -19,7 +21,7 @@ class CategoriesScreenMobile extends StatelessWidget {
               title: AppLanguage.productsByCategoriesStr(appLanguage),
               isBackNavigation: false,
             ),
-            controller.categoriesList.isNotEmpty
+            categories.categoriesList.isNotEmpty
                 ? Expanded(
                     child: Row(
                       children: [
@@ -33,7 +35,7 @@ class CategoriesScreenMobile extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: List.generate(
-                                controller.categoriesList.length,
+                                categories.categoriesList.length,
                                 (index) {
                                   return GestureDetector(
                                     onTap: () {
@@ -50,11 +52,11 @@ class CategoriesScreenMobile extends StatelessWidget {
                                           child: Padding(
                                             padding: const EdgeInsets.all(MAIN_HORIZONTAL_PADDING),
                                             child: CategoryItem(
-                                              data: controller.categoriesList[index],
+                                              data: categories.categoriesList[index],
                                             ),
                                           ),
                                         ),
-                                        if(index != controller.categoriesList.length -1)
+                                        if(index != categories.categoriesList.length -1)
                                           appDivider()
                                       ],
                                     ),
@@ -66,7 +68,7 @@ class CategoriesScreenMobile extends StatelessWidget {
                         ),
 
                         ///SUBCATEGORIES Section
-                        controller
+                        categories
                                 .categoriesList[controller.categoryIndex.value]
                                 .subCategories!
                                 .isNotEmpty
@@ -83,7 +85,7 @@ class CategoriesScreenMobile extends StatelessWidget {
                                       children: [
                                         Padding(
                                           padding: const EdgeInsets.only(left: MAIN_HORIZONTAL_PADDING, top: MAIN_HORIZONTAL_PADDING, right: MAIN_HORIZONTAL_PADDING),
-                                          child: appText(text: appLanguage == URDU_LANGUAGE ? controller.categoriesList[controller.categoryIndex.value].categoryNameUrdu :  controller.categoriesList[controller.categoryIndex.value].categoryNameEnglish,
+                                          child: appText(text: appLanguage == URDU_LANGUAGE ? categories.categoriesList[controller.categoryIndex.value].categoryNameUrdu :  categories.categoriesList[controller.categoryIndex.value].categoryNameEnglish,
                                             textStyle: headingTextStyle()
                                           ),
                                         ),
@@ -102,10 +104,10 @@ class CategoriesScreenMobile extends StatelessWidget {
                                             MAIN_HORIZONTAL_PADDING,
                                             childAspectRatio: 0.7, // tweak this for height vs width
                                           ),
-                                          itemCount: controller.categoriesList[controller.categoryIndex.value].subCategories!.length,
+                                          itemCount: categories.categoriesList[controller.categoryIndex.value].subCategories!.length,
                                           itemBuilder: (context, index) {
-                                            var data = controller.categoriesList[controller.categoryIndex.value];
-                                            var listData = controller.categoriesList[controller.categoryIndex.value].subCategories![index];
+                                            var data = categories.categoriesList[controller.categoryIndex.value];
+                                            var listData = categories.categoriesList[controller.categoryIndex.value].subCategories![index];
                                             return GestureDetector(
                                                 onTap: ()=> controller.onTapSubCategories(index, data),
                                                 child: SubCategoryItem(data: listData));

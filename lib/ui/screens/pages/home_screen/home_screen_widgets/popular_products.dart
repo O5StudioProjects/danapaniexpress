@@ -1,16 +1,17 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
+import 'package:danapaniexpress/domain/controllers/product_controller/other_products_controller.dart';
 
 class PopularProducts extends StatelessWidget {
   const PopularProducts({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<DashBoardController>();
+    final dashboard = Get.find<DashBoardController>();
     final navigation  = Get.find<NavigationController>();
 
     return Obx(() {
-      if (controller.popularProducts.isNotEmpty) {
+      if (dashboard.popularProducts.isNotEmpty) {
         return Column(
           children: [
             HomeHeadings(
@@ -33,9 +34,9 @@ class PopularProducts extends StatelessWidget {
                   mainAxisSpacing: MAIN_HORIZONTAL_PADDING,
                   childAspectRatio: 0.6, // tweak this for height vs width
                 ),
-                itemCount: controller.popularProducts.length > 50 ? 50 : controller.popularProducts.length,
+                itemCount: dashboard.popularProducts.length > 50 ? 50 : dashboard.popularProducts.length,
                 itemBuilder: (context, index) {
-                  var data = controller.popularProducts[index];
+                  var data = dashboard.popularProducts[index];
                   return ProductItem(
                     data: data,
                   );

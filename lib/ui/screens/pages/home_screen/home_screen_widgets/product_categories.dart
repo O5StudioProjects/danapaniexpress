@@ -1,5 +1,6 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
+import 'package:danapaniexpress/domain/controllers/categories_controller/categories_controller.dart';
 
 class ProductCategories extends StatelessWidget {
   const ProductCategories({super.key});
@@ -8,9 +9,10 @@ class ProductCategories extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<DashBoardController>();
     final navigation = Get.find<NavigationController>();
+    final categories = Get.find<CategoriesController>();
 
     return Obx(() {
-      if (controller.categoriesList.isNotEmpty) {
+      if (categories.categoriesList.isNotEmpty) {
         return Padding(
           padding: const EdgeInsets.only(
             bottom: MAIN_VERTICAL_PADDING,
@@ -34,10 +36,10 @@ class ProductCategories extends StatelessWidget {
                   constraints: BoxConstraints(minWidth: size.width),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
-                    children: List.generate( controller.categoriesList.length > 10 ? 10 : controller.categoriesList.length, (
+                    children: List.generate( categories.categoriesList.length > 10 ? 10 : categories.categoriesList.length, (
                       index,
                     ) {
-                      var data = controller.categoriesList[index];
+                      var data = categories.categoriesList[index];
 
                       return Padding(
                         padding: EdgeInsets.only(left: index == 0 ? MAIN_HORIZONTAL_PADDING : 0.0, right: MAIN_HORIZONTAL_PADDING, top: MAIN_VERTICAL_PADDING),

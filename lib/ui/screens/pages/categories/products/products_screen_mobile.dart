@@ -83,7 +83,7 @@ class ProductsScreenMobile extends StatelessWidget {
                 ? Expanded(child: loadingIndicator())
                 : productController.productsStatus.value ==
                       ProductsByCatStatus.FAILURE
-                ? Expanded(child: appText(text: 'Error Screen'))
+                ? Expanded(child: ErrorScreen())
                 : productController.productsList.isEmpty
                 ? EmptyScreen(
                     icon: AppAnims.animEmptyBoxSkin(isDark),

@@ -3,11 +3,16 @@ import 'package:carousel_slider/carousel_controller.dart';
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/core/data_model_imports.dart';
+import 'package:danapaniexpress/data/repositories/products_repository/products_repository.dart';
+import 'package:danapaniexpress/domain/controllers/categories_controller/categories_controller.dart';
+import 'package:danapaniexpress/domain/controllers/product_controller/other_products_controller.dart';
 import '../../../data/repositories/dashboard_repository/dashboard_repository.dart';
 
 class DashBoardController extends GetxController {
   final dashboardRepo = DashboardRepository();
+  final productRepo = ProductRepository();
   final navigation = Get.find<NavigationController>();
+  final categories = Get.find<CategoriesController>();
 
   // Bottom nav
   RxInt navIndex = 0.obs;
@@ -27,13 +32,6 @@ class DashBoardController extends GetxController {
   Rx<CoverImagesModel?> coverImages = Rx<CoverImagesModel?>(null);
   Rx<CoverImagesStatus> coverImagesStatus = CoverImagesStatus.IDLE.obs;
 
-  // Categories
-  RxList<CategoryModel> categoriesList = <CategoryModel>[].obs;
-  Rx<CategoriesStatus> categoriesStatus = CategoriesStatus.IDLE.obs;
-
-  // Single category
-  Rx<CategoryModel?> singleCategory = Rx<CategoryModel?>(null);
-  Rx<CategoriesStatus> singleCategoryStatus = CategoriesStatus.IDLE.obs;
 
   // Single Product
   Rx<ProductsModel?> singleProduct = Rx<ProductsModel?>(null);
@@ -44,6 +42,21 @@ class DashBoardController extends GetxController {
   final CarouselSliderController bodyPagerController =
       CarouselSliderController();
   final RxInt currentSlide = 0.obs;
+
+
+  Rx<PagerImagesModel?> singleBannerOne = Rx<PagerImagesModel?>(null);
+  Rx<SingleBannerOneStatus> singleBannerOneStatus =
+      SingleBannerOneStatus.IDLE.obs;
+
+  Rx<PagerImagesModel?> singleBannerTwo = Rx<PagerImagesModel?>(null);
+  Rx<SingleBannerTwoStatus> singleBannerTwoStatus =
+      SingleBannerTwoStatus.IDLE.obs;
+
+  /// CATEGORIES SECTION
+
+  RxInt categoryIndex = 0.obs;
+
+  /// ALL PRODUCTS AND TYPES SECTION
 
   // Status
   Rx<ProductsStatus> allStatus = ProductsStatus.IDLE.obs;
@@ -77,21 +90,6 @@ class DashBoardController extends GetxController {
   bool _isLoadingFeatured = false;
   bool _isLoadingFlashSale = false;
 
-  // SINGLE BANNER ON HOME SCREEN
-  Rx<PagerImagesModel?> singleBannerOne = Rx<PagerImagesModel?>(null);
-  Rx<SingleBannerOneStatus> singleBannerOneStatus =
-      SingleBannerOneStatus.IDLE.obs;
-
-  Rx<PagerImagesModel?> singleBannerTwo = Rx<PagerImagesModel?>(null);
-  Rx<SingleBannerTwoStatus> singleBannerTwoStatus =
-      SingleBannerTwoStatus.IDLE.obs;
-
-  /// CATEGORIES SECTION
-
-  RxInt categoryIndex = 0.obs;
-
-  var navigationController = Get.find<NavigationController>();
-
   // Init
   @override
   void onInit() {
@@ -99,7 +97,7 @@ class DashBoardController extends GetxController {
     fetchAppbarPagerImages();
     fetchMarquee();
     fetchCoverImages();
-    fetchCategories();
+    categories.fetchCategories();
     fetchBodyPagerImages();
     fetchAllProductLists();
     fetchSingleBannerOne();
@@ -127,22 +125,6 @@ class DashBoardController extends GetxController {
   // Fetch Cover Images
   Future<void> fetchCoverImages() async {
     await dashboardRepo.fetchCoverImagesEvent(coverImagesStatus, coverImages);
-  }
-
-  // Fetch Categories
-  Future<void> fetchCategories() async {
-    await dashboardRepo.fetchCategoriesListEvent(
-      categoriesStatus,
-      categoriesList,
-    );
-  }
-
-  Future<void> fetchCategoryById(String id) async {
-    dashboardRepo.fetchSingleCategoryEvent(
-      categoryId: id,
-      categoryData: singleCategory,
-      status: singleCategoryStatus,
-    );
   }
 
   Future<void> getSingleProduct(String id) async {
@@ -177,171 +159,13 @@ class DashBoardController extends GetxController {
     await Future.wait([
       fetchAllProducts(),
       fetchFeaturedProducts(),
-      fetchFlashSaleProducts(),
+      fetchFlashSaleProducts()
     ]);
     _generatePopularProducts();
   }
 
-  // ✅ All Products (used to build popular)
-  Future<void> fetchAllProducts({bool loadMore = false}) async {
-    if (_isLoadingAll || isLoadingMore.value || !hasMoreAllProducts.value)
-      return;
 
-    if (loadMore) {
-      isLoadingMore.value = true;
-      await Future.delayed(Duration(seconds: 1));
-    } else {
-      allProducts.clear();
-      _allOffset = 0;
-      hasMoreAllProducts.value = true;
-    }
 
-    _isLoadingAll = true;
-    allStatus.value = ProductsStatus.LOADING;
-
-    try {
-      final result = await dashboardRepo.fetchProductsListEvent(
-        filterType: ProductFilterType.all,
-        limit: _allLimit,
-        offset: _allOffset,
-      );
-
-      if (loadMore) {
-        allProducts.addAll(result);
-      } else {
-        allProducts.assignAll(result);
-      }
-
-      if (result.length < _allLimit) {
-        hasMoreAllProducts.value = false;
-      } else {
-        _allOffset += _allLimit;
-      }
-
-      allStatus.value = ProductsStatus.SUCCESS;
-      _generatePopularProducts(); // always regenerate
-    } catch (e) {
-      allStatus.value = ProductsStatus.FAILURE;
-    }
-
-    isLoadingMore.value = false;
-    _isLoadingAll = false;
-  }
-
-  // ✅ Featured
-  Future<void> fetchFeaturedProducts({bool loadMore = false}) async {
-    if (_isLoadingFeatured || isLoadingMore.value || !hasMoreFeatured.value) {
-      return;
-    }
-
-    if (loadMore) {
-      isLoadingMore.value = true;
-      await Future.delayed(Duration(seconds: 1));
-    } else {
-      featuredProducts.clear();
-      _featuredOffset = 0;
-      hasMoreFeatured.value = true;
-    }
-
-    _isLoadingFeatured = true;
-    featuredStatus.value = ProductsStatus.LOADING;
-
-    try {
-      final result = await dashboardRepo.fetchProductsListEvent(
-        filterType: ProductFilterType.featured,
-        limit: _featuredLimit,
-        offset: _featuredOffset,
-      );
-
-      if (loadMore) {
-        featuredProducts.addAll(result);
-      } else {
-        featuredProducts.assignAll(result);
-      }
-
-      if (result.length < _featuredLimit) {
-        hasMoreFeatured.value = false;
-      } else {
-        _featuredOffset += _featuredLimit;
-      }
-
-      featuredStatus.value = ProductsStatus.SUCCESS;
-    } catch (e) {
-      featuredStatus.value = ProductsStatus.FAILURE;
-    }
-
-    isLoadingMore.value = false;
-    _isLoadingFeatured = false;
-  }
-
-  // ✅ Flash Sale
-  Future<void> fetchFlashSaleProducts({bool loadMore = false}) async {
-    if (_isLoadingFlashSale || isLoadingMore.value || !hasMoreFlashSale.value)
-      return;
-
-    if (loadMore) {
-      isLoadingMore.value = true;
-      await Future.delayed(Duration(seconds: 1));
-    } else {
-      flashSaleProducts.clear();
-      _flashSaleOffset = 0;
-      hasMoreFlashSale.value = true;
-    }
-
-    _isLoadingFlashSale = true;
-    flashSaleStatus.value = ProductsStatus.LOADING;
-
-    try {
-      final result = await dashboardRepo.fetchProductsListEvent(
-        filterType: ProductFilterType.flashSale,
-        limit: _flashSaleLimit,
-        offset: _flashSaleOffset,
-      );
-
-      if (loadMore) {
-        flashSaleProducts.addAll(result);
-      } else {
-        flashSaleProducts.assignAll(result);
-      }
-
-      if (result.length < _flashSaleLimit) {
-        hasMoreFlashSale.value = false;
-      } else {
-        _flashSaleOffset += _flashSaleLimit;
-      }
-
-      flashSaleStatus.value = ProductsStatus.SUCCESS;
-    } catch (e) {
-      flashSaleStatus.value = ProductsStatus.FAILURE;
-    }
-
-    isLoadingMore.value = false;
-    _isLoadingFlashSale = false;
-  }
-
-  // ✅ Build Popular List from All Products
-  void _generatePopularProducts() {
-    popularStatus.value = ProductsStatus.LOADING;
-
-    try {
-      final sorted = List<ProductsModel>.from(allProducts)
-        ..sort((a, b) {
-          final aAvailable = a.productAvailability ?? false;
-          final bAvailable = b.productAvailability ?? false;
-
-          if (aAvailable != bAvailable) {
-            return bAvailable ? 1 : -1;
-          }
-
-          return (b.productTotalSold ?? 0).compareTo(a.productTotalSold ?? 0);
-        });
-
-      popularProducts.assignAll(sorted);
-      popularStatus.value = ProductsStatus.SUCCESS;
-    } catch (e) {
-      popularStatus.value = ProductsStatus.FAILURE;
-    }
-  }
 
   ///CATEGORIES SECTION METHODS
 
@@ -350,7 +174,7 @@ class DashBoardController extends GetxController {
   }
 
   Future<void> onTapSubCategories(int index, CategoryModel categoryData) async {
-    navigationController.gotoProductsScreen(
+    navigation.gotoProductsScreen(
       data: categoryData,
       subCategoryIndex: index,
     );
@@ -372,9 +196,9 @@ class DashBoardController extends GetxController {
         screenType: ProductsScreenType.POPULAR,
       );
     } else if (appbarPagerList[index].type == ImagePagerType.CATEGORY) {
-      await fetchCategoryById(appbarPagerList[index].typeId.toString())
+      await categories.fetchCategoryById(appbarPagerList[index].typeId.toString())
           .then((value) {
-            navigation.gotoProductsScreen(data: singleCategory.value!);
+            navigation.gotoProductsScreen(data: categories.singleCategory.value!);
           })
           .onError((handleError, str) {
             if (kDebugMode) {
@@ -410,9 +234,9 @@ class DashBoardController extends GetxController {
         screenType: ProductsScreenType.POPULAR,
       );
     } else if (bodyPagerList[index].type == ImagePagerType.CATEGORY) {
-      await fetchCategoryById(bodyPagerList[index].typeId.toString())
+      await categories.fetchCategoryById(bodyPagerList[index].typeId.toString())
           .then((value) {
-            navigation.gotoProductsScreen(data: singleCategory.value!);
+            navigation.gotoProductsScreen(data: categories.singleCategory.value!);
           })
           .onError((handleError, str) {
             if (kDebugMode) {
@@ -451,9 +275,9 @@ class DashBoardController extends GetxController {
           screenType: ProductsScreenType.POPULAR,
         );
       } else if (singleBannerOne.value!.type == ImagePagerType.CATEGORY) {
-        await fetchCategoryById(singleBannerOne.value!.typeId.toString())
+        await categories.fetchCategoryById(singleBannerOne.value!.typeId.toString())
             .then((value) {
-              navigation.gotoProductsScreen(data: singleCategory.value!);
+              navigation.gotoProductsScreen(data: categories.singleCategory.value!);
             })
             .onError((handleError, str) {
               if (kDebugMode) {
@@ -487,9 +311,9 @@ class DashBoardController extends GetxController {
           screenType: ProductsScreenType.POPULAR,
         );
       } else if (singleBannerTwo.value!.type == ImagePagerType.CATEGORY) {
-        await fetchCategoryById(singleBannerTwo.value!.typeId.toString())
+        await categories.fetchCategoryById(singleBannerTwo.value!.typeId.toString())
             .then((value) {
-              navigation.gotoProductsScreen(data: singleCategory.value!);
+              navigation.gotoProductsScreen(data: categories.singleCategory.value!);
             })
             .onError((handleError, str) {
               if (kDebugMode) {
@@ -539,6 +363,171 @@ class DashBoardController extends GetxController {
     }
   }
 
+
+  /// OTHER PRODUCTS SECTION - Necessary on Dashboard
+
+  // ✅ All Products (used to build popular)
+  Future<void> fetchAllProducts({bool loadMore = false}) async {
+    if (_isLoadingAll || isLoadingMore.value || !hasMoreAllProducts.value) {
+      return;
+    }
+
+    if (loadMore) {
+      isLoadingMore.value = true;
+      await Future.delayed(Duration(seconds: 1));
+    } else {
+      allProducts.clear();
+      _allOffset = 0;
+      hasMoreAllProducts.value = true;
+    }
+
+    _isLoadingAll = true;
+    allStatus.value = ProductsStatus.LOADING;
+
+    try {
+      final result = await productRepo.fetchProductsListEvent(
+        filterType: ProductFilterType.all,
+        limit: _allLimit,
+        offset: _allOffset,
+      );
+
+      if (loadMore) {
+        allProducts.addAll(result);
+      } else {
+        allProducts.assignAll(result);
+      }
+
+      if (result.length < _allLimit) {
+        hasMoreAllProducts.value = false;
+      } else {
+        _allOffset += _allLimit;
+      }
+
+      allStatus.value = ProductsStatus.SUCCESS;
+      _generatePopularProducts(); // always regenerate
+    } catch (e) {
+      allStatus.value = ProductsStatus.FAILURE;
+    }
+
+    isLoadingMore.value = false;
+    _isLoadingAll = false;
+  }
+
+  // ✅ Featured
+  Future<void> fetchFeaturedProducts({bool loadMore = false}) async {
+    if (_isLoadingFeatured || isLoadingMore.value || !hasMoreFeatured.value) {
+      return;
+    }
+
+    if (loadMore) {
+      isLoadingMore.value = true;
+      await Future.delayed(Duration(seconds: 1));
+    } else {
+      featuredProducts.clear();
+      _featuredOffset = 0;
+      hasMoreFeatured.value = true;
+    }
+
+    _isLoadingFeatured = true;
+    featuredStatus.value = ProductsStatus.LOADING;
+
+    try {
+      final result = await productRepo.fetchProductsListEvent(
+        filterType: ProductFilterType.featured,
+        limit: _featuredLimit,
+        offset: _featuredOffset,
+      );
+
+      if (loadMore) {
+        featuredProducts.addAll(result);
+      } else {
+        featuredProducts.assignAll(result);
+      }
+
+      if (result.length < _featuredLimit) {
+        hasMoreFeatured.value = false;
+      } else {
+        _featuredOffset += _featuredLimit;
+      }
+
+      featuredStatus.value = ProductsStatus.SUCCESS;
+    } catch (e) {
+      featuredStatus.value = ProductsStatus.FAILURE;
+    }
+
+    isLoadingMore.value = false;
+    _isLoadingFeatured = false;
+  }
+
+  // ✅ Flash Sale
+  Future<void> fetchFlashSaleProducts({bool loadMore = false}) async {
+    if (_isLoadingFlashSale || isLoadingMore.value || !hasMoreFlashSale.value) {
+      return;
+    }
+
+    if (loadMore) {
+      isLoadingMore.value = true;
+      await Future.delayed(Duration(seconds: 1));
+    } else {
+      flashSaleProducts.clear();
+      _flashSaleOffset = 0;
+      hasMoreFlashSale.value = true;
+    }
+
+    _isLoadingFlashSale = true;
+    flashSaleStatus.value = ProductsStatus.LOADING;
+
+    try {
+      final result = await productRepo.fetchProductsListEvent(
+        filterType: ProductFilterType.flashSale,
+        limit: _flashSaleLimit,
+        offset: _flashSaleOffset,
+      );
+
+      if (loadMore) {
+        flashSaleProducts.addAll(result);
+      } else {
+        flashSaleProducts.assignAll(result);
+      }
+
+      if (result.length < _flashSaleLimit) {
+        hasMoreFlashSale.value = false;
+      } else {
+        _flashSaleOffset += _flashSaleLimit;
+      }
+
+      flashSaleStatus.value = ProductsStatus.SUCCESS;
+    } catch (e) {
+      flashSaleStatus.value = ProductsStatus.FAILURE;
+    }
+
+    isLoadingMore.value = false;
+    _isLoadingFlashSale = false;
+  }
+
+  // ✅ Build Popular List from All Products
+  void _generatePopularProducts() {
+    popularStatus.value = ProductsStatus.LOADING;
+
+    try {
+      final sorted = List<ProductsModel>.from(allProducts)
+        ..sort((a, b) {
+          final aAvailable = a.productAvailability ?? false;
+          final bAvailable = b.productAvailability ?? false;
+
+          if (aAvailable != bAvailable) {
+            return bAvailable ? 1 : -1;
+          }
+
+          return (b.productTotalSold ?? 0).compareTo(a.productTotalSold ?? 0);
+        });
+
+      popularProducts.assignAll(sorted);
+      popularStatus.value = ProductsStatus.SUCCESS;
+    } catch (e) {
+      popularStatus.value = ProductsStatus.FAILURE;
+    }
+  }
 
 
 
