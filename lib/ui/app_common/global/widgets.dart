@@ -1,5 +1,6 @@
 import 'package:danapaniexpress/core/packages_import.dart';
 import 'package:danapaniexpress/core/common_imports.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 Widget appAssetImage({image, width, height, fit, opacity = 1.0}) {
   return Image.asset(
@@ -50,15 +51,28 @@ Widget loadingIndicator() {
     child: SizedBox(
       width: 30.0,
       height: 30.0,
-      child: Lottie.asset(AppAnims.animLoading2Skin(isDark).toString(), repeat: true),
+      child: Lottie.asset(
+        AppAnims.animLoading2Skin(isDark).toString(),
+        repeat: true,
+      ),
     ),
   );
 }
 
-Widget appAsyncImage(imageUrl, {boxFit = BoxFit.cover, width, showLoading = true}) {
+Widget appAsyncImage(
+  imageUrl, {
+  boxFit = BoxFit.cover,
+  width,
+  showLoading = true,
+}) {
   return CachedNetworkImage(
-    progressIndicatorBuilder: (context, url, downloadProgress) => showLoading ? loadingIndicator() : const SizedBox(),
-    errorWidget: (context, url, error) => appIcon(iconType: IconType.PNG, icon: icEmptyImagePlaceholder, color: AppColors.primaryTextColorSkin(isDark)),
+    progressIndicatorBuilder: (context, url, downloadProgress) =>
+        showLoading ? loadingIndicator() : const SizedBox(),
+    errorWidget: (context, url, error) => appIcon(
+      iconType: IconType.PNG,
+      icon: icEmptyImagePlaceholder,
+      color: AppColors.primaryTextColorSkin(isDark),
+    ),
     fit: boxFit,
     width: width,
     imageUrl: imageUrl,
@@ -82,35 +96,43 @@ Widget appSvgIcon({icon, width, color}) {
   );
 }
 
-Widget appIcon(
-    {icon, required IconType iconType, width, height, color, selectedColor, iconSelected = false}) {
+Widget appIcon({
+  icon,
+  required IconType iconType,
+  width,
+  height,
+  color,
+  selectedColor,
+  iconSelected = false,
+}) {
   return iconType == IconType.SVG
-      ? SvgPicture.asset(icon,
-      width: width,
-      colorFilter: ColorFilter.mode(
-          iconSelected ? selectedColor : color, BlendMode.srcIn))
+      ? SvgPicture.asset(
+          icon,
+          width: width,
+          colorFilter: ColorFilter.mode(
+            iconSelected ? selectedColor : color,
+            BlendMode.srcIn,
+          ),
+        )
       : iconType == IconType.ICON
-      ? Icon(
-    icon,
-    size: width,
-    color: iconSelected ? selectedColor : color,
-  )
+      ? Icon(icon, size: width, color: iconSelected ? selectedColor : color)
       : iconType == IconType.URL
       ? ClipRRect(
-    borderRadius: BorderRadius.circular(12.0),
-    child: SizedBox(
-        width: 70.0,
-        height: 70.0,
-        child: appAsyncImage(icon)),
-  )
+          borderRadius: BorderRadius.circular(12.0),
+          child: SizedBox(
+            width: 70.0,
+            height: 70.0,
+            child: appAsyncImage(icon),
+          ),
+        )
       : iconType == IconType.ANIM
       ? Lottie.asset(icon, repeat: true, width: width)
       : Image.asset(
-    icon,
-    width: width,
-    height: height,
-    color: iconSelected ? selectedColor : color,
-  );
+          icon,
+          width: width,
+          height: height,
+          color: iconSelected ? selectedColor : color,
+        );
 }
 
 Widget appMaterialButton({
@@ -120,7 +142,8 @@ Widget appMaterialButton({
   textColor,
   buttonColor,
   appLanguage,
-  fontSize = NORMAL_TEXT_FONT_SIZE
+  isDisable = false,
+  fontSize = NORMAL_TEXT_FONT_SIZE,
 }) {
   return GestureDetector(
     onTap: onTap,
@@ -131,6 +154,8 @@ Widget appMaterialButton({
         borderRadius: BorderRadius.circular(8.0),
         color: isCustomColor
             ? buttonColor
+            : isDisable
+            ? AppColors.disableMaterialButtonSkin(isDark)
             : AppColors.materialButtonSkin(isDark),
       ),
       child: Center(
@@ -138,13 +163,16 @@ Widget appMaterialButton({
           text: text,
           textDirection: setTextDirection(appLanguage),
 
-          textStyle: buttonTextStyle(
-            color: isCustomColor
-                ? textColor
-                : AppColors.materialButtonTextSkin(isDark),
-          ).copyWith(
-            fontSize: appLanguage == URDU_LANGUAGE ? fontSize + 2 : fontSize
-          ),
+          textStyle:
+              buttonTextStyle(
+                color: isCustomColor
+                    ? textColor
+                    : AppColors.materialButtonTextSkin(isDark),
+              ).copyWith(
+                fontSize: appLanguage == URDU_LANGUAGE
+                    ? fontSize + 2
+                    : fontSize,
+              ),
         ),
       ),
     ),
@@ -167,9 +195,7 @@ Widget appLogoTextButton({
       height: BUTTON_HEIGHT,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.0),
-        color: isCustomColor
-            ? buttonColor
-            : AppColors.cardColorSkin(isDark),
+        color: isCustomColor ? buttonColor : AppColors.cardColorSkin(isDark),
       ),
       child: Center(
         child: Row(
@@ -187,7 +213,7 @@ Widget appLogoTextButton({
               ),
             ),
           ],
-        )
+        ),
       ),
     ),
   );
@@ -207,26 +233,21 @@ Widget appTextButton({text, onTap, useDefault = true, customTextColor}) {
   );
 }
 
-Widget appDivider(){
-  return Divider(
-    color: AppColors.dividerColorSkin(isDark),
-  );
+Widget appDivider() {
+  return Divider(color: AppColors.dividerColorSkin(isDark));
 }
 
-Widget appDetailTextButton({detailText, buttonText, onTapButton}){
+Widget appDetailTextButton({detailText, buttonText, onTapButton}) {
   return Text.rich(
     TextSpan(
       children: [
+        TextSpan(text: detailText, style: secondaryTextStyle()),
         TextSpan(
-          text: detailText,
-          style: secondaryTextStyle(),
-        ),
-        TextSpan(
-            text: buttonText,
-            style: appTextButtonStyle(
-              color: AppColors.materialButtonSkin(isDark),
-            ),
-            recognizer: TapGestureRecognizer() ..onTap = onTapButton
+          text: buttonText,
+          style: appTextButtonStyle(
+            color: AppColors.materialButtonSkin(isDark),
+          ),
+          recognizer: TapGestureRecognizer()..onTap = onTapButton,
         ),
       ],
     ),
@@ -234,48 +255,95 @@ Widget appDetailTextButton({detailText, buttonText, onTapButton}){
 }
 
 Widget appFloatingButton({
-  icon, iconType = IconType.SVG, iconWidth = 20.0, circlePadding = 6.0,  onTap
-}){
+  icon,
+  iconType = IconType.SVG,
+  iconWidth = 20.0,
+  circlePadding = 6.0,
+  onTap,
+}) {
   return GestureDetector(
     onTap: onTap,
     child: Container(
       padding: EdgeInsets.all(circlePadding),
       decoration: BoxDecoration(
-          color: AppColors.floatingButtonSkin(isDark),
-          borderRadius: BorderRadius.circular(100.0)
+        color: AppColors.floatingButtonSkin(isDark),
+        borderRadius: BorderRadius.circular(100.0),
       ),
-      child: appIcon(iconType: iconType, icon: icon, color: EnvColors.backgroundColorLight, width: iconWidth),
+      child: appIcon(
+        iconType: iconType,
+        icon: icon,
+        color: EnvColors.backgroundColorLight,
+        width: iconWidth,
+      ),
     ),
   );
 }
 
-Widget appBackNavigationButton(){
-  return appFloatingButton(icon: icArrowLeft, onTap: (){
-    Get.back();
-  });
+Widget appBackNavigationButton() {
+  return appFloatingButton(
+    icon: icArrowLeft,
+    onTap: () {
+      Get.back();
+    },
+  );
 }
 
-Widget appSearchButton({iconColor = whiteColor}){
+Widget appSearchButton({iconColor = whiteColor}) {
   return GestureDetector(
-    onTap: (){},
-    child: appSvgIcon(
-      icon: icSearch,
-      width: 24.0,
-      color: iconColor
-    ),
+    onTap: () {},
+    child: appSvgIcon(icon: icSearch, width: 24.0, color: iconColor),
   );
 }
 
-Widget counterButton({icon, iconType, onTap, isLimitExceed = false}){
+Widget counterButton({icon, iconType, onTap, isLimitExceed = false}) {
   return GestureDetector(
     onTap: onTap,
     child: Container(
       decoration: BoxDecoration(
-          color: isLimitExceed ? EnvColors.secondaryTextColorLight : AppColors.materialButtonSkin(isDark),
-          borderRadius: BorderRadius.circular(12.0)
+        color: isLimitExceed
+            ? EnvColors.secondaryTextColorLight
+            : AppColors.materialButtonSkin(isDark),
+        borderRadius: BorderRadius.circular(50.0),
       ),
-      padding: EdgeInsets.all(10.0),
-      child: appIcon(iconType: iconType, icon: icon, width: 10.0, color: AppColors.materialButtonTextSkin(isDark)),
+      padding: EdgeInsets.all(6.0),
+      child: appIcon(
+        iconType: iconType,
+        icon: icon,
+        width: 12.0,
+        color: AppColors.materialButtonTextSkin(isDark),
+      ),
     ),
+  );
+}
+
+showToast(String message) async {
+  return Fluttertoast.showToast(
+    msg: message,
+    toastLength: Toast.LENGTH_SHORT,
+    fontSize: SUB_HEADING_TEXT_BUTTON_FONT_SIZE,
+    backgroundColor: AppColors.materialButtonSkin(isDark),
+    textColor: AppColors.materialButtonTextSkin(isDark),
+  );
+}
+
+void showSnackbar({
+  required String title,
+  required String message,
+  IconData? icon,
+  SnackPosition position = SnackPosition.BOTTOM,
+  Duration duration = const Duration(seconds: 3),
+}) {
+  Get.snackbar(
+    title,
+    message,
+    snackPosition: position,
+    backgroundColor: AppColors.materialButtonSkin(isDark),
+    colorText: AppColors.materialButtonTextSkin(isDark),
+    margin: const EdgeInsets.all(16),
+    borderRadius: 12,
+    duration: duration,
+    icon: icon != null
+        ? Icon(icon, color: AppColors.materialButtonTextSkin(isDark))
+        : null,
   );
 }

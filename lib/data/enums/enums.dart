@@ -49,3 +49,5 @@ enum ProductsByCatStatus { IDLE, LOADING, SUCCESS, FAILURE }
 enum ProductsScreenType {
   CATEGORIES, FEATURED, FLASHSALE, POPULAR
 }
+
+enum AuthStatus {IDLE, LOADING, SUCCESS, FAILURE}

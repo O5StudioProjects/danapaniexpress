@@ -7,6 +7,7 @@ class AccountScreenMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var account = Get.find<AccountController>();
+    var navigate = Get.find<NavigationController>();
     return Obx(
       ()=> Container(
         width: size.width,
@@ -94,6 +95,15 @@ class AccountScreenMobile extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: MAIN_HORIZONTAL_PADDING),
                 child: listItemIcon(iconType: IconType.SVG, leadingIcon: icFacebook, itemTitle: 'Facebook', trailingIcon: icArrowRight, onItemClick: (){}),
+              ),
+
+              /// FACEBOOK
+              Padding(
+                padding: const EdgeInsets.only(top: MAIN_HORIZONTAL_PADDING),
+                child: listItemIcon(iconType: IconType.ICON, leadingIcon: Icons.logout_rounded, itemTitle: 'Logout', trailingIcon: icArrowRight, onItemClick: () async {
+                  await SharedPrefs.logout();
+                  navigate.gotoSignInScreen();
+                }),
               ),
             ],
           ),

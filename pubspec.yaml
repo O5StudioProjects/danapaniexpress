@@ -36,6 +36,8 @@ dependencies:
   http: ^1.2.2
   permission_handler:
 
+#  Flutter Toast
+  fluttertoast: ^8.2.12
   #  Mobile ads
   #  google_mobile_ads: ^5.2.0
 
@@ -52,6 +54,8 @@ dependencies:
 
   #  internet connection check
   connectivity_plus: ^6.1.0
+  #  Authenticate purpose
+  collection: ^1.19.1
 
 dev_dependencies:
   flutter_test:
