@@ -30,6 +30,14 @@ class AppColors {
     }
   }
 
+  static Color disableMaterialButtonSkin(isDark) {
+    if (isDark) {
+      return EnvColors.secondaryTextColorLight;
+    } else {
+      return EnvColors.secondaryTextColorLight;
+    }
+  }
+
   static Color sellingPriceTextSkin(isDark) {
     if (isDark) {
       return EnvColors.accentCTAColorDark;

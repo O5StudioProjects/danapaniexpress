@@ -5,12 +5,16 @@ class AppTextFormField extends StatefulWidget {
   final String? hintText;
   final IconData? prefixIcon;
   final bool isPassword;
+  final TextEditingController? textEditingController;
+  final String? Function(String?)? validator; // ✅ add validator
 
   const AppTextFormField({
     super.key,
     this.hintText,
     this.prefixIcon,
     this.isPassword = false,
+    this.textEditingController,
+    this.validator,
   });
 
   @override
@@ -22,9 +26,11 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkTheme = isDark; // Replace with your theme checker
+    final isDarkTheme = isDark;
 
     return TextFormField(
+      controller: widget.textEditingController,
+      validator: widget.validator, // ✅ wire it up
       cursorHeight: 16.0,
       obscureText: widget.isPassword ? _obscure : false,
       style: bodyTextStyle(),
@@ -39,11 +45,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
             _obscure ? Icons.visibility_off : Icons.visibility,
             color: AppColors.materialButtonSkin(isDarkTheme),
           ),
-          onPressed: () {
-            setState(() {
-              _obscure = !_obscure;
-            });
-          },
+          onPressed: () => setState(() => _obscure = !_obscure),
         )
             : null,
         hintStyle: textFormHintTextStyle(),
@@ -66,3 +68,4 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
     );
   }
 }
+

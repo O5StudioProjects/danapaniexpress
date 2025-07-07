@@ -1,3 +1,4 @@
+import 'package:danapaniexpress/domain/di/auth_binding.dart';
 import 'package:danapaniexpress/domain/di/dashboard_binding.dart';
 import 'package:danapaniexpress/domain/di/splash_binding.dart';
 import 'package:danapaniexpress/ui/screens/main_dashboard_screen/main_dashboard_screen.dart';
@@ -41,6 +42,7 @@ class AppRouter {
       transition: Transition.rightToLeft,
       transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
       page: () => const SignInScreen(),
+      binding: AuthBinding()
     ),
 
     GetPage(

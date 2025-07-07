@@ -7,6 +7,7 @@ class AccountHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var account = Get.find<AccountController>();
+    var auth = Get.find<AuthController>();
     return Obx(
       ()=> Container(
           width: size.width,
@@ -37,7 +38,7 @@ class AccountHeader extends StatelessWidget {
                         child:
                         account.profileImage!.isNotEmpty
                             ? appAsyncImage(
-                          account.profileImage!.value,
+                          auth.currentUser.value!.userImage,
                           boxFit: BoxFit.cover,
                         )
                             : appAssetImage(image: imgDPEBanner, fit: BoxFit.cover),

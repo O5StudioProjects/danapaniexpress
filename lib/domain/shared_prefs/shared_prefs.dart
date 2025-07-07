@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/packages_import.dart';
+
+import '../../core/data_model_imports.dart';
 
 class SharedPrefs {
   static setLanguage(String value) async{
@@ -97,6 +101,34 @@ class SharedPrefs {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.reload();
     return prefs.getString(STARTUP_SCREEN) ?? FIRST_TIME_SCREEN_NOT_OPENED;
+  }
+
+
+  /// AUTH METHODS
+  static Future<void> saveUser(UserModel user) async {
+    final prefs = await SharedPreferences.getInstance();
+    final userJson = jsonEncode(user.toJson());
+    await prefs.setString(IS_LOGGED_IN_KEY, userJson);
+  }
+
+  static Future<UserModel?> getUser() async {
+    final prefs = await SharedPreferences.getInstance();
+    final userJson = prefs.getString(IS_LOGGED_IN_KEY);
+    if (userJson != null) {
+      final Map<String, dynamic> userMap = jsonDecode(userJson);
+      return UserModel.fromJson(userMap);
+    }
+    return null;
+  }
+
+  static Future<bool> isLoggedIn() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.containsKey(IS_LOGGED_IN_KEY);
+  }
+
+  static Future<void> logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(IS_LOGGED_IN_KEY);
   }
 
 }

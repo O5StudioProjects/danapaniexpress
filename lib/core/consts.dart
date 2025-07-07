@@ -4,6 +4,8 @@ const THEME_VALUE = 'THEMEVALUE';
 const LANGUAGE_TYPE = 'LANGUAGETYPE';
 const LANGUAGE_SCREEN = 'LANGUAGE_SCREEN';
 const STARTUP_SCREEN = 'STARTUP_SCREEN';
+const IS_LOGGED_IN_KEY = 'IS_LOGGED_IN_KEY';
+const USER_ID_KEY = 'USER_ID_KEY';
 
 const LANGUAGE_CODE = 'language_code';
 const countryCode = 'countryCode';
@@ -22,6 +24,7 @@ const String jsonProducts = 'assets/json/products.json';
 const String jsonSingleBannerHomeOne = 'assets/json/single_banner_home_one.json';
 const String jsonSingleBannerHomeTwo = 'assets/json/single_banner_home_two.json';
 const String jsonCoverImages = 'assets/json/cover_images.json';
+const String jsonUsers = 'assets/json/users.json';
 
 
 ///IMAGE PAGER TYPES
