@@ -1,6 +1,5 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
-import 'package:danapaniexpress/domain/controllers/product_controller/other_products_controller.dart';
 
 class FeaturedProducts extends StatelessWidget {
   const FeaturedProducts({super.key});

@@ -1,7 +1,6 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/core/packages_import.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class BodyImagePager extends StatelessWidget {
   const BodyImagePager({super.key});

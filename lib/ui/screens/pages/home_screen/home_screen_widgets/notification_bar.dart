@@ -1,10 +1,8 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/core/packages_import.dart';
-import 'package:danapaniexpress/ui/app_common/dialogs/custom_dialog.dart';
-import 'package:danapaniexpress/ui/app_common/dialogs/notification_image_popup.dart';
 
-import '../../../../../data/models/marquee_model.dart';
+
 
 class NotificationBar extends StatelessWidget {
   const NotificationBar({super.key});

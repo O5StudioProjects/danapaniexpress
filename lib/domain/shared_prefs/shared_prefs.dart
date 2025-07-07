@@ -87,4 +87,16 @@ class SharedPrefs {
     return prefs.getString(LANGUAGE_SCREEN) ?? FIRST_TIME_SCREEN_NOT_OPENED;
   }
 
+  static setStartupScreenPrefs(String value) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove(STARTUP_SCREEN);
+    await prefs.setString(STARTUP_SCREEN, value);
+  }
+
+  static Future<String> getStartupScreenPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.reload();
+    return prefs.getString(STARTUP_SCREEN) ?? FIRST_TIME_SCREEN_NOT_OPENED;
+  }
+
 }

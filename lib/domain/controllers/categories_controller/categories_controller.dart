@@ -1,6 +1,5 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/data_model_imports.dart';
-import 'package:danapaniexpress/data/repositories/categories_repository/categories_repository.dart';
 
 class CategoriesController extends GetxController {
   final categoriesRepo = CategoriesRepository();

@@ -137,6 +137,7 @@ Widget appMaterialButton({
         child: appText(
           text: text,
           textDirection: setTextDirection(appLanguage),
+
           textStyle: buttonTextStyle(
             color: isCustomColor
                 ? textColor

@@ -1,12 +1,8 @@
 import 'dart:async';
-import 'package:carousel_slider/carousel_controller.dart';
 import 'package:danapaniexpress/core/common_imports.dart';
+import 'package:danapaniexpress/core/packages_import.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/core/data_model_imports.dart';
-import 'package:danapaniexpress/data/repositories/products_repository/products_repository.dart';
-import 'package:danapaniexpress/domain/controllers/categories_controller/categories_controller.dart';
-import 'package:danapaniexpress/domain/controllers/product_controller/other_products_controller.dart';
-import '../../../data/repositories/dashboard_repository/dashboard_repository.dart';
 
 class DashBoardController extends GetxController {
   final dashboardRepo = DashboardRepository();

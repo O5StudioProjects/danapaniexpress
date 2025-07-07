@@ -1,7 +1,5 @@
 import 'package:danapaniexpress/core/common_imports.dart';
-import 'package:danapaniexpress/core/data_model_imports.dart';
-import 'package:danapaniexpress/domain/controllers/product_controller/product_controller.dart';
-import 'package:danapaniexpress/ui/screens/pages/categories/products/products_screen_mobile.dart';
+import 'package:danapaniexpress/core/controllers_import.dart';
 
 class ProductsScreen extends StatelessWidget {
   const ProductsScreen({super.key});

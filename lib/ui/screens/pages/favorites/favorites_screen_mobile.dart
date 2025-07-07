@@ -1,7 +1,5 @@
 import 'package:danapaniexpress/core/common_imports.dart';
-import 'package:danapaniexpress/ui/screens/pages/favorites/widgets/favorite_product_item.dart';
-
-import '../../../../domain/controllers/favorites_controller/favorites_controller.dart';
+import 'package:danapaniexpress/core/controllers_import.dart';
 
 class FavoritesScreenMobile extends StatelessWidget {
   const FavoritesScreenMobile({super.key});

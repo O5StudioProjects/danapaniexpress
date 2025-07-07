@@ -1,6 +1,6 @@
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:danapaniexpress/core/common_imports.dart';
-import '../../../../domain/controllers/startup_controller/startup_controller.dart';
+import 'package:danapaniexpress/core/controllers_import.dart';
+import 'package:danapaniexpress/core/packages_import.dart';
 
 class StartupScreenLayoutMobile extends StatelessWidget {
   const StartupScreenLayoutMobile({super.key});

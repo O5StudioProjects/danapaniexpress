@@ -3,6 +3,7 @@ const THEME_TYPE = 'THEMETYPE';
 const THEME_VALUE = 'THEMEVALUE';
 const LANGUAGE_TYPE = 'LANGUAGETYPE';
 const LANGUAGE_SCREEN = 'LANGUAGE_SCREEN';
+const STARTUP_SCREEN = 'STARTUP_SCREEN';
 
 const LANGUAGE_CODE = 'language_code';
 const countryCode = 'countryCode';

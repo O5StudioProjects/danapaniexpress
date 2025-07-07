@@ -1,8 +1,4 @@
-import 'dart:ffi';
-
 import 'package:danapaniexpress/core/common_imports.dart';
-import 'package:danapaniexpress/core/controllers_import.dart';
-import 'package:danapaniexpress/core/data_model_imports.dart';
 
 class HomeHeadings extends StatelessWidget {
   final String mainHeadingText;
@@ -89,7 +85,7 @@ class CategoryItem extends StatelessWidget {
      final nameHeight = 24.0;     // enough for 2 lines
      final padding = 4.0 * 2;     // vertical spacing
 
-     final totalHeight = imageSize + nameHeight +padding;
+  //   final totalHeight = imageSize + nameHeight +padding;
 
       return SizedBox(
        // height: totalHeight,
