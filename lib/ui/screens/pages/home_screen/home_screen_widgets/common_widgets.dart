@@ -85,7 +85,7 @@ class CategoryItem extends StatelessWidget {
      final nameHeight = 24.0;     // enough for 2 lines
      final padding = 4.0 * 2;     // vertical spacing
 
-     final totalHeight = imageSize + nameHeight +padding;
+  //   final totalHeight = imageSize + nameHeight +padding;
 
       return SizedBox(
        // height: totalHeight,
