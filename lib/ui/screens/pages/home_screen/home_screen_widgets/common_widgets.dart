@@ -1,8 +1,4 @@
-import 'dart:ffi';
-
 import 'package:danapaniexpress/core/common_imports.dart';
-import 'package:danapaniexpress/core/controllers_import.dart';
-import 'package:danapaniexpress/core/data_model_imports.dart';
 
 class HomeHeadings extends StatelessWidget {
   final String mainHeadingText;

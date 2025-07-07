@@ -1,6 +1,5 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
-import 'package:danapaniexpress/domain/controllers/categories_controller/categories_controller.dart';
 
 class CategoriesScreenMobile extends StatelessWidget {
   const CategoriesScreenMobile({super.key});

@@ -1,11 +1,12 @@
 import 'package:danapaniexpress/core/common_imports.dart';
-import 'package:flutter/gestures.dart';
+import 'package:danapaniexpress/core/controllers_import.dart';
 
 class SignInMobile extends StatelessWidget {
   const SignInMobile({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var navigation = Get.find<NavigationController>();
     return Container(
       color: AppColors.backgroundColorSkin(isDark),
       child: SingleChildScrollView(
@@ -78,7 +79,7 @@ class SignInMobile extends StatelessWidget {
                             ? Alignment.centerRight
                             : Alignment.centerLeft,
                         child: GestureDetector(
-                          onTap: ()=> JumpTo.gotoForgotPasswordScreen(),
+                          onTap: ()=> navigation.gotoForgotPasswordScreen(),
                           child: appText(
                             text: AppLanguage.forgotPasswordStr(appLanguage),
                             textDirection: setTextDirection(appLanguage),
@@ -110,12 +111,12 @@ class SignInMobile extends StatelessWidget {
                       appDetailTextButton(
                         detailText: AppLanguage.dontHaveAccountStr(appLanguage),
                         buttonText: AppLanguage.signUpStr(appLanguage),
-                        onTapButton: ()=> JumpTo.gotoRegisterScreen()
+                        onTapButton: ()=> navigation.gotoRegisterScreen()
                       ),
                       setHeight(10.0),
 
                       GestureDetector(
-                        onTap: ()=> JumpTo.gotoDashboardScreen(),
+                        onTap: ()=> navigation.gotoDashboardScreen(),
                         child: appText(
                           text: AppLanguage.continueAsGuestStr(appLanguage),
                           textStyle: appTextButtonStyle(

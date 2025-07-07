@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'package:danapaniexpress/core/common_imports.dart';
+import 'package:danapaniexpress/core/controllers_import.dart';
 
 class StartupController extends GetxController {
   RxInt index = 0.obs;
   late PageController pageController;
   Timer? autoSwipeTimer;
-
+  final theme = Get.find<ThemeController>();
+  final navigation = Get.find<NavigationController>();
   @override
   void onInit() {
     super.onInit();
@@ -26,11 +28,14 @@ class StartupController extends GetxController {
     index.value = newIndex;
   }
 
-  void onTapNext() {
+  Future<void> onTapNext() async {
     if (index.value < startUpData.length - 1) {
       pageController.nextPage(duration: Duration(milliseconds: 300), curve: Curves.easeInOut);
     } else {
-      JumpTo.gotoSignInScreen();
+      await theme.setStartupScreenPrefsEvent(startupScreenStatusValue: FIRST_TIME_SCREEN_OPENED).then((value){
+        navigation.gotoSignInScreen();
+      });
+
     }
   }
 
@@ -44,7 +49,7 @@ class StartupController extends GetxController {
 
   void onSkip() {
     autoSwipeTimer?.cancel();
-    JumpTo.gotoSignInScreen();
+    navigation.gotoSignInScreen();
   }
 
   @override

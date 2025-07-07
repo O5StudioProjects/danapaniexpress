@@ -1,8 +1,7 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
-import 'package:danapaniexpress/ui/screens/pages/categories/product_detail/product_detail_utils.dart';
-import 'package:readmore/readmore.dart';
-import '../../../../../core/data_model_imports.dart';
+import 'package:danapaniexpress/core/data_model_imports.dart';
+import 'package:danapaniexpress/core/packages_import.dart';
 
 class ProductDetailScreenMobile extends StatelessWidget {
   const ProductDetailScreenMobile({super.key});

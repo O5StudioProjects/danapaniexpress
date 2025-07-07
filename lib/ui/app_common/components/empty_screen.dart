@@ -1,5 +1,4 @@
 import 'package:danapaniexpress/core/common_imports.dart';
-import 'package:danapaniexpress/resources/shared_resources/app_images.dart';
 
 class EmptyScreen extends StatelessWidget {
   final String icon;

@@ -1,10 +1,12 @@
 import 'package:danapaniexpress/core/common_imports.dart';
+import 'package:danapaniexpress/core/controllers_import.dart';
 
 class RegisterScreenMobile extends StatelessWidget {
   const RegisterScreenMobile({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var navigation = Get.find<NavigationController>();
     return Container(
       width: size.width,
       height: size.height,
@@ -103,7 +105,7 @@ class RegisterScreenMobile extends StatelessWidget {
                 appDetailTextButton(
                   detailText: AppLanguage.alreadyHaveAccountStr(appLanguage),
                   buttonText: AppLanguage.loginStr(appLanguage),
-                  onTapButton: () => JumpTo.gotoSignInScreen(),
+                  onTapButton: () => navigation.gotoSignInScreen(),
                 ),
 
                 setHeight(50.0),

@@ -1,9 +1,5 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
-import 'package:danapaniexpress/data/repositories/dashboard_repository/dashboard_repository.dart';
-import 'package:danapaniexpress/data/repositories/products_repository/products_repository.dart';
-
-import '../../../core/data_model_imports.dart';
 
 class OtherProductsController extends GetxController {
 

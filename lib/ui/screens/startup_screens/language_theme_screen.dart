@@ -33,8 +33,9 @@ Widget buildMobileUI({
   isNavigation,
   isStart,
 }) {
-  return Obx(
-    ()=> Container(
+  return Obx((){
+    var navigation = Get.find<NavigationController>();
+    return Container(
       width: size.width,
       height: size.height,
       color: AppColors.backgroundColorSkin(isDark),
@@ -43,7 +44,7 @@ Widget buildMobileUI({
           appBarCommon(
             title: isStart
                 ? AppLanguage.themeLanguageStr(appLanguage)
-            : AppLanguage.languageStr(appLanguage),
+                : AppLanguage.languageStr(appLanguage),
             isBackNavigation: isNavigation,
           ),
           Expanded(
@@ -103,20 +104,20 @@ Widget buildMobileUI({
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: appMaterialButton(text: AppLanguage.confirmStr(appLanguage), onTap: () async {
-              // await SharedPrefs.setLanguageScreen(FIRST_TIME_SCREEN_OPENED);
+              await SharedPrefs.setLanguageScreen(FIRST_TIME_SCREEN_OPENED);
               // var status = await SharedPrefs.getLanguageScreen();
-              // themeController.setLanguageScreenEvent(languageScreenStatusValue: FIRST_TIME_SCREEN_OPENED);
+              themeController.setLanguageScreenEvent(languageScreenStatusValue: FIRST_TIME_SCREEN_OPENED);
               // Navigator.pop(gContext);
               if(isStart){
-                JumpTo.gotoStartupMainScreen();
+                navigation.gotoStartupMainScreen();
               }
             }),
           ),
           setHeight(60.0)
         ],
       ),
-    ),
-  );
+    );
+  });
 }
 
 Widget buildTabletUI() {

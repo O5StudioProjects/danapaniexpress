@@ -1,6 +1,5 @@
 import 'package:danapaniexpress/core/common_imports.dart';
-import 'package:danapaniexpress/domain/controllers/splash_controller/splash_controller.dart';
-import 'package:danapaniexpress/ui/screens/splash_screen/splash_screen_mobile.dart';
+import 'package:danapaniexpress/core/controllers_import.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});

@@ -1,5 +1,4 @@
 import 'package:danapaniexpress/core/common_imports.dart';
-import 'package:flutter/material.dart';
 
 class ExpandableText extends StatefulWidget {
   final String text;

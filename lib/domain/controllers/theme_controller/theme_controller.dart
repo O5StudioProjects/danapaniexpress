@@ -8,6 +8,8 @@ class ThemeController extends GetxController {
   void onInit() async {
     await fetchTheme();
     await fetchLanguage();
+    await getLanguageScreenEvent();
+    await getStartupScreenPrefsEvent();
     super.onInit();
   }
 
@@ -15,6 +17,7 @@ class ThemeController extends GetxController {
   RxBool internet = false.obs;
   RxString appLanguage = ENGLISH_LANGUAGE.obs;
   RxString languageScreenStatus = FIRST_TIME_SCREEN_NOT_OPENED.obs;
+  RxString StartupScreenStatus = FIRST_TIME_SCREEN_NOT_OPENED.obs;
 
 
   Future<void> changeTheme() async {
@@ -66,9 +69,11 @@ class ThemeController extends GetxController {
   }
 
 
+  ///FIRST TIME OPENING FOR LANGUAGE SCREEN
+
   Future<void> setLanguageScreenEvent(
       {required String languageScreenStatusValue}) async {
-    SharedPrefs.setLanguageScreen(languageScreenStatusValue);
+    await SharedPrefs.setLanguageScreen(languageScreenStatusValue);
     languageScreenStatus.value = languageScreenStatusValue;
   }
 
@@ -76,5 +81,19 @@ class ThemeController extends GetxController {
     var data = await SharedPrefs.getLanguageScreen();
     languageScreenStatus.value = data;
   }
+
+  ///FIRST TIME OPENING FOR STARTUP SCREEN
+
+  Future<void> setStartupScreenPrefsEvent(
+      {required String startupScreenStatusValue}) async {
+    await SharedPrefs.setStartupScreenPrefs(startupScreenStatusValue);
+    StartupScreenStatus.value = startupScreenStatusValue;
+  }
+
+  Future<void> getStartupScreenPrefsEvent() async {
+    var data = await SharedPrefs.getStartupScreenPrefs();
+    StartupScreenStatus.value = data;
+  }
+
 
 }

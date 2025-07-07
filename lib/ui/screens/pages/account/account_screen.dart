@@ -1,5 +1,4 @@
 import 'package:danapaniexpress/core/common_imports.dart';
-import 'package:danapaniexpress/ui/screens/pages/account/account_screen_mobile.dart';
 
 class AccountScreen extends StatelessWidget {
   const AccountScreen({super.key});

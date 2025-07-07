@@ -15,7 +15,7 @@ Map<String, Map<String, String>> allLang = {
     CONFIRM: 'Confirm',
     STARTUP_WELCOME_HEADING_TEXT: 'Welcome to Dana Pani Express',
     STARTUP_WELCOME_SUBTEXT: 'Your everyday groceries, delivered fast, fresh, and on time — from your trusted neighborhood stores.',
-    GET_STARTED: 'Get Started!',
+    GET_STARTED: 'Get Started',
     START_SHOPPING: 'Start Shopping',
     STARTUP_FAST_DELIVERY_HEADING_TEXT: 'Speed You Can Rely On',
     STARTUP_FAST_DELIVERY_SUBTEXT: 'We deliver within 30 minutes — no waiting, no worrying.',

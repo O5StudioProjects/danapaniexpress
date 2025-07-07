@@ -1,10 +1,12 @@
 import 'package:danapaniexpress/core/common_imports.dart';
+import 'package:danapaniexpress/core/controllers_import.dart';
 
 class ForgotPasswordMobile extends StatelessWidget {
   const ForgotPasswordMobile({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var navigation = Get.find<NavigationController>();
     return Container(
       width: size.width,
       height: size.height,
@@ -90,7 +92,7 @@ class ForgotPasswordMobile extends StatelessWidget {
                 appDetailTextButton(
                   detailText: AppLanguage.alreadyHaveAccountStr(appLanguage),
                   buttonText: AppLanguage.loginStr(appLanguage),
-                  onTapButton: () => JumpTo.gotoSignInScreen(),
+                  onTapButton: () => navigation.gotoSignInScreen(),
                 ),
 
                 setHeight(50.0),

@@ -1,5 +1,5 @@
 import 'package:danapaniexpress/domain/di/dashboard_binding.dart';
-import 'package:danapaniexpress/ui/screens/auth_screen/sign_in_screen/sign_in_screen.dart';
+import 'package:danapaniexpress/domain/di/splash_binding.dart';
 import 'package:danapaniexpress/ui/screens/main_dashboard_screen/main_dashboard_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/categories/other_products/other_products_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/categories/product_detail/product_detail_screen.dart';
@@ -17,6 +17,7 @@ class AppRouter {
     GetPage(
       name: RouteNames.SplashScreenRoute,
       page: () => const SplashScreen(),
+        binding: SplashBinding()
     ),
     GetPage(
       name: RouteNames.LanguageThemeScreenRoute,

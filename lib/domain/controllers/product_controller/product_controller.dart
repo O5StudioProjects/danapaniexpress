@@ -1,8 +1,5 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/data_model_imports.dart';
-import 'package:danapaniexpress/data/repositories/products_repository/products_repository.dart';
-
-import '../dashboard_controller/dashboard_controller.dart';
 
 class ProductController extends GetxController {
 
