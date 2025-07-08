@@ -12,6 +12,7 @@ class MainDashboardScreen extends StatelessWidget {
     // var categories = Get.put(CategoriesController(), permanent: true);
     // var favorites = Get.put(FavoritesController(), permanent: true);
     // var cart = Get.put(CartController(), permanent: true);
+
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (res, onPop){

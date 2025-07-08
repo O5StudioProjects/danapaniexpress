@@ -8,7 +8,7 @@ class ProductsScreenMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     var productController = Get.find<ProductController>();
     var data = productController.categoryDataInitial.value!;
-
+    var navigation = Get.find<NavigationController>();
     return Obx(
       () => Container(
         width: size.width,
@@ -112,7 +112,9 @@ class ProductsScreenMobile extends StatelessWidget {
                         itemCount: productController.productsList.length,
                         itemBuilder: (context, index) {
                           var data = productController.productsList[index];
-                          return ProductItem(data: data);
+                          return GestureDetector(
+                              onTap: ()=>  navigation.gotoProductDetailScreen(data: data),
+                              child: ProductItem(data: data));
                         },
                       ),
                     ),

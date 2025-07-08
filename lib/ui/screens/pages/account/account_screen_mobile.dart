@@ -6,7 +6,7 @@ class AccountScreenMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var account = Get.find<AccountController>();
+    Get.put(AuthController(), permanent: true);
     var navigate = Get.find<NavigationController>();
     return Obx(
       ()=> Container(

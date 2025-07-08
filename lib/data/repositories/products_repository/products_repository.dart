@@ -6,6 +6,34 @@ import '../../../core/common_imports.dart';
 
 class ProductRepository {
 
+  /// FETCH RELATED PRODUCTS
+  Future<List<ProductsModel>> fetchRelatedProducts({
+    required String categoryId,
+    required String subCategoryId,
+    int limit = 10,
+  }) async {
+    try {
+      String jsonString = await rootBundle.loadString(jsonProducts);
+      List<dynamic> jsonData = json.decode(jsonString);
+
+      List<ProductsModel> filtered = jsonData
+          .map((item) => ProductsModel.fromJson(item))
+          .where((product) =>
+      product.productCategory == categoryId &&
+          product.productSubCategory == subCategoryId)
+          .take(limit) // ✅ Only take 10 related products
+          .toList();
+
+      return filtered;
+    } catch (e) {
+      if (kDebugMode) {
+        print("Error loading related products: $e");
+      }
+      return [];
+    }
+  }
+
+
   ///FETCH PRODUCTS BY CATEGORIES
   Future<List<ProductsModel>> fetchProductsByCategoriesEvent({
     required CategoryModel categoryData,

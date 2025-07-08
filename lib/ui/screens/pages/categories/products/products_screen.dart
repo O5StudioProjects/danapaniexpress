@@ -6,7 +6,7 @@ class ProductsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var productsController = Get.put(ProductController());
+    Get.put(ProductController());
 
     return Scaffold(
       body: SafeArea(
