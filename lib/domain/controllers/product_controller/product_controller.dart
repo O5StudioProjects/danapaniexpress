@@ -117,27 +117,45 @@ class ProductController extends GetxController {
     } else {
       categoryOffset = 0;
       hasMoreCategoryProducts.value = true;
+      productsStatus.value = ProductsByCatStatus.LOADING;
     }
 
-    final result = await productsRepo.fetchProductsByCategoriesEvent(
-      categoryData: categoryData,
-      subCategoryIndex: subCategoryIndex,
-      limit: categoryLimit,
-      offset: categoryOffset,
-    );
+    try {
+      final result = await productsRepo.fetchProductsByCategoriesEvent(
+        categoryData: categoryData,
+        subCategoryIndex: subCategoryIndex,
+        limit: categoryLimit,
+        offset: categoryOffset,
+      );
 
-    if (!loadMore) {
-      productsList.assignAll(result);
-    } else {
-      productsList.addAll(result);
+      if (!loadMore) {
+        productsList.assignAll(result);
+      } else {
+        productsList.addAll(result);
+      }
+
+      if (result.length < categoryLimit) {
+        hasMoreCategoryProducts.value = false;
+      }
+
+      if (!loadMore) {
+        productsStatus.value = ProductsByCatStatus.SUCCESS;
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print("Error fetching products by category: $e");
+      }
+
+      if (!loadMore) {
+        productsList.clear();
+        productsStatus.value = ProductsByCatStatus.FAILURE;
+      }
+    } finally {
+      isLoadingMoreCategory.value = false;
     }
-
-    if (result.length < categoryLimit) {
-      hasMoreCategoryProducts.value = false;
-    }
-
-    isLoadingMoreCategory.value = false;
   }
+
+
 
   // Future<void> fetchProductsByCategories({required CategoryModel categoryData, int subCategoryIndex = 0}) async {
   //   productsRepo.fetchProductsByCategoriesEvent(productsList, productsStatus, categoryData: categoryData, subCategoryIndex: subCategoryIndex);

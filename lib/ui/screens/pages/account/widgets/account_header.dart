@@ -8,8 +8,9 @@ class AccountHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     var account = Get.find<AccountController>();
     var auth = Get.find<AuthController>();
-    return Obx(
-      ()=> Container(
+    return Obx((){
+      var data = auth.currentUser.value;
+      return Container(
           width: size.width,
           height: size.height * 0.23,
           color: AppColors.cardColorSkin(isDark),
@@ -36,9 +37,9 @@ class AccountHeader extends StatelessWidget {
                           borderRadius: BorderRadius.circular(100.0),
                         ),
                         child:
-                        account.profileImage!.isNotEmpty
+                        data != null
                             ? appAsyncImage(
-                          auth.currentUser.value!.userImage,
+                          data.userImage,
                           boxFit: BoxFit.cover,
                         )
                             : appAssetImage(image: imgDPEBanner, fit: BoxFit.cover),
@@ -77,7 +78,7 @@ class AccountHeader extends StatelessWidget {
                                   child: appText(text: '-', textStyle: bodyTextStyle().copyWith(color: AppColors.secondaryTextColorSkin(isDark))),
                                 ),
                                 appText(text: '0 ', textStyle: itemTextStyle()),
-                                appText(text: 'Coins', textStyle: accountSecondaryTextStyle()),
+                                appText(text: 'Orders', textStyle: accountSecondaryTextStyle()),
                               ],
                             )
                           ],
@@ -89,7 +90,7 @@ class AccountHeader extends StatelessWidget {
               ),
             ),
           )
-      ),
-    );
+      );
+    });
   }
 }

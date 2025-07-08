@@ -8,6 +8,7 @@ class OtherProductsScreenMobile extends StatelessWidget {
    Widget build(BuildContext context) {
      final dashboardController = Get.find<DashBoardController>();
      final otherProductsController = Get.find<OtherProductsController>();
+     final navigation = Get.find<NavigationController>();
 
      return Obx(() {
        final screenType = otherProductsController.productScreenType.value;
@@ -85,7 +86,9 @@ class OtherProductsScreenMobile extends StatelessWidget {
                ),
                itemBuilder: (context, index) {
                  final product = productsList[index];
-                 return ProductItem(data: product);
+                 return GestureDetector(
+                     onTap: ()=>  navigation.gotoProductDetailScreen(data: product),
+                     child: ProductItem(data: product));
                },
              ),
            ),

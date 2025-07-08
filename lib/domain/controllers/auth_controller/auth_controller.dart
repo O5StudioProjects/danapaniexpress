@@ -10,7 +10,7 @@ class AuthController extends GetxController{
   /// AUTH TEXT CONTROLLERS - SIGNIN SCREEN
   var signInEmailPhoneTextController = TextEditingController().obs;
   var signInPasswordTextController = TextEditingController().obs;
-  final Rxn<UserModel> currentUser = Rxn<UserModel>(); // holds logged-in user
+  final Rx<UserModel?> currentUser = Rx<UserModel?>(null); // holds logged-in user
   final Rx<AuthStatus> authStatus = AuthStatus.IDLE.obs;
 
   @override

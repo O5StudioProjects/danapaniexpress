@@ -36,8 +36,11 @@ class PopularProducts extends StatelessWidget {
                 itemCount: dashboard.popularProducts.length > 50 ? 50 : dashboard.popularProducts.length,
                 itemBuilder: (context, index) {
                   var data = dashboard.popularProducts[index];
-                  return ProductItem(
-                    data: data,
+                  return GestureDetector(
+                    onTap: ()=>  navigation.gotoProductDetailScreen(data: data),
+                    child: ProductItem(
+                      data: data,
+                    ),
                   );
                 },
               ),

@@ -10,6 +10,8 @@ class CategoriesScreenMobile extends StatelessWidget {
     var categories = Get.find<CategoriesController>();
     var navigation = Get.find<NavigationController>();
     return Obx(() {
+      var categoriesData = categories.categoriesList[controller.categoryIndex.value];
+      var subCategoriesData = categories.categoriesList[controller.categoryIndex.value].subCategories!;
       return Container(
         width: size.width,
         height: size.height,
@@ -17,7 +19,7 @@ class CategoriesScreenMobile extends StatelessWidget {
         child: Column(
           children: [
             appBarCommon(
-              title: AppLanguage.productsByCategoriesStr(appLanguage),
+              title: appLanguage == URDU_LANGUAGE ? categoriesData.categoryNameUrdu : categoriesData.categoryNameEnglish,
               isBackNavigation: false,
             ),
             categories.categoriesList.isNotEmpty
@@ -67,10 +69,7 @@ class CategoriesScreenMobile extends StatelessWidget {
                         ),
 
                         ///SUBCATEGORIES Section
-                        categories
-                                .categoriesList[controller.categoryIndex.value]
-                                .subCategories!
-                                .isNotEmpty
+                        subCategoriesData.isNotEmpty
                             ? Expanded(
                                 child: ConstrainedBox(
                                   constraints: BoxConstraints(
@@ -79,41 +78,29 @@ class CategoriesScreenMobile extends StatelessWidget {
                                   child: SingleChildScrollView(
                                     scrollDirection: Axis.vertical,
                                     physics: BouncingScrollPhysics(),
-                                    child: Column(
-                                      crossAxisAlignment: appLanguage == URDU_LANGUAGE ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(left: MAIN_HORIZONTAL_PADDING, top: MAIN_HORIZONTAL_PADDING, right: MAIN_HORIZONTAL_PADDING),
-                                          child: appText(text: appLanguage == URDU_LANGUAGE ? categories.categoriesList[controller.categoryIndex.value].categoryNameUrdu :  categories.categoriesList[controller.categoryIndex.value].categoryNameEnglish,
-                                            textStyle: headingTextStyle()
-                                          ),
-                                        ),
-                                        GridView.builder(
-                                          shrinkWrap: true,
-                                          physics: NeverScrollableScrollPhysics(),
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: MAIN_HORIZONTAL_PADDING,
-                                            vertical: MAIN_HORIZONTAL_PADDING,
-                                          ),
-                                          gridDelegate:
-                                          SliverGridDelegateWithFixedCrossAxisCount(
-                                            crossAxisCount: 3,
-                                            crossAxisSpacing: MAIN_HORIZONTAL_PADDING,
-                                            mainAxisSpacing:
-                                            MAIN_HORIZONTAL_PADDING,
-                                            childAspectRatio: 0.7, // tweak this for height vs width
-                                          ),
-                                          itemCount: categories.categoriesList[controller.categoryIndex.value].subCategories!.length,
-                                          itemBuilder: (context, index) {
-                                            var data = categories.categoriesList[controller.categoryIndex.value];
-                                            var listData = categories.categoriesList[controller.categoryIndex.value].subCategories![index];
-                                            return GestureDetector(
-                                                onTap: ()=> controller.onTapSubCategories(index, data),
-                                                child: SubCategoryItem(data: listData));
-                                          },
-                                        )
-                                      ],
-                                    ),
+                                    child: GridView.builder(
+                                      shrinkWrap: true,
+                                      physics: NeverScrollableScrollPhysics(),
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: MAIN_HORIZONTAL_PADDING,
+                                        vertical: MAIN_HORIZONTAL_PADDING,
+                                      ),
+                                      gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 3,
+                                        crossAxisSpacing: MAIN_HORIZONTAL_PADDING,
+                                        mainAxisSpacing:
+                                        MAIN_HORIZONTAL_PADDING,
+                                        childAspectRatio: 0.7, // tweak this for height vs width
+                                      ),
+                                      itemCount: subCategoriesData.length,
+                                      itemBuilder: (context, index) {
+                                        var listData = subCategoriesData[index];
+                                        return GestureDetector(
+                                            onTap: ()=> controller.onTapSubCategories(index, categoriesData),
+                                            child: SubCategoryItem(data: listData));
+                                      },
+                                    )
                                   ),
                                 ),
                               )

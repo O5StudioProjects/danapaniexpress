@@ -7,14 +7,15 @@ class HomeHeadings extends StatelessWidget {
   final bool isTrailingText;
   final String? trailingText;
   final String? leadingIcon;
+  final double? horizontalPadding;
   final GestureTapCallback? onTapSeeAllText;
-  const HomeHeadings({super.key, required this.mainHeadingText,  this.onTapSeeAllText,  this.isLeadingIcon = false,  this.leadingIcon, this.isSeeAll = true, this.trailingText, this.isTrailingText =false});
+  const HomeHeadings({super.key, required this.mainHeadingText,  this.onTapSeeAllText,  this.isLeadingIcon = false,  this.leadingIcon, this.isSeeAll = true, this.trailingText, this.isTrailingText =false, this.horizontalPadding = MAIN_HORIZONTAL_PADDING});
 
   @override
   Widget build(BuildContext context) {
     return Obx(
       ()=> Padding(
-        padding: const EdgeInsets.only(right: MAIN_HORIZONTAL_PADDING, left: MAIN_HORIZONTAL_PADDING),
+        padding:  EdgeInsets.only(right: horizontalPadding!, left: horizontalPadding!),
         child: appLanguage == URDU_LANGUAGE
             ? Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
