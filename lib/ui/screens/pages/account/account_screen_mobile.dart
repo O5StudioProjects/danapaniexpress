@@ -6,7 +6,7 @@ class AccountScreenMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(AuthController(), permanent: true);
+    var auth = Get.find<AuthController>();
     var navigate = Get.find<NavigationController>();
     return Obx(
       ()=> Container(
@@ -101,8 +101,8 @@ class AccountScreenMobile extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: MAIN_HORIZONTAL_PADDING),
                 child: listItemIcon(iconType: IconType.ICON, leadingIcon: Icons.logout_rounded, itemTitle: 'Logout', trailingIcon: icArrowRight, onItemClick: () async {
-                  await SharedPrefs.logout();
-                  navigate.gotoSignInScreen();
+                  await auth.logout();
+                  Get.find<DashBoardController>().navIndex.value = 0;
                 }),
               ),
             ],

@@ -105,30 +105,30 @@ class SharedPrefs {
 
 
   /// AUTH METHODS
-  static Future<void> saveUser(UserModel user) async {
+  static saveUser(String userId, String authToken) async {
     final prefs = await SharedPreferences.getInstance();
-    final userJson = jsonEncode(user.toJson());
-    await prefs.setString(IS_LOGGED_IN_KEY, userJson);
+    await prefs.setString(AUTH_TOKEN, authToken);
+    await prefs.setString(USER_ID, userId);
   }
 
-  static Future<UserModel?> getUser() async {
+  // static Future<String?> loadUser() async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   await prefs.reload();
+  //   return prefs.getString(USER_ID);
+  //   return prefs.getString(USER_ID);
+  // }
+
+  static logout() async {
     final prefs = await SharedPreferences.getInstance();
-    final userJson = prefs.getString(IS_LOGGED_IN_KEY);
-    if (userJson != null) {
-      final Map<String, dynamic> userMap = jsonDecode(userJson);
-      return UserModel.fromJson(userMap);
-    }
-    return null;
+    await prefs.remove(USER_ID);
+    await prefs.remove(AUTH_TOKEN);
   }
+
 
   static Future<bool> isLoggedIn() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.containsKey(IS_LOGGED_IN_KEY);
   }
 
-  static Future<void> logout() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove(IS_LOGGED_IN_KEY);
-  }
 
 }

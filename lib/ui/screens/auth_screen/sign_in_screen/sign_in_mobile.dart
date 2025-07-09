@@ -76,34 +76,7 @@ class SignInMobile extends StatelessWidget {
                             textEditingController: auth.signInEmailPhoneTextController.value,
                             prefixIcon: Icons.person,
                             hintText: AppLanguage.emailPhoneStr(appLanguage),
-                              validator: (value) {
-                                if (value == null || value.trim().isEmpty) {
-                                  return "Please enter email or phone number";
-                                }
-
-                                final trimmed = value.trim();
-                                final isNumeric = RegExp(r'^\d+$').hasMatch(trimmed);
-                                final isPhoneWithCode = trimmed.startsWith('+92') && trimmed.length == 13;
-                                final isPhoneWithLeadingZero = trimmed.length == 11 && trimmed.startsWith('0');
-                                final isPhoneWithoutCodeOrZero = trimmed.length == 10 && isNumeric;
-
-                                if (isNumeric || isPhoneWithCode) {
-                                  if (isPhoneWithCode || isPhoneWithLeadingZero || isPhoneWithoutCodeOrZero) {
-                                    return null;
-                                  }
-                                  return "Invalid phone number format";
-                                }
-
-                                final isEmail = RegExp(
-                                  r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
-                                ).hasMatch(trimmed);
-
-                                if (!isEmail) {
-                                  return "Invalid email format";
-                                }
-
-                                return null;
-                              }
+                              validator: FormValidations.emailOrPhoneValidator
 
                           ),
 
@@ -115,15 +88,7 @@ class SignInMobile extends StatelessWidget {
                             prefixIcon: Icons.lock_outline,
                             hintText: AppLanguage.passwordStr(appLanguage),
                             isPassword: true,
-                            validator: (value) {
-                              if (value == null || value.trim().isEmpty) {
-                                return "Please enter your password";
-                              }
-                              if (value.length < 6) {
-                                return "Password must be at least 6 characters";
-                              }
-                              return null;
-                            },
+                            validator: FormValidations.passwordValidator,
                           ),
 
                           setHeight(10.0),
@@ -156,20 +121,9 @@ class SignInMobile extends StatelessWidget {
                                 if(auth.isSignInFormValid.value){
                                   if (_formKey.currentState?.validate() ?? false) {
                                     // Proceed with login
-                                    final success = await auth.login();
-                                    if (success) {
-                                      showToast('Login Success');
-                                     // ToastUtil.showToast(context, "Login Success");
-
-                                      navigation.gotoDashboardScreen();
-                                    } else {
-                                     // ToastUtil.showToast(context, "Invalid credentials");
-                                      showToast('Invalid credentials');
-                                     // showSnackbar(title: 'Invalid Credentials', message: 'Your credentials are not correct');
-                                    }
+                                    auth.handleLoginButtonTap();
                                   }
                                 }
-
                               },
                             );
                           }),
