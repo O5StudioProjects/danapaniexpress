@@ -6,6 +6,9 @@ class AppConfig {
   static late Flavor flavorName;
   static late Flavor _flavor;
   static late String baseUrl;
+  static late String apiPath;
+  static late String apiKeyHeader;
+  static late String apiKey;
   static late AdsStatus adsStatus;
   static Flavor get flavor => _flavor;
 
@@ -14,28 +17,32 @@ class AppConfig {
 
     switch (flavor) {
       case Flavor.dev:
-        baseUrl = "API BASE URL";
+        baseUrl = "https://danapaniexpress.com";
+        apiPath = "/rest_api";
+        apiKeyHeader = "API-KEY";
+        apiKey = "123456789ABCDEF";
         flavorName = Flavor.dev;
         adsStatus = AdsStatus.ADS_DISABLED;
         break;
 
       case Flavor.prod:
-        baseUrl = "API BASE URL";
+        baseUrl = "https://danapaniexpress.com";
+        apiPath = "/rest_api";
+        apiKeyHeader = "API-KEY";
+        apiKey = "123456789ABCDEF";
         flavorName = Flavor.prod;
         adsStatus = AdsStatus.ADS_DISABLED;
         break;
 
       case Flavor.rider:
-        baseUrl = "API BASE URL";
+        baseUrl = "https://danapaniexpress.com";
+        apiPath = "/rest_api";
+        apiKeyHeader = "API-KEY";
+        apiKey = "123456789ABCDEF";
         flavorName = Flavor.rider;
         adsStatus = AdsStatus.ADS_DISABLED;
         break;
 
-      default:
-        baseUrl = "";
-        flavorName = Flavor.dev;
-        adsStatus = AdsStatus.ADS_DISABLED;
-        break;
-    }
+      }
   }
 }

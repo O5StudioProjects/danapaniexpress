@@ -5,8 +5,11 @@ import 'package:danapaniexpress/domain/controllers/text_controllers/text_control
 class AuthBinding extends Bindings{
   @override
   void dependencies() {
-    Get.put(AuthController(), permanent: true);
-    Get.lazyPut(()=>TextControllers(), fenix: true);
+    // // Register AuthRepository
+    // Get.lazyPut<AuthRepository>(() => AuthRepository());
+    // // Register AuthController with injected repository
+    // Get.lazyPut<AuthController>(() => AuthController(authRepo: Get.find<AuthRepository>()),
+    // );
   }
 
 }

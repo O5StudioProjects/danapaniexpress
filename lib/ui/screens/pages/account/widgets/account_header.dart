@@ -37,7 +37,7 @@ class AccountHeader extends StatelessWidget {
                           borderRadius: BorderRadius.circular(100.0),
                         ),
                         child:
-                        data != null
+                        data!.userImage!.isNotEmpty
                             ? appAsyncImage(
                           data.userImage,
                           boxFit: BoxFit.cover,
@@ -50,7 +50,7 @@ class AccountHeader extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            appText(text: 'Zain Shakeel',
+                            appText(text: data!.userFullName,
                                 maxLines: 1,
                                 textStyle: bigBoldHeadingTextStyle().copyWith(fontSize: ACCOUNT_TITLE_FONT_SIZE)),
                             // setHeight(4.0),

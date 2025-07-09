@@ -16,13 +16,13 @@ class ProductItem extends StatelessWidget {
         final itemWidth = constraints.maxWidth;
         final imageHeight = itemWidth; // keeping square
         final nameHeight = 36.0;       // fits 2 lines approx
-        final priceRowHeight = 40.0;
+        final priceRowHeight = 44.0;
         final padding = 12.0 * 2;
 
-        final totalHeight = imageHeight + nameHeight + priceRowHeight + padding;
+       // final totalHeight = imageHeight + nameHeight + priceRowHeight + padding;
 
         return Container(
-          height: totalHeight, // Important!
+         // height: totalHeight, // Important!
           clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(
             color: AppColors.cardColorSkin(isDark),
@@ -118,7 +118,7 @@ class ProductItem extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(height: 6.0),
+
                         SizedBox(
                           height: priceRowHeight,
                           child: Row(

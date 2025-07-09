@@ -7,7 +7,6 @@ class DashboardBinding extends Bindings{
   void dependencies() {
     Get.put(CategoriesController(), permanent: true);
     Get.put(DashBoardController(), permanent: true);
-    Get.put(AuthController(), permanent: true);
     Get.lazyPut(()=> HomeScreenController(), fenix: true);
     Get.lazyPut(()=> FavoritesController(), fenix: true);
     Get.lazyPut(()=> CartController(), fenix: true);
