@@ -56,6 +56,7 @@ dependencies:
   connectivity_plus: ^6.1.0
   #  Authenticate purpose
   collection: ^1.19.1
+  dropdown_search: ^6.0.2
 
 dev_dependencies:
   flutter_test:

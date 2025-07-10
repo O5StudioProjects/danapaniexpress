@@ -107,6 +107,9 @@ class SharedPrefs {
   /// AUTH METHODS
   static saveUser(String userId, String authToken) async {
     final prefs = await SharedPreferences.getInstance();
+    prefs.remove(AUTH_TOKEN);
+    prefs.remove(USER_ID);
+
     await prefs.setString(AUTH_TOKEN, authToken);
     await prefs.setString(USER_ID, userId);
   }
@@ -118,7 +121,7 @@ class SharedPrefs {
   //   return prefs.getString(USER_ID);
   // }
 
-  static logout() async {
+  static Future<void> clearUserSessions() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(USER_ID);
     await prefs.remove(AUTH_TOKEN);

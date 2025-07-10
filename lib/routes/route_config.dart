@@ -3,6 +3,9 @@ import 'package:danapaniexpress/domain/di/dashboard_binding.dart';
 import 'package:danapaniexpress/domain/di/product_detail_binding.dart';
 import 'package:danapaniexpress/domain/di/splash_binding.dart';
 import 'package:danapaniexpress/ui/screens/main_dashboard_screen/main_dashboard_screen.dart';
+import 'package:danapaniexpress/ui/screens/pages/account/account_information/account_information_screen.dart';
+import 'package:danapaniexpress/ui/screens/pages/account/address_book/add_address/add_address_screen.dart';
+import 'package:danapaniexpress/ui/screens/pages/account/address_book/address_book_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/categories/other_products/other_products_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/categories/product_detail/product_detail_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/categories/products/products_screen.dart';
@@ -40,7 +43,7 @@ class AppRouter {
     /// AUTH SCREENS
     GetPage(
       name: RouteNames.SignInScreenRoute,
-      transition: Transition.rightToLeft,
+      transition: Transition.fade,
       transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
       page: () => const SignInScreen(),
       binding:  AuthBinding()
@@ -92,7 +95,26 @@ class AppRouter {
 
     ),
 
+    /// ACCOUNT SCREEN AND PAGES
+    GetPage(
+        name: RouteNames.AccountInformationScreenRoute,
+        transition: Transition.fadeIn,
+        transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
+        page: () => const AccountInformationScreen(),
+    ),
 
+    GetPage(
+      name: RouteNames.AddressBookScreenRoute,
+      transition: Transition.fadeIn,
+      transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
+      page: () => const AddressBookScreen(),
+    ),
+    GetPage(
+      name: RouteNames.AddAddressScreenRoute,
+      transition: Transition.fadeIn,
+      transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
+      page: () => const AddAddressScreen(),
+    ),
     // GetPage(name: RouteNames.HomeScreenRoute, page: () => const HomeScreen(), binding: DashboardBinding()),
   ];
 }

@@ -81,7 +81,7 @@ class RegisterScreenMobile extends StatelessWidget {
 
                     setHeight(40.0),
 
-                    auth.authStatus == AuthStatus.LOADING
+                    auth.authStatus.value == AuthStatus.LOADING
                     ? loadingIndicator()
                     : appMaterialButton(
                       isDisable: !auth.isRegisterFormValid.value,
