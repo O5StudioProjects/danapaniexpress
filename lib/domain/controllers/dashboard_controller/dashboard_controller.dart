@@ -90,6 +90,7 @@ class DashBoardController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    navIndex.value = 0;
     fetchAppbarPagerImages();
     fetchMarquee();
     fetchCoverImages();

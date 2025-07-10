@@ -47,3 +47,6 @@ const String imgDPEBanner = '${COMMON_IMG_PATH}img_product_background.jpg';
 
 const String imgErrorLight = '${COMMON_IMG_PATH}img_error_light.png';
 const String imgErrorDark = '${COMMON_IMG_PATH}img_error_dark.png';
+
+const String imgAccountBg1 = '${COMMON_IMG_PATH}img_account_bg_1.jpg';
+const String imgAccountBg2= '${COMMON_IMG_PATH}img_account_bg_2.jpg';

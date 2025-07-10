@@ -5,6 +5,9 @@ class AppTextFormField extends StatefulWidget {
   final String? hintText;
   final IconData? prefixIcon;
   final bool isPassword;
+  final bool readOnly;
+  final String? initialValue;
+
   final TextEditingController? textEditingController;
   final String? Function(String?)? validator; // ✅ add validator
 
@@ -14,7 +17,7 @@ class AppTextFormField extends StatefulWidget {
     this.prefixIcon,
     this.isPassword = false,
     this.textEditingController,
-    this.validator,
+    this.validator, this.initialValue, this.readOnly = false,
   });
 
   @override
@@ -31,6 +34,8 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
     return TextFormField(
       controller: widget.textEditingController,
       validator: widget.validator, // ✅ wire it up
+      readOnly: widget.readOnly,
+      initialValue: widget.initialValue,
       cursorHeight: 16.0,
       obscureText: widget.isPassword ? _obscure : false,
       style: bodyTextStyle(),

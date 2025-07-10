@@ -74,6 +74,16 @@ class JumpTo {
     );
   }
 
+  ///ACCOUNT SCREENS
+  static gotoAccountInformationScreen() {
+    Get.toNamed(RouteNames.AccountInformationScreenRoute);
+  }
+  static gotoAddressBookScreen() {
+    Get.toNamed(RouteNames.AddressBookScreenRoute);
+  }
+  static gotoAddAddressScreen() {
+    Get.toNamed(RouteNames.AddAddressScreenRoute);
+  }
 
 
 }

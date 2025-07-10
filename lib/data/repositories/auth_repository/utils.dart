@@ -51,7 +51,6 @@ class FormValidations {
     return null;
   }
 
-
   static String? optionalEmailValidator(String? value) {
     if (value == null || value.trim().isEmpty) {
       return null; // ✅ Empty is allowed
@@ -68,7 +67,6 @@ class FormValidations {
 
     return null;
   }
-
 
   static String? emailValidator(String? value) {
     if (value == null || value.trim().isEmpty) {
@@ -105,7 +103,6 @@ class FormValidations {
 
     return "Invalid phone number format";
   }
-
 
   static String? emailOrPhoneValidator(String? value) {
     if (value == null || value.trim().isEmpty) {
@@ -145,6 +142,23 @@ class FormValidations {
 
     return null;
   }
+
+  /// ADDRESS VALIDATIONS
+
+  static String? addressValidator(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'Please enter your complete address';
+    }
+    return null;
+  }
+
+  static String? nearestPlaceValidator(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'Please enter famous nearest place.';
+    }
+    return null;
+  }
+
 
 
 }

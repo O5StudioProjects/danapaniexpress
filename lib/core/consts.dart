@@ -18,6 +18,8 @@ const FIRST_TIME_SCREEN_NOT_OPENED = 'Not Opened';
 
 
 
+
+
 ///TESTING STRINGS
 const String jsonAppbarPager = 'assets/json/appbar_pager.json';
 const String jsonBodyPager = 'assets/json/body_pager.json';
@@ -51,3 +53,21 @@ class NotificationsType {
   static const String FEATURED = 'featured';
   static const String FLASH_SALE = 'flash_sale';
 }
+
+class ServiceAreas {
+  static const String PUNJAB = 'Punjab';
+
+  static const String SAHIWAL = 'Sahiwal';
+  static const String OKARA = 'Okara';
+  static const String GUJRAT = 'Gujrat';
+
+}
+
+var citiesList = [
+  ServiceAreas.SAHIWAL,
+  //ServiceAreas.OKARA, ServiceAreas.GUJRAT
+];
+var provinceList = [
+  ServiceAreas.PUNJAB,
+  //ServiceAreas.OKARA, ServiceAreas.GUJRAT
+];

@@ -5,6 +5,8 @@ import 'package:danapaniexpress/core/data_model_imports.dart';
 
 import 'package:http/http.dart' as http;
 
+import '../../models/address_model.dart';
+
 
 class AuthRepository {
 
@@ -49,7 +51,6 @@ class AuthRepository {
   }
 
   /// LOGIN USER -API
-  ///
   Future<Map<String, dynamic>> loginUserApi({
     required String identifier,
     required String password,
@@ -58,10 +59,7 @@ class AuthRepository {
     try {
       final response = await http.post(
         url,
-        headers: {
-          CONTENT_TYPE: APP_JSON,
-          AppConfig.apiKeyHeader: AppConfig.apiKey,
-        },
+        headers: apiHeaders,
         body: jsonEncode({
           'user_identifier': identifier,
           'user_password': password,
@@ -90,10 +88,7 @@ class AuthRepository {
     try {
       final response = await http.get(
         url,
-        headers: {
-          'Authorization': 'Bearer $token',
-          AppConfig.apiKeyHeader: AppConfig.apiKey,
-        },
+        headers: tokenHeaders(token),
       );
 
       final data = jsonDecode(response.body);
@@ -111,7 +106,101 @@ class AuthRepository {
     }
   }
 
+  /// LOGOUT UDER -API
+  Future<Map<String, dynamic>> logoutUserApi(String token) async {
+    try {
+      final response = await http.post(
+        Uri.parse(APiEndpoints.logoutUser),
+        headers: {
+          'Content-Type': 'application/json',
+          AppConfig.apiKeyHeader: AppConfig.apiKey, // your static API key
+          'Authorization': 'Bearer $token',
+        },
+      );
 
+      if (response.statusCode == 200) {
+        return jsonDecode(response.body);
+      } else {
+        return {
+          'success': false,
+          'message': 'Logout failed: ${response.statusCode}'
+        };
+      }
+    } catch (e) {
+      return {
+        'success': false,
+        'message': 'Exception: $e',
+      };
+    }
+  }
+
+  ///ADD USER ADDRESS
+  Future<bool> addUserAddress(AddressModel address) async {
+    final url = Uri.parse(APiEndpoints.addUserAddress);
+
+    try {
+      final response = await http.post(
+        url,
+        headers: apiHeaders,
+        body: jsonEncode(address.toJson()),
+      );
+
+      final data = jsonDecode(response.body);
+      final success = data['success'] == true;
+
+      if (success) {
+        Get.snackbar('Success', data['message']);
+        return true;
+      } else {
+        debugPrint('API Error: ${data['message']}');
+        Get.snackbar('Error', data['message']);
+
+        return false;
+      }
+    } catch (e) {
+      debugPrint('Exception: $e');
+      Get.snackbar('Exception', '$e');
+      return false;
+    }
+  }
+
+  Future<Map<String, dynamic>> addAddressApi({
+    required String userId,
+    required String name,
+    required String phone,
+    required String address,
+    required String nearestPlace,
+    required String city,
+    required String province,
+    required String postalCode,
+    bool setAsDefault = true,
+  }) async {
+    try {
+      final response = await http.post(
+        Uri.parse(APiEndpoints.addUserAddress), // e.g., https://yourdomain.com/add_address
+        headers: apiHeaders, // include Authorization if required
+        body: jsonEncode({
+          'user_id': userId,
+          'user_full_name': name,
+          'user_phone': phone,
+          'default_address_address': address,
+          'default_address_nearest_place': nearestPlace,
+          'default_address_city': city,
+          'default_address_province': province,
+          'default_address_postal_code': postalCode,
+          'set_as_default': setAsDefault,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        return jsonDecode(response.body);
+      } else {
+        return {'success': false, 'message': 'Server Error: ${response.statusCode}'};
+      }
+    } catch (e) {
+      return {'success': false, 'message': 'Exception: $e'};
+    }
+  }
 
 
   /// METHODS FOR ASSETS

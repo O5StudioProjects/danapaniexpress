@@ -144,6 +144,7 @@ Widget appMaterialButton({
   appLanguage,
   isDisable = false,
   fontSize = NORMAL_TEXT_FONT_SIZE,
+  customWidget
 }) {
   return GestureDetector(
     onTap: onTap,
@@ -159,7 +160,8 @@ Widget appMaterialButton({
             : AppColors.materialButtonSkin(isDark),
       ),
       child: Center(
-        child: appText(
+        child:
+        customWidget ?? appText(
           text: text,
           textDirection: setTextDirection(appLanguage),
 

@@ -42,4 +42,15 @@ class NavigationController extends GetxController{
     JumpTo.gotoProductDetailScreen(data: data);
   }
 
+  /// ACCOUNT SCREENS
+  Future<void> gotoAccountInformationScreen() async {
+    JumpTo.gotoAccountInformationScreen();
+  }
+  Future<void> gotoAddressBookScreen() async {
+    JumpTo.gotoAddressBookScreen();
+  }
+  Future<void> gotoAddAddressScreen() async {
+    JumpTo.gotoAddAddressScreen();
+  }
+
 }
