@@ -51,3 +51,5 @@ enum ProductsScreenType {
 }
 
 enum AuthStatus {IDLE, LOADING, SUCCESS, FAILURE}
+
+enum CurdType {ADD, UPDATE, READ, DELETE}

@@ -1,5 +1,6 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/data_model_imports.dart';
+import 'package:danapaniexpress/data/models/address_model.dart';
 
 class NavigationController extends GetxController{
 
@@ -49,8 +50,8 @@ class NavigationController extends GetxController{
   Future<void> gotoAddressBookScreen() async {
     JumpTo.gotoAddressBookScreen();
   }
-  Future<void> gotoAddAddressScreen() async {
-    JumpTo.gotoAddAddressScreen();
+  Future<void> gotoAddAddressScreen({required AddressModel? data, CurdType curdType = CurdType.ADD}) async {
+    JumpTo.gotoAddAddressScreen(data: data, curdType: curdType);
   }
 
 }

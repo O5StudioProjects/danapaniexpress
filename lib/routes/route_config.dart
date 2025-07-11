@@ -1,3 +1,5 @@
+import 'package:danapaniexpress/domain/di/account_binding.dart';
+import 'package:danapaniexpress/domain/di/address_binding.dart';
 import 'package:danapaniexpress/domain/di/auth_binding.dart';
 import 'package:danapaniexpress/domain/di/dashboard_binding.dart';
 import 'package:danapaniexpress/domain/di/product_detail_binding.dart';
@@ -14,6 +16,7 @@ import 'package:danapaniexpress/ui/screens/startup_screens/language_theme_screen
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/ui/screens/startup_screens/startup_main_screen/startup_main_screen.dart';
 
+import '../domain/di/add_address_binding.dart';
 import '../ui/screens/auth_screen/forgot_password_screen/forgot_password_screen.dart';
 import '../ui/screens/auth_screen/register_screen/register_screen.dart';
 
@@ -22,7 +25,7 @@ class AppRouter {
     GetPage(
       name: RouteNames.SplashScreenRoute,
       page: () => const SplashScreen(),
-        binding: SplashBinding()
+      binding: SplashBinding(),
     ),
     GetPage(
       name: RouteNames.LanguageThemeScreenRoute,
@@ -32,7 +35,6 @@ class AppRouter {
     ),
 
     /// STARTUP SCREENS
-
     GetPage(
       name: RouteNames.StartupMainScreenRoute,
       transition: Transition.rightToLeft,
@@ -46,7 +48,7 @@ class AppRouter {
       transition: Transition.fade,
       transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
       page: () => const SignInScreen(),
-      binding:  AuthBinding()
+      binding: AuthBinding(),
     ),
 
     GetPage(
@@ -69,38 +71,39 @@ class AppRouter {
       transition: Transition.fadeIn,
       transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
       page: () => const MainDashboardScreen(),
-      binding: DashboardBinding()
+      binding: DashboardBinding(),
     ),
 
     GetPage(
-        name: RouteNames.ProductsScreenRoute,
-        transition: Transition.rightToLeft,
-        transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
-        page: () => const ProductsScreen(),
+      name: RouteNames.ProductsScreenRoute,
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
+      page: () => const ProductsScreen(),
     ),
 
     GetPage(
-        name: RouteNames.OtherProductsScreenRoute,
-        transition: Transition.rightToLeft,
-        transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
-        page: () => const OtherProductsScreen(),
+      name: RouteNames.OtherProductsScreenRoute,
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
+      page: () => const OtherProductsScreen(),
     ),
 
     GetPage(
-        name: RouteNames.ProductDetailScreenRoute,
-        transition: Transition.fadeIn,
-        transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
-        page: () => const ProductDetailScreen(),
-        binding:  ProductDetailBinding()
-
+      name: RouteNames.ProductDetailScreenRoute,
+      transition: Transition.fadeIn,
+      transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
+      page: () => const ProductDetailScreen(),
+      binding: ProductDetailBinding(),
     ),
 
     /// ACCOUNT SCREEN AND PAGES
     GetPage(
-        name: RouteNames.AccountInformationScreenRoute,
-        transition: Transition.fadeIn,
-        transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
-        page: () => const AccountInformationScreen(),
+      name: RouteNames.AccountInformationScreenRoute,
+      transition: Transition.fadeIn,
+      transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
+      page: () => const AccountInformationScreen(),
+      binding: AccountBinding(),
+
     ),
 
     GetPage(
@@ -108,12 +111,14 @@ class AppRouter {
       transition: Transition.fadeIn,
       transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
       page: () => const AddressBookScreen(),
+      binding: AddressBinding(),
     ),
     GetPage(
       name: RouteNames.AddAddressScreenRoute,
       transition: Transition.fadeIn,
       transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
       page: () => const AddAddressScreen(),
+      binding: AddAddressBinding(),
     ),
     // GetPage(name: RouteNames.HomeScreenRoute, page: () => const HomeScreen(), binding: DashboardBinding()),
   ];

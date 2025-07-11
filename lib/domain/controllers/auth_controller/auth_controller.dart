@@ -17,10 +17,9 @@ class AuthController extends GetxController{
   /// FORM VALIDATION
   final RxBool isSignInFormValid = false.obs;
   final RxBool isRegisterFormValid = false.obs;
-  final RxBool isAddressFormValid = false.obs;
 
   final Rx<AuthStatus> authStatus = AuthStatus.IDLE.obs;
-  final Rx<AuthStatus> addressStatus = AuthStatus.IDLE.obs;
+  final Rx<AuthStatus> getProfileStatus = AuthStatus.IDLE.obs;
 
   final Rx<UserModel?> currentUser = Rx<UserModel?>(null); // holds logged-in user
   final RxString authToken = ''.obs;
@@ -28,10 +27,9 @@ class AuthController extends GetxController{
   RxnString userId = RxnString();
 
 
-  /// REGISTER USER
-  final String baseUrl = 'http://10.0.2.2/danapani-api';
+  // /// REGISTER USER
+  // final String baseUrl = 'http://10.0.2.2/danapani-api';
 
-  // RxString authToken = ''.obs;
   RxBool isLoading = false.obs;
 
 
@@ -46,14 +44,7 @@ class AuthController extends GetxController{
   var registerPasswordTextController = TextEditingController().obs;
   var registerReEnterPasswordTextController = TextEditingController().obs;
 
-  /// ADD ADDRESS TEXT CONTROLLERS - REGISTER SCREEN
-  var addressNameTextController = TextEditingController().obs;
-  var addressPhoneTextController = TextEditingController().obs;
-  var addressAddressTextController = TextEditingController().obs;
-  var addressNearestPlaceTextController = TextEditingController().obs;
-  var addressPostalCodeTextController = TextEditingController().obs;
-  final RxString cityName = ServiceAreas.SAHIWAL.obs;
-  final RxString province = ServiceAreas.PUNJAB.obs;
+
 
   @override
   void onInit() {
@@ -67,11 +58,7 @@ class AuthController extends GetxController{
     registerPhoneTextController.value.addListener(validateRegisterForm);
     registerPasswordTextController.value.addListener(validateRegisterForm);
     registerReEnterPasswordTextController.value.addListener(validateRegisterForm);
-    ///ADDRESS
-    addressNameTextController.value.addListener(validateAddressForm);
-    addressPhoneTextController.value.addListener(validateAddressForm);
-    addressAddressTextController.value.addListener(validateAddressForm);
-    addressNearestPlaceTextController.value.addListener(validateAddressForm);
+
 
   }
 
@@ -166,15 +153,17 @@ class AuthController extends GetxController{
   ///FETCH USER PROFILE COMPLETE OBJECT - API
   Future<void> fetchUserProfile() async {
     if (authToken.isEmpty) return;
-
+    getProfileStatus.value = AuthStatus.LOADING;
     final res = await authRepo.getProfile(authToken.value);
     if (res[SUCCESS]) {
       currentUser.value = res['user'];
+      getProfileStatus.value = AuthStatus.SUCCESS;
       if (kDebugMode) {
         print("===== Profile Fetched");
       }
     } else {
       Get.snackbar("Profile", res[MESSAGE] ?? 'Error fetching profile');
+      getProfileStatus.value = AuthStatus.FAILURE;
     }
   }
 
@@ -200,60 +189,11 @@ class AuthController extends GetxController{
   }
 
 
-  ///ADD USER ADDRESS
-  // Future<void> addUserAddress(AddressModel address) async {
-  //   addressStatus.value = AuthStatus.LOADING;
-  //
-  //   final success = await authRepo.addUserAddress(address);
-  //
-  //   if (success) {
-  //     addressStatus.value = AuthStatus.SUCCESS;
-  //   } else {
-  //     addressStatus.value = AuthStatus.FAILURE;
-  //   }
-  // }
 
-  Future<void> addAddress() async {
-
-    addressStatus.value = AuthStatus.LOADING;
-
-    final formattedPhone = PhoneUtils.normalizePhone(addressPhoneTextController.value.text.trim());
-    if (formattedPhone == null) {
-      authStatus.value = AuthStatus.FAILURE;
-      Get.snackbar('Invalid Phone', 'Please enter a valid phone number');
-      return;
-    }
-
-    final result = await authRepo.addAddressApi(
-      userId: userId.value ?? '',
-      name: addressNameTextController.value.text.trim(),
-      phone: formattedPhone,
-      address: addressAddressTextController.value.text.trim(),
-      nearestPlace: addressNearestPlaceTextController.value.text.trim(),
-      city: cityName.value,
-      province: province.value,
-      postalCode: addressPostalCodeTextController.value.text.trim(),
-      setAsDefault: currentUser.value != null && currentUser.value!.userDefaultAddress == null ? true : false
-    );
-
-    if (result['success'] == true) {
-      // Refresh address book or profile
-      await fetchUserProfile().then((value){
-        addressStatus.value = AuthStatus.SUCCESS;
-        Get.snackbar('Success', 'Address added successfully');
-      });
-      //navigation.goBack(); // or to address list
-    } else {
-      Get.snackbar('Error', result['message'] ?? 'Something went wrong');
-    }
-
-    addressStatus.value = AuthStatus.IDLE;
-  }
 
 
 
   /// UI HANDLINGS
-
   /// ONTAP REGISTER BUTTON
   Future<void> handleRegisterUserButtonTap() async {
     if(registerPasswordTextController.value.text == registerReEnterPasswordTextController.value.text){
@@ -298,14 +238,7 @@ class AuthController extends GetxController{
     await loginUser(formattedInput, password);
 
   }
-  /// ONTAP ADD ADDRESS BUTTON
-  Future<void> handleAddAddressButtonTap() async{
-    await addAddress().then((value) async {
-      await clearAddressForm();
-      Get.back();
 
-    });
-  }
 
   /// CLEAR FORMS
   Future<void> clearRegisterForm() async {
@@ -319,13 +252,7 @@ class AuthController extends GetxController{
     signInEmailPhoneTextController.value.clear();
     signInPasswordTextController.value.clear();
   }
-  Future<void> clearAddressForm() async {
-    addressNameTextController.value.clear();
-    addressPhoneTextController.value.clear();
-    addressAddressTextController.value.clear();
-    addressNearestPlaceTextController.value.clear();
-    addressPostalCodeTextController.value.clear();
-  }
+
 
   /// SHARED PREFERENCES USER SESSIONS
   Future<void> saveSession(String id, String authToken) async {
@@ -363,13 +290,7 @@ class AuthController extends GetxController{
     isRegisterFormValid.value = fullName.isNotEmpty && phone.isNotEmpty && pass.isNotEmpty && reEnterPass.isNotEmpty;
   }
 
-  void validateAddressForm() {
-    final fullName = addressNameTextController.value.text.trim();
-    final phone = addressPhoneTextController.value.text.trim();
-    final address = addressAddressTextController.value.text.trim();
-    final nearestPlace = addressNearestPlaceTextController.value.text.trim();
-    isAddressFormValid.value = fullName.isNotEmpty && phone.isNotEmpty && address.isNotEmpty && nearestPlace.isNotEmpty;
-  }
+
 
 
   @override

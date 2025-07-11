@@ -1,5 +1,6 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/data_model_imports.dart';
+import 'package:danapaniexpress/data/models/address_model.dart';
 
 import '../domain/controllers/product_controller/product_detail_controller.dart';
 
@@ -81,8 +82,10 @@ class JumpTo {
   static gotoAddressBookScreen() {
     Get.toNamed(RouteNames.AddressBookScreenRoute);
   }
-  static gotoAddAddressScreen() {
-    Get.toNamed(RouteNames.AddAddressScreenRoute);
+  static gotoAddAddressScreen({required AddressModel? data, required CurdType curdType }) {
+    Get.toNamed(RouteNames.AddAddressScreenRoute,
+      arguments: {DATA_ADDRESS: data, DATA_CURD_TYPE: curdType},
+    );
   }
 
 

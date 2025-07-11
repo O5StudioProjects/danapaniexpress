@@ -1,12 +1,12 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
+import 'package:danapaniexpress/ui/app_common/components/profile_image.dart';
 
 class AccountHeader extends StatelessWidget {
   const AccountHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var account = Get.find<AccountController>();
     var navigation = Get.find<NavigationController>();
     var auth = Get.find<AuthController>();
     return Obx((){
@@ -34,7 +34,7 @@ class AccountHeader extends StatelessWidget {
                   GestureDetector(
                     onTap: (){
                       if(data != null){
-
+                        navigation.gotoAccountInformationScreen();
                       } else {
                         navigation.gotoSignInScreen();
                       }
@@ -43,23 +43,24 @@ class AccountHeader extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Container(
-                          width: 80.0,
-                          height: 80.0,
-                          clipBehavior: Clip.antiAlias,
-                          decoration: BoxDecoration(
-                            color: whiteColor,
-                            borderRadius: BorderRadius.circular(100.0),
-                            border: Border.all(color: AppColors.backgroundColorSkin(isDark), width: 1.0)
-                          ),
-                          child:
-                          data != null && data.userImage!.isNotEmpty
-                              ? appAsyncImage(
-                            data.userImage,
-                            boxFit: BoxFit.cover,
-                          )
-                              : appAssetImage(image: EnvImages.imgMainLogo, fit: BoxFit.cover),
-                        ),
+                        // Container(
+                        //   width: 80.0,
+                        //   height: 80.0,
+                        //   clipBehavior: Clip.antiAlias,
+                        //   decoration: BoxDecoration(
+                        //     color: whiteColor,
+                        //     borderRadius: BorderRadius.circular(100.0),
+                        //     border: Border.all(color: AppColors.backgroundColorSkin(isDark), width: 1.0)
+                        //   ),
+                        //   child:
+                        //   data != null && data.userImage!.isNotEmpty
+                        //       ? appAsyncImage(
+                        //     data.userImage,
+                        //     boxFit: BoxFit.cover,
+                        //   )
+                        //       : appAssetImage(image: EnvImages.imgMainLogo, fit: BoxFit.cover),
+                        // ),
+                        ProfileImage(profileImage: data?.userImage),
                         setWidth(MAIN_HORIZONTAL_PADDING),
                         Expanded(
                           child: Column(

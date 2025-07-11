@@ -92,3 +92,8 @@ export 'package:danapaniexpress/ui/app_common/components/toast_util.dart';
 export '../../../data/repositories/auth_repository/utils.dart';
 export 'package:danapaniexpress/domain/services/api/api_consts.dart';
 export 'package:danapaniexpress/domain/services/api/api_endpoints.dart';
+
+export 'package:danapaniexpress/ui/screens/pages/account/address_book/widgets/address_item.dart';
+
+
+

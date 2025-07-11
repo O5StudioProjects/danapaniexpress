@@ -235,8 +235,8 @@ Widget appTextButton({text, onTap, useDefault = true, customTextColor}) {
   );
 }
 
-Widget appDivider() {
-  return Divider(color: AppColors.dividerColorSkin(isDark));
+Widget appDivider({height = 15.0}) {
+  return Divider(color: AppColors.dividerColorSkin(isDark), height: height);
 }
 
 Widget appDetailTextButton({detailText, buttonText, onTapButton}) {
