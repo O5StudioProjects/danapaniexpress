@@ -197,7 +197,7 @@ Widget listItemInfo({
                 isTrailingIcon
                 ? appSvgIcon(
                   icon: trailingIcon,
-                  width: 24.0,
+                  width: 16.0,
                   color: AppColors.secondaryTextColorSkin(isDark),
                 ) :  SizedBox(),
               ],
@@ -207,7 +207,7 @@ Widget listItemInfo({
                 isTrailingIcon
                     ? appSvgIcon(
                   icon: trailingIcon,
-                  width: 24.0,
+                  width: 16.0,
                   color: AppColors.secondaryTextColorSkin(isDark),
                 ) :  SizedBox(),
                 appText(text: trailingText, textStyle: secondaryTextStyle()),

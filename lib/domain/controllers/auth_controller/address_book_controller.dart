@@ -7,14 +7,14 @@ class AddressBookController extends GetxController {
   final addressRepo = AddressRepository();
   final auth = Get.find<AuthController>();
 
-
-  @override
-  void onInit() {
-
-    auth.fetchUserProfile();
-
-    super.onInit();
-  }
+  //
+  // @override
+  // void onInit() {
+  //
+  //   // auth.fetchUserProfile();
+  //
+  //   super.onInit();
+  // }
 
 
 

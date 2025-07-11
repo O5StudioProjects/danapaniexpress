@@ -29,7 +29,8 @@ class AddAddressMobile extends StatelessWidget {
                   : 'Update Address',
               isBackNavigation: true,
             ),
-            if(addAddress.curdType.value == CurdType.UPDATE)
+            if(addAddress.curdType.value == CurdType.UPDATE
+                && (auth.currentUser.value!.userDefaultAddress == null || addAddress.addressData.value!.addressId != auth.currentUser.value!.userDefaultAddress!.addressId!))
               Padding(
                 padding: const EdgeInsets.only(
                   top: MAIN_HORIZONTAL_PADDING,
@@ -145,8 +146,7 @@ class AddAddressMobile extends StatelessWidget {
                                   addAddress.updateAddressStatus.value == AuthStatus.LOADING
                                       ? loadingIndicator()
                                       : appMaterialButton(
-                                    isDisable:
-                                        !addAddress.isAddressFormValid.value,
+                                   isDisable: !addAddress.isAddressFormValid.value,
                                     text: 'Update',
                                     onTap: () async {
                                       if (addAddress.isAddressFormValid.value) {

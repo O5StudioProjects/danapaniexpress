@@ -18,120 +18,126 @@ class AddressBookMobile extends StatelessWidget {
             appBarCommon(title: 'Address Book', isBackNavigation: true),
 
             Expanded(
-              child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                child: Obx(() {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      setHeight(MAIN_VERTICAL_PADDING),
-                      HomeHeadings(
-                        mainHeadingText: 'Default Shipping Address',
-                        isTrailingText: false,
-                        isSeeAll: false,
-                      ),
-                      auth.getProfileStatus.value == AuthStatus.LOADING
-                      ? SizedBox(
-                          width: size.width,
-                          height: size.height * 0.2,
-                          child: loadingIndicator())
-                      : defaultAddress != null
-                          ? Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                setHeight(MAIN_VERTICAL_PADDING),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: MAIN_HORIZONTAL_PADDING,
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  // Call your reload or refresh logic here
+                  await auth.fetchUserProfile(); // or any function to refresh data
+                },
+                child: SingleChildScrollView(
+                  physics: AlwaysScrollableScrollPhysics(),
+                  child: Obx(() {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        setHeight(MAIN_VERTICAL_PADDING),
+                        HomeHeadings(
+                          mainHeadingText: 'Default Shipping Address',
+                          isTrailingText: false,
+                          isSeeAll: false,
+                        ),
+                        auth.getProfileStatus.value == AuthStatus.LOADING
+                        ? SizedBox(
+                            width: size.width,
+                            height: size.height * 0.2,
+                            child: loadingIndicator())
+                        : defaultAddress != null
+                            ? Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  setHeight(MAIN_VERTICAL_PADDING),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: MAIN_HORIZONTAL_PADDING,
+                                    ),
+                                    child: AddressItemUI(data: defaultAddress, isDefault: true,),
                                   ),
-                                  child: AddressItemUI(data: defaultAddress, isDefault: true,),
+                                  appDivider(),
+                                ],
+                              )
+                            : Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: MAIN_HORIZONTAL_PADDING,
+                                  vertical: MAIN_VERTICAL_PADDING,
                                 ),
-                                appDivider(),
-                              ],
-                            )
-                          : Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: MAIN_HORIZONTAL_PADDING,
-                                vertical: MAIN_VERTICAL_PADDING,
-                              ),
-                              child: Container(
-                                width: size.width,
-                                padding: const EdgeInsets.all(
-                                  MAIN_VERTICAL_PADDING,
-                                ),
-
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                        bottom: MAIN_HORIZONTAL_PADDING,
-                                      ),
-                                      child: appIcon(
-                                        iconType: IconType.ICON,
-                                        icon: Icons.location_city_rounded,
-                                        width: 34.0,
-                                        color: AppColors.materialButtonSkin(
-                                          isDark,
+                                child: Container(
+                                  width: size.width,
+                                  padding: const EdgeInsets.all(
+                                    MAIN_VERTICAL_PADDING,
+                                  ),
+                
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                          bottom: MAIN_HORIZONTAL_PADDING,
+                                        ),
+                                        child: appIcon(
+                                          iconType: IconType.ICON,
+                                          icon: Icons.location_city_rounded,
+                                          width: 34.0,
+                                          color: AppColors.materialButtonSkin(
+                                            isDark,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    appText(
-                                      text:
-                                          'Default Address Not found!\nPlease add new address',
-                                      textDirection: setTextDirection(
-                                        appLanguage,
+                                      appText(
+                                        text:
+                                            'Default Address Not found!\nPlease add new address',
+                                        textDirection: setTextDirection(
+                                          appLanguage,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                        textStyle: secondaryTextStyle(),
                                       ),
-                                      textAlign: TextAlign.center,
-                                      textStyle: secondaryTextStyle(),
-                                    ),
-                                    if(addressList.isNotEmpty)
-                                    appText(
-                                      text:
-                                      'or select from other existing addresses.',
-                                      maxLines: 2,
-                                      textDirection: setTextDirection(
-                                        appLanguage,
+                                      if(addressList.isNotEmpty)
+                                      appText(
+                                        text:
+                                        'or select from other existing addresses.',
+                                        maxLines: 2,
+                                        textDirection: setTextDirection(
+                                          appLanguage,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                        textStyle: secondaryTextStyle(),
                                       ),
-                                      textAlign: TextAlign.center,
-                                      textStyle: secondaryTextStyle(),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-
-                      if (addressList.isNotEmpty && auth.getProfileStatus.value == AuthStatus.SUCCESS && (defaultAddress != null && addressList.length > 1 || defaultAddress == null))
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            HomeHeadings(
-                              mainHeadingText: 'My Other Addresses',
-                              isTrailingText: false,
-                              isSeeAll: false,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(
-                                MAIN_HORIZONTAL_PADDING,
+                
+                        if (addressList.isNotEmpty && auth.getProfileStatus.value == AuthStatus.SUCCESS && (defaultAddress != null && addressList.length > 1 || defaultAddress == null))
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              HomeHeadings(
+                                mainHeadingText: 'My Other Addresses',
+                                isTrailingText: false,
+                                isSeeAll: false,
                               ),
-                              child: Column(
-                                children: List.generate(addressList.length, (
-                                  index,
-                                ) {
-                                  var data = addressList[index];
-                                  return AddressItemUI(
-                                    data: data,
-                                    isDefault: defaultAddress != null && defaultAddress.addressId == data.addressId ? true : false
-                                  );
-                                }),
+                              Padding(
+                                padding: const EdgeInsets.all(
+                                  MAIN_HORIZONTAL_PADDING,
+                                ),
+                                child: Column(
+                                  children: List.generate(addressList.length, (
+                                    index,
+                                  ) {
+                                    var data = addressList[index];
+                                    return AddressItemUI(
+                                      data: data,
+                                      isDefault: defaultAddress != null && defaultAddress.addressId == data.addressId ? true : false
+                                    );
+                                  }),
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                    ],
-                  );
-                }),
+                            ],
+                          ),
+                      ],
+                    );
+                  }),
+                ),
               ),
             ),
 

@@ -40,6 +40,14 @@ class AddAddressController extends GetxController {
 
   ///SET USER INITIAL VALUES
   Future<void> setInitialFormValues() async {
+
+    ///ADDRESS VALIDATE
+    addressNameTextController.value.addListener(validateAddressForm);
+    addressPhoneTextController.value.addListener(validateAddressForm);
+    addressAddressTextController.value.addListener(validateAddressForm);
+    addressNearestPlaceTextController.value.addListener(validateAddressForm);
+
+
     if (curdType.value == CurdType.ADD) {
       addressNameTextController.value.text =
           auth.currentUser.value!.userFullName ?? '';
@@ -58,11 +66,7 @@ class AddAddressController extends GetxController {
       province.value = addressData.value!.province!;
     }
 
-    ///ADDRESS VALIDATE
-    addressNameTextController.value.addListener(validateAddressForm);
-    addressPhoneTextController.value.addListener(validateAddressForm);
-    addressAddressTextController.value.addListener(validateAddressForm);
-    addressNearestPlaceTextController.value.addListener(validateAddressForm);
+
   }
 
   ///ADD USER ADDRESS

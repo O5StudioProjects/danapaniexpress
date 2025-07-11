@@ -8,6 +8,7 @@ export 'package:carousel_slider/carousel_slider.dart';
 export 'package:marquee/marquee.dart';
 export 'package:smooth_page_indicator/smooth_page_indicator.dart';
 export 'package:readmore/readmore.dart';
+export 'package:image_picker/image_picker.dart';
 
 
 
