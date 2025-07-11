@@ -11,7 +11,6 @@ class DashboardBinding extends Bindings{
     Get.lazyPut(()=> FavoritesController(), fenix: true);
     Get.lazyPut(()=> CartController(), fenix: true);
     Get.lazyPut(()=> SplashController(), fenix: true);
-    Get.lazyPut(()=> AccountController(), fenix: true);
   }
 
 }

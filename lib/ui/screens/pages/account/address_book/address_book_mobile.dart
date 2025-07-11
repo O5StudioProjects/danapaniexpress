@@ -1,6 +1,5 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
-import 'package:danapaniexpress/data/models/address_model.dart';
 
 class AddressBookMobile extends StatelessWidget {
   const AddressBookMobile({super.key});
@@ -11,50 +10,134 @@ class AddressBookMobile extends StatelessWidget {
     var auth = Get.find<AuthController>();
     return Obx(() {
       var addressList = auth.currentUser.value!.addressBook!;
+      var defaultAddress = auth.currentUser.value!.userDefaultAddress;
       return Scaffold(
         backgroundColor: AppColors.backgroundColorSkin(isDark),
         body: Column(
           children: [
             appBarCommon(title: 'Address Book', isBackNavigation: true),
 
-
             Expanded(
-              child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                child: Obx((){
-                  return Column(
-                    children: [
-                      setHeight(MAIN_VERTICAL_PADDING),
-                      HomeHeadings(
-                        mainHeadingText: 'Default Shipping Address',
-                        isTrailingText: false,
-                        isSeeAll: false,
-                      ),
-                      setHeight(MAIN_VERTICAL_PADDING),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: MAIN_HORIZONTAL_PADDING),
-                        child: AddressItemUI(data: auth.currentUser.value!.userDefaultAddress!),
-                      ),
-                      appDivider(),
-
-                      HomeHeadings(
-                        mainHeadingText: 'My Other Addresses',
-                        isTrailingText: false,
-                        isSeeAll: false,
-                      ),
-
-                      Padding(
-                        padding: const EdgeInsets.all(MAIN_HORIZONTAL_PADDING),
-                        child: Column(
-                          children: List.generate(addressList.length, (index) {
-                            var data = addressList[index];
-                            return AddressItemUI(data: data);
-                          }),
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  // Call your reload or refresh logic here
+                  await auth.fetchUserProfile(); // or any function to refresh data
+                },
+                child: SingleChildScrollView(
+                  physics: AlwaysScrollableScrollPhysics(),
+                  child: Obx(() {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        setHeight(MAIN_VERTICAL_PADDING),
+                        HomeHeadings(
+                          mainHeadingText: 'Default Shipping Address',
+                          isTrailingText: false,
+                          isSeeAll: false,
                         ),
-                      ),
-                    ],
-                  );
-                })
+                        auth.getProfileStatus.value == AuthStatus.LOADING
+                        ? SizedBox(
+                            width: size.width,
+                            height: size.height * 0.2,
+                            child: loadingIndicator())
+                        : defaultAddress != null
+                            ? Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  setHeight(MAIN_VERTICAL_PADDING),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: MAIN_HORIZONTAL_PADDING,
+                                    ),
+                                    child: AddressItemUI(data: defaultAddress, isDefault: true,),
+                                  ),
+                                  appDivider(),
+                                ],
+                              )
+                            : Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: MAIN_HORIZONTAL_PADDING,
+                                  vertical: MAIN_VERTICAL_PADDING,
+                                ),
+                                child: Container(
+                                  width: size.width,
+                                  padding: const EdgeInsets.all(
+                                    MAIN_VERTICAL_PADDING,
+                                  ),
+                
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                          bottom: MAIN_HORIZONTAL_PADDING,
+                                        ),
+                                        child: appIcon(
+                                          iconType: IconType.ICON,
+                                          icon: Icons.location_city_rounded,
+                                          width: 34.0,
+                                          color: AppColors.materialButtonSkin(
+                                            isDark,
+                                          ),
+                                        ),
+                                      ),
+                                      appText(
+                                        text:
+                                            'Default Address Not found!\nPlease add new address',
+                                        textDirection: setTextDirection(
+                                          appLanguage,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                        textStyle: secondaryTextStyle(),
+                                      ),
+                                      if(addressList.isNotEmpty)
+                                      appText(
+                                        text:
+                                        'or select from other existing addresses.',
+                                        maxLines: 2,
+                                        textDirection: setTextDirection(
+                                          appLanguage,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                        textStyle: secondaryTextStyle(),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                
+                        if (addressList.isNotEmpty && auth.getProfileStatus.value == AuthStatus.SUCCESS && (defaultAddress != null && addressList.length > 1 || defaultAddress == null))
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              HomeHeadings(
+                                mainHeadingText: 'My Other Addresses',
+                                isTrailingText: false,
+                                isSeeAll: false,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(
+                                  MAIN_HORIZONTAL_PADDING,
+                                ),
+                                child: Column(
+                                  children: List.generate(addressList.length, (
+                                    index,
+                                  ) {
+                                    var data = addressList[index];
+                                    return AddressItemUI(
+                                      data: data,
+                                      isDefault: defaultAddress != null && defaultAddress.addressId == data.addressId ? true : false
+                                    );
+                                  }),
+                                ),
+                              ),
+                            ],
+                          ),
+                      ],
+                    );
+                  }),
+                ),
               ),
             ),
 
@@ -83,7 +166,7 @@ class AddressBookMobile extends StatelessWidget {
                     ),
                   ],
                 ),
-                onTap: () => navigation.gotoAddAddressScreen(),
+                onTap: () => navigation.gotoAddAddressScreen(data: defaultAddress),
               ),
             ),
           ],
@@ -93,63 +176,4 @@ class AddressBookMobile extends StatelessWidget {
   }
 }
 
-class AddressItemUI extends StatelessWidget {
-  final AddressModel data;
 
-  const AddressItemUI({super.key, required this.data});
-
-  @override
-  Widget build(BuildContext context) {
-    var logoSpaceSize = size.width * 0.15;
-
-    return Obx(
-      ()=> Padding(
-        padding: const EdgeInsets.only(bottom: MAIN_HORIZONTAL_PADDING),
-        child: Container(
-          width: size.width,
-          padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: MAIN_HORIZONTAL_PADDING),
-          decoration: BoxDecoration(
-              color: AppColors.cardColorSkin(isDark),
-            borderRadius: BorderRadius.circular(12.0),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withAlpha(30),
-                blurRadius: 2,
-                spreadRadius: 0,
-                offset: const Offset(1, 2),
-              ),
-            ],
-          ),
-          child: Row(
-            children: [
-              SizedBox(
-                width: logoSpaceSize,
-                height: logoSpaceSize,
-                child: appIcon(
-                  iconType: IconType.ICON,
-                  icon: Icons.location_on_rounded,
-                  width: 34.0,
-                  color: AppColors.materialButtonSkin(isDark),
-                ),
-              ),
-             setWidth(8.0),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    appText(text: data.name, textStyle: itemTextStyle()),
-                    setHeight(2.0),
-                    appText(text: data.phone, textStyle: itemTextStyle()),
-                    setHeight(4.0),
-                    appText(text: '${data.address}, ${data.nearestPlace}, ${data.city}, ${data.province}, ${data.postalCode}',maxLines: 5, textStyle: secondaryTextStyle()),
-
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}

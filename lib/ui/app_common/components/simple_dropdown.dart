@@ -41,7 +41,7 @@ class SimpleDropdown extends StatelessWidget {
       items: items
           .map((item) => DropdownMenuItem<String>(
         value: item,
-        child: Text(item),
+        child: appText(text: item, textStyle: bodyTextStyle()),
       ))
           .toList(),
     );

@@ -235,8 +235,8 @@ Widget appTextButton({text, onTap, useDefault = true, customTextColor}) {
   );
 }
 
-Widget appDivider() {
-  return Divider(color: AppColors.dividerColorSkin(isDark));
+Widget appDivider({height = 15.0}) {
+  return Divider(color: AppColors.dividerColorSkin(isDark), height: height);
 }
 
 Widget appDetailTextButton({detailText, buttonText, onTapButton}) {
@@ -331,17 +331,21 @@ showToast(String message) async {
 void showSnackbar({
   required String title,
   required String message,
+  isError = false,
   IconData? icon,
   SnackPosition position = SnackPosition.BOTTOM,
   Duration duration = const Duration(seconds: 3),
 }) {
   Get.snackbar(
     title,
-    message,
+    '',
+    messageText: appText(text: message, textStyle: secondaryTextStyle().copyWith(color:  isError ? whiteColor :  AppColors.materialButtonTextSkin(isDark))),
     snackPosition: position,
-    backgroundColor: AppColors.materialButtonSkin(isDark),
-    colorText: AppColors.materialButtonTextSkin(isDark),
+    backgroundColor: isError ? redColor : AppColors.materialButtonSkin(isDark),
+    colorText: isError ? whiteColor : AppColors.materialButtonTextSkin(isDark),
     margin: const EdgeInsets.all(16),
+    barBlur: 2.0,
+    overlayBlur: 0.0,
     borderRadius: 12,
     duration: duration,
     icon: icon != null
