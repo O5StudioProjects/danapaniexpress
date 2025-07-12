@@ -15,7 +15,7 @@ class AddressBookMobile extends StatelessWidget {
         backgroundColor: AppColors.backgroundColorSkin(isDark),
         body: Column(
           children: [
-            appBarCommon(title: 'Address Book', isBackNavigation: true),
+            appBarCommon(title: AppLanguage.addressBookStr(appLanguage), isBackNavigation: true),
 
             Expanded(
               child: RefreshIndicator(
@@ -31,7 +31,7 @@ class AddressBookMobile extends StatelessWidget {
                       children: [
                         setHeight(MAIN_VERTICAL_PADDING),
                         HomeHeadings(
-                          mainHeadingText: 'Default Shipping Address',
+                          mainHeadingText: AppLanguage.defaultShippingAddressStr(appLanguage).toString(),
                           isTrailingText: false,
                           isSeeAll: false,
                         ),
@@ -83,8 +83,7 @@ class AddressBookMobile extends StatelessWidget {
                                         ),
                                       ),
                                       appText(
-                                        text:
-                                            'Default Address Not found!\nPlease add new address',
+                                        text: AppLanguage.defaultAddressNotFoundStr(appLanguage),
                                         textDirection: setTextDirection(
                                           appLanguage,
                                         ),
@@ -93,8 +92,7 @@ class AddressBookMobile extends StatelessWidget {
                                       ),
                                       if(addressList.isNotEmpty)
                                       appText(
-                                        text:
-                                        'or select from other existing addresses.',
+                                        text: AppLanguage.selectFromExistingAddressesStr(appLanguage),
                                         maxLines: 2,
                                         textDirection: setTextDirection(
                                           appLanguage,
@@ -112,7 +110,7 @@ class AddressBookMobile extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               HomeHeadings(
-                                mainHeadingText: 'My Other Addresses',
+                                mainHeadingText: AppLanguage.myOtherAddressesStr(appLanguage).toString(),
                                 isTrailingText: false,
                                 isSeeAll: false,
                               ),
@@ -159,7 +157,7 @@ class AddressBookMobile extends StatelessWidget {
                     ),
                     //setWidth(MAIN_HORIZONTAL_PADDING),
                     appText(
-                      text: 'Add New Address',
+                      text: AppLanguage.addNewAddressStr(appLanguage),
                       textStyle: buttonTextStyle(
                         color: AppColors.materialButtonTextSkin(isDark),
                       ),

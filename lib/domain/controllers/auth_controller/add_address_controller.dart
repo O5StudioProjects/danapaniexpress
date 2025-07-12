@@ -76,9 +76,14 @@ class AddAddressController extends GetxController {
     final formattedPhone = PhoneUtils.normalizePhone(
       addressPhoneTextController.value.text.trim(),
     );
+
     if (formattedPhone == null) {
       addressStatus.value = AuthStatus.FAILURE;
-      Get.snackbar('Invalid Phone', 'Please enter a valid phone number');
+      showSnackbar(
+        isError: true,
+        title: AppLanguage.invalidPhoneStr(appLanguage).toString(),
+        message: AppLanguage.invalidPhoneDetailStr(appLanguage).toString(),
+      );
       return;
     }
 
@@ -91,33 +96,43 @@ class AddAddressController extends GetxController {
       city: cityName.value,
       province: province.value,
       postalCode: addressPostalCodeTextController.value.text.trim(),
-      setAsDefault:
-          auth.currentUser.value != null &&
-              auth.currentUser.value!.userDefaultAddress == null
-          ? true
-          : false,
+      setAsDefault: auth.currentUser.value?.userDefaultAddress == null,
     );
 
     if (result['success'] == true) {
-      // Refresh address book or profile
-      await auth.fetchUserProfile().then((value) {
-        addressStatus.value = AuthStatus.SUCCESS;
-      });
+      await auth.fetchUserProfile();
+      showSnackbar(
+        title: AppLanguage.successStr(appLanguage).toString(),
+        message: AppLanguage.addressAddedSuccessStr(appLanguage).toString(),
+      );
 
-      //navigation.goBack(); // or to address list
+      addressStatus.value = AuthStatus.SUCCESS;
+
+      await clearAddressForm(); // optional: clear form after success
+      Navigator.pop(gContext);// close screen
     } else {
-      Get.snackbar('Error', result['message'] ?? 'Something went wrong');
+      addressStatus.value = AuthStatus.FAILURE;
+      showSnackbar(
+        isError: true,
+        title: 'Error',
+        message: result['message'] ?? result['error'] ?? 'Something went wrong',
+      );
     }
 
     addressStatus.value = AuthStatus.IDLE;
   }
+
 
   /// DELETE USER ADDRESS
   Future<void> deleteAddress(String addressId) async {
     final uid = auth.userId.value;
 
     if (uid == null) {
-      Get.snackbar('Error', 'User not logged in');
+      showSnackbar(
+        isError: true,
+          title: AppLanguage.errorStr(appLanguage).toString(),
+          message: AppLanguage.userNotLoggedInStr(appLanguage).toString(),
+      );
       return;
     }
 
@@ -129,14 +144,24 @@ class AddAddressController extends GetxController {
     );
 
     if (result['success'] == true) {
-      deleteAddressStatus.value = AuthStatus.SUCCESS;
-      Get.snackbar('Success', 'Address deleted successfully');
       // Optionally refresh profile or address list
       await auth.fetchUserProfile(); // or loadAddressList()
-      Get.back();
+      deleteAddressStatus.value = AuthStatus.SUCCESS;
+      Navigator.pop(gContext);// close screen
+      showSnackbar(
+        isError: false,
+        title: AppLanguage.successStr(appLanguage).toString(),
+        message: AppLanguage.addressDeletedSuccessStr(appLanguage).toString(),
+      );
+
+
     } else {
       deleteAddressStatus.value = AuthStatus.FAILURE;
-      Get.snackbar('Failed', result['message'] ?? 'Unknown error');
+      showSnackbar(
+        isError: false,
+        title: 'Failed',
+        message: result['message'] ?? result['error'] ?? 'Unknown error',
+      );
     }
   }
 
@@ -154,7 +179,11 @@ class AddAddressController extends GetxController {
   }) async {
     final uid = auth.userId.value;
     if (uid == null) {
-      Get.snackbar('Error', 'User not logged in');
+      showSnackbar(
+        isError: true,
+        title: AppLanguage.errorStr(appLanguage).toString(),
+        message: AppLanguage.userNotLoggedInStr(appLanguage).toString(),
+      );
       return;
     }
     updateAddressStatus.value = AuthStatus.LOADING;
@@ -174,22 +203,29 @@ class AddAddressController extends GetxController {
 
     if (result['success'] == true) {
       updateAddressStatus.value = AuthStatus.SUCCESS;
-      Get.snackbar('Success', 'Address updated successfully');
+      showSnackbar(
+          title: AppLanguage.successStr(appLanguage).toString(),
+          message: AppLanguage.addressUpdatedSuccessStr(appLanguage).toString()
+      );
 
       // Optionally refresh profile or address list
       await auth.fetchUserProfile(); // optional, based on your logic
     } else {
       updateAddressStatus.value = AuthStatus.FAILURE;
-      Get.snackbar('Failed', result['message'] ?? 'Unknown error');
+      showSnackbar(
+          isError: true,
+          title: 'Failed',
+          message: result['message'] ?? result['error'] ?? 'Unknown error');
     }
   }
 
+
+
+
+
   /// ONTAP ADD ADDRESS BUTTON
   Future<void> handleAddAddressButtonTap() async {
-    await addAddress().then((value) async {
-      await clearAddressForm();
-      Get.snackbar('Success', 'Address added successfully');
-    });
+    await addAddress(); // Everything handled inside
   }
 
   /// ONTAP DELETE USER ADDRESS

@@ -212,4 +212,297 @@ class AppLanguage {
 
 
 
+
+  /// SNACKBAR/TOASTS
+  static String? missingFieldsStr(String appLanguage){
+    return allLang[appLanguage]?[MISSING_FILEDS];
+  }
+  static String? missingFieldsDetailStr(String appLanguage){
+    return allLang[appLanguage]?[MISSING_FILEDS_DETAIL];
+  }
+  static String? passwordMismatchStr(String appLanguage){
+    return allLang[appLanguage]?[PASSWORD_MISSMATCH];
+  }
+  static String? passwordMismatchDetailStr(String appLanguage){
+    return allLang[appLanguage]?[PASSWORD_MISSMATCH_DETAIL];
+  }
+  static String? invalidPhoneStr(String appLanguage){
+    return allLang[appLanguage]?[INVALID_PHONE];
+  }
+  static String? invalidPhoneDetailStr(String appLanguage){
+    return allLang[appLanguage]?[INVALID_PHONE_DETAIL];
+  }
+  static String? registrationSuccessStr(String appLanguage){
+    return allLang[appLanguage]?[REGISTERATION_SUCCESS];
+  }
+  static String? registrationSuccessDetailStr(String appLanguage){
+    return allLang[appLanguage]?[REGISTERATION_SUCCESS_DETAIL];
+  }
+  static String? invalidInputStr(String appLanguage){
+    return allLang[appLanguage]?[INVALID_INPUT];
+  }
+  static String? invalidInputDetailStr(String appLanguage){
+    return allLang[appLanguage]?[INVALID_INPUT_DETAIL];
+  }
+  static String? loginSuccessStr(String appLanguage){
+    return allLang[appLanguage]?[LOGIN_SUCCESS];
+  }
+  static String? loginSuccessDetailStr(String appLanguage){
+    return allLang[appLanguage]?[LOGIN_SUCCESS_DETAIL];
+  }
+  static String? successStr(String appLanguage){
+    return allLang[appLanguage]?[SUCCESS];
+  }
+  static String? errorStr(String appLanguage){
+    return allLang[appLanguage]?[ERROR];
+  }
+  static String? addressAddedSuccessStr(String appLanguage){
+    return allLang[appLanguage]?[ADDRESS_ADDED_SUCCESS];
+  }
+  static String? addressDeletedSuccessStr(String appLanguage){
+    return allLang[appLanguage]?[ADDRESS_DELETED_SUCCESS];
+  }
+  static String? addressUpdatedSuccessStr(String appLanguage){
+    return allLang[appLanguage]?[ADDRESS_UPDATED_SUCCESS];
+  }
+  static String? userNotLoggedInStr(String appLanguage){
+    return allLang[appLanguage]?[USER_NOT_LOGGED_IN];
+  }
+  static String? enterFullNameStr(String appLanguage){
+    return allLang[appLanguage]?[ENTER_FULL_NAME];
+  }
+  static String? fullNameInvalidCharactersStr(String appLanguage){
+    return allLang[appLanguage]?[FULL_NAME_INVALID_CHARACTER];
+  }
+  static String? invalidEmailFormatStr(String appLanguage){
+    return allLang[appLanguage]?[INVALID_EMAIL_FORMAT];
+  }
+  static String? invalidPhoneFormatStr(String appLanguage){
+    return allLang[appLanguage]?[INVALID_PHONE_FORMAT];
+  }
+  static String? enterEmailStr(String appLanguage){
+    return allLang[appLanguage]?[ENTER_EMAIL];
+  }
+  static String? enterPhoneStr(String appLanguage){
+    return allLang[appLanguage]?[ENTER_PHONE];
+  }
+  static String? enterEmailOrPhoneStr(String appLanguage){
+    return allLang[appLanguage]?[ENTER_EMAIL_OR_PHONE];
+  }
+  static String? invalidEmailOrPhoneStr(String appLanguage){
+    return allLang[appLanguage]?[INVALID_EMAIL_OR_PHONE];
+  }
+  static String? enterPasswordStr(String appLanguage){
+    return allLang[appLanguage]?[ENTER_PASSWORD];
+  }
+  static String? passwordMustBeStr(String appLanguage){
+    return allLang[appLanguage]?[PASSWORD_MUST_BE];
+  }
+  static String? enterCompleteAddressStr(String appLanguage){
+    return allLang[appLanguage]?[ENTER_COMPLETE_ADDRESS];
+  }
+  static String? enterNearestPlaceStr(String appLanguage){
+    return allLang[appLanguage]?[ENTER_NEAREST_PLACE];
+  }
+
+  static String? myOrdersStr(String appLanguage) {
+    return allLang[appLanguage]?[MY_ORDERS];
+  }
+
+  static String? viewAllOrdersStr(String appLanguage) {
+    return allLang[appLanguage]?[VIEW_ALL_ORDERS];
+  }
+
+  static String? accountInformationStr(String appLanguage) {
+    return allLang[appLanguage]?[ACCOUNT_INFORMAION];
+  }
+
+  static String? addressBookStr(String appLanguage) {
+    return allLang[appLanguage]?[ADDRESS_BOOK];
+  }
+
+  static String? privacySecurityStr(String appLanguage) {
+    return allLang[appLanguage]?[PRIVACY_SECURITY];
+  }
+
+  static String? privacyPolicyStr(String appLanguage) {
+    return allLang[appLanguage]?[PRIVACY_POLICY];
+  }
+
+  static String? termsConditionsStr(String appLanguage) {
+    return allLang[appLanguage]?[TERMS_CONDITIONS];
+  }
+
+  static String? returnsRefundsStr(String appLanguage) {
+    return allLang[appLanguage]?[RETURNS_REFUNDS];
+  }
+
+  static String? supportStr(String appLanguage) {
+    return allLang[appLanguage]?[SUPPORT];
+  }
+
+  static String? customerServiceStr(String appLanguage) {
+    return allLang[appLanguage]?[CUSTOMER_SERVICE];
+  }
+
+  static String? whatsappStr(String appLanguage) {
+    return allLang[appLanguage]?[WHATSAPP];
+  }
+
+  static String? followUsStr(String appLanguage) {
+    return allLang[appLanguage]?[FOLLOW_US];
+  }
+
+  static String? instagramStr(String appLanguage) {
+    return allLang[appLanguage]?[INSTAGRAM];
+  }
+
+  static String? facebookStr(String appLanguage) {
+    return allLang[appLanguage]?[FACEBOOK];
+  }
+
+  static String? signOutStr(String appLanguage) {
+    return allLang[appLanguage]?[SIGN_OUT];
+  }
+
+  static String? signInStr(String appLanguage) {
+    return allLang[appLanguage]?[SIGN_IN];
+  }
+  static String? signInNowStr(String appLanguage) {
+    return allLang[appLanguage]?[SIGN_IN_NOW];
+  }
+
+  static String? verifiedStr(String appLanguage) {
+    return allLang[appLanguage]?[VERIFIED];
+  }
+
+  static String? verifyAddressStr(String appLanguage) {
+    return allLang[appLanguage]?[VERIFY_ADDRESS];
+  }
+
+  static String? wishlistStr(String appLanguage) {
+    return allLang[appLanguage]?[WISHLIST];
+  }
+
+  static String? ordersStr(String appLanguage) {
+    return allLang[appLanguage]?[ORDERS];
+  }
+
+  static String? welcomeToDanaPaniExpressStr(String appLanguage) {
+    return allLang[appLanguage]?[WELCOME_TO_DANA_PANI_EXPRESS];
+  }
+
+  static String? uploadProfilePictureStr(String appLanguage) {
+    return allLang[appLanguage]?[UPLOAD_PROFILE_PICTURE];
+  }
+
+  static String? changeEmailStr(String appLanguage) {
+    return allLang[appLanguage]?[CHANGE_EMAIL];
+  }
+
+  static String? changePasswordStr(String appLanguage) {
+    return allLang[appLanguage]?[CHANGE_PASSWORD];
+  }
+
+  static String? addressStr(String appLanguage) {
+    return allLang[appLanguage]?[ADDRESS];
+  }
+
+  static String? cityStr(String appLanguage) {
+    return allLang[appLanguage]?[CITY];
+  }
+
+  static String? provinceStr(String appLanguage) {
+    return allLang[appLanguage]?[PROVINCE];
+  }
+
+  static String? updateProfileNameStr(String appLanguage) {
+    return allLang[appLanguage]?[UPDATE_PROFILE_NAME];
+  }
+
+  static String? updateNameStr(String appLanguage) {
+    return allLang[appLanguage]?[UPDATE_NAME];
+  }
+
+  static String? updateEmailStr(String appLanguage) {
+    return allLang[appLanguage]?[UPDATE_EMAIL];
+  }
+
+  static String? currentPasswordStr(String appLanguage) {
+    return allLang[appLanguage]?[CURRENT_PASSWORD];
+  }
+
+  static String? confirmNewPasswordStr(String appLanguage) {
+    return allLang[appLanguage]?[CONFIRM_NEW_PASSWORD];
+  }
+  static String? defaultShippingAddressStr(String appLanguage) {
+    return allLang[appLanguage]?[DEFAULT_SHIPPING_ADDRESS];
+  }
+
+  static String? defaultAddressNotFoundStr(String appLanguage) {
+    return allLang[appLanguage]?[DEFAULT_ADDRESS_NOT_FOUND];
+  }
+
+  static String? selectFromExistingAddressesStr(String appLanguage) {
+    return allLang[appLanguage]?[SELECT_FROM_EXISTING_ADDRESSES];
+  }
+
+  static String? myOtherAddressesStr(String appLanguage) {
+    return allLang[appLanguage]?[MY_OTHER_ADDRESSES];
+  }
+
+  static String? addNewAddressStr(String appLanguage) {
+    return allLang[appLanguage]?[ADD_NEW_ADDRESS];
+  }
+  static String? nameStr(String appLanguage) {
+    return allLang[appLanguage]?[NAME];
+  }
+
+  static String? addressHintStr(String appLanguage) {
+    return allLang[appLanguage]?[ADDRESS_HINT];
+  }
+
+  static String? nearestPlaceStr(String appLanguage) {
+    return allLang[appLanguage]?[NEAREST_PLACE];
+  }
+
+  static String? selectCityStr(String appLanguage) {
+    return allLang[appLanguage]?[SELECT_CITY];
+  }
+
+  static String? selectProvinceStr(String appLanguage) {
+    return allLang[appLanguage]?[SELECT_PROVINCE];
+  }
+
+  static String? postalCodeOptionalStr(String appLanguage) {
+    return allLang[appLanguage]?[POSTAL_CODE_OPTIONAL];
+  }
+
+  static String? deleteStr(String appLanguage) {
+    return allLang[appLanguage]?[DELETE];
+  }
+
+  static String? updateStr(String appLanguage) {
+    return allLang[appLanguage]?[UPDATE];
+  }
+
+  static String? addStr(String appLanguage) {
+    return allLang[appLanguage]?[ADD];
+  }
+  static String? addAddressStr(String appLanguage) {
+    return allLang[appLanguage]?[ADD_ADDRESS];
+  }
+
+  static String? updateAddressStr(String appLanguage) {
+    return allLang[appLanguage]?[UPDATE_ADDRESS];
+  }
+
+  static String? setAsDefaultAddressStr(String appLanguage) {
+    return allLang[appLanguage]?[SET_AS_DEFAULT_ADDRESS];
+  }
+  static String? defaultStr(String appLanguage) {
+    return allLang[appLanguage]?[DEFAULT];
+  }
+
+
 }

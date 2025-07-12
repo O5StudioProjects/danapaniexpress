@@ -87,7 +87,7 @@ class AddressItemUI extends StatelessWidget {
                       horizontal: MAIN_HORIZONTAL_PADDING,
                       vertical: 2.0,
                     ),
-                    child: appText(text: 'Default', textStyle: itemTextStyle().copyWith(color: AppColors.materialButtonTextSkin(isDark))),
+                    child: appText(text: AppLanguage.defaultStr(appLanguage), textStyle: itemTextStyle().copyWith(color: AppColors.materialButtonTextSkin(isDark))),
                   ),
                 ),
             ],

@@ -333,8 +333,8 @@ void showSnackbar({
   required String message,
   isError = false,
   IconData? icon,
-  SnackPosition position = SnackPosition.BOTTOM,
-  Duration duration = const Duration(seconds: 3),
+  SnackPosition position = SnackPosition.TOP,
+  Duration duration = const Duration(seconds: 4),
 }) {
   Get.snackbar(
     title,
