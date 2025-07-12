@@ -148,9 +148,7 @@ Widget listItemSwitchButton({
                       activeColor: AppColors.materialButtonSkin(isDark),
                       activeTrackColor: AppColors.materialButtonSkin(isDark),
                       inactiveThumbColor: AppColors.backgroundColorSkin(isDark),
-                      inactiveTrackColor: AppColors.backgroundColorInverseSkin(
-                        isDark,
-                      ),
+                      inactiveTrackColor: AppColors.secondaryTextColorSkin(isDark),
                       trackOutlineColor: const WidgetStatePropertyAll(
                         Colors.transparent,
                       ),

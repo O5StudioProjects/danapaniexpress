@@ -5,10 +5,8 @@ import 'package:danapaniexpress/core/data_model_imports.dart';
 
 import 'package:http/http.dart' as http;
 
-import '../../models/address_model.dart';
 
-
-class AuthRepository {
+class AuthRepository extends BaseRepository{
 
   /// REGISTER USER -API
   Future<Map<String, dynamic>> registerUserApi({
@@ -17,122 +15,88 @@ class AuthRepository {
     required String phone,
     required String password,
   }) async {
-    try {
-      final response = await http.post(
-        Uri.parse(APiEndpoints.registerUser),
-        headers: apiHeaders,
-        body: jsonEncode({
-          UserFields.userFullName: fullName,
-          UserFields.userEmail: email, // Nullable
-          UserFields.userPhone: phone,
-          UserFields.userPassword: password,
-        }),
-      );
-
-      print('Status: ${response.statusCode}');
-      print('Body: ${response.body}');
-
-      if (response.statusCode == 200 && response.body.isNotEmpty) {
-        final data = jsonDecode(response.body);
-        return data; // 🔁 Pass raw to controller to handle success/failure, store token/user, etc.
-      } else {
-        return {
-          'success': false,
-          'message': 'Server error: ${response.statusCode}',
-        };
-      }
-    } catch (e) {
-      print('Register Exception: $e');
-      return {
-        'success': false,
-        'message': 'Exception: $e',
-      };
-    }
+    return await postRequest(
+      Uri.parse(APiEndpoints.registerUser),
+      headers: apiHeaders,
+      body: {
+        UserFields.userFullName: fullName,
+        UserFields.userEmail: email,
+        UserFields.userPhone: phone,
+        UserFields.userPassword: password,
+      },
+    );
   }
+
 
   /// LOGIN USER -API
   Future<Map<String, dynamic>> loginUserApi({
     required String identifier,
     required String password,
   }) async {
-    final url = Uri.parse(APiEndpoints.loginUser);
     try {
-      final response = await http.post(
-        url,
+      final data = await postRequest(
+        Uri.parse(APiEndpoints.loginUser),
         headers: apiHeaders,
-        body: jsonEncode({
+        body: {
           'user_identifier': identifier,
           'user_password': password,
-        }),
-      );
-
-      final data = jsonDecode(response.body);
-
-      if (response.statusCode == 200 && data[SUCCESS] == true) {
-        return {
-          SUCCESS: true,
-          TOKEN: data['token'],
-          'user': UserModel.fromJson(Map<String, dynamic>.from(data['user'])),
-        };
-      } else {
-        return {SUCCESS: false, MESSAGE: data[MESSAGE] ?? 'Login failed'};
-      }
-    } catch (e) {
-      return {SUCCESS: false, MESSAGE: 'Exception: $e'};
-    }
-  }
-
-  /// Get user profile using token
-  Future<Map<String, dynamic>> getProfile(String token) async {
-    final url = Uri.parse(APiEndpoints.getUserProfile);
-    try {
-      final response = await http.get(
-        url,
-        headers: tokenHeaders(token),
-      );
-
-      final data = jsonDecode(response.body);
-
-      if (response.statusCode == 200 && data[SUCCESS] == true) {
-        return {
-          SUCCESS: true,
-          'user': UserModel.fromJson(Map<String, dynamic>.from(data['user'])),
-        };
-      } else {
-        return {SUCCESS: false, MESSAGE: data[ERROR] ?? 'Failed to fetch'};
-      }
-    } catch (e) {
-      return {SUCCESS: false, MESSAGE: 'Exception: $e'};
-    }
-  }
-
-  /// LOGOUT UDER -API
-  Future<Map<String, dynamic>> logoutUserApi(String token) async {
-    try {
-      final response = await http.post(
-        Uri.parse(APiEndpoints.logoutUser),
-        headers: {
-          'Content-Type': 'application/json',
-          AppConfig.apiKeyHeader: AppConfig.apiKey, // your static API key
-          'Authorization': 'Bearer $token',
         },
       );
 
-      if (response.statusCode == 200) {
-        return jsonDecode(response.body);
+      if (data['success'] == true && data.containsKey('user')) {
+        return {
+          SUCCESS: true,
+          'token': data['token'],
+          'user': UserModel.fromJson(Map<String, dynamic>.from(data['user'])),
+        };
       } else {
         return {
           'success': false,
-          'message': 'Logout failed: ${response.statusCode}'
+          'message': data['message'] ?? data['error'] ?? 'Login failed',
         };
       }
     } catch (e) {
-      return {
-        'success': false,
-        'message': 'Exception: $e',
-      };
+      return handleException(e as Exception);
     }
   }
+
+
+  /// Get user profile using token
+  Future<Map<String, dynamic>> getProfileApi(String token) async {
+    try {
+      final data = await getRequest(
+        Uri.parse(APiEndpoints.getUserProfile),
+        headers: tokenHeaders(token),
+      );
+
+      if (data['success'] == true && data['user'] != null) {
+        return {
+          'success': true,
+          'user': UserModel.fromJson(Map<String, dynamic>.from(data['user'])),
+        };
+      } else {
+        return {
+          'success': false,
+          'message': data['message'] ?? data['error'] ?? 'Failed to fetch profile',
+        };
+      }
+    } catch (e) {
+      return handleException(e as Exception);
+    }
+  }
+
+
+  /// LOGOUT UDER -API
+  Future<Map<String, dynamic>> logoutUserApi(String token) async {
+    return await postRequest(
+      Uri.parse(APiEndpoints.logoutUser),
+      headers: tokenHeaders(token),
+      body: {}, // If your backend doesn't require a body for logout
+    );
+  }
+
+
+
 
 
 
@@ -158,7 +122,6 @@ class AuthRepository {
 
     return trimmed; // Fallback (shouldn't happen if validator is used)
   }
-
 
   Future<UserModel?> authenticateUser(String emailOrPhone, String password) async {
     final users = await loadUsersFromAssets();

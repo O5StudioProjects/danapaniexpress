@@ -33,10 +33,10 @@ class AccountScreenMobile extends StatelessWidget {
 
                       children: [
                         HomeHeadings(
-                          mainHeadingText: 'My Orders',
+                          mainHeadingText: AppLanguage.myOrdersStr(appLanguage).toString(),
                           isSeeAll: true,
                           isTrailingText: true,
-                          trailingText: 'View All Orders',
+                          trailingText: AppLanguage.viewAllOrdersStr(appLanguage).toString(),
                           onTapSeeAllText: () {},
                         ),
                         setHeight(MAIN_VERTICAL_PADDING),
@@ -69,7 +69,7 @@ class AccountScreenMobile extends StatelessWidget {
                             child: listItemIcon(
                               iconType: IconType.ICON,
                               leadingIcon: Icons.account_circle_rounded,
-                              itemTitle: 'Account Information',
+                              itemTitle: AppLanguage.accountInformationStr(appLanguage).toString(),
                               trailingIcon: icArrowRight,
                               onItemClick: ()=> navigate.gotoAccountInformationScreen(),
                             ),
@@ -83,7 +83,7 @@ class AccountScreenMobile extends StatelessWidget {
                             child: listItemIcon(
                               iconType: IconType.ICON,
                               leadingIcon: Icons.location_on_rounded,
-                              itemTitle: 'Address Book',
+                              itemTitle: AppLanguage.addressBookStr(appLanguage).toString(),
                               trailingIcon: icArrowRight,
                               onItemClick: ()=> navigate.gotoAddressBookScreen(),
                             ),
@@ -102,7 +102,7 @@ class AccountScreenMobile extends StatelessWidget {
                         horizontal: MAIN_HORIZONTAL_PADDING,
                       ),
                       child: appText(
-                        text: 'Legal',
+                        text: AppLanguage.privacySecurityStr(appLanguage).toString(),
                         textStyle: secondaryTextStyle(),
                       ),
                     ),
@@ -115,7 +115,7 @@ class AccountScreenMobile extends StatelessWidget {
                       child: listItemIcon(
                         iconType: IconType.ICON,
                         leadingIcon: Icons.privacy_tip_rounded,
-                        itemTitle: 'Privacy Policy',
+                        itemTitle: AppLanguage.privacyPolicyStr(appLanguage).toString(),
                         trailingIcon: icArrowRight,
                         onItemClick: () {},
                       ),
@@ -129,7 +129,7 @@ class AccountScreenMobile extends StatelessWidget {
                       child: listItemIcon(
                         iconType: IconType.ICON,
                         leadingIcon: Icons.receipt_long_rounded,
-                        itemTitle: 'Terms & Conditions',
+                        itemTitle: AppLanguage.termsConditionsStr(appLanguage).toString(),
                         trailingIcon: icArrowRight,
                         onItemClick: () {},
                       ),
@@ -143,7 +143,7 @@ class AccountScreenMobile extends StatelessWidget {
                       child: listItemIcon(
                         iconType: IconType.ICON,
                         leadingIcon: Icons.keyboard_return_rounded,
-                        itemTitle: 'Returns & Refunds',
+                        itemTitle: AppLanguage.returnsRefundsStr(appLanguage).toString(),
                         trailingIcon: icArrowRight,
                         onItemClick: () {},
                       ),
@@ -157,7 +157,7 @@ class AccountScreenMobile extends StatelessWidget {
                         horizontal: MAIN_HORIZONTAL_PADDING,
                       ),
                       child: appText(
-                        text: 'Support',
+                        text: AppLanguage.supportStr(appLanguage).toString(),
                         textStyle: secondaryTextStyle(),
                       ),
                     ),
@@ -170,7 +170,7 @@ class AccountScreenMobile extends StatelessWidget {
                       child: listItemIcon(
                         iconType: IconType.PNG,
                         leadingIcon: icAdmins,
-                        itemTitle: 'Customer Service',
+                        itemTitle: AppLanguage.customerServiceStr(appLanguage).toString(),
                         trailingIcon: icArrowRight,
                         onItemClick: () {},
                       ),
@@ -184,7 +184,7 @@ class AccountScreenMobile extends StatelessWidget {
                       child: listItemIcon(
                         iconType: IconType.SVG,
                         leadingIcon: icWhatsapp,
-                        itemTitle: 'Our Whatsapp',
+                        itemTitle: AppLanguage.whatsappStr(appLanguage).toString(),
                         trailingIcon: icArrowRight,
                         onItemClick: () {},
                       ),
@@ -198,7 +198,7 @@ class AccountScreenMobile extends StatelessWidget {
                         horizontal: MAIN_HORIZONTAL_PADDING,
                       ),
                       child: appText(
-                        text: 'Follow Us',
+                        text: AppLanguage.followUsStr(appLanguage).toString(),
                         textStyle: secondaryTextStyle(),
                       ),
                     ),
@@ -211,7 +211,7 @@ class AccountScreenMobile extends StatelessWidget {
                       child: listItemIcon(
                         iconType: IconType.SVG,
                         leadingIcon: icInstagram,
-                        itemTitle: 'Instagram',
+                        itemTitle: AppLanguage.instagramStr(appLanguage).toString(),
                         trailingIcon: icArrowRight,
                         onItemClick: () {},
                       ),
@@ -225,7 +225,7 @@ class AccountScreenMobile extends StatelessWidget {
                       child: listItemIcon(
                         iconType: IconType.SVG,
                         leadingIcon: icFacebook,
-                        itemTitle: 'Facebook',
+                        itemTitle: AppLanguage.facebookStr(appLanguage).toString(),
                         trailingIcon: icArrowRight,
                         onItemClick: () {},
                       ),
@@ -242,7 +242,7 @@ class AccountScreenMobile extends StatelessWidget {
                                 : listItemIcon(
                                     iconType: IconType.ICON,
                                     leadingIcon: Icons.logout_rounded,
-                                    itemTitle: 'Sign out',
+                                    itemTitle: AppLanguage.signOutStr(appLanguage).toString(),
                                     trailingIcon: icArrowRight,
                                     onItemClick: () async {
                                       await auth.logoutUser().then((val) {
@@ -261,7 +261,7 @@ class AccountScreenMobile extends StatelessWidget {
                             child: listItemIcon(
                               iconType: IconType.ICON,
                               leadingIcon: Icons.login_rounded,
-                              itemTitle: 'Sign in',
+                              itemTitle: AppLanguage.signInStr(appLanguage).toString(),
                               trailingIcon: icArrowRight,
                               onItemClick: (){
                                 navigate.gotoSignInScreen();

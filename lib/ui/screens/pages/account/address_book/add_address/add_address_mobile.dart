@@ -1,9 +1,6 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
-import 'package:danapaniexpress/domain/controllers/auth_controller/add_address_controller.dart';
-import 'package:danapaniexpress/domain/controllers/auth_controller/address_book_controller.dart';
-import '../../../../../../data/models/address_model.dart';
-import '../../../../../app_common/components/simple_dropdown.dart';
+
 
 class AddAddressMobile extends StatelessWidget {
   AddAddressMobile({super.key});
@@ -13,7 +10,6 @@ class AddAddressMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var auth = Get.find<AuthController>();
-    var address = Get.find<AddressBookController>();
     var addAddress = Get.find<AddAddressController>();
 
     return Obx(() {
@@ -25,8 +21,8 @@ class AddAddressMobile extends StatelessWidget {
           children: [
             appBarCommon(
               title: addAddress.curdType.value == CurdType.ADD
-                  ? 'Add Address'
-                  : 'Update Address',
+                  ? AppLanguage.addAddressStr(appLanguage)
+                  : AppLanguage.updateAddressStr(appLanguage),
               isBackNavigation: true,
             ),
             if(addAddress.curdType.value == CurdType.UPDATE
@@ -38,7 +34,7 @@ class AddAddressMobile extends StatelessWidget {
                 child: listItemSwitchButton(
                   iconType: IconType.ICON,
                   leadingIcon: Icons.location_on_rounded,
-                  itemTitle: 'Set as default address',
+                  itemTitle: AppLanguage.setAsDefaultAddressStr(appLanguage),
                   switchValue: addAddress.setDefaultAddressValue.value,
                   onItemClick: () {
                     addAddress.setDefaultAddressValue.value = !addAddress.setDefaultAddressValue.value;
@@ -57,7 +53,7 @@ class AddAddressMobile extends StatelessWidget {
                         AppTextFormField(
                           textEditingController:
                               addAddress.addressNameTextController.value,
-                          hintText: 'Name',
+                          hintText: AppLanguage.nameStr(appLanguage),
                           validator: FormValidations.fullNameValidator,
                         ),
                         setHeight(MAIN_HORIZONTAL_PADDING),
@@ -66,7 +62,7 @@ class AddAddressMobile extends StatelessWidget {
                         AppTextFormField(
                           textEditingController:
                               addAddress.addressPhoneTextController.value,
-                          hintText: 'Phone',
+                          hintText: AppLanguage.phoneStr(appLanguage),
                           validator: FormValidations.phoneValidator,
                         ),
                         setHeight(MAIN_HORIZONTAL_PADDING),
@@ -75,7 +71,7 @@ class AddAddressMobile extends StatelessWidget {
                         AppTextFormField(
                           textEditingController:
                               addAddress.addressAddressTextController.value,
-                          hintText: 'Address',
+                          hintText: AppLanguage.addressHintStr(appLanguage),
                           validator: FormValidations.addressValidator,
                         ),
                         setHeight(MAIN_HORIZONTAL_PADDING),
@@ -85,7 +81,7 @@ class AddAddressMobile extends StatelessWidget {
                           textEditingController: addAddress
                               .addressNearestPlaceTextController
                               .value,
-                          hintText: 'Nearest Place',
+                          hintText: AppLanguage.nearestPlaceStr(appLanguage),
                           validator: FormValidations.nearestPlaceValidator,
                         ),
                         setHeight(MAIN_HORIZONTAL_PADDING),
@@ -97,7 +93,7 @@ class AddAddressMobile extends StatelessWidget {
                           onChanged: (val) {
                             addAddress.cityName.value = val!;
                           },
-                          hintText: 'Select City',
+                          hintText: AppLanguage.selectCityStr(appLanguage).toString(),
                         ),
                         setHeight(MAIN_HORIZONTAL_PADDING),
 
@@ -108,7 +104,7 @@ class AddAddressMobile extends StatelessWidget {
                           onChanged: (val) {
                             addAddress.province.value = val!;
                           },
-                          hintText: 'Select City',
+                          hintText: AppLanguage.selectProvinceStr(appLanguage).toString(),
                         ),
                         setHeight(MAIN_HORIZONTAL_PADDING),
 
@@ -116,7 +112,7 @@ class AddAddressMobile extends StatelessWidget {
                         AppTextFormField(
                           textEditingController:
                               addAddress.addressPostalCodeTextController.value,
-                          hintText: 'Postal Code (Optional)',
+                          hintText: AppLanguage.postalCodeOptionalStr(appLanguage),
                         ),
                        setHeight(MAIN_VERTICAL_PADDING),
 
@@ -133,7 +129,7 @@ class AddAddressMobile extends StatelessWidget {
                               ? loadingIndicator()
                                  : appMaterialButton(
                                     isDisable: false,
-                                    text: 'Delete',
+                                    text: AppLanguage.deleteStr(appLanguage),
                                     onTap: () async {
                                       await addAddress.handleDeleteUserAddressButtonTap(addAddress.addressData.value!.addressId!);
                                     },
@@ -147,7 +143,7 @@ class AddAddressMobile extends StatelessWidget {
                                       ? loadingIndicator()
                                       : appMaterialButton(
                                    isDisable: !addAddress.isAddressFormValid.value,
-                                    text: 'Update',
+                                    text: AppLanguage.updateStr(appLanguage),
                                     onTap: () async {
                                       if (addAddress.isAddressFormValid.value) {
                                         if (_formKey.currentState?.validate() ??
@@ -164,7 +160,7 @@ class AddAddressMobile extends StatelessWidget {
                           } else {
                             return appMaterialButton(
                               isDisable: !addAddress.isAddressFormValid.value,
-                              text: 'Add',
+                              text: AppLanguage.addStr(appLanguage),
                               onTap: () async {
                                 if (addAddress.isAddressFormValid.value) {
                                   if (_formKey.currentState?.validate() ??

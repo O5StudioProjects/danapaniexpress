@@ -27,12 +27,6 @@ class AuthController extends GetxController{
   RxnString userId = RxnString();
 
 
-  // /// REGISTER USER
-  // final String baseUrl = 'http://10.0.2.2/danapani-api';
-
-  RxBool isLoading = false.obs;
-
-
   /// AUTH TEXT CONTROLLERS - SIGNIN SCREEN
   var signInEmailPhoneTextController = TextEditingController().obs;
   var signInPasswordTextController = TextEditingController().obs;
@@ -74,20 +68,28 @@ class AuthController extends GetxController{
 
     if (fullName.isEmpty || phone.isEmpty || password.isEmpty || confirmPassword.isEmpty) {
       authStatus.value = AuthStatus.FAILURE;
-      Get.snackbar('Missing Fields', 'Please fill all required fields');
+      showSnackbar(
+          title: AppLanguage.missingFieldsStr(appLanguage).toString(),
+          message: AppLanguage.missingFieldsDetailStr(appLanguage).toString());
       return;
     }
 
     if (password != confirmPassword) {
       authStatus.value = AuthStatus.FAILURE;
-      Get.snackbar('Password Mismatch', 'Passwords do not match');
+      showSnackbar(
+          isError: true,
+          title: AppLanguage.passwordMismatchStr(appLanguage).toString(),
+          message: AppLanguage.passwordMismatchDetailStr(appLanguage).toString());
       return;
     }
 
     final formattedPhone = PhoneUtils.normalizePhone(phone);
     if (formattedPhone == null) {
       authStatus.value = AuthStatus.FAILURE;
-      Get.snackbar('Invalid Phone', 'Please enter a valid phone number');
+      showSnackbar(
+          isError: true,
+          title: AppLanguage.invalidPhoneStr(appLanguage).toString(),
+          message: AppLanguage.invalidPhoneDetailStr(appLanguage).toString());
       return;
     }
 
@@ -99,7 +101,7 @@ class AuthController extends GetxController{
     );
 
     if (result[SUCCESS] == true) {
-      final token = result[TOKEN];
+      final token = result['token'];
       final userMap = result['user'];
 
       // Save token + user ID
@@ -111,13 +113,16 @@ class AuthController extends GetxController{
       currentUser.value = UserModel.fromJson(userMap);
 
       authStatus.value = AuthStatus.SUCCESS;
-      Get.snackbar('Success', 'Registered & Logged in!');
+      showSnackbar(
+          isError: false,
+          title: AppLanguage.registrationSuccessStr(appLanguage).toString(),
+          message: AppLanguage.registrationSuccessDetailStr(appLanguage).toString());
       await clearRegisterForm();
 
       navigation.gotoDashboardScreen();
     } else {
       authStatus.value = AuthStatus.FAILURE;
-      Get.snackbar('Registration Failed', result[MESSAGE] ?? 'Unknown error');
+      Get.snackbar('Registration Failed', result['message'] ?? result['error'] ?? 'Unknown error');
     }
   }
 
@@ -125,10 +130,21 @@ class AuthController extends GetxController{
   Future<void> loginUser(String identifier, String password) async {
     authStatus.value = AuthStatus.LOADING;
 
+    if (identifier.isEmpty || password.isEmpty) {
+      authStatus.value = AuthStatus.FAILURE;
+      showSnackbar(
+          title: AppLanguage.missingFieldsStr(appLanguage).toString(),
+          message: AppLanguage.missingFieldsDetailStr(appLanguage).toString());
+      return;
+    }
       final normalizedInput = PhoneUtils.normalizeLoginInput(identifier);
       if (normalizedInput == null) {
         authStatus.value = AuthStatus.FAILURE;
-        Get.snackbar('Invalid Input', 'Please enter a valid email or phone number');
+        showSnackbar(
+          isError: true,
+            title: AppLanguage.invalidInputStr(appLanguage).toString(),
+            message: AppLanguage.invalidInputDetailStr(appLanguage).toString()
+        );
         return;
       }
 
@@ -136,34 +152,45 @@ class AuthController extends GetxController{
 
     if (res[SUCCESS]) {
       currentUser.value = res['user'];
-      authToken.value = res[TOKEN];
+      authToken.value = res['token'];
       userId.value = res['user']?.userId; // ✅ Set userId here
-      await saveSession(res['user']?.userId, res[TOKEN]);
+      await saveSession(res['user']?.userId, res['token']);
       await fetchUserProfile();
       authStatus.value = AuthStatus.SUCCESS;
-      Get.snackbar("Login Successful", "Logged in successfully!");
+      showSnackbar(
+          isError: false,
+          title: AppLanguage.loginSuccessStr(appLanguage).toString(),
+          message: AppLanguage.loginSuccessDetailStr(appLanguage).toString()
+      );
       navigation.gotoDashboardScreen();
       clearSignInForm();
     } else {
       authStatus.value = AuthStatus.FAILURE;
-      Get.snackbar("Login Failed", res['message'] ?? 'Error');
+      Get.snackbar("Login Failed", res['message'] ?? res['error'] ?? 'Unknown error');
     }
   }
 
   ///FETCH USER PROFILE COMPLETE OBJECT - API
   Future<void> fetchUserProfile() async {
     if (authToken.isEmpty) return;
+
     getProfileStatus.value = AuthStatus.LOADING;
-    final res = await authRepo.getProfile(authToken.value);
-    if (res[SUCCESS]) {
+
+    final res = await authRepo.getProfileApi(authToken.value);
+
+    if (res['success'] == true) {
       currentUser.value = res['user'];
       getProfileStatus.value = AuthStatus.SUCCESS;
+
       if (kDebugMode) {
-        print("===== Profile Fetched");
+        print("===== Profile Fetched =====");
       }
     } else {
-      Get.snackbar("Profile", res[MESSAGE] ?? 'Error fetching profile');
       getProfileStatus.value = AuthStatus.FAILURE;
+      showSnackbar(
+          isError: true,
+          title: "Profile", message: res['message'] ?? res['error'] ?? 'Error fetching profile');
+
     }
   }
 
@@ -184,58 +211,31 @@ class AuthController extends GetxController{
       navigation.gotoSignInScreen();
     } else {
       authStatus.value = AuthStatus.FAILURE;
-      Get.snackbar('Logout Failed', result['message'] ?? 'Unknown error');
+      showSnackbar(
+          isError: true,
+          title: "Profile", message: result['message'] ?? result['error'] ?? 'Unknown error');
     }
   }
 
 
-
-
-
-
   /// UI HANDLINGS
+
   /// ONTAP REGISTER BUTTON
   Future<void> handleRegisterUserButtonTap() async {
-    if(registerPasswordTextController.value.text == registerReEnterPasswordTextController.value.text){
-     await registerUser(
-        fullName: registerFullNameTextController.value.text.trim(),
-        email: registerEmailTextController.value.text.trim().isEmpty ? '' : registerEmailTextController.value.text.trim(),
-        phone: registerPhoneTextController.value.text.trim(),
-        password: registerPasswordTextController.value.text,
-        confirmPassword: registerReEnterPasswordTextController.value.text,
-      );
-    } else {
-      Get.snackbar('Password Mismatched', 'Your password and confirm password is not same.');
-    }
+    await registerUser(
+      fullName: registerFullNameTextController.value.text.trim(),
+      email: registerEmailTextController.value.text.trim().isEmpty ? '' : registerEmailTextController.value.text.trim(),
+      phone: registerPhoneTextController.value.text.trim(),
+      password: registerPasswordTextController.value.text,
+      confirmPassword: registerReEnterPasswordTextController.value.text,
+    );
 
   }
   /// ONTAP LOGIN BUTTON
   Future<void> handleLoginButtonTap() async {
     final rawInput = signInEmailPhoneTextController.value.text.trim();
-    final password = signInPasswordTextController.value.text;
-
-    if (rawInput.isEmpty || password.isEmpty) {
-      Get.snackbar('Missing Fields', 'Please enter your email/phone and password',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: const Color(0xFFE57373),
-        colorText: const Color(0xFFFFFFFF),
-      );
-      return;
-    }
-
-    // Detect email vs phone
-    final formattedInput = PhoneUtils.normalizeLoginInput(rawInput);
-    if (formattedInput == null) {
-      Get.snackbar(
-        'Invalid Input',
-        'Please enter a valid email or phone number',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: const Color(0xFFE57373),
-        colorText: const Color(0xFFFFFFFF),
-      );
-      return;
-    }
-    await loginUser(formattedInput, password);
+    final password = signInPasswordTextController.value.text.trim();
+    await loginUser(rawInput, password);
 
   }
 
@@ -297,6 +297,13 @@ class AuthController extends GetxController{
   void onClose() {
     signInEmailPhoneTextController.value.dispose();
     signInPasswordTextController.value.dispose();
+
+    registerFullNameTextController.value.dispose();
+    registerEmailTextController.value.dispose();
+    registerPhoneTextController.value.dispose();
+    registerPasswordTextController.value.dispose();
+    registerReEnterPasswordTextController.value.dispose();
+
     super.onClose();
   }
 

@@ -14,3 +14,5 @@ export 'package:danapaniexpress/domain/controllers/product_controller/other_prod
 export 'package:danapaniexpress/domain/controllers/auth_controller/auth_controller.dart';
 export 'package:danapaniexpress/domain/controllers/text_controllers/text_controllers.dart';
 export 'package:danapaniexpress/data/models/marquee_model.dart';
+export 'package:danapaniexpress/domain/controllers/auth_controller/add_address_controller.dart';
+export 'package:danapaniexpress/domain/controllers/auth_controller/address_book_controller.dart';

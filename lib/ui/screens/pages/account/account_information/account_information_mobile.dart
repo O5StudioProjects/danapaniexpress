@@ -1,7 +1,5 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
-import 'package:danapaniexpress/ui/app_common/components/bottom_sheet.dart';
-import 'package:danapaniexpress/ui/app_common/components/profile_image.dart';
 
 class AccountInformationMobile extends StatelessWidget {
   const AccountInformationMobile({super.key});
@@ -18,7 +16,7 @@ class AccountInformationMobile extends StatelessWidget {
         color: AppColors.backgroundColorSkin(isDark),
         child: Column(
           children: [
-            appBarCommon(title: 'Account Information', isBackNavigation: true),
+            appBarCommon(title: AppLanguage.accountInformationStr(appLanguage), isBackNavigation: true),
 
             Expanded(
               child: SingleChildScrollView(
@@ -74,16 +72,20 @@ class AccountInformationMobile extends StatelessWidget {
                       ),
 
                       /// PROFILE PICTURE UPLOAD BUTTON
+                      if(account.selectedImage.value != null)
                       GestureDetector(
                         onTap: ()=> account.handleUploadProfilePictureOnTap(),
-                        child: Container(
+                        child:
+                        account.uploadImageStatus.value == AuthStatus.LOADING
+                          ? loadingIndicator()
+                          : Container(
                           padding: EdgeInsets.all(8.0),
                           decoration: BoxDecoration(
                             color: AppColors.materialButtonSkin(isDark),
                             borderRadius: BorderRadius.circular(12.0),
                             border: Border.all(color: AppColors.materialButtonSkin(isDark), width: 2.0)
                           ),
-                          child: appText(text: 'Upload Profile Picture', textStyle: itemTextStyle().copyWith(color: AppColors.materialButtonTextSkin(isDark)), )
+                          child: appText(text: AppLanguage.uploadProfilePictureStr(appLanguage), textStyle: itemTextStyle().copyWith(color: AppColors.materialButtonTextSkin(isDark)), )
                         ),
                       ),
 
@@ -95,13 +97,13 @@ class AccountInformationMobile extends StatelessWidget {
                           top: MAIN_VERTICAL_PADDING,
                         ),
                         child: listItemInfo(
-                          itemTitle: 'Full Name',
+                          itemTitle: AppLanguage.fullNameStr(appLanguage),
                           trailingText: data!.userFullName,
                           trailingIcon: icArrowRight,
                           onItemClick: () {
                             appBottomSheet(
-                                context,
-                                widget: ChangeFullNameUI()
+                              context,
+                              widget: ChangeFullNameUI(),
                             );
                           },
                         ),
@@ -113,13 +115,13 @@ class AccountInformationMobile extends StatelessWidget {
                           top: MAIN_HORIZONTAL_PADDING,
                         ),
                         child: listItemInfo(
-                          itemTitle: 'Change Email',
+                          itemTitle: AppLanguage.changeEmailStr(appLanguage),
                           trailingText: data.userEmail,
                           trailingIcon: icArrowRight,
                           onItemClick: () {
                             appBottomSheet(
-                                context,
-                                widget: ChangeEmailUI()
+                              context,
+                              widget: ChangeEmailUI(),
                             );
                           },
                         ),
@@ -129,16 +131,16 @@ class AccountInformationMobile extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(
                           top: MAIN_HORIZONTAL_PADDING,
-                          bottom: MAIN_HORIZONTAL_PADDING /2
+                          bottom: MAIN_HORIZONTAL_PADDING / 2,
                         ),
                         child: listItemInfo(
-                          itemTitle: 'Change Password',
+                          itemTitle: AppLanguage.changePasswordStr(appLanguage),
                           trailingText: '',
                           trailingIcon: icArrowRight,
                           onItemClick: () {
                             appBottomSheet(
-                                context,
-                                widget: ChangePasswordUI()
+                              context,
+                              widget: ChangePasswordUI(),
                             );
                           },
                         ),
@@ -149,54 +151,54 @@ class AccountInformationMobile extends StatelessWidget {
                       /// PHONE
                       Padding(
                         padding: const EdgeInsets.only(
-                          top: MAIN_HORIZONTAL_PADDING/2,
+                          top: MAIN_HORIZONTAL_PADDING / 2,
                         ),
                         child: listItemInfo(
-                          itemTitle: 'Phone',
+                          itemTitle: AppLanguage.phoneStr(appLanguage),
                           trailingText: data.userPhone,
                           isTrailingIcon: false,
                         ),
                       ),
 
                       /// DEFAULT ADDRESS
-                      if(data.userDefaultAddress != null)
+                      if (data.userDefaultAddress != null)
                         Padding(
                           padding: const EdgeInsets.only(
-                            top: MAIN_HORIZONTAL_PADDING/2,
+                            top: MAIN_HORIZONTAL_PADDING / 2,
                           ),
                           child: listItemInfo(
-                            itemTitle: 'Address',
+                            itemTitle: AppLanguage.addressStr(appLanguage),
                             trailingText: data.userDefaultAddress!.address,
                             isTrailingIcon: false,
                           ),
                         ),
 
                       /// CITY
-                      if(data.userDefaultAddress != null)
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: MAIN_HORIZONTAL_PADDING/2,
-                        ),
-                        child: listItemInfo(
-                          itemTitle: 'City',
-                          trailingText: data.userDefaultAddress!.city,
-                          isTrailingIcon: false,
-                        ),
-                      ),
-
-
-                      /// PROVICE
-                      if(data.userDefaultAddress != null)
+                      if (data.userDefaultAddress != null)
                         Padding(
                           padding: const EdgeInsets.only(
-                            top: MAIN_HORIZONTAL_PADDING/2,
+                            top: MAIN_HORIZONTAL_PADDING / 2,
                           ),
                           child: listItemInfo(
-                            itemTitle: 'Province',
+                            itemTitle: AppLanguage.cityStr(appLanguage),
+                            trailingText: data.userDefaultAddress!.city,
+                            isTrailingIcon: false,
+                          ),
+                        ),
+
+                      /// PROVINCE
+                      if (data.userDefaultAddress != null)
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: MAIN_HORIZONTAL_PADDING / 2,
+                          ),
+                          child: listItemInfo(
+                            itemTitle: AppLanguage.provinceStr(appLanguage),
                             trailingText: data.userDefaultAddress!.province,
                             isTrailingIcon: false,
                           ),
                         ),
+
 
                     ]
                 ),
@@ -229,7 +231,10 @@ class ChangeFullNameUI extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              appText(text: 'Update Profile Name', textStyle: bigBoldHeadingTextStyle().copyWith(fontSize: SECONDARY_HEADING_FONT_SIZE)),
+              appText(
+                text: AppLanguage.updateProfileNameStr(appLanguage),
+                textStyle: bigBoldHeadingTextStyle().copyWith(fontSize: SECONDARY_HEADING_FONT_SIZE),
+              ),
               setHeight(MAIN_VERTICAL_PADDING),
               AppTextFormField(
                 textEditingController: account.accountNameTextController.value,
@@ -238,16 +243,18 @@ class ChangeFullNameUI extends StatelessWidget {
                 validator: FormValidations.fullNameValidator,
               ),
               setHeight(MAIN_VERTICAL_PADDING),
-              appMaterialButton(text: 'Change Name', onTap: () async {
-                if (_formKey.currentState?.validate() ?? false) {
-                  if (account.isAccountNameValid.value) {
-                    print('Change Full Name'); // ✅ This will now run
-                  } else {
-                    // Optional: show warning if not valid by your rules
-                    Get.snackbar("Error", "Name change failed. try again later.");
+              account.updateProfileStatus.value == AuthStatus.LOADING
+                  ? loadingIndicator()
+                  : appMaterialButton(
+                text: AppLanguage.updateNameStr(appLanguage),
+                onTap: () async {
+                  if (_formKey.currentState?.validate() ?? false) {
+                    if (account.isAccountNameValid.value) {
+                      await account.handleChangeNameOnTap();
+                    }
                   }
-                }
-              })
+                },
+              ),
             ],
           ),
         ),
@@ -257,7 +264,7 @@ class ChangeFullNameUI extends StatelessWidget {
 }
 
 class ChangeEmailUI extends StatelessWidget {
-   ChangeEmailUI({super.key});
+  ChangeEmailUI({super.key});
   final _formKey = GlobalKey<FormState>(); // 🔑 Form key
 
   @override
@@ -276,7 +283,10 @@ class ChangeEmailUI extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              appText(text: 'Update Email', textStyle: bigBoldHeadingTextStyle().copyWith(fontSize: SECONDARY_HEADING_FONT_SIZE)),
+              appText(
+                text: AppLanguage.updateEmailStr(appLanguage),
+                textStyle: bigBoldHeadingTextStyle().copyWith(fontSize: SECONDARY_HEADING_FONT_SIZE),
+              ),
               setHeight(MAIN_VERTICAL_PADDING),
               AppTextFormField(
                 textEditingController: account.accountEmailTextController.value,
@@ -285,16 +295,18 @@ class ChangeEmailUI extends StatelessWidget {
                 validator: FormValidations.emailValidator,
               ),
               setHeight(MAIN_VERTICAL_PADDING),
-              appMaterialButton(text: 'Change Email', onTap: () {
-                if (_formKey.currentState?.validate() ?? false) {
-                  if (account.isAccountEmailValid.value) {
-                    print('Change Email'); // ✅ This will now run
-                  } else {
-                    // Optional: show warning if not valid by your rules
-                    Get.snackbar("Error", "Email change failed. try again later.");
+              account.updateProfileStatus.value == AuthStatus.LOADING
+                  ? loadingIndicator()
+                  : appMaterialButton(
+                text: AppLanguage.changeEmailStr(appLanguage),
+                onTap: () async {
+                  if (_formKey.currentState?.validate() ?? false) {
+                    if (account.isAccountEmailValid.value) {
+                      await account.handleChangeEmailOnTap();
+                    }
                   }
-                }
-              })
+                },
+              ),
             ],
           ),
         ),
@@ -323,12 +335,15 @@ class ChangePasswordUI extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              appText(text: 'Change Password', textStyle: bigBoldHeadingTextStyle().copyWith(fontSize: SECONDARY_HEADING_FONT_SIZE)),
+              appText(
+                text: AppLanguage.changePasswordStr(appLanguage),
+                textStyle: bigBoldHeadingTextStyle().copyWith(fontSize: SECONDARY_HEADING_FONT_SIZE),
+              ),
               setHeight(MAIN_VERTICAL_PADDING),
               AppTextFormField(
-                textEditingController: account.accountOldPasswordTextController.value,
+                textEditingController: account.accountCurrentPasswordTextController.value,
                 prefixIcon: Icons.lock,
-                hintText: 'Old Password',
+                hintText: AppLanguage.currentPasswordStr(appLanguage),
                 isPassword: true,
                 validator: FormValidations.passwordValidator,
               ),
@@ -336,7 +351,7 @@ class ChangePasswordUI extends StatelessWidget {
               AppTextFormField(
                 textEditingController: account.accountNewPasswordTextController.value,
                 prefixIcon: Icons.lock,
-                hintText: 'New Password',
+                hintText: AppLanguage.newPasswordStr(appLanguage),
                 isPassword: true,
                 validator: FormValidations.passwordValidator,
               ),
@@ -344,21 +359,23 @@ class ChangePasswordUI extends StatelessWidget {
               AppTextFormField(
                 textEditingController: account.accountConfirmNewPasswordTextController.value,
                 prefixIcon: Icons.lock,
-                hintText: 'Confirm New Password',
+                hintText: AppLanguage.confirmNewPasswordStr(appLanguage),
                 isPassword: true,
                 validator: FormValidations.passwordValidator,
               ),
               setHeight(MAIN_VERTICAL_PADDING),
-              appMaterialButton(text: 'Change Password', onTap: () async {
-                if (_formKey.currentState?.validate() ?? false) {
-                  if (account.isAccountPasswordValid.value) {
-                    await account.handleChangePasswordOnTap();
-                  } else {
-                    // Optional: show warning if not valid by your rules
-                    Get.snackbar("Mismatched", "New Password and Confirm New password are not same.");
+              account.updateProfileStatus.value == AuthStatus.LOADING
+                  ? loadingIndicator()
+                  : appMaterialButton(
+                text: AppLanguage.changePasswordStr(appLanguage),
+                onTap: () async {
+                  if (_formKey.currentState?.validate() ?? false) {
+                    if (account.isAccountPasswordValid.value) {
+                      await account.handleChangePasswordOnTap();
+                    }
                   }
-                }
-              })
+                },
+              ),
             ],
           ),
         ),

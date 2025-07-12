@@ -33,9 +33,7 @@ class AccountHeader extends StatelessWidget {
 
                   GestureDetector(
                     onTap: (){
-                      if(data != null){
-                        navigation.gotoAccountInformationScreen();
-                      } else {
+                      if(data == null){
                         navigation.gotoSignInScreen();
                       }
                     },
@@ -43,64 +41,56 @@ class AccountHeader extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        // Container(
-                        //   width: 80.0,
-                        //   height: 80.0,
-                        //   clipBehavior: Clip.antiAlias,
-                        //   decoration: BoxDecoration(
-                        //     color: whiteColor,
-                        //     borderRadius: BorderRadius.circular(100.0),
-                        //     border: Border.all(color: AppColors.backgroundColorSkin(isDark), width: 1.0)
-                        //   ),
-                        //   child:
-                        //   data != null && data.userImage!.isNotEmpty
-                        //       ? appAsyncImage(
-                        //     data.userImage,
-                        //     boxFit: BoxFit.cover,
-                        //   )
-                        //       : appAssetImage(image: EnvImages.imgMainLogo, fit: BoxFit.cover),
-                        // ),
-                        ProfileImage(profileImage: data?.userImage),
+                        GestureDetector(
+                            onTap: ()=> navigation.gotoAccountInformationScreen(),
+                            child: ProfileImage(profileImage: data?.userImage)),
                         setWidth(MAIN_HORIZONTAL_PADDING),
                         Expanded(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              appText(text: data?.userFullName ?? 'Sign In Now',
+                              appText(text: data?.userFullName ?? AppLanguage.signInNowStr(appLanguage),
                                   maxLines: 1,
                                   textStyle: bigBoldHeadingTextStyle().copyWith(fontSize: ACCOUNT_TITLE_FONT_SIZE)),
                               // setHeight(4.0),
                               if(data != null)
-                              Row(
-                                children: [
-                                  appIcon(iconType: IconType.ICON, icon:  Icons.verified, color: data.userDefaultAddress != null ? blueColor : greyColor, width: 16.0),
-                                  setWidth(6.0),
-                                  appText(text: data.userDefaultAddress != null ? 'Verified' : 'Verify Address', textStyle: secondaryTextStyle())
-                                ],
+                              GestureDetector(
+                                onTap: (){
+                                  if(data.userDefaultAddress == null){
+                                    navigation.gotoAddressBookScreen();
+                                  }
+                                },
+                                child: Row(
+                                  children: [
+                                    appIcon(iconType: IconType.ICON, icon:  Icons.verified, color: data.userDefaultAddress != null ? blueColor : greyColor, width: 16.0),
+                                    setWidth(6.0),
+                                    appText(text: data.userDefaultAddress != null ? AppLanguage.verifiedStr(appLanguage) : AppLanguage.verifyAddressStr(appLanguage), textStyle: secondaryTextStyle())
+                                  ],
+                                ),
                               ),
                               // setHeight(8.0),
                               appDivider(),
                               data != null
                               ? Row(
                                 children: [
-                                  appText(text: '0 ', textStyle: itemTextStyle()),
-                                  appText(text: 'Wishlist', textStyle: accountSecondaryTextStyle()),
+                                  appText(text: '${data.userFavoritesCount} ', textStyle: itemTextStyle()),
+                                  appText(text: AppLanguage.wishlistStr(appLanguage), textStyle: accountSecondaryTextStyle()),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 6),
                                     child: appText(text: '-', textStyle: bodyTextStyle().copyWith(color: AppColors.secondaryTextColorSkin(isDark))),
                                   ),
-                                  appText(text: '0 ', textStyle: itemTextStyle()),
-                                  appText(text: 'Cart', textStyle: accountSecondaryTextStyle()),
+                                  appText(text: '${data.userCartCount} ', textStyle: itemTextStyle()),
+                                  appText(text: AppLanguage.cartStr(appLanguage), textStyle: accountSecondaryTextStyle()),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 6),
                                     child: appText(text: '-', textStyle: bodyTextStyle().copyWith(color: AppColors.secondaryTextColorSkin(isDark))),
                                   ),
-                                  appText(text: '0 ', textStyle: itemTextStyle()),
-                                  appText(text: 'Orders', textStyle: accountSecondaryTextStyle()),
+                                  appText(text: '${data.userOrdersCount} ', textStyle: itemTextStyle()),
+                                  appText(text: AppLanguage.ordersStr(appLanguage), textStyle: accountSecondaryTextStyle()),
                                 ],
                               )
-                                  : appText(text: 'Welcome to Dana Pani Express', textStyle: secondaryTextStyle())
+                                  : appText(text: AppLanguage.welcomeToDanaPaniExpressStr(appLanguage), textStyle: secondaryTextStyle())
                             ],
                           ),
                         ),

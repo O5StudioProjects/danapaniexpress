@@ -2,9 +2,10 @@ import 'dart:io';
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/core/packages_import.dart';
+import 'package:danapaniexpress/data/repositories/account_repository/account_repository.dart';
 
 class AccountController extends GetxController {
-
+  final accountRepo = AccountRepository();
   final auth = Get.find<AuthController>();
 
   final RxString profileImage = ''.obs;
@@ -14,7 +15,7 @@ class AccountController extends GetxController {
 
   var accountNameTextController = TextEditingController().obs;
   var accountEmailTextController = TextEditingController().obs;
-  var accountOldPasswordTextController = TextEditingController().obs;
+  var accountCurrentPasswordTextController = TextEditingController().obs;
   var accountNewPasswordTextController = TextEditingController().obs;
   var accountConfirmNewPasswordTextController = TextEditingController().obs;
 
@@ -24,20 +25,15 @@ class AccountController extends GetxController {
   final RxBool isUploading = false.obs;
   final RxString uploadedImageUrl = ''.obs;
 
+  Rx<AuthStatus> uploadImageStatus = AuthStatus.IDLE.obs;
+  Rx<AuthStatus> updateProfileStatus = AuthStatus.IDLE.obs;
+
   @override
   void onInit() {
 
     setInitialTextValues();
 
     super.onInit();
-  }
-
-  /// IMAGE PICKER FROM GALLERY
-  Future<void> pickImage() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      selectedImage.value = File(pickedFile.path);
-    }
   }
 
   Future<void> setInitialTextValues() async {
@@ -48,17 +44,109 @@ class AccountController extends GetxController {
     ///VALIDATE
     accountNameTextController.value.addListener(validateNameForm);
     accountEmailTextController.value.addListener(validateEmailForm);
-    accountOldPasswordTextController.value.addListener(validatePasswordForm);
+    accountCurrentPasswordTextController.value.addListener(validatePasswordForm);
     accountNewPasswordTextController.value.addListener(validatePasswordForm);
     accountConfirmNewPasswordTextController.value.addListener(validatePasswordForm);
   }
+
+
+
+  /// IMAGE PICKER FROM GALLERY
+  Future<void> pickImage() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      selectedImage.value = File(pickedFile.path);
+    }
+  }
+
+  /// UPLOAD IMAGE API CALL
+  Future<void> uploadUserImage(File file) async {
+    if (auth.userId.value == null) {
+      showSnackbar(
+          isError: true,
+          title: AppLanguage.errorStr(appLanguage).toString(),
+          message: AppLanguage.userNotLoggedInStr(appLanguage).toString()
+      );
+      return;
+    }
+
+    uploadImageStatus.value = AuthStatus.LOADING;
+
+    final result = await accountRepo.uploadUserImageApi(
+      userId: auth.userId.value!,
+      imageFile: file,
+    );
+
+    if (result['success'] == true || result['status'] == 'success') {
+      showSnackbar(
+          isError: false,
+          title: 'Success',
+          message: result['message'] ?? 'Image uploaded',
+      );
+      await auth.fetchUserProfile(); // Refresh image in currentUser
+      uploadImageStatus.value = AuthStatus.SUCCESS;
+    } else {
+      showSnackbar(
+          isError: true,
+          title: 'Failed',
+          message: result['message'] ?? result['error'] ?? 'Upload failed',
+
+      );
+      uploadImageStatus.value = AuthStatus.FAILURE;
+    }
+  }
+
+  Future<void> updateUser({
+    String? fullName,
+    String? email,
+    String? currentPassword,
+    String? newPassword,
+  }) async {
+    if (auth.userId.value == null) {
+      Get.snackbar('Error', 'User not logged in');
+      return;
+    }
+
+    updateProfileStatus.value = AuthStatus.LOADING;
+
+    final result = await accountRepo.updateUserApi(
+      userId: auth.userId.value!,
+      fullName: fullName,
+      email: email,
+      currentPassword: currentPassword,
+      newPassword: newPassword,
+    );
+
+    if (result['success'] == true) {
+      await auth.fetchUserProfile(); // Refresh local user data
+      updateProfileStatus.value = AuthStatus.SUCCESS;
+      Navigator.pop(gContext);
+      showSnackbar(
+          isError: false,
+          title: 'Success',
+          message: result['message'] ?? 'Profile updated',
+         position: SnackPosition.TOP
+      );
+    } else {
+      showSnackbar(
+          isError: true,
+          title: 'Failed',
+          message: result['message'] ?? result['error'] ?? 'Update failed',
+          position: SnackPosition.TOP
+
+      );
+      updateProfileStatus.value = AuthStatus.FAILURE;
+    }
+  }
+
+
 
   /// HANDLE ONTAP EVENTS
   ///
   /// HANDLE ON TAP UPLOAD IMAGE
   Future<void> handleUploadProfilePictureOnTap() async {
     if(selectedImage.value != null){
-      showToast('Image Will upload');
+      await uploadUserImage(selectedImage.value!);
     } else {
       showSnackbar(title: 'Image not Selected', message: 'Select Image from phone gallery');
     }
@@ -66,20 +154,24 @@ class AccountController extends GetxController {
 
   /// HANDLE ON TAP NAME CHANGED
   Future<void> handleChangeNameOnTap() async {
-
+    await updateUser(fullName: accountNameTextController.value.text.trim());
   }
   /// HANDLE ON TAP Email CHANGED
   Future<void> handleChangeEmailOnTap() async {
-
+    await updateUser(email: accountEmailTextController.value.text.trim());
   }
   /// HANDLE ON TAP PASSWORD CHANGED
   Future<void> handleChangePasswordOnTap() async {
-    if(auth.currentUser.value!.userPassword! != accountOldPasswordTextController.value.text){
-      Get.snackbar('Old Password', 'Old password is incorrect');
-    } else if(accountNewPasswordTextController.value.text.trim() != accountConfirmNewPasswordTextController.value.text.trim()){
-      Get.snackbar('Mismatched', 'New Password and Confirm password are not same.');
+    if(accountNewPasswordTextController.value.text.trim() != accountConfirmNewPasswordTextController.value.text.trim()){
+      showSnackbar(
+        isError: true,
+          title: AppLanguage.passwordMismatchStr(appLanguage).toString(),
+          message: AppLanguage.passwordMismatchDetailStr(appLanguage).toString());
     } else {
-      print('Password Changed');
+      await updateUser(
+          currentPassword: accountCurrentPasswordTextController.value.text.trim(),
+          newPassword: accountNewPasswordTextController.value.text.trim()
+      );
     }
 
   }
@@ -95,7 +187,7 @@ class AccountController extends GetxController {
   }
 
   void validatePasswordForm() {
-    final oldPassword = accountOldPasswordTextController.value.text.trim();
+    final oldPassword = accountCurrentPasswordTextController.value.text.trim();
     final newPassword = accountNewPasswordTextController.value.text.trim();
     final confirmNewPassword = accountConfirmNewPasswordTextController.value.text.trim();
     isAccountPasswordValid.value = oldPassword.isNotEmpty && newPassword.isNotEmpty  && confirmNewPassword.isNotEmpty ;

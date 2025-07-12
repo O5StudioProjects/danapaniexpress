@@ -1,4 +1,6 @@
 
+import 'package:danapaniexpress/core/common_imports.dart';
+
 class PhoneUtils {
   static String? normalizePhone(String rawPhone) {
     String formattedPhone = rawPhone.trim();
@@ -38,14 +40,14 @@ class FormValidations {
 
   static String? fullNameValidator(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return 'Please enter your full name';
+      return AppLanguage.enterFullNameStr(appLanguage).toString();
     }
 
     final trimmed = value.trim();
     final isValid = RegExp(r"^[a-zA-Z\s.'-]{2,}$").hasMatch(trimmed);
 
     if (!isValid) {
-      return 'Full name contains invalid characters';
+      return AppLanguage.fullNameInvalidCharactersStr(appLanguage).toString();
     }
 
     return null;
@@ -62,7 +64,7 @@ class FormValidations {
     ).hasMatch(trimmed);
 
     if (!isEmail) {
-      return 'Invalid email format';
+      return AppLanguage.invalidEmailFormatStr(appLanguage).toString();
     }
 
     return null;
@@ -70,7 +72,7 @@ class FormValidations {
 
   static String? emailValidator(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return "Please enter your email";
+      return AppLanguage.enterEmailStr(appLanguage).toString();
     }
 
     final trimmed = value.trim();
@@ -79,7 +81,7 @@ class FormValidations {
     ).hasMatch(trimmed);
 
     if (!isEmail) {
-      return "Invalid email format";
+      return AppLanguage.invalidEmailFormatStr(appLanguage).toString();
     }
 
     return null;
@@ -87,7 +89,7 @@ class FormValidations {
 
   static String? phoneValidator(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return "Please enter your phone number";
+      return AppLanguage.enterPhoneStr(appLanguage).toString();
     }
 
     final trimmed = value.trim();
@@ -101,12 +103,12 @@ class FormValidations {
       return null;
     }
 
-    return "Invalid phone number format";
+    return AppLanguage.invalidPhoneStr(appLanguage).toString();
   }
 
   static String? emailOrPhoneValidator(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return 'Please enter email or phone number';
+      return AppLanguage.enterEmailOrPhoneStr(appLanguage).toString();
     }
 
     final trimmed = value.trim();
@@ -128,16 +130,16 @@ class FormValidations {
       return null;
     }
 
-    return 'Invalid email or phone number';
+    return AppLanguage.invalidEmailOrPhoneStr(appLanguage).toString();
   }
 
   static String? passwordValidator(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return 'Please enter your password';
+      return AppLanguage.enterPasswordStr(appLanguage).toString();
     }
 
     if (value.length < 6) {
-      return 'Password must be at least 6 characters';
+      return AppLanguage.passwordMustBeStr(appLanguage).toString();
     }
 
     return null;
@@ -147,14 +149,14 @@ class FormValidations {
 
   static String? addressValidator(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return 'Please enter your complete address';
+      return AppLanguage.enterCompleteAddressStr(appLanguage).toString();
     }
     return null;
   }
 
   static String? nearestPlaceValidator(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return 'Please enter famous nearest place.';
+      return AppLanguage.enterNearestPlaceStr(appLanguage).toString();
     }
     return null;
   }
