@@ -107,9 +107,11 @@ Widget buildMobileUI({
               await SharedPrefs.setLanguageScreen(FIRST_TIME_SCREEN_OPENED);
               // var status = await SharedPrefs.getLanguageScreen();
               themeController.setLanguageScreenEvent(languageScreenStatusValue: FIRST_TIME_SCREEN_OPENED);
-              // Navigator.pop(gContext);
+
               if(isStart){
                 navigation.gotoStartupMainScreen();
+              } else {
+                Get.back();
               }
             }),
           ),

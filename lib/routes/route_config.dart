@@ -8,6 +8,10 @@ import 'package:danapaniexpress/ui/screens/main_dashboard_screen/main_dashboard_
 import 'package:danapaniexpress/ui/screens/pages/account/account_information/account_information_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/account/address_book/add_address/add_address_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/account/address_book/address_book_screen.dart';
+import 'package:danapaniexpress/ui/screens/pages/account/privacy_policy/privacy_policy_screen.dart';
+import 'package:danapaniexpress/ui/screens/pages/account/returns_redunds/returns_refunds_screen.dart';
+import 'package:danapaniexpress/ui/screens/pages/account/settings/settings_screen.dart';
+import 'package:danapaniexpress/ui/screens/pages/account/terms_conditions/terms_conditions_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/categories/other_products/other_products_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/categories/product_detail/product_detail_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/categories/products/products_screen.dart';
@@ -120,6 +124,36 @@ class AppRouter {
       page: () => const AddAddressScreen(),
       binding: AddAddressBinding(),
     ),
-    // GetPage(name: RouteNames.HomeScreenRoute, page: () => const HomeScreen(), binding: DashboardBinding()),
+
+    GetPage(
+      name: RouteNames.SettingsScreenRoute,
+      transition: Transition.fadeIn,
+      transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
+      page: () => const SettingsScreen(),
+      // binding: AddAddressBinding(),
+    ),
+    GetPage(
+      name: RouteNames.PrivacyPolicyScreenRoute,
+      transition: Transition.fadeIn,
+      transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
+      page: () => const PrivacyPolicyScreen(),
+      // binding: AddAddressBinding(),
+    ),
+    GetPage(
+      name: RouteNames.TermsConditionsScreenRoute,
+      transition: Transition.fadeIn,
+      transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
+      page: () => const TermsConditionsScreen(),
+      // binding: AddAddressBinding(),
+    ),
+    GetPage(
+      name: RouteNames.ReturnsRefundsScreenRoute,
+      transition: Transition.fadeIn,
+      transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
+      page: () => const ReturnsRefundsScreen(),
+      // binding: AddAddressBinding(),
+    ),
+
+
   ];
 }

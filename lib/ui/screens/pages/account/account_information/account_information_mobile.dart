@@ -10,6 +10,7 @@ class AccountInformationMobile extends StatelessWidget {
     var account = Get.find<AccountController>();
     return Obx((){
       var data = auth.currentUser.value;
+      var icArrow = appLanguage == URDU_LANGUAGE ? icArrowLeftSmall : icArrowRightSmall;
       return Container(
         width: size.width,
         height: size.height,
@@ -25,7 +26,7 @@ class AccountInformationMobile extends StatelessWidget {
                     children: [
                       /// PROFILE PICTURE SECTION
                       Padding(
-                        padding: const EdgeInsets.only(top: MAIN_VERTICAL_PADDING, bottom: MAIN_HORIZONTAL_PADDING),
+                        padding: const EdgeInsets.only(top: MAIN_VERTICAL_PADDING *2, bottom: MAIN_VERTICAL_PADDING),
                         child: SizedBox(
                           width: 100.0,
                           height: 105.0,
@@ -78,18 +79,21 @@ class AccountInformationMobile extends StatelessWidget {
                         child:
                         account.uploadImageStatus.value == AuthStatus.LOADING
                           ? loadingIndicator()
-                          : Container(
-                          padding: EdgeInsets.all(8.0),
-                          decoration: BoxDecoration(
-                            color: AppColors.materialButtonSkin(isDark),
-                            borderRadius: BorderRadius.circular(12.0),
-                            border: Border.all(color: AppColors.materialButtonSkin(isDark), width: 2.0)
+                          : Padding(
+                            padding: const EdgeInsets.only(bottom: MAIN_VERTICAL_PADDING),
+                            child: Container(
+                            padding: EdgeInsets.all(8.0),
+                            decoration: BoxDecoration(
+                              color: AppColors.materialButtonSkin(isDark),
+                              borderRadius: BorderRadius.circular(12.0),
+                              border: Border.all(color: AppColors.materialButtonSkin(isDark), width: 2.0)
+                            ),
+                            child: appText(text: AppLanguage.uploadProfilePictureStr(appLanguage), textStyle: itemTextStyle().copyWith(color: AppColors.materialButtonTextSkin(isDark)), )
+                                                    ),
                           ),
-                          child: appText(text: AppLanguage.uploadProfilePictureStr(appLanguage), textStyle: itemTextStyle().copyWith(color: AppColors.materialButtonTextSkin(isDark)), )
-                        ),
                       ),
 
-                      setHeight(MAIN_VERTICAL_PADDING),
+                    //  setHeight(MAIN_VERTICAL_PADDING),
 
                       /// Full NAME
                       Padding(
@@ -99,7 +103,8 @@ class AccountInformationMobile extends StatelessWidget {
                         child: listItemInfo(
                           itemTitle: AppLanguage.fullNameStr(appLanguage),
                           trailingText: data!.userFullName,
-                          trailingIcon: icArrowRight,
+                          text: data!.userFullName,
+                          trailingIcon: icArrow,
                           onItemClick: () {
                             appBottomSheet(
                               context,
@@ -117,7 +122,8 @@ class AccountInformationMobile extends StatelessWidget {
                         child: listItemInfo(
                           itemTitle: AppLanguage.changeEmailStr(appLanguage),
                           trailingText: data.userEmail,
-                          trailingIcon: icArrowRight,
+                          text: data.userEmail,
+                          trailingIcon: icArrow,
                           onItemClick: () {
                             appBottomSheet(
                               context,
@@ -136,7 +142,8 @@ class AccountInformationMobile extends StatelessWidget {
                         child: listItemInfo(
                           itemTitle: AppLanguage.changePasswordStr(appLanguage),
                           trailingText: '',
-                          trailingIcon: icArrowRight,
+                          text: '',
+                          trailingIcon: icArrow,
                           onItemClick: () {
                             appBottomSheet(
                               context,
@@ -156,6 +163,7 @@ class AccountInformationMobile extends StatelessWidget {
                         child: listItemInfo(
                           itemTitle: AppLanguage.phoneStr(appLanguage),
                           trailingText: data.userPhone,
+                          text: data.userPhone,
                           isTrailingIcon: false,
                         ),
                       ),
@@ -169,6 +177,7 @@ class AccountInformationMobile extends StatelessWidget {
                           child: listItemInfo(
                             itemTitle: AppLanguage.addressStr(appLanguage),
                             trailingText: data.userDefaultAddress!.address,
+                            text: data.userDefaultAddress!.address,
                             isTrailingIcon: false,
                           ),
                         ),
@@ -182,6 +191,7 @@ class AccountInformationMobile extends StatelessWidget {
                           child: listItemInfo(
                             itemTitle: AppLanguage.cityStr(appLanguage),
                             trailingText: data.userDefaultAddress!.city,
+                            text: data.userDefaultAddress!.city,
                             isTrailingIcon: false,
                           ),
                         ),
@@ -194,7 +204,8 @@ class AccountInformationMobile extends StatelessWidget {
                           ),
                           child: listItemInfo(
                             itemTitle: AppLanguage.provinceStr(appLanguage),
-                            trailingText: data.userDefaultAddress!.province,
+                              trailingText: data.userDefaultAddress!.province,
+                              text: data.userDefaultAddress!.province,
                             isTrailingIcon: false,
                           ),
                         ),
@@ -240,7 +251,7 @@ class ChangeFullNameUI extends StatelessWidget {
                 textEditingController: account.accountNameTextController.value,
                 prefixIcon: Icons.person,
                 hintText: AppLanguage.fullNameStr(appLanguage),
-                validator: FormValidations.fullNameValidator,
+               validator: FormValidations.fullNameValidator,
               ),
               setHeight(MAIN_VERTICAL_PADDING),
               account.updateProfileStatus.value == AuthStatus.LOADING

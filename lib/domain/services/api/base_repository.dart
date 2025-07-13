@@ -18,11 +18,10 @@ abstract class BaseRepository {
   }
 
   /// Common POST request handler
-  Future<Map<String, dynamic>> postRequest(
-      Uri url, {
-        required Map<String, String>? headers,
-        required Map<String, dynamic> body,
-      }) async {
+  Future<Map<String, dynamic>> postRequest(Uri url, {
+    required Map<String, String>? headers,
+    required Map<String, dynamic> body,
+  }) async {
     try {
       final response = await http.post(
         url,

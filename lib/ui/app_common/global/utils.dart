@@ -10,3 +10,16 @@ Widget setIcon({ iconType,iconName, color, isPngColor = false }){
     return Image.asset(iconName, color: isPngColor ? color : null, width: 24.0, fit: BoxFit.fitWidth,);
   }
 }
+
+bool isTextUrdu(String text) {
+  if (text.isEmpty) return false;
+
+  int urduCount = 0;
+  for (int rune in text.runes) {
+    if (rune >= 0x0600 && rune <= 0x06FF) {
+      urduCount++;
+    }
+  }
+
+  return urduCount > 0;
+}

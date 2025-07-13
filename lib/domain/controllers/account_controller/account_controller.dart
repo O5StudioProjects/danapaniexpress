@@ -84,6 +84,7 @@ class AccountController extends GetxController {
           message: result['message'] ?? 'Image uploaded',
       );
       await auth.fetchUserProfile(); // Refresh image in currentUser
+      selectedImage.value = null;
       uploadImageStatus.value = AuthStatus.SUCCESS;
     } else {
       showSnackbar(

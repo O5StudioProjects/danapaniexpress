@@ -1,4 +1,6 @@
 
+import '../config/res_config/strings_config.dart';
+
 const THEME_TYPE = 'THEMETYPE';
 const THEME_VALUE = 'THEMEVALUE';
 const LANGUAGE_TYPE = 'LANGUAGETYPE';
@@ -8,7 +10,7 @@ const IS_LOGGED_IN_KEY = 'IS_LOGGED_IN_KEY';
 const USER_ID_KEY = 'USER_ID_KEY';
 const USER_ID = 'USER_ID';
 const AUTH_TOKEN = 'AUTH_TOKEN';
-
+const AVATAR_ACTIVE = 'AVATAR_ACTIVE';
 const LANGUAGE_CODE = 'language_code';
 const countryCode = 'countryCode';
 
@@ -61,6 +63,25 @@ class ServiceAreas {
   static const String OKARA = 'Okara';
   static const String GUJRAT = 'Gujrat';
 
+}
+
+class ContactUs {
+  static const String Email = 'support@danapaniexpress.com';
+  static const String Phone = '+923425956300';
+  static const String Whatsapp = '+923425956300';
+}
+
+class FollowUs {
+
+  static const Instagram = 'https://instagram.com/zainshakeelofficial';
+  static const Website = 'https://twitter.com/zainshakeel300';
+  static const Facebook = 'zainshakeelofficial';
+  static const Whatsapp = '+923425956300';
+
+}
+
+class EmailSubject{
+  static String emailSubject = 'From ${EnvStrings.appNameEng} App';
 }
 
 var citiesList = [

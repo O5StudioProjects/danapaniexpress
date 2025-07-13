@@ -88,5 +88,28 @@ class JumpTo {
     );
   }
 
+  static gotoSettingsScreen() {
+    Get.toNamed(RouteNames.SettingsScreenRoute);
+  }
+
+  static gotoLanguageScreen({
+    required bool isNavigation,
+    required bool isStart,
+  }) {
+    Get.toNamed(
+      RouteNames.LanguageThemeScreenRoute,
+      arguments: {IS_NAVIGATION: isNavigation, IS_START: isStart},
+    );
+  }
+
+  static gotoPrivacyPolicyScreen() {
+    Get.toNamed(RouteNames.PrivacyPolicyScreenRoute);
+  }
+  static gotoTermsConditionsScreen() {
+    Get.toNamed(RouteNames.TermsConditionsScreenRoute);
+  }
+  static gotoReturnsRefundsScreen() {
+    Get.toNamed(RouteNames.ReturnsRefundsScreenRoute);
+  }
 
 }
