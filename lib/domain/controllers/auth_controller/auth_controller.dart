@@ -154,8 +154,9 @@ class AuthController extends GetxController{
       }
 
     final res = await authRepo.loginUserApi(identifier: normalizedInput, password: password);
+    print("Login response: $res");
 
-    if (res['success']) {
+    if (res['SUCCESS'] == true) {
       currentUser.value = res['user'];
       authToken.value = res['token'];
       userId.value = res['user']?.userId; // ✅ Set userId here
@@ -174,7 +175,7 @@ class AuthController extends GetxController{
       showSnackbar(
           isError: true,
           title: 'Login Failed',
-          message: res['message'] ?? res['error'] ?? 'Unknown error');
+          message: res['message'] ?? res['error'] ?? res['MESSAGE'] ?? 'Unknown error');
     }
   }
 
