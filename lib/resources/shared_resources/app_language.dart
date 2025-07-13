@@ -503,6 +503,12 @@ class AppLanguage {
   static String? defaultStr(String appLanguage) {
     return allLang[appLanguage]?[DEFAULT];
   }
+  static String? myProfileStr(String appLanguage) {
+    return allLang[appLanguage]?[MY_PROFILE];
+  }
+  static String? settingsStr(String appLanguage) {
+    return allLang[appLanguage]?[SETTINGS];
+  }
 
 
 }

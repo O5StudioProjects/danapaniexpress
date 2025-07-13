@@ -64,6 +64,8 @@ class AddAddressMobile extends StatelessWidget {
                               addAddress.addressPhoneTextController.value,
                           hintText: AppLanguage.phoneStr(appLanguage),
                           validator: FormValidations.phoneValidator,
+                          textInputType: TextInputType.number,
+                          isConstant: true,
                         ),
                         setHeight(MAIN_HORIZONTAL_PADDING),
 
@@ -113,6 +115,8 @@ class AddAddressMobile extends StatelessWidget {
                           textEditingController:
                               addAddress.addressPostalCodeTextController.value,
                           hintText: AppLanguage.postalCodeOptionalStr(appLanguage),
+                          textInputType: TextInputType.number,
+                          isConstant: true,
                         ),
                        setHeight(MAIN_VERTICAL_PADDING),
 

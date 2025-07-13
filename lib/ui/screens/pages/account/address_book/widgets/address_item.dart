@@ -55,15 +55,15 @@ class AddressItemUI extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          appText(text: data.name, textStyle: itemTextStyle()),
+                          appText(text: data.name, textStyle: addressItemTextStyle(text: data.name)),
                           setHeight(2.0),
-                          appText(text: data.phone, textStyle: itemTextStyle()),
+                          appText(text: data.phone, textStyle: addressItemTextStyle(height: 1.5,text: data.phone)),
                           setHeight(4.0),
                           appText(
                             text:
                             '${data.address}, ${data.nearestPlace}, ${data.city}, ${data.province}, ${data.postalCode}',
                             maxLines: 5,
-                            textStyle: secondaryTextStyle(),
+                            textStyle: secondaryAutoTextStyle(height: 1.5,text: '${data.address}, ${data.nearestPlace}, ${data.city}, ${data.province}, ${data.postalCode}'),
                           ),
                         ],
                       ),

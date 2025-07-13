@@ -24,6 +24,10 @@ class RouteNames {
   static const String AccountInformationScreenRoute = "/account_information_screen";
   static const String AddressBookScreenRoute = "/address_book_screen";
   static const String AddAddressScreenRoute = "/add_address_screen";
+  static const String SettingsScreenRoute = "/settings_screen";
+  static const String PrivacyPolicyScreenRoute = "/privacy_policy_screen";
+  static const String TermsConditionsScreenRoute = "/terms_conditions_screen";
+  static const String ReturnsRefundsScreenRoute = "/returns_refunds_screen";
 
 
 

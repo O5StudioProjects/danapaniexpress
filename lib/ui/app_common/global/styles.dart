@@ -96,6 +96,18 @@ TextStyle bodyTextStyle({height = 0.0}){
   );
 }
 
+TextStyle bodyAutoTextStyle({height = 0.0, text}){
+  final bool isUrdu = isTextUrdu(text);
+  return TextStyle(
+    color: AppColors.primaryTextColorSkin(isDark),
+    height: height,
+    fontSize: isUrdu ? (NORMAL_TEXT_FONT_SIZE + 2.0) : NORMAL_TEXT_FONT_SIZE,
+    // fontSize:  NORMAL_TEXT_FONT_SIZE,
+    fontFamily:  setAutoFont(text, urdu: urduSemibold, englishFont: robotoRegular),
+    // fontWeight: getAppLanguage != ROMAN_URDU_ENGLISH_LANGUAGE ? FontWeight.bold : null
+  );
+}
+
 TextStyle itemTextStyle({height = 0.0}){
   return TextStyle(
       color: AppColors.primaryTextColorSkin(isDark),
@@ -230,6 +242,77 @@ TextStyle marqueeTextStyle({data}){
   );
 }
 
+TextStyle accountHeaderNameTextStyle({height = 0.0, text}){
+  final bool isUrdu = isTextUrdu(text);
+
+  return TextStyle(
+    color: AppColors.primaryHeadingTextSkin(isDark),
+    height: height,
+    fontSize: isUrdu ? (ACCOUNT_TITLE_FONT_SIZE + 2.0) : ACCOUNT_TITLE_FONT_SIZE,
+    fontFamily:  isUrdu ? urduSemibold : poppinsBold
+
+  );
+}
+
+TextStyle snackBarTitleTextStyle({text, isError}){
+  final bool isUrdu = isTextUrdu(text);
+
+  return TextStyle(
+      color: isError ? whiteColor :  AppColors.materialButtonTextSkin(isDark),
+      fontSize: isUrdu ? (NORMAL_TEXT_FONT_SIZE + 2.0) : NORMAL_TEXT_FONT_SIZE,
+      fontFamily:  isUrdu ? urduSemibold : poppinsBold,
+      fontWeight: isUrdu ? FontWeight.w800 : null
+  );
+}
+
+TextStyle snackBarMessageTextStyle({text, isError}){
+  final bool isUrdu = isTextUrdu(text);
+
+  return TextStyle(
+      color: isError ? whiteColor :  AppColors.materialButtonTextSkin(isDark),
+      fontSize: isUrdu ? (NORMAL_TEXT_FONT_SIZE + 2.0) : NORMAL_TEXT_FONT_SIZE,
+      fontFamily:  isUrdu ? urduSemibold : nunitoSemibold
+  );
+}
+
+TextStyle editingFormTextStyle({height = 0.0, text}){
+  final bool isUrdu = isTextUrdu(text);
+  return TextStyle(
+    color: AppColors.primaryTextColorSkin(isDark),
+    height: height,
+    fontSize: isUrdu ? (NORMAL_TEXT_FONT_SIZE + 2.0) : NORMAL_TEXT_FONT_SIZE,
+    // fontSize:  NORMAL_TEXT_FONT_SIZE,
+    fontFamily:  setAutoFont(text, urdu: urduSemibold, englishFont: robotoRegular),
+    // fontWeight: getAppLanguage != ROMAN_URDU_ENGLISH_LANGUAGE ? FontWeight.bold : null
+  );
+}
+
+// SecondaryTextStyle
+TextStyle secondaryAutoTextStyle({height = 0.0, text}){
+  final bool isUrdu = isTextUrdu(text);
+  return TextStyle(
+    color: AppColors.secondaryTextColorSkin(isDark),
+    height: height,
+    fontSize: isUrdu ? (SUB_HEADING_TEXT_BUTTON_FONT_SIZE + 2.0) : SUB_HEADING_TEXT_BUTTON_FONT_SIZE,
+    //fontSize:  PRIMARY_HEADING_FONT_SIZE,
+    fontFamily:  setAutoFont(text, urdu: urduSemibold, englishFont: robotoRegular),
+    // fontWeight: getAppLanguage != ROMAN_URDU_ENGLISH_LANGUAGE ? FontWeight.bold : null
+  );
+}
+
+TextStyle addressItemTextStyle({height = 0.0,text}){
+  final bool isUrdu = isTextUrdu(text);
+  return TextStyle(
+      color: AppColors.primaryTextColorSkin(isDark),
+      height: height,
+      fontSize: isUrdu ? (NORMAL_TEXT_FONT_SIZE) : NORMAL_TEXT_FONT_SIZE -2.0,
+      //fontSize: NORMAL_TEXT_FONT_SIZE,
+      fontFamily:  setAutoFont(appLanguage, urdu: urduRegular, englishFont: nunitoSemibold),
+      fontWeight: FontWeight.w800
+  );
+}
+
+
 
 
 
@@ -242,18 +325,36 @@ String setFont(language, {englishFont = robotoRegular, urdu = urduRegular}){
   }
 }
 
+String setAutoFont(text, {englishFont = robotoRegular, urdu = urduRegular}){
+  final bool isUrdu = isTextUrdu(text);
+  return isUrdu ? urdu : englishFont;
+}
+
+
 TextDirection setTextDirection(appLanguage){
   if(appLanguage == ENGLISH_LANGUAGE){
     return TextDirection.ltr;
   } else {
     return TextDirection.rtl;
   }
+
 }
 
 TextAlign setTextAlignment(appLanguage){
   if(appLanguage == ENGLISH_LANGUAGE){
-    return TextAlign.start;
+    return TextAlign.left;
   } else {
-    return TextAlign.end;
+    return TextAlign.right;
   }
+
+}
+
+TextDirection setAutoTextDirection(text){
+  final bool isUrdu = isTextUrdu(text);
+  return isUrdu ? TextDirection.rtl : TextDirection.ltr;
+}
+
+TextAlign setAutoTextAlignment(text){
+  final bool isUrdu = isTextUrdu(text);
+  return isUrdu ? TextAlign.right : TextAlign.left;
 }

@@ -147,6 +147,8 @@ Map<String, Map<String, String>> allLang = {
     UPDATE_ADDRESS: 'Update Address',
     SET_AS_DEFAULT_ADDRESS: 'Set as default address',
     DEFAULT: 'Default',
+    MY_PROFILE: 'My Profile',
+    SETTINGS: 'Settings',
 
   },
 
@@ -264,7 +266,7 @@ Map<String, Map<String, String>> allLang = {
     SIGN_IN_NOW: 'اب سائن ان کریں',
     VERIFIED: 'تصدیق شدہ',
     VERIFY_ADDRESS: 'پتہ کی تصدیق کریں',
-    WISHLIST: 'خواہشات کی فہرست',
+    WISHLIST: 'پسندیدہ فہرست',
     ORDERS: 'آرڈرز',
     WELCOME_TO_DANA_PANI_EXPRESS: 'دانا پانی ایکسپریس میں خوش آمدید',
     UPLOAD_PROFILE_PICTURE: 'پروفائل تصویر اپ لوڈ کریں',
@@ -296,6 +298,8 @@ Map<String, Map<String, String>> allLang = {
     UPDATE_ADDRESS: 'پتہ تبدیل کریں',
     SET_AS_DEFAULT_ADDRESS: 'بطور ڈیفالٹ پتہ سیٹ کریں',
     DEFAULT: 'ڈیفالٹ',
+    MY_PROFILE: 'میرا پروفائل',
+    SETTINGS: 'ترتیبات',
 
   },
 };

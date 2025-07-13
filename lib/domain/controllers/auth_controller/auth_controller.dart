@@ -100,10 +100,12 @@ class AuthController extends GetxController{
       password: password,
     );
 
-    if (result[SUCCESS] == true) {
+    if (result['success'] == true) {
       final token = result['token'];
       final userMap = result['user'];
 
+      print('Token : $token');
+      print('userMap : $userMap');
       // Save token + user ID
       saveSession(userMap['user_id'], token);
 
@@ -117,12 +119,15 @@ class AuthController extends GetxController{
           isError: false,
           title: AppLanguage.registrationSuccessStr(appLanguage).toString(),
           message: AppLanguage.registrationSuccessDetailStr(appLanguage).toString());
-      await clearRegisterForm();
 
+      await clearRegisterForm();
       navigation.gotoDashboardScreen();
     } else {
       authStatus.value = AuthStatus.FAILURE;
-      Get.snackbar('Registration Failed', result['message'] ?? result['error'] ?? 'Unknown error');
+      showSnackbar(
+          isError: true,
+          title: 'Registration Failed',
+          message: result['message'] ?? result['error'] ?? 'Unknown error');
     }
   }
 
@@ -150,7 +155,7 @@ class AuthController extends GetxController{
 
     final res = await authRepo.loginUserApi(identifier: normalizedInput, password: password);
 
-    if (res[SUCCESS]) {
+    if (res['success']) {
       currentUser.value = res['user'];
       authToken.value = res['token'];
       userId.value = res['user']?.userId; // ✅ Set userId here
@@ -166,7 +171,10 @@ class AuthController extends GetxController{
       clearSignInForm();
     } else {
       authStatus.value = AuthStatus.FAILURE;
-      Get.snackbar("Login Failed", res['message'] ?? res['error'] ?? 'Unknown error');
+      showSnackbar(
+          isError: true,
+          title: 'Login Failed',
+          message: res['message'] ?? res['error'] ?? 'Unknown error');
     }
   }
 

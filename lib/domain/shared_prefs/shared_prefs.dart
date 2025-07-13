@@ -31,17 +31,17 @@ class SharedPrefs {
   }
 
 
-  // static setAvatar(bool value) async{
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   await prefs.remove(AVATAR_ACTIVE);
-  //   await prefs.setBool(AVATAR_ACTIVE, value);
-  // }
-  //
-  // static Future<bool> getAvatar() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   await prefs.reload();
-  //   return prefs.getBool(AVATAR_ACTIVE) ?? true;
-  // }
+  static setAvatar(bool value) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove(AVATAR_ACTIVE);
+    await prefs.setBool(AVATAR_ACTIVE, value);
+  }
+
+  static Future<bool> getAvatar() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.reload();
+    return prefs.getBool(AVATAR_ACTIVE) ?? true;
+  }
 
   // static setTextAlignment(String value) async{
   //   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -109,7 +109,6 @@ class SharedPrefs {
     final prefs = await SharedPreferences.getInstance();
     prefs.remove(AUTH_TOKEN);
     prefs.remove(USER_ID);
-
     await prefs.setString(AUTH_TOKEN, authToken);
     await prefs.setString(USER_ID, userId);
   }

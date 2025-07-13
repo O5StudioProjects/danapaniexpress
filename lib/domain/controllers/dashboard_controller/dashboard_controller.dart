@@ -13,6 +13,9 @@ class DashBoardController extends GetxController {
   // Bottom nav
   RxInt navIndex = 0.obs;
 
+  /// FLOATING DYNAMIC AVATARS/ICONS
+  RxBool floatingAvatarIcon = true.obs;
+
   ///HOME SCREEN
 
   // AppBar Slider

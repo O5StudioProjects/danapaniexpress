@@ -44,7 +44,7 @@ class FormValidations {
     }
 
     final trimmed = value.trim();
-    final isValid = RegExp(r"^[a-zA-Z\s.'-]{2,}$").hasMatch(trimmed);
+    final isValid = RegExp(r"^[a-zA-Z\u0600-\u06FF\s.'-]{2,}$").hasMatch(trimmed);
 
     if (!isValid) {
       return AppLanguage.fullNameInvalidCharactersStr(appLanguage).toString();

@@ -337,9 +337,16 @@ void showSnackbar({
   Duration duration = const Duration(seconds: 4),
 }) {
   Get.snackbar(
-    title,
     '',
-    messageText: appText(text: message, textStyle: secondaryTextStyle().copyWith(color:  isError ? whiteColor :  AppColors.materialButtonTextSkin(isDark))),
+    '',
+    titleText: appText(text: title,
+        textAlign: setAutoTextAlignment(title),
+        textDirection: setAutoTextDirection(title),
+        textStyle: snackBarTitleTextStyle(text: title, isError: isError)),
+    messageText: appText(text: message, 
+        textAlign: setAutoTextAlignment(message),
+        textDirection: setAutoTextDirection(message),
+        textStyle: snackBarMessageTextStyle(text: message, isError: isError)),
     snackPosition: position,
     backgroundColor: isError ? redColor : AppColors.materialButtonSkin(isDark),
     colorText: isError ? whiteColor : AppColors.materialButtonTextSkin(isDark),

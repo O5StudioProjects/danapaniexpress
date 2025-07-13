@@ -28,7 +28,9 @@ class AccountHeader extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  appIcon(iconType: IconType.ICON, icon: Icons.settings, color: AppColors.materialButtonSkin(isDark)),
+                  GestureDetector(
+                      onTap: ()=> navigation.gotoSettingsScreen(),
+                      child: appIcon(iconType: IconType.ICON, icon: Icons.settings,width: 28.0, color: AppColors.materialButtonSkin(isDark))),
 
 
                   GestureDetector(
@@ -52,7 +54,7 @@ class AccountHeader extends StatelessWidget {
                             children: [
                               appText(text: data?.userFullName ?? AppLanguage.signInNowStr(appLanguage),
                                   maxLines: 1,
-                                  textStyle: bigBoldHeadingTextStyle().copyWith(fontSize: ACCOUNT_TITLE_FONT_SIZE)),
+                                  textStyle: accountHeaderNameTextStyle(text: data?.userFullName ?? AppLanguage.signInNowStr(appLanguage))),
                               // setHeight(4.0),
                               if(data != null)
                               GestureDetector(

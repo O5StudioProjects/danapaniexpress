@@ -20,13 +20,14 @@ class HomeHeadings extends StatelessWidget {
             ? Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            GestureDetector(
-              onTap: onTapSeeAllText,
+            isSeeAll
+                ? GestureDetector(
+              onTap:  onTapSeeAllText,
               child: appText(
-                text: AppLanguage.seeAllStr(appLanguage),
+                text: isTrailingText ? trailingText : AppLanguage.seeAllStr(appLanguage),
                 textStyle: secondaryTextStyle(),
               ),
-            ),
+            ) : SizedBox(),
             Spacer(),
 
             appText(

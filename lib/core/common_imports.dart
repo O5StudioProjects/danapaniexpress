@@ -94,10 +94,14 @@ export 'package:danapaniexpress/domain/services/api/api_consts.dart';
 export 'package:danapaniexpress/domain/services/api/api_endpoints.dart';
 export 'package:danapaniexpress/ui/app_common/components/bottom_sheet.dart';
 export 'package:danapaniexpress/ui/app_common/components/simple_dropdown.dart';
+export 'package:danapaniexpress/ui/screens/pages/account/returns_redunds/returns_refunds_mobile.dart';
+export 'package:danapaniexpress/ui/screens/pages/account/terms_conditions/terms_conditions_mobile.dart';
+export 'package:danapaniexpress/ui/screens/pages/account/privacy_policy/privacy_policy_mobile.dart';
+export 'package:danapaniexpress/ui/screens/pages/account/widgets/privacy_security_common.dart';
 
 export 'package:danapaniexpress/ui/screens/pages/account/address_book/widgets/address_item.dart';
 export 'package:danapaniexpress/domain/services/api/base_repository.dart';
 export 'package:danapaniexpress/data/repositories/account_repository/account_utils.dart';
-
+export 'package:danapaniexpress/ui/screens/pages/account/settings/settings_mobile.dart';
 
 

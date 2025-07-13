@@ -30,7 +30,7 @@ Widget listItemIcon({
                   child: appText(
                     text: itemTitle,
                     textAlign: TextAlign.start,
-                    textStyle: bodyTextStyle(),
+                    textStyle: bodyAutoTextStyle(text: itemTitle),
                   ),
                 ),
                 setWidth(8.0),
@@ -53,7 +53,7 @@ Widget listItemIcon({
                   child: appText(
                     text: itemTitle,
                     textAlign: TextAlign.end,
-                    textStyle: bodyTextStyle(),
+                    textStyle: bodyAutoTextStyle(text: itemTitle),
                   ),
                 ),
                 setWidth(8.0),
@@ -66,6 +66,79 @@ Widget listItemIcon({
                 // appSvgIcon(icon: leadingIcon, width: 24.0, color: AppColors.blackInLightWhiteInDarkSkin(isDark)),
               ],
             ),
+    ),
+  );
+}
+
+Widget listItemInfoIcon({
+  iconType,
+  leadingIcon,
+  isPngColor = false,
+  itemTitle,
+  trailingIcon,
+  onItemClick,
+  trailingText,
+}) {
+  return GestureDetector(
+    onTap: onItemClick,
+    child: Container(
+      width: size.width,
+      height: LIST_ITEM_HEIGHT,
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      decoration: BoxDecoration(color: AppColors.cardColorSkin(isDark)),
+      child: appLanguage == ENGLISH_LANGUAGE
+          ? Row(
+        children: [
+          setIcon(
+            iconType: iconType,
+            iconName: leadingIcon,
+            isPngColor: isPngColor,
+            color: AppColors.backgroundColorInverseSkin(isDark),
+          ),
+          // appSvgIcon(icon: leadingIcon, width: 24.0, color: AppColors.blackInLightWhiteInDarkSkin(isDark)),
+          setWidth(8.0),
+          Expanded(
+            child: appText(
+              text: itemTitle,
+              textAlign: TextAlign.start,
+              textStyle: bodyTextStyle(),
+            ),
+          ),
+          setWidth(8.0),
+          appText(text: trailingText, textStyle: secondaryAutoTextStyle(text: trailingText)),
+          appSvgIcon(
+            icon: trailingIcon,
+            width: 24.0,
+            color: AppColors.materialButtonSkin(isDark),
+          ),
+        ],
+      )
+          : Row(
+        children: [
+          appSvgIcon(
+            icon: trailingIcon,
+            width: 24.0,
+            color: AppColors.materialButtonSkin(isDark),
+          ),
+          appText(text: trailingText, textStyle: secondaryAutoTextStyle(text: trailingText)),
+          setWidth(8.0),
+          Expanded(
+            child: appText(
+              text: itemTitle,
+              textAlign: TextAlign.end,
+              textStyle: bodyTextStyle(),
+            ),
+          ),
+          setWidth(8.0),
+          setIcon(
+            iconType: iconType,
+            iconName: leadingIcon,
+            isPngColor: isPngColor,
+            color: AppColors.backgroundColorInverseSkin(isDark),
+          ),
+          // appSvgIcon(icon: leadingIcon, width: 24.0, color: AppColors.blackInLightWhiteInDarkSkin(isDark)),
+        ],
+      ),
     ),
   );
 }
@@ -92,12 +165,10 @@ Widget listItemSwitchButton({
                   child: FittedBox(
                     fit: BoxFit.contain,
                     child: Switch(
-                      activeColor: AppColors.backgroundColorInverseSkin(isDark),
-                      activeTrackColor: AppColors.backgroundColorInverseSkin(
-                        isDark,
-                      ),
+                      activeColor: AppColors.materialButtonSkin(isDark),
+                      activeTrackColor: AppColors.materialButtonSkin(isDark),
                       inactiveThumbColor: AppColors.backgroundColorSkin(isDark),
-                      inactiveTrackColor: AppColors.backgroundColorSkin(isDark),
+                      inactiveTrackColor: AppColors.secondaryTextColorSkin(isDark),
                       trackOutlineColor: const WidgetStatePropertyAll(
                         Colors.transparent,
                       ),
@@ -111,7 +182,7 @@ Widget listItemSwitchButton({
                   child: appText(
                     text: itemTitle,
                     textAlign: TextAlign.end,
-                    textStyle: itemTextStyle(),
+                    textStyle: bodyTextStyle(),
                   ),
                 ),
                 setWidth(8.0),
@@ -136,7 +207,7 @@ Widget listItemSwitchButton({
                   child: appText(
                     text: itemTitle,
                     textAlign: TextAlign.start,
-                    textStyle: itemTextStyle(),
+                    textStyle: bodyTextStyle(),
                   ),
                 ),
                 setWidth(8.0),
@@ -170,6 +241,7 @@ Widget listItemInfo({
   trailingIcon,
   isTrailingIcon = true,
   onItemClick,
+  text
 }) {
   return GestureDetector(
     onTap: onItemClick,
@@ -190,7 +262,7 @@ Widget listItemInfo({
                   ),
                 ),
                 setWidth(8.0),
-                appText(text: trailingText, textStyle: secondaryTextStyle()),
+                appText(text: trailingText, textStyle: secondaryAutoTextStyle(text: text)),
                 //  setWidth(4.0),
                 isTrailingIcon
                 ? appSvgIcon(
