@@ -174,7 +174,7 @@ class AccountScreenMobile extends StatelessWidget {
                           leadingIcon: icAdmins,
                           itemTitle: AppLanguage.customerServiceStr(appLanguage).toString(),
                           trailingIcon: icArrow,
-                          onItemClick: ()=> navigate.launchPhoneCall(phoneNumber: ContactUs.Phone),
+                          onItemClick: () async => await navigate.launchPhoneCall(phoneNumber: ContactUs.Phone),
                         ),
                       ),
 
@@ -188,7 +188,7 @@ class AccountScreenMobile extends StatelessWidget {
                           leadingIcon: icWhatsapp,
                           itemTitle: AppLanguage.whatsappStr(appLanguage).toString(),
                           trailingIcon: icArrow,
-                          onItemClick: ()=> navigate.launchWhatsApp(phone: ContactUs.Whatsapp),
+                          onItemClick: () async => await navigate.launchWhatsApp(phone: ContactUs.Whatsapp),
                         ),
                       ),
 
@@ -202,7 +202,7 @@ class AccountScreenMobile extends StatelessWidget {
                           leadingIcon: Icons.email_rounded,
                           itemTitle: AppLanguage.emailStr(appLanguage).toString(),
                           trailingIcon: icArrow,
-                          onItemClick: ()=> navigate.launchEmail(email: ContactUs.Email),
+                          onItemClick: () async => await navigate.launchEmail(email: ContactUs.Email),
                         ),
                       ),
 
@@ -243,7 +243,7 @@ class AccountScreenMobile extends StatelessWidget {
                           leadingIcon: icFacebook,
                           itemTitle: AppLanguage.facebookStr(appLanguage).toString(),
                           trailingIcon: icArrow,
-                          onItemClick: ()=> navigate.launchFacebook(pageUserName: FollowUs.Facebook),
+                          onItemClick: () async => await navigate.launchFacebook(pageUserName: FollowUs.Facebook),
                         ),
                       ),
 
