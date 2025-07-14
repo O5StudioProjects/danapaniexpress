@@ -90,7 +90,7 @@ class RegisterScreenMobile extends StatelessWidget {
                         if(auth.isRegisterFormValid.value){
                           if (_formKey.currentState?.validate() ?? false) {
                             /// Handle register
-                            await auth.handleRegisterUserButtonTap();
+                            await auth.registerUser();
                           }
                         }
                       },

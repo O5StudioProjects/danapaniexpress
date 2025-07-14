@@ -62,6 +62,14 @@ abstract class BaseRepository {
 
   /// Fallback for network or format exceptions
   Map<String, dynamic> handleException(Exception e) {
+
+    if (e is http.ClientException || e.toString().contains('SocketException')) {
+      return {
+        'success': false,
+        'message': 'No internet connection. Please check your network and try again.',
+      };
+    }
+
     return {
       'success': false,
       'message': 'Exception: $e',

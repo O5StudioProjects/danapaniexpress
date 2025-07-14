@@ -8,10 +8,11 @@ import 'package:http/http.dart' as http;
 import '../../../core/packages_import.dart';
 import '../../../data/models/address_model.dart';
 
-
-class AuthController extends GetxController{
+class AuthController extends GetxController {
   final AuthRepository authRepo;
+
   AuthController({required this.authRepo});
+
   final navigation = Get.find<NavigationController>();
 
   /// FORM VALIDATION
@@ -21,11 +22,12 @@ class AuthController extends GetxController{
   final Rx<AuthStatus> authStatus = AuthStatus.IDLE.obs;
   final Rx<AuthStatus> getProfileStatus = AuthStatus.IDLE.obs;
 
-  final Rx<UserModel?> currentUser = Rx<UserModel?>(null); // holds logged-in user
+  final Rx<UserModel?> currentUser = Rx<UserModel?>(
+    null,
+  ); // holds logged-in user
   final RxString authToken = ''.obs;
 
   RxnString userId = RxnString();
-
 
   /// AUTH TEXT CONTROLLERS - SIGNIN SCREEN
   var signInEmailPhoneTextController = TextEditingController().obs;
@@ -38,48 +40,51 @@ class AuthController extends GetxController{
   var registerPasswordTextController = TextEditingController().obs;
   var registerReEnterPasswordTextController = TextEditingController().obs;
 
-
-
   @override
   void onInit() {
     super.onInit();
+
     ///LOGIN
     signInEmailPhoneTextController.value.addListener(validateSignInForm);
     signInPasswordTextController.value.addListener(validateSignInForm);
+
     ///REGISTER
     registerFullNameTextController.value.addListener(validateRegisterForm);
     registerEmailTextController.value.addListener(validateRegisterForm);
     registerPhoneTextController.value.addListener(validateRegisterForm);
     registerPasswordTextController.value.addListener(validateRegisterForm);
-    registerReEnterPasswordTextController.value.addListener(validateRegisterForm);
-
-
+    registerReEnterPasswordTextController.value.addListener(
+      validateRegisterForm,
+    );
   }
 
-  ///REGISTER USER - API
-  Future<void> registerUser({
-    required String fullName,
-    required String email, // optional, but still passed here
-    required String phone,
-    required String password,
-    required String confirmPassword,
-  }) async {
-    authStatus.value = AuthStatus.LOADING;
 
-    if (fullName.isEmpty || phone.isEmpty || password.isEmpty || confirmPassword.isEmpty) {
+  /// REGISTER NEW USER
+  Future<void> registerUser() async {
+    var fullName = registerFullNameTextController.value.text.trim();
+    var phone = registerPhoneTextController.value.text.trim();
+    var email = registerEmailTextController.value.text.trim();
+    var password = registerPasswordTextController.value.text.trim();
+    var confirmPassword = registerReEnterPasswordTextController.value.text.trim();
+    if (fullName.isEmpty ||
+        phone.isEmpty ||
+        password.isEmpty ||
+        confirmPassword.isEmpty) {
       authStatus.value = AuthStatus.FAILURE;
       showSnackbar(
-          title: AppLanguage.missingFieldsStr(appLanguage).toString(),
-          message: AppLanguage.missingFieldsDetailStr(appLanguage).toString());
+        title: AppLanguage.missingFieldsStr(appLanguage).toString(),
+        message: AppLanguage.missingFieldsDetailStr(appLanguage).toString(),
+      );
       return;
     }
 
     if (password != confirmPassword) {
       authStatus.value = AuthStatus.FAILURE;
       showSnackbar(
-          isError: true,
-          title: AppLanguage.passwordMismatchStr(appLanguage).toString(),
-          message: AppLanguage.passwordMismatchDetailStr(appLanguage).toString());
+        isError: true,
+        title: AppLanguage.passwordMismatchStr(appLanguage).toString(),
+        message: AppLanguage.passwordMismatchDetailStr(appLanguage).toString(),
+      );
       return;
     }
 
@@ -87,20 +92,16 @@ class AuthController extends GetxController{
     if (formattedPhone == null) {
       authStatus.value = AuthStatus.FAILURE;
       showSnackbar(
-          isError: true,
-          title: AppLanguage.invalidPhoneStr(appLanguage).toString(),
-          message: AppLanguage.invalidPhoneDetailStr(appLanguage).toString());
+        isError: true,
+        title: AppLanguage.invalidPhoneStr(appLanguage).toString(),
+        message: AppLanguage.invalidPhoneDetailStr(appLanguage).toString(),
+      );
       return;
     }
 
-    final result = await authRepo.registerUserApi(
-      fullName: fullName,
-      email: email.isEmpty ? null : email,
-      phone: formattedPhone,
-      password: password,
-    );
+    var result = await authRepo.registerUser(fullName: fullName, email: email, phone: phone, password: password, confirmPassword: confirmPassword, authStatus: authStatus);
 
-    if (result['success'] == true) {
+    if(result['success'] == true){
       final token = result['token'];
       final userMap = result['user'];
 
@@ -114,64 +115,65 @@ class AuthController extends GetxController{
       userId.value = userMap['user_id'];
       currentUser.value = UserModel.fromJson(userMap);
 
-      authStatus.value = AuthStatus.SUCCESS;
       showSnackbar(
-          isError: false,
-          title: AppLanguage.registrationSuccessStr(appLanguage).toString(),
-          message: AppLanguage.registrationSuccessDetailStr(appLanguage).toString());
+        isError: false,
+        title: AppLanguage.registrationSuccessStr(appLanguage).toString(),
+        message: AppLanguage.registrationSuccessDetailStr(
+          appLanguage,
+        ).toString(),
+      );
 
       await clearRegisterForm();
       navigation.gotoDashboardScreen();
     } else {
-      authStatus.value = AuthStatus.FAILURE;
       showSnackbar(
-          isError: true,
-          title: 'Registration Failed',
-          message: result['message'] ?? result['error'] ?? 'Unknown error');
+        isError: true,
+        title: 'Registration Failed',
+        message: result['message'] ?? result['error'] ?? 'Unknown error',
+      );
     }
+
   }
 
-  ///LOGIN USER - API
-  Future<void> loginUser(String identifier, String password) async {
-    authStatus.value = AuthStatus.LOADING;
-
-    if (identifier.isEmpty || password.isEmpty) {
+  /// LOGIN USER
+  Future<void> loginUser() async{
+    final rawInput = signInEmailPhoneTextController.value.text.trim();
+    final password = signInPasswordTextController.value.text.trim();
+    if (rawInput.isEmpty || password.isEmpty) {
       authStatus.value = AuthStatus.FAILURE;
       showSnackbar(
           title: AppLanguage.missingFieldsStr(appLanguage).toString(),
           message: AppLanguage.missingFieldsDetailStr(appLanguage).toString());
       return;
     }
-      final normalizedInput = PhoneUtils.normalizeLoginInput(identifier);
-      if (normalizedInput == null) {
-        authStatus.value = AuthStatus.FAILURE;
-        showSnackbar(
+
+    final normalizedInput = PhoneUtils.normalizeLoginInput(rawInput);
+    if (normalizedInput == null) {
+      authStatus.value = AuthStatus.FAILURE;
+      showSnackbar(
           isError: true,
-            title: AppLanguage.invalidInputStr(appLanguage).toString(),
-            message: AppLanguage.invalidInputDetailStr(appLanguage).toString()
-        );
-        return;
-      }
+          title: AppLanguage.invalidInputStr(appLanguage).toString(),
+          message: AppLanguage.invalidInputDetailStr(appLanguage).toString()
+      );
+      return;
+    }
 
-    final res = await authRepo.loginUserApi(identifier: normalizedInput, password: password);
-    print("Login response: $res");
+    var res  = await authRepo.loginUser(identifier: normalizedInput, password: password, status: authStatus);
 
-    if (res['SUCCESS'] == true) {
+    if(res['SUCCESS'] == true){
       currentUser.value = res['user'];
       authToken.value = res['token'];
       userId.value = res['user']?.userId; // ✅ Set userId here
       await saveSession(res['user']?.userId, res['token']);
       await fetchUserProfile();
-      authStatus.value = AuthStatus.SUCCESS;
       showSnackbar(
           isError: false,
           title: AppLanguage.loginSuccessStr(appLanguage).toString(),
           message: AppLanguage.loginSuccessDetailStr(appLanguage).toString()
       );
-      navigation.gotoDashboardScreen();
       clearSignInForm();
+      navigation.gotoDashboardScreen();
     } else {
-      authStatus.value = AuthStatus.FAILURE;
       showSnackbar(
           isError: true,
           title: 'Login Failed',
@@ -179,13 +181,28 @@ class AuthController extends GetxController{
     }
   }
 
+  /// LOGOUT USER
+  Future<void> logoutUser() async {
+    var result = await authRepo.logoutUser(status: authStatus, authToken: authToken);
+    if(result['success'] == true){
+      currentUser.value = null;
+      authToken.value = '';
+      userId.value = null;
+      navigation.gotoSignInScreen();
+    } else {
+      showSnackbar(
+        isError: true,
+        title: "Profile",
+        message: result['message'] ?? result['error'] ?? 'Unknown error',
+      );
+    }
+  }
+
   ///FETCH USER PROFILE COMPLETE OBJECT - API
   Future<void> fetchUserProfile() async {
     if (authToken.isEmpty) return;
 
-    getProfileStatus.value = AuthStatus.LOADING;
-
-    final res = await authRepo.getProfileApi(authToken.value);
+    var res = await authRepo.fetchUserProfile(authToken: authToken, getProfileStatus: getProfileStatus);
 
     if (res['success'] == true) {
       currentUser.value = res['user'];
@@ -197,55 +214,11 @@ class AuthController extends GetxController{
     } else {
       getProfileStatus.value = AuthStatus.FAILURE;
       showSnackbar(
-          isError: true,
-          title: "Profile", message: res['message'] ?? res['error'] ?? 'Error fetching profile');
-
+        isError: true,
+        title: "Profile",
+        message: res['message'] ?? res['error'] ?? 'Error fetching profile',
+      );
     }
-  }
-
-  ///LOGOUT USER - API
-  Future<void> logoutUser() async {
-    authStatus.value = AuthStatus.LOADING;
-
-    final result = await authRepo.logoutUserApi(authToken.value ?? '');
-
-    if (result['success'] == true) {
-      // Clear local storage/session
-      await SharedPrefs.clearUserSessions();
-
-      authStatus.value = AuthStatus.SUCCESS;
-      currentUser.value = null;
-      authToken.value = '';
-      userId.value = null;
-      navigation.gotoSignInScreen();
-    } else {
-      authStatus.value = AuthStatus.FAILURE;
-      showSnackbar(
-          isError: true,
-          title: "Profile", message: result['message'] ?? result['error'] ?? 'Unknown error');
-    }
-  }
-
-
-  /// UI HANDLINGS
-
-  /// ONTAP REGISTER BUTTON
-  Future<void> handleRegisterUserButtonTap() async {
-    await registerUser(
-      fullName: registerFullNameTextController.value.text.trim(),
-      email: registerEmailTextController.value.text.trim().isEmpty ? '' : registerEmailTextController.value.text.trim(),
-      phone: registerPhoneTextController.value.text.trim(),
-      password: registerPasswordTextController.value.text,
-      confirmPassword: registerReEnterPasswordTextController.value.text,
-    );
-
-  }
-  /// ONTAP LOGIN BUTTON
-  Future<void> handleLoginButtonTap() async {
-    final rawInput = signInEmailPhoneTextController.value.text.trim();
-    final password = signInPasswordTextController.value.text.trim();
-    await loginUser(rawInput, password);
-
   }
 
 
@@ -257,17 +230,18 @@ class AuthController extends GetxController{
     registerPasswordTextController.value.clear();
     registerReEnterPasswordTextController.value.clear();
   }
+
   Future<void> clearSignInForm() async {
     signInEmailPhoneTextController.value.clear();
     signInPasswordTextController.value.clear();
   }
-
 
   /// SHARED PREFERENCES USER SESSIONS
   Future<void> saveSession(String id, String authToken) async {
     await SharedPrefs.saveUser(id, authToken);
   }
 
+  /// USED IN SPLASH TO LOAD USER SESSION
   Future<void> loadSession() async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString(AUTH_TOKEN);
@@ -283,7 +257,6 @@ class AuthController extends GetxController{
     }
   }
 
-
   /// FORM VALIDATIONS
   void validateSignInForm() {
     final email = signInEmailPhoneTextController.value.text.trim();
@@ -296,11 +269,12 @@ class AuthController extends GetxController{
     final phone = registerPhoneTextController.value.text.trim();
     final pass = registerPasswordTextController.value.text.trim();
     final reEnterPass = registerReEnterPasswordTextController.value.text.trim();
-    isRegisterFormValid.value = fullName.isNotEmpty && phone.isNotEmpty && pass.isNotEmpty && reEnterPass.isNotEmpty;
+    isRegisterFormValid.value =
+        fullName.isNotEmpty &&
+        phone.isNotEmpty &&
+        pass.isNotEmpty &&
+        reEnterPass.isNotEmpty;
   }
-
-
-
 
   @override
   void onClose() {
@@ -315,5 +289,4 @@ class AuthController extends GetxController{
 
     super.onClose();
   }
-
 }
