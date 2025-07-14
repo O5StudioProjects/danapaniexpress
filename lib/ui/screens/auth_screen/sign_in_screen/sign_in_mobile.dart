@@ -121,7 +121,7 @@ class SignInMobile extends StatelessWidget {
                                 if(auth.isSignInFormValid.value){
                                   if (_formKey.currentState?.validate() ?? false) {
                                     // Proceed with login
-                                    auth.handleLoginButtonTap();
+                                    await auth.loginUser();
                                   }
                                 }
                               },

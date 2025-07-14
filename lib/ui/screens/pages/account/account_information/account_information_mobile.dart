@@ -142,7 +142,7 @@ class AccountInformationMobile extends StatelessWidget {
                         child: listItemInfo(
                           itemTitle: AppLanguage.fullNameStr(appLanguage),
                           trailingText: data!.userFullName,
-                          text: data!.userFullName,
+                          text: data.userFullName,
                           trailingIcon: icArrow,
                           onItemClick: () {
                             appBottomSheet(
