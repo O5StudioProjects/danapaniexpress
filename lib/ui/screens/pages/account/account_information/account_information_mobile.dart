@@ -1,5 +1,8 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
+import 'package:danapaniexpress/ui/app_common/components/dropdown_menu.dart';
+
+import 'account_info_utils.dart';
 
 class AccountInformationMobile extends StatelessWidget {
   const AccountInformationMobile({super.key});
@@ -7,10 +10,20 @@ class AccountInformationMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var auth = Get.find<AuthController>();
-    var account = Get.find<AccountController>();
+    var account = Get.find<AccountInfoController>();
     return Obx((){
       var data = auth.currentUser.value;
       var icArrow = appLanguage == URDU_LANGUAGE ? icArrowLeftSmall : icArrowRightSmall;
+      var imageUploadMenu = [
+        ImageUploadModel(
+            id: DEFAULT_IMAGE,
+            icon: DEFAULT_IMAGE_ICON,
+            title: AppLanguage.defaultImageStr(appLanguage).toString()),
+        ImageUploadModel(
+            id: UPLOAD_IMAGE,
+            icon: UPLOAD_IMAGE_ICON,
+            title: AppLanguage.uploadImageStr(appLanguage).toString()),
+      ];
       return Container(
         width: size.width,
         height: size.height,
@@ -64,9 +77,35 @@ class AccountInformationMobile extends StatelessWidget {
                               Positioned(
                                   bottom: 0,
                                   right: 0,
-                                  child: GestureDetector(
-                                      onTap: () async => await account.pickImage(),
-                                      child: appFloatingButton(icon: Icons.camera_alt, iconType: IconType.ICON))),
+                                  child: AppButtonDropdownMenu(
+                                      options: imageUploadMenu,
+                                    onSelected: (item) async {
+                                      switch (item.id) {
+                                        case DEFAULT_IMAGE:
+                                          debugPrint(DEFAULT_IMAGE);
+                                          break;
+                                        case UPLOAD_IMAGE:
+                                          await account.pickImage();
+                                          break;
+                                      }
+                                    },
+                                    customIcon: appFloatingButton(icon: Icons.camera_alt, iconType: IconType.ICON),
+                                    itemBuilder: (item) {
+                                        return Row(
+                                          children: [
+                                            appIcon(iconType: IconType.ICON, icon: item.icon, width: 24.0),
+                                            setWidth(MAIN_HORIZONTAL_PADDING),
+                                            appText(text: item.title, textStyle: bodyTextStyle())
+                                          ],
+                                        );
+                                    },)
+
+
+                                  // GestureDetector(
+                                  //     onTap: () async => await account.pickImage(),
+                                  //     child: appFloatingButton(icon: Icons.camera_alt, iconType: IconType.ICON))
+
+            ),
                             ],
                           ),
                         ),
@@ -228,7 +267,7 @@ class ChangeFullNameUI extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var account = Get.find<AccountController>();
+    var account = Get.find<AccountInfoController>();
     return Obx(() {
       return SingleChildScrollView(
         padding: EdgeInsets.only(
@@ -280,7 +319,7 @@ class ChangeEmailUI extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var account = Get.find<AccountController>();
+    var account = Get.find<AccountInfoController>();
     return Obx(() {
       return SingleChildScrollView(
         padding: EdgeInsets.only(
@@ -332,7 +371,7 @@ class ChangePasswordUI extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var account = Get.find<AccountController>();
+    var account = Get.find<AccountInfoController>();
     return Obx(() {
       return SingleChildScrollView(
         padding: EdgeInsets.only(

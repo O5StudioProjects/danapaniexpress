@@ -9,7 +9,7 @@ export 'package:danapaniexpress/domain/controllers/product_controller/product_de
 export 'package:danapaniexpress/domain/controllers/cart_controller/cart_controller.dart';
 export 'package:danapaniexpress/domain/controllers/categories_controller/categories_controller.dart';
 export 'package:danapaniexpress/domain/controllers/favorites_controller/favorites_controller.dart';
-export 'package:danapaniexpress/domain/controllers/account_controller/account_controller.dart';
+export 'package:danapaniexpress/domain/controllers/account_controller/account_information_controller.dart';
 export 'package:danapaniexpress/domain/controllers/product_controller/other_products_controller.dart';
 export 'package:danapaniexpress/domain/controllers/auth_controller/auth_controller.dart';
 export 'package:danapaniexpress/domain/controllers/text_controllers/text_controllers.dart';

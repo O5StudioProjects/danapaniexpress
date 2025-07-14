@@ -60,44 +60,7 @@ Widget appSliverAppbarHome() {
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: GestureDetector(
-                        onTap: () {
-                          Get.find<ThemeController>().changeTheme();
-                        },
-                        child: Container(
-                          padding: EdgeInsets.all(6.0),
-                          decoration: BoxDecoration(
-                            color: AppColors.floatingButtonSkin(isDark),
-                            borderRadius: BorderRadius.circular(100),
-                          ),
-                          child: appIcon(iconType: IconType.ICON, icon: isDark ? Icons.dark_mode_rounded : Icons.light_mode_rounded, color: whiteColor),
-                        ),
-                      ),
-                    ),
-                    setHeight(5.0),
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: GestureDetector(
-                        onTap: () {
-                          if(appLanguage == ENGLISH_LANGUAGE) {
-                            Get.find<ThemeController>().changeLanguage(language: URDU_LANGUAGE);
-                          } else {
-                            Get.find<ThemeController>().changeLanguage(language: ENGLISH_LANGUAGE);
-                          }
-                        },
-                        child: Container(
-                          padding: EdgeInsets.all(6.0),
-                          decoration: BoxDecoration(
-                            color: AppColors.floatingButtonSkin(isDark),
-                            borderRadius: BorderRadius.circular(100),
-                          ),
-                          child: appIcon(iconType: IconType.ICON, icon: Icons.language, color: whiteColor),
-                        ),
-                      ),
-                    ),
-                    setHeight(5.0),
+
                     Align(
                       alignment: Alignment.centerRight,
                       child: GestureDetector(
@@ -184,3 +147,58 @@ Widget appBarCommon({title, isBackNavigation = false, isTrailing = false, traili
   );
 }
 
+Widget appBarAccount({title, isBackNavigation = false, isTrailing = false, trailingIcon, trailingOnTap}) {
+  return Container(
+    width: size.width,
+    height: 80,
+    decoration: BoxDecoration(color: AppColors.appBarColorSkin(isDark)),
+    child: Padding(
+      padding: const EdgeInsets.only(
+        left: MAIN_HORIZONTAL_PADDING,
+        right: MAIN_HORIZONTAL_PADDING,
+        bottom: 8.0,
+      ),
+      child: Align(
+        alignment: Alignment.bottomCenter,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            isBackNavigation
+                ? GestureDetector(
+              onTap: () async {
+                Get.back();
+              },
+              child: appSvgIcon(
+                icon: icArrowLeft,
+                color: AppColors.primaryTextColorSkin(isDark),
+                width: 24.0,
+              ),
+            )
+                : const SizedBox(width: 24.0),
+            setWidth(12.0),
+            Expanded(
+              child: appText(
+                text: title,
+                textAlign: TextAlign.center,
+                textStyle: appBarTextStyle(),
+              ),
+            ),
+            setWidth(12.0),
+
+            isTrailing
+                ? GestureDetector(
+              onTap: trailingOnTap,
+              child: appSvgIcon(
+                icon: trailingIcon,
+                color: AppColors.primaryTextColorSkin(isDark),
+                width: 24.0,
+              ),
+            )
+                :const SizedBox(width: 24.0),
+          ],
+        ),
+      ),
+    ),
+  );
+}

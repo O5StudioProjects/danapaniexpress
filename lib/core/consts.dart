@@ -42,6 +42,11 @@ class ImagePagerType {
   static const String POPULAR = 'popular';
   static const String FLASH_SALE = 'flash_sale';
 }
+///IMAGE PAGER SECTIONS
+class ImagePagerSections {
+  static const String BODY_PAGER = 'body_pager';
+  static const String APPBAR_PAGER = 'appbar_pager';
+}
 
 ///MARQUEE TYPES
 class MarqueeType {

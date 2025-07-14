@@ -106,7 +106,7 @@ class AppRouter {
       transition: Transition.fadeIn,
       transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
       page: () => const AccountInformationScreen(),
-      binding: AccountBinding(),
+      binding: AccountInfoBinding(),
 
     ),
 

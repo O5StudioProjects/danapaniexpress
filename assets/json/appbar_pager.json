@@ -1,32 +1,58 @@
 [
   {
-    "slider_id": "1",
+    "pager_id": "1",
+    "pager_section": "appbar_pager",
     "type": "category",
     "type_id": "Grains & Rice",
     "image_url": "https://freshdaykart.com/photos/large/banr_20220208202319_ad-2.jpg"
   },
   {
-    "slider_id": "2",
+    "pager_id": "2",
+    "pager_section": "appbar_pager",
     "type": "featured",
     "type_id": "featured",
     "image_url": "https://mir-s3-cdn-cf.behance.net/project_modules/source/18d60b107187879.5fa16aecd880f.jpg"
   },
   {
-    "slider_id": "3",
+    "pager_id": "3",
+    "pager_section": "appbar_pager",
     "type": "flash_sale",
     "type_id": "flash_sale",
     "image_url": "https://mir-s3-cdn-cf.behance.net/project_modules/hd/d7dfad107187879.5fa16aecd773f.jpg"
   },
   {
-    "slider_id": "4",
+    "pager_id": "4",
+    "pager_section": "appbar_pager",
     "type": "popular",
     "type_id": "popular",
     "image_url": "https://www.shutterstock.com/image-photo/online-grocery-app-on-smartphone-600nw-2244240217.jpg"
   },
   {
-    "slider_id": "5",
+    "pager_id": "5",
+    "pager_section": "appbar_pager",
     "type": "product",
     "type_id": "P003",
     "image_url": "https://hyperbeans.com/resources/images/blogs/6989214121629271478.jpg"
+  },
+  {
+    "pager_id": "6",
+    "pager_section": "body_pager",
+    "type": "flash_sale",
+    "type_id": "flash_sale",
+    "image_url": "https://static.vecteezy.com/system/resources/previews/010/248/845/non_2x/flash-sale-shopping-banner-on-red-background-flash-sale-banner-template-design-for-social-media-and-website-special-offer-flash-sale-campaign-or-promotion-vector.jpg"
+  },
+  {
+    "pager_id": "7",
+    "type": "flash_sale",
+    "pager_section": "body_pager",
+    "type_id": "flash_sale",
+    "image_url": "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/supermarket-landscape-design-template-dd8ed359dbd2609045b0f3f6bf081169_screen.jpg"
+  },
+  {
+    "pager_id": "8",
+    "pager_section": "body_pager",
+    "type": "flash_sale",
+    "type_id": "flash_sale",
+    "image_url": "https://img.freepik.com/free-vector/flat-design-grocery-store-sale-banner_23-2151074240.jpg"
   }
 ]

@@ -2,10 +2,11 @@ const String pagerImagesTable = 'pager_images';
 
 class PagerImagesFields {
   static final List<String> values = [
-    sliderId, type, typeId, imageUrl,
+    sliderId, pagerSection, type, typeId, imageUrl,
   ];
 
   static const String sliderId = 'pager_id';
+  static const String pagerSection = 'pager_section';
   static const String type = 'type';
   static const String typeId = 'type_id';
   static const String imageUrl = 'image_url';
@@ -13,12 +14,14 @@ class PagerImagesFields {
 
 class PagerImagesModel {
   final String? sliderId;
+  final String? pagerSection;
   final String? type;
   final String? typeId;
   final String? imageUrl;
 
   const PagerImagesModel({
     required this.sliderId,
+    required this.pagerSection,
     required this.type,
     required this.typeId,
     required this.imageUrl,
@@ -26,6 +29,7 @@ class PagerImagesModel {
 
   Map<String, Object?> toJson() => {
     PagerImagesFields.sliderId: sliderId,
+    PagerImagesFields.pagerSection: pagerSection,
     PagerImagesFields.type: type,
     PagerImagesFields.typeId: typeId,
     PagerImagesFields.imageUrl: imageUrl,
@@ -33,6 +37,7 @@ class PagerImagesModel {
 
   static PagerImagesModel fromJson(Map<String, Object?> json) => PagerImagesModel(
     sliderId: json[PagerImagesFields.sliderId] as String?,
+    pagerSection: json[PagerImagesFields.pagerSection] as String?,
     type: json[PagerImagesFields.type] as String?,
     typeId: json[PagerImagesFields.typeId] as String?,
     imageUrl: json[PagerImagesFields.imageUrl] as String?,
@@ -40,12 +45,14 @@ class PagerImagesModel {
 
   PagerImagesModel copy({
     String? sliderId,
+    String? pagerSection,
     String? type,
     String? typeId,
     String? imageUrl,
   }) =>
       PagerImagesModel(
         sliderId: sliderId ?? this.sliderId,
+        pagerSection: pagerSection ?? this.pagerSection,
         type: type ?? this.type,
         typeId: typeId ?? this.typeId,
         imageUrl: imageUrl ?? this.imageUrl,

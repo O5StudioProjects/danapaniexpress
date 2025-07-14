@@ -1,5 +1,6 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
+import 'package:danapaniexpress/domain/controllers/account_controller/account_controller.dart';
 
 class AccountScreenMobile extends StatelessWidget {
   const AccountScreenMobile({super.key});
@@ -8,6 +9,7 @@ class AccountScreenMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     var auth = Get.find<AuthController>();
     var navigate = Get.find<NavigationController>();
+    var account = Get.find<AccountController>();
 
     return Obx((){
       var icArrow = appLanguage == URDU_LANGUAGE ? icArrowLeftSmall : icArrowRightSmall;
@@ -17,11 +19,22 @@ class AccountScreenMobile extends StatelessWidget {
           color: AppColors.backgroundColorSkin(isDark),
           child: Column(
             children: [
-              AccountHeader(),
+              /// TOP HEADER
+              Obx(() {
+                return AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 250),
+                  child: account.showTopHeader.value
+                      ?  AccountHeader()
+                      : AccountHeaderSmall()
+                );
+              }),
+
+            //  AccountHeader(),
 
               Expanded(
                 child: SingleChildScrollView(
                   physics: BouncingScrollPhysics(),
+                  controller: account.scrollController,
                   child: Column(
                     crossAxisAlignment: appLanguage == URDU_LANGUAGE
                         ? CrossAxisAlignment.end

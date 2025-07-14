@@ -509,6 +509,13 @@ class AppLanguage {
   static String? settingsStr(String appLanguage) {
     return allLang[appLanguage]?[SETTINGS];
   }
+  static String? defaultImageStr(String appLanguage) {
+    return allLang[appLanguage]?[DEFAULT_IMAGE];
+  }
+
+  static String? uploadImageStr(String appLanguage) {
+    return allLang[appLanguage]?[UPLOAD_IMAGE];
+  }
 
 
 }
