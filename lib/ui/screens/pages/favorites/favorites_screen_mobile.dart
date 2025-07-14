@@ -1,5 +1,6 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
+import 'package:danapaniexpress/domain/controllers/search_controller/search_controller.dart';
 
 class FavoritesScreenMobile extends StatelessWidget {
   const FavoritesScreenMobile({super.key});
@@ -7,6 +8,7 @@ class FavoritesScreenMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var favorites = Get.find<FavoritesController>();
+    var search = Get.find<SearchProductsController>();
 
     return Container(
       width: size.width,
@@ -19,6 +21,7 @@ class FavoritesScreenMobile extends StatelessWidget {
          Padding(
            padding: const EdgeInsets.only(top: MAIN_HORIZONTAL_PADDING, right: MAIN_HORIZONTAL_PADDING, left: MAIN_HORIZONTAL_PADDING, bottom: MAIN_HORIZONTAL_PADDING),
            child: AppTextFormField(
+             textEditingController: search.searchTextController.value,
              prefixIcon: Icons.search,
              hintText: 'Search products...',
            ),

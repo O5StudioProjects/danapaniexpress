@@ -149,6 +149,8 @@ Map<String, Map<String, String>> allLang = {
     DEFAULT: 'Default',
     MY_PROFILE: 'My Profile',
     SETTINGS: 'Settings',
+    DEFAULT_IMAGE: 'Default Image',
+    UPLOAD_IMAGE: 'Upload Image',
 
   },
 
@@ -300,6 +302,8 @@ Map<String, Map<String, String>> allLang = {
     DEFAULT: 'ڈیفالٹ',
     MY_PROFILE: 'میرا پروفائل',
     SETTINGS: 'ترتیبات',
+    DEFAULT_IMAGE: 'ڈیفالٹ تصویر',
+    UPLOAD_IMAGE: 'تصویر اپ لوڈ کریں',
 
   },
 };

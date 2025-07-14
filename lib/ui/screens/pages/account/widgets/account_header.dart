@@ -107,3 +107,89 @@ class AccountHeader extends StatelessWidget {
     });
   }
 }
+
+
+
+class AccountHeaderSmall extends StatelessWidget {
+  const AccountHeaderSmall({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    var navigation = Get.find<NavigationController>();
+    var auth = Get.find<AuthController>();
+    return Obx((){
+      var data = auth.currentUser.value;
+      return Container(
+        width: size.width,
+        height: 100.0,
+        decoration: BoxDecoration(color: AppColors.appBarColorSkin(isDark)),
+        child: Padding(
+          padding: const EdgeInsets.only(left: MAIN_HORIZONTAL_PADDING, right: 0.0, bottom: 6.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              GestureDetector(
+                  onTap: ()=> navigation.gotoAccountInformationScreen(),
+                  child: SizedBox(
+                      width: 46.0,
+                      height: 46.0,
+                      child: ProfileImage(profileImage: data?.userImage))),
+              setWidth(MAIN_HORIZONTAL_PADDING),
+              Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          if(data != null)
+                            appIcon(iconType: IconType.ICON, icon:  Icons.verified, color: data.userDefaultAddress != null ? blueColor : greyColor, width: 16.0),
+                          if(data != null) setWidth(8.0),
+                          appText(text: data?.userFullName ?? AppLanguage.signInNowStr(appLanguage),
+                              maxLines: 1,
+                              textStyle: accountHeaderNameTextStyle(text: data?.userFullName ?? AppLanguage.signInNowStr(appLanguage))
+                                  .copyWith(fontSize: HEADING_FONT_SIZE)
+                          ),
+
+                        ],
+                      ),
+
+                      appDivider(height: 6.0),
+                      data != null
+                          ? Row(
+                        children: [
+                          appText(text: '${data.userFavoritesCount} ', textStyle: itemTextStyle()),
+                          appText(text: AppLanguage.wishlistStr(appLanguage), textStyle: accountSecondaryTextStyle()),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 6),
+                            child: appText(text: '-', textStyle: bodyTextStyle().copyWith(color: AppColors.secondaryTextColorSkin(isDark))),
+                          ),
+                          appText(text: '${data.userCartCount} ', textStyle: itemTextStyle()),
+                          appText(text: AppLanguage.cartStr(appLanguage), textStyle: accountSecondaryTextStyle()),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 6),
+                            child: appText(text: '-', textStyle: bodyTextStyle().copyWith(color: AppColors.secondaryTextColorSkin(isDark))),
+                          ),
+                          appText(text: '${data.userOrdersCount} ', textStyle: itemTextStyle()),
+                          appText(text: AppLanguage.ordersStr(appLanguage), textStyle: accountSecondaryTextStyle()),
+                        ],
+                      )
+                          : appText(text: AppLanguage.welcomeToDanaPaniExpressStr(appLanguage), textStyle: secondaryTextStyle())
+                    ],
+                  )
+              ),
+              setWidth(MAIN_VERTICAL_PADDING),
+              GestureDetector(
+                  onTap: ()=> navigation.gotoSettingsScreen(),
+                  child: SizedBox(
+                      width: 46.0,
+                      height: 46.0,
+                      child: appIcon(iconType: IconType.ICON, icon: Icons.settings,width: 28.0, color: AppColors.materialButtonSkin(isDark)))),
+            ],
+          ),
+        ),
+      );
+    });
+  }
+}
