@@ -100,8 +100,7 @@ class DashBoardController extends GetxController {
     categories.fetchCategories();
     fetchBodyPagerImages();
     fetchAllProductLists();
-    fetchSingleBannerOne();
-    fetchSingleBannerTwo();
+    fetchSingleBanners();
   }
 
   // Bottom nav change
@@ -182,19 +181,33 @@ class DashBoardController extends GetxController {
   }
 
   // SIGNLE BANNER HOME
-  Future<void> fetchSingleBannerOne() async {
-    await dashboardRepo.fetchSingleBannerOneEvent(
-      singleBannerOneStatus,
-      singleBannerOne,
-    );
+
+
+  Future<void> fetchSingleBanners() async {
+    try {
+      final bannerOneList = await dashboardRepo.getPagerItems(SingleBanners.BANNER_ONE);
+      if (bannerOneList.isNotEmpty) {
+        singleBannerOne.value = bannerOneList.first;
+      }
+
+      final bannerTwoList = await dashboardRepo.getPagerItems(SingleBanners.BANNER_TWO);
+      if (bannerTwoList.isNotEmpty) {
+        singleBannerTwo.value = bannerTwoList.first;
+      }
+
+      if (kDebugMode) {
+        print("Fetched banner_one: ${singleBannerOne.value}");
+        print("Fetched banner_two: ${singleBannerTwo.value}");
+      }
+    } catch (e) {
+      showSnackbar(
+        isError: true,
+        title: 'Error',
+        message: 'Failed to fetch single banners: $e',
+      );
+    }
   }
 
-  Future<void> fetchSingleBannerTwo() async {
-    await dashboardRepo.fetchSingleBannerTwoEvent(
-      singleBannerTwoStatus,
-      singleBannerTwo,
-    );
-  }
 
   // ✅ Fetch All Lists at Once
   Future<void> fetchAllProductLists() async {

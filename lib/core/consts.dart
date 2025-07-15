@@ -47,6 +47,10 @@ class ImagePagerSections {
   static const String BODY_PAGER = 'body_pager';
   static const String APPBAR_PAGER = 'appbar_pager';
 }
+class SingleBanners {
+  static const String BANNER_ONE = 'banner_one';
+  static const String BANNER_TWO = 'banner_two';
+}
 
 ///MARQUEE TYPES
 class MarqueeType {

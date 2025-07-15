@@ -61,6 +61,7 @@ class AuthController extends GetxController {
 
   /// REGISTER NEW USER
   Future<void> registerUser() async {
+    authStatus.value = AuthStatus.LOADING;
     var fullName = registerFullNameTextController.value.text.trim();
     var phone = registerPhoneTextController.value.text.trim();
     var email = registerEmailTextController.value.text.trim();
@@ -99,7 +100,7 @@ class AuthController extends GetxController {
       return;
     }
 
-    var result = await authRepo.registerUser(fullName: fullName, email: email, phone: phone, password: password, confirmPassword: confirmPassword, authStatus: authStatus);
+    var result = await authRepo.registerUser(fullName: fullName, email: email, phone: phone, password: password, confirmPassword: confirmPassword);
 
     if(result['success'] == true){
       final token = result['token'];
@@ -114,6 +115,7 @@ class AuthController extends GetxController {
       authToken.value = token;
       userId.value = userMap['user_id'];
       currentUser.value = UserModel.fromJson(userMap);
+      authStatus.value = AuthStatus.SUCCESS;
 
       showSnackbar(
         isError: false,
@@ -126,6 +128,7 @@ class AuthController extends GetxController {
       await clearRegisterForm();
       navigation.gotoDashboardScreen();
     } else {
+      authStatus.value = AuthStatus.FAILURE;
       showSnackbar(
         isError: true,
         title: 'Registration Failed',
@@ -137,6 +140,8 @@ class AuthController extends GetxController {
 
   /// LOGIN USER
   Future<void> loginUser() async{
+    authStatus.value = AuthStatus.SUCCESS;
+
     final rawInput = signInEmailPhoneTextController.value.text.trim();
     final password = signInPasswordTextController.value.text.trim();
     if (rawInput.isEmpty || password.isEmpty) {
@@ -158,7 +163,7 @@ class AuthController extends GetxController {
       return;
     }
 
-    var res  = await authRepo.loginUser(identifier: normalizedInput, password: password, status: authStatus);
+    var res  = await authRepo.loginUser(identifier: normalizedInput, password: password);
 
     if(res['SUCCESS'] == true){
       currentUser.value = res['user'];
@@ -166,6 +171,7 @@ class AuthController extends GetxController {
       userId.value = res['user']?.userId; // ✅ Set userId here
       await saveSession(res['user']?.userId, res['token']);
       await fetchUserProfile();
+      authStatus.value = AuthStatus.SUCCESS;
       showSnackbar(
           isError: false,
           title: AppLanguage.loginSuccessStr(appLanguage).toString(),
@@ -174,6 +180,7 @@ class AuthController extends GetxController {
       clearSignInForm();
       navigation.gotoDashboardScreen();
     } else {
+      authStatus.value = AuthStatus.FAILURE;
       showSnackbar(
           isError: true,
           title: 'Login Failed',
@@ -183,13 +190,17 @@ class AuthController extends GetxController {
 
   /// LOGOUT USER
   Future<void> logoutUser() async {
-    var result = await authRepo.logoutUser(status: authStatus, authToken: authToken);
+    authStatus.value = AuthStatus.LOADING;
+    var result = await authRepo.logoutUser(authToken: authToken);
     if(result['success'] == true){
+      await SharedPrefs.clearUserSessions();
       currentUser.value = null;
       authToken.value = '';
       userId.value = null;
+      authStatus.value = AuthStatus.SUCCESS;
       navigation.gotoSignInScreen();
     } else {
+      authStatus.value = AuthStatus.FAILURE;
       showSnackbar(
         isError: true,
         title: "Profile",
@@ -200,9 +211,11 @@ class AuthController extends GetxController {
 
   ///FETCH USER PROFILE COMPLETE OBJECT - API
   Future<void> fetchUserProfile() async {
+    getProfileStatus.value = AuthStatus.LOADING;
+
     if (authToken.isEmpty) return;
 
-    var res = await authRepo.fetchUserProfile(authToken: authToken, getProfileStatus: getProfileStatus);
+    var res = await authRepo.fetchUserProfile(authToken: authToken);
 
     if (res['success'] == true) {
       currentUser.value = res['user'];

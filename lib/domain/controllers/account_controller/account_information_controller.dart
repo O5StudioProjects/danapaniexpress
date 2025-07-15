@@ -64,6 +64,8 @@ class AccountInfoController extends GetxController {
 
   /// UPLOAD IMAGE API CALL
   Future<void> uploadUserImage() async {
+    uploadImageStatus.value = AuthStatus.LOADING;
+
     if (auth.userId.value == null) {
       showSnackbar(
           isError: true,
@@ -81,7 +83,6 @@ class AccountInfoController extends GetxController {
     final result = await accountInfoRepo.uploadUserImage(
       file: selectedImage.value!,
       userId: auth.userId.value!,
-      uploadImageStatus: uploadImageStatus,
     );
 
     if (result['success'] == true || result['status'] == 'success') {
@@ -94,6 +95,7 @@ class AccountInfoController extends GetxController {
       selectedImage.value = null;
       uploadImageStatus.value = AuthStatus.SUCCESS;
     } else {
+      uploadImageStatus.value = AuthStatus.FAILURE;
       showSnackbar(
           isError: true,
           title: 'Failed',
@@ -119,10 +121,11 @@ class AccountInfoController extends GetxController {
       fullName: fullName,
       email: email,
       currentPassword: currentPassword,
-      newPassword: newPassword, updateProfileStatus: updateProfileStatus,
+      newPassword: newPassword
     );
 
     if (result['success'] == true) {
+      await auth.fetchUserProfile(); // Refresh local user data
       deleteImageStatus.value = AuthStatus.SUCCESS;
       Navigator.pop(gContext);
       showSnackbar(
@@ -160,13 +163,13 @@ class AccountInfoController extends GetxController {
     final result = await accountInfoRepo.deleteUserImage(userId: auth.userId.value!);
 
     if (result['success'] == true || result['status'] == 'success') {
+      await auth.fetchUserProfile(); // Refresh updated image
       deleteImageStatus.value = AuthStatus.SUCCESS;
       showSnackbar(
         isError: false,
         title: 'Success',
         message: result['message'] ?? 'Image deleted',
       );
-      await auth.fetchUserProfile(); // Refresh updated image
     } else {
       deleteImageStatus.value = AuthStatus.FAILURE;
       showSnackbar(
