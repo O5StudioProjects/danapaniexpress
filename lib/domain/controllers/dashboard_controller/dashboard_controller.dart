@@ -111,15 +111,42 @@ class DashBoardController extends GetxController {
 
   // Fetch AppBar slider images
   Future<void> fetchAppbarPagerImages() async {
-    await dashboardRepo.fetchAppbarPagerImagesListEvent(
-      appbarPagerStatus,
-      appbarPagerList,
-    );
+    try {
+      appbarPagerStatus.value = AppbarPagerImagesStatus.LOADING;
+      final items = await dashboardRepo.getPagerItems(ImagePagerSections.APPBAR_PAGER);
+      appbarPagerList.assignAll(items);
+      if (kDebugMode) {
+        print("Fetched ${items.length} appbar pager images");
+      }
+      appbarPagerStatus.value = AppbarPagerImagesStatus.SUCCESS;
+    } catch (e) {
+      appbarPagerStatus.value = AppbarPagerImagesStatus.FAILURE;
+      if (kDebugMode) {
+        print(e);
+      }
+      showSnackbar(
+        isError: true,
+        title: 'Error',
+        message: e.toString(),
+      );
+    }
   }
 
-  // Fetch Notifications
+  // Fetch Marquee Notifications
   Future<void> fetchMarquee() async {
-    await dashboardRepo.fetchMarqueeEvent(marqueeStatus, marqueeData);
+    try {
+      marqueeStatus.value = MarqueeStatus.LOADING;
+      final result = await dashboardRepo.getMarquee();
+      marqueeData.value = result;
+      marqueeStatus.value = MarqueeStatus.SUCCESS;
+    } catch (e) {
+      marqueeStatus.value = MarqueeStatus.FAILURE;
+      showSnackbar(
+        isError: true,
+        title: 'Marquee Error',
+        message: e.toString(),
+      );
+    }
   }
 
   // Fetch Cover Images
@@ -131,12 +158,27 @@ class DashBoardController extends GetxController {
     singleProduct.value = await dashboardRepo.fetchSingleProductById(id);
   }
 
-  // Fetch Body Slider
+  //Fetch Body Slider
   Future<void> fetchBodyPagerImages() async {
-    await dashboardRepo.fetchBodyPagerImagesListEvent(
-      bodyPagerStatus,
-      bodyPagerList,
-    );
+    try {
+      bodyPagerStatus.value = BodyPagerImagesStatus.LOADING;
+      final items = await dashboardRepo.getPagerItems(ImagePagerSections.BODY_PAGER);
+      bodyPagerList.assignAll(items);
+      bodyPagerStatus.value = BodyPagerImagesStatus.SUCCESS;
+      if (kDebugMode) {
+        print("Fetched ${items.length} body pager images");
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      bodyPagerStatus.value = BodyPagerImagesStatus.FAILURE;
+      showSnackbar(
+        isError: true,
+        title: 'Error',
+        message: e.toString(),
+      );
+    }
   }
 
   // SIGNLE BANNER HOME

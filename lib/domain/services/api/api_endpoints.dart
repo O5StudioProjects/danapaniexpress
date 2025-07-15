@@ -14,6 +14,8 @@ class APiEndpoints {
   static String updateUserImage = "$path/update_user.php/upload_user_image";
   static String deleteUserImage = "$path/update_user.php/delete_user_image";
   static String updateUserInfo = "$path/update_user.php/update_user";
+  static String getPagerData = "$path/pager.php/get_pager_data";
+  static String getMarquee = "$path/marquee_slider.php/get_marquee";
 
   ///GET APIS
   static String getRegisteredUsers = "$path/register.php/get_users";

@@ -2,34 +2,46 @@ import 'dart:convert';
 
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/data_model_imports.dart';
+import 'package:danapaniexpress/data/repositories/dashboard_repository/dashbboard_datasource.dart';
 
-class DashboardRepository {
+class DashboardRepository extends DashboardDataSource{
 
-  Future<void> fetchAppbarPagerImagesListEvent(
-    Rx<AppbarPagerImagesStatus> status,
-    RxList<PagerImagesModel> sliderList,
-  ) async {
-    try {
-      status.value = AppbarPagerImagesStatus.LOADING;
-      String jsonString = await rootBundle.loadString(jsonAppbarPager);
-
-      List<dynamic> jsonData = json.decode(jsonString);
-      List<PagerImagesModel> value = jsonData
-          .map((item) => PagerImagesModel.fromJson(item))
-          .toList();
-
-      sliderList.assignAll(value);
-      status.value = AppbarPagerImagesStatus.SUCCESS;
-      if (kDebugMode) {
-        print("Appbar Pager Images Fetched");
-      }
-    } catch (e) {
-      status.value = AppbarPagerImagesStatus.FAILURE;
-      if (kDebugMode) {
-        print("Error loading Appbar Pager images: $e");
-      }
-    }
+  /// GET PAGERS DATA - API
+  Future<List<PagerImagesModel>> getPagerItems(String section) async {
+    return await getPagerDataApi(section);
   }
+
+  Future<MarqueeModel> getMarquee() async {
+    return await getMarqueeApi();
+  }
+
+  /// GET PAGERS DATA - ASSETS
+
+  // Future<void> fetchAppbarPagerImagesListEvent(
+  //   Rx<AppbarPagerImagesStatus> status,
+  //   RxList<PagerImagesModel> sliderList,
+  // ) async {
+  //   try {
+  //     status.value = AppbarPagerImagesStatus.LOADING;
+  //     String jsonString = await rootBundle.loadString(jsonAppbarPager);
+  //
+  //     List<dynamic> jsonData = json.decode(jsonString);
+  //     List<PagerImagesModel> value = jsonData
+  //         .map((item) => PagerImagesModel.fromJson(item))
+  //         .toList();
+  //
+  //     sliderList.assignAll(value);
+  //     status.value = AppbarPagerImagesStatus.SUCCESS;
+  //     if (kDebugMode) {
+  //       print("Appbar Pager Images Fetched");
+  //     }
+  //   } catch (e) {
+  //     status.value = AppbarPagerImagesStatus.FAILURE;
+  //     if (kDebugMode) {
+  //       print("Error loading Appbar Pager images: $e");
+  //     }
+  //   }
+  // }
 
   Future<void> fetchMarqueeEvent(
       Rx<MarqueeStatus> status,

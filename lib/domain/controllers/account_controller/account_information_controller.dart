@@ -146,7 +146,9 @@ class AccountInfoController extends GetxController {
 
   /// DELETE USER IMAGE
   Future<void> deleteUserImage() async {
+    deleteImageStatus.value = AuthStatus.LOADING;
     if (auth.userId.value == null) {
+      deleteImageStatus.value = AuthStatus.FAILURE;
       showSnackbar(
         isError: true,
         title: AppLanguage.errorStr(appLanguage).toString(),
@@ -158,6 +160,7 @@ class AccountInfoController extends GetxController {
     final result = await accountInfoRepo.deleteUserImage(userId: auth.userId.value!);
 
     if (result['success'] == true || result['status'] == 'success') {
+      deleteImageStatus.value = AuthStatus.SUCCESS;
       showSnackbar(
         isError: false,
         title: 'Success',
@@ -165,6 +168,7 @@ class AccountInfoController extends GetxController {
       );
       await auth.fetchUserProfile(); // Refresh updated image
     } else {
+      deleteImageStatus.value = AuthStatus.FAILURE;
       showSnackbar(
         isError: true,
         title: 'Failed',

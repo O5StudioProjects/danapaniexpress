@@ -210,6 +210,7 @@ class AuthController extends GetxController {
 
       if (kDebugMode) {
         print("===== Profile Fetched =====");
+        print("User Data:::::: ${currentUser.value!.userImage}");
       }
     } else {
       getProfileStatus.value = AuthStatus.FAILURE;
