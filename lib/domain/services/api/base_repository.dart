@@ -11,7 +11,7 @@ abstract class BaseRepository {
       }) async {
     try {
       final response = await http.get(url, headers: headers);
-      return handleGetResponse(response);
+      return handleApiResponseAsMap(response);
     } catch (e) {
       return handleException(e as Exception);
     }
@@ -28,14 +28,14 @@ abstract class BaseRepository {
         headers: headers,
         body: jsonEncode(body),
       );
-      return handleApiResponse(response);
+      return handleApiResponseAsMap(response);
     } catch (e) {
       return handleException(e as Exception);
     }
   }
 
   /// Decode and normalize POST/PUT response
-  Map<String, dynamic> handleApiResponse(http.Response response) {
+  Map<String, dynamic> handleApiResponseAsMap(http.Response response) {
     print('Status: ${response.statusCode}');
     print('Body: ${response.body}');
     if (response.body.isNotEmpty) {
@@ -47,18 +47,22 @@ abstract class BaseRepository {
     }
   }
 
-  /// Decode and normalize GET response
-  Map<String, dynamic> handleGetResponse(http.Response response) {
+  List<dynamic> handleApiResponseAsList(http.Response response) {
     print('Status: ${response.statusCode}');
     print('Body: ${response.body}');
-    if (response.body.isNotEmpty) {
-      final data = jsonDecode(response.body);
-      data['success'] = response.statusCode == 200;
-      return data;
+
+    if (response.statusCode == 200 && response.body.isNotEmpty) {
+      final decoded = jsonDecode(response.body);
+      if (decoded is List) {
+        return decoded;
+      } else {
+        throw Exception('Expected a List but got ${decoded.runtimeType}');
+      }
     } else {
-      return {'success': false, 'message': 'Empty response from server'};
+      throw Exception('Server returned an error or empty response');
     }
   }
+
 
   /// Fallback for network or format exceptions
   Map<String, dynamic> handleException(Exception e) {

@@ -28,7 +28,7 @@ class AccountInfoDatasource extends BaseRepository{
       final streamedResponse = await request.send();
       final response = await http.Response.fromStream(streamedResponse);
 
-      return handleApiResponse(response);
+      return handleApiResponseAsMap(response);
     } catch (e) {
       return handleException(e as Exception);
     }

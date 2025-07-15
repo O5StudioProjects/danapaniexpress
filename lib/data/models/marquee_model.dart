@@ -49,15 +49,15 @@ class MarqueeModel {
 
   // From local JSON/map
   static MarqueeModel fromJson(Map<String, Object?> json) => MarqueeModel(
-    id: json[MarqueeFields.id] as String,
-    marqueeType: json[MarqueeFields.marqueeType] as String,
-    marqueeTypeId: json[MarqueeFields.marqueeTypeId] as String,
-    dialogImage: json[MarqueeFields.dialogImage] as String,
-    marqueeTitleEnglish: json[MarqueeFields.marqueeTitleEnglish] as String,
-    marqueeTitleUrdu: json[MarqueeFields.marqueeTitleUrdu] as String,
-    marqueeDetailEnglish: json[MarqueeFields.marqueeDetailEnglish] as String,
-    marqueeDetailUrdu: json[MarqueeFields.marqueeDetailUrdu] as String,
-    dateTime: json[MarqueeFields.dateTime] as String,
+    id: json[MarqueeFields.id]?.toString() ?? '',
+    marqueeType: json[MarqueeFields.marqueeType]?.toString() ?? '',
+    marqueeTypeId: json[MarqueeFields.marqueeTypeId]?.toString() ?? '',
+    dialogImage: json[MarqueeFields.dialogImage]?.toString() ?? '',
+    marqueeTitleEnglish: json[MarqueeFields.marqueeTitleEnglish]?.toString() ?? '',
+    marqueeTitleUrdu: json[MarqueeFields.marqueeTitleUrdu]?.toString() ?? '',
+    marqueeDetailEnglish: json[MarqueeFields.marqueeDetailEnglish]?.toString() ?? '',
+    marqueeDetailUrdu: json[MarqueeFields.marqueeDetailUrdu]?.toString() ?? '',
+    dateTime: json[MarqueeFields.dateTime]?.toString() ?? '',
   );
 
   // To local JSON/map

@@ -116,7 +116,7 @@ class AccountInformationMobile extends StatelessWidget {
                       /// PROFILE PICTURE UPLOAD BUTTON
                       if(account.selectedImage.value != null)
                       GestureDetector(
-                        onTap: () async => await account.updateUser(),
+                        onTap: () async => await account.uploadUserImage(),
                         child:
                         account.uploadImageStatus.value == AuthStatus.LOADING
                           ? loadingIndicator()

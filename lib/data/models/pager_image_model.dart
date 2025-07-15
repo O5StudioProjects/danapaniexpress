@@ -2,10 +2,10 @@ const String pagerImagesTable = 'pager_images';
 
 class PagerImagesFields {
   static final List<String> values = [
-    sliderId, pagerSection, type, typeId, imageUrl,
+    pagerId, pagerSection, type, typeId, imageUrl,
   ];
 
-  static const String sliderId = 'pager_id';
+  static const String pagerId = 'pager_id';
   static const String pagerSection = 'pager_section';
   static const String type = 'type';
   static const String typeId = 'type_id';
@@ -13,14 +13,14 @@ class PagerImagesFields {
 }
 
 class PagerImagesModel {
-  final String? sliderId;
+  final int? pagerId;
   final String? pagerSection;
   final String? type;
   final String? typeId;
   final String? imageUrl;
 
   const PagerImagesModel({
-    required this.sliderId,
+    required this.pagerId,
     required this.pagerSection,
     required this.type,
     required this.typeId,
@@ -28,7 +28,7 @@ class PagerImagesModel {
   });
 
   Map<String, Object?> toJson() => {
-    PagerImagesFields.sliderId: sliderId,
+    PagerImagesFields.pagerId: pagerId,
     PagerImagesFields.pagerSection: pagerSection,
     PagerImagesFields.type: type,
     PagerImagesFields.typeId: typeId,
@@ -36,7 +36,7 @@ class PagerImagesModel {
   };
 
   static PagerImagesModel fromJson(Map<String, Object?> json) => PagerImagesModel(
-    sliderId: json[PagerImagesFields.sliderId] as String?,
+    pagerId: json[PagerImagesFields.pagerId] as int?,
     pagerSection: json[PagerImagesFields.pagerSection] as String?,
     type: json[PagerImagesFields.type] as String?,
     typeId: json[PagerImagesFields.typeId] as String?,
@@ -44,14 +44,14 @@ class PagerImagesModel {
   );
 
   PagerImagesModel copy({
-    String? sliderId,
+    int? pagerId,
     String? pagerSection,
     String? type,
     String? typeId,
     String? imageUrl,
   }) =>
       PagerImagesModel(
-        sliderId: sliderId ?? this.sliderId,
+        pagerId: pagerId ?? this.pagerId,
         pagerSection: pagerSection ?? this.pagerSection,
         type: type ?? this.type,
         typeId: typeId ?? this.typeId,

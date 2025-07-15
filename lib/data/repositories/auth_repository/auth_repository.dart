@@ -17,9 +17,7 @@ class AuthRepository extends AuthDatasource{
     required String phone,
     required String password,
     required String confirmPassword,
-    required Rx<AuthStatus> authStatus,
   }) async {
-    authStatus.value = AuthStatus.LOADING;
 
     final result = await registerUserApi(
       fullName: fullName,
@@ -27,103 +25,40 @@ class AuthRepository extends AuthDatasource{
       phone: phone,
       password: password,
     );
-
-    if (result['success'] == true) {
-      authStatus.value = AuthStatus.SUCCESS;
-      return result;
-    } else {
-      authStatus.value = AuthStatus.FAILURE;
-      return result;
-
-    }
+    return result;
   }
 
   ///LOGIN USER - API
   Future<Map<String, dynamic>> loginUser({
         required String identifier,
     required String password,
-    required Rx<AuthStatus> status,
 
   }) async {
-    status.value = AuthStatus.LOADING;
-
     final res = await loginUserApi(identifier: identifier, password: password);
     print("Login response: $res");
-
-    if (res['SUCCESS'] == true) {
-      status.value = AuthStatus.SUCCESS;
-      return res;
-    } else {
-      status.value = AuthStatus.FAILURE;
-      return res;
-    }
+    return res;
   }
 
   ///LOGOUT USER - API
   Future<Map<String, dynamic>> logoutUser({
-    required Rx<AuthStatus> status,
     required RxString authToken,
 }) async {
-    status.value = AuthStatus.LOADING;
-
     final result = await logoutUserApi(authToken.value ?? '');
-
-    if (result['success'] == true) {
-      // Clear local storage/session
-      await SharedPrefs.clearUserSessions();
-
-      status.value = AuthStatus.SUCCESS;
-      return result;
-
-    } else {
-      status.value = AuthStatus.FAILURE;
-      return result;
-
-
-    }
+    return result;
   }
 
   ///FETCH USER PROFILE COMPLETE OBJECT - API
   Future<Map<String, dynamic>> fetchUserProfile({
     required RxString authToken,
-    required Rx<AuthStatus> getProfileStatus,
-
   }) async {
-
-    getProfileStatus.value = AuthStatus.LOADING;
-
     final res = await getProfileApi(authToken.value);
+    return res;
 
-    if (res['success'] == true) {
-      getProfileStatus.value = AuthStatus.SUCCESS;
-
-      if (kDebugMode) {
-        print("===== Profile Fetched =====");
-      }
-      return res;
-
-    } else {
-      getProfileStatus.value = AuthStatus.FAILURE;
-      return res;
-    }
   }
 
 
   ///==========================================================
 
-
-
-
-
-
-
-
-
-
-
-
-
-  //
   // /// METHODS FOR ASSETS
   // Future<List<UserModel>> loadUsersFromAssets() async {
   //   final String jsonString = await rootBundle.loadString(jsonUsers);
