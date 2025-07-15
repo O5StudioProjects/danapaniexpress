@@ -12,6 +12,7 @@ class APiEndpoints {
   static String updateAddress = "$path/update_address.php/update_address";
   static String deleteAddress = "$path/delete_address.php/delete_address";
   static String updateUserImage = "$path/update_user.php/upload_user_image";
+  static String deleteUserImage = "$path/update_user.php/delete_user_image";
   static String updateUserInfo = "$path/update_user.php/update_user";
 
   ///GET APIS

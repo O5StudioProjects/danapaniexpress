@@ -77,12 +77,14 @@ class AccountInformationMobile extends StatelessWidget {
                               Positioned(
                                   bottom: 0,
                                   right: 0,
-                                  child: AppButtonDropdownMenu(
+                                  child: account.deleteImageStatus.value == AuthStatus.LOADING
+                                  ? loadingIndicator()
+                                  : AppButtonDropdownMenu(
                                       options: imageUploadMenu,
                                     onSelected: (item) async {
                                       switch (item.id) {
                                         case DEFAULT_IMAGE:
-                                          debugPrint(DEFAULT_IMAGE);
+                                          await account.deleteUserImage();
                                           break;
                                         case UPLOAD_IMAGE:
                                           await account.pickImage();
@@ -114,7 +116,7 @@ class AccountInformationMobile extends StatelessWidget {
                       /// PROFILE PICTURE UPLOAD BUTTON
                       if(account.selectedImage.value != null)
                       GestureDetector(
-                        onTap: ()=> account.handleUploadProfilePictureOnTap(),
+                        onTap: () async => await account.updateUser(),
                         child:
                         account.uploadImageStatus.value == AuthStatus.LOADING
                           ? loadingIndicator()

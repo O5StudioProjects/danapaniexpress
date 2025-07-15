@@ -512,10 +512,16 @@ class AppLanguage {
   static String? defaultImageStr(String appLanguage) {
     return allLang[appLanguage]?[DEFAULT_IMAGE];
   }
-
   static String? uploadImageStr(String appLanguage) {
     return allLang[appLanguage]?[UPLOAD_IMAGE];
   }
+  static String? imageNotSelectedStr(String appLanguage) {
+    return allLang[appLanguage]?[IMAGE_NOT_SELECTED];
+  }
+  static String? imageNotSelectedDetailStr(String appLanguage) {
+    return allLang[appLanguage]?[IMAGE_NOT_SELECTED_DETAIL];
+  }
+
 
 
 }

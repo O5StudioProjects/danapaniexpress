@@ -2,10 +2,12 @@ import 'dart:io';
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/core/packages_import.dart';
+import 'package:danapaniexpress/data/repositories/account_information_repository/account_information_repository.dart';
 import 'package:danapaniexpress/data/repositories/account_repository/account_repository.dart';
 
 class AccountInfoController extends GetxController {
   final accountRepo = AccountRepository();
+  final accountInfoRepo = AccountInfoRepository();
   final auth = Get.find<AuthController>();
 
   final RxString profileImage = ''.obs;
@@ -26,6 +28,7 @@ class AccountInfoController extends GetxController {
   final RxString uploadedImageUrl = ''.obs;
 
   Rx<AuthStatus> uploadImageStatus = AuthStatus.IDLE.obs;
+  Rx<AuthStatus> deleteImageStatus = AuthStatus.IDLE.obs;
   Rx<AuthStatus> updateProfileStatus = AuthStatus.IDLE.obs;
 
   @override
@@ -60,7 +63,7 @@ class AccountInfoController extends GetxController {
   }
 
   /// UPLOAD IMAGE API CALL
-  Future<void> uploadUserImage(File file) async {
+  Future<void> uploadUserImage() async {
     if (auth.userId.value == null) {
       showSnackbar(
           isError: true,
@@ -70,11 +73,15 @@ class AccountInfoController extends GetxController {
       return;
     }
 
-    uploadImageStatus.value = AuthStatus.LOADING;
+    if(selectedImage.value == null){
+      showSnackbar(title: AppLanguage.imageNotSelectedStr(appLanguage).toString(), message: AppLanguage.imageNotSelectedDetailStr(appLanguage).toString());
+      return;
+    }
 
-    final result = await accountRepo.uploadUserImageApi(
+    final result = await accountInfoRepo.uploadUserImage(
+      file: selectedImage.value!,
       userId: auth.userId.value!,
-      imageFile: file,
+      uploadImageStatus: uploadImageStatus,
     );
 
     if (result['success'] == true || result['status'] == 'success') {
@@ -91,36 +98,32 @@ class AccountInfoController extends GetxController {
           isError: true,
           title: 'Failed',
           message: result['message'] ?? result['error'] ?? 'Upload failed',
-
       );
-      uploadImageStatus.value = AuthStatus.FAILURE;
     }
   }
 
+  /// UPDATE USER
   Future<void> updateUser({
     String? fullName,
     String? email,
     String? currentPassword,
     String? newPassword,
   }) async {
+    deleteImageStatus.value = AuthStatus.LOADING;
     if (auth.userId.value == null) {
       Get.snackbar('Error', 'User not logged in');
       return;
     }
 
-    updateProfileStatus.value = AuthStatus.LOADING;
-
-    final result = await accountRepo.updateUserApi(
-      userId: auth.userId.value!,
+    final result = await accountInfoRepo.updateUser(
       fullName: fullName,
       email: email,
       currentPassword: currentPassword,
-      newPassword: newPassword,
+      newPassword: newPassword, updateProfileStatus: updateProfileStatus,
     );
 
     if (result['success'] == true) {
-      await auth.fetchUserProfile(); // Refresh local user data
-      updateProfileStatus.value = AuthStatus.SUCCESS;
+      deleteImageStatus.value = AuthStatus.SUCCESS;
       Navigator.pop(gContext);
       showSnackbar(
           isError: false,
@@ -129,6 +132,7 @@ class AccountInfoController extends GetxController {
          position: SnackPosition.TOP
       );
     } else {
+      deleteImageStatus.value = AuthStatus.FAILURE;
       showSnackbar(
           isError: true,
           title: 'Failed',
@@ -136,22 +140,43 @@ class AccountInfoController extends GetxController {
           position: SnackPosition.TOP
 
       );
-      updateProfileStatus.value = AuthStatus.FAILURE;
     }
   }
+
+
+  /// DELETE USER IMAGE
+  Future<void> deleteUserImage() async {
+    if (auth.userId.value == null) {
+      showSnackbar(
+        isError: true,
+        title: AppLanguage.errorStr(appLanguage).toString(),
+        message: AppLanguage.userNotLoggedInStr(appLanguage).toString(),
+      );
+      return;
+    }
+
+    final result = await accountInfoRepo.deleteUserImage(userId: auth.userId.value!);
+
+    if (result['success'] == true || result['status'] == 'success') {
+      showSnackbar(
+        isError: false,
+        title: 'Success',
+        message: result['message'] ?? 'Image deleted',
+      );
+      await auth.fetchUserProfile(); // Refresh updated image
+    } else {
+      showSnackbar(
+        isError: true,
+        title: 'Failed',
+        message: result['message'] ?? result['error'] ?? 'Failed to delete image',
+      );
+    }
+  }
+
 
 
 
   /// HANDLE ONTAP EVENTS
-  ///
-  /// HANDLE ON TAP UPLOAD IMAGE
-  Future<void> handleUploadProfilePictureOnTap() async {
-    if(selectedImage.value != null){
-      await uploadUserImage(selectedImage.value!);
-    } else {
-      showSnackbar(title: 'Image not Selected', message: 'Select Image from phone gallery');
-    }
-  }
 
   /// HANDLE ON TAP NAME CHANGED
   Future<void> handleChangeNameOnTap() async {
