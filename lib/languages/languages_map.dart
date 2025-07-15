@@ -151,8 +151,11 @@ Map<String, Map<String, String>> allLang = {
     SETTINGS: 'Settings',
     DEFAULT_IMAGE: 'Default Image',
     UPLOAD_IMAGE: 'Upload Image',
+    IMAGE_NOT_SELECTED: 'Image not Selected',
+    IMAGE_NOT_SELECTED_DETAIL: 'Select Image from phone gallery',
 
   },
+
 
   URDU: {
     APP_NAME: EnvStrings.appNameUrdu,
@@ -304,6 +307,7 @@ Map<String, Map<String, String>> allLang = {
     SETTINGS: 'ترتیبات',
     DEFAULT_IMAGE: 'ڈیفالٹ تصویر',
     UPLOAD_IMAGE: 'تصویر اپ لوڈ کریں',
-
+    IMAGE_NOT_SELECTED: 'تصویر منتخب نہیں ہے',
+    IMAGE_NOT_SELECTED_DETAIL: 'فون گیلری میں سے تصویر کا نتخاب کریں۔',
   },
 };

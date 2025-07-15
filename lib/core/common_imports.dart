@@ -101,7 +101,8 @@ export 'package:danapaniexpress/ui/screens/pages/account/widgets/privacy_securit
 
 export 'package:danapaniexpress/ui/screens/pages/account/address_book/widgets/address_item.dart';
 export 'package:danapaniexpress/domain/services/api/base_repository.dart';
-export 'package:danapaniexpress/data/repositories/account_repository/account_utils.dart';
+export 'package:danapaniexpress/data/repositories/account_information_repository/account_information_repository.dart';
 export 'package:danapaniexpress/ui/screens/pages/account/settings/settings_mobile.dart';
+export 'package:danapaniexpress/data/repositories/account_information_repository/account_information_datasource.dart';
 
 
