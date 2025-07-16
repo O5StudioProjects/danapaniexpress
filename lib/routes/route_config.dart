@@ -5,6 +5,7 @@ import 'package:danapaniexpress/domain/di/dashboard_binding.dart';
 import 'package:danapaniexpress/domain/di/product_detail_binding.dart';
 import 'package:danapaniexpress/domain/di/splash_binding.dart';
 import 'package:danapaniexpress/ui/screens/main_dashboard_screen/main_dashboard_screen.dart';
+import 'package:danapaniexpress/ui/screens/other_screens/no_internet_screen/no_internet_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/account/account_information/account_information_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/account/address_book/add_address/add_address_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/account/address_book/address_book_screen.dart';
@@ -30,6 +31,12 @@ class AppRouter {
       name: RouteNames.SplashScreenRoute,
       page: () => const SplashScreen(),
       binding: SplashBinding(),
+    ),
+    GetPage(
+      name: RouteNames.NoInternetScreen,
+      transition: Transition.fadeIn,
+      transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
+      page: () => const NoInternetScreen(),
     ),
     GetPage(
       name: RouteNames.LanguageThemeScreenRoute,

@@ -3,6 +3,7 @@ import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/packages_import.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/core/data_model_imports.dart';
+import 'package:danapaniexpress/ui/app_common/dialogs/bool_dialog.dart';
 
 class DashBoardController extends GetxController {
   final dashboardRepo = DashboardRepository();
@@ -94,6 +95,12 @@ class DashBoardController extends GetxController {
   void onInit() {
     super.onInit();
     navIndex.value = 0;
+    startupMethods();
+
+  }
+
+  void startupMethods() async {
+
     fetchAppbarPagerImages();
     fetchMarquee();
     fetchCoverImages();
@@ -398,7 +405,9 @@ class DashBoardController extends GetxController {
     if(navIndex.value > 0){
       navIndex.value = 0;
     } else {
-
+      showCustomDialog(gContext, AppBoolDialog(title: 'Quit', detail: 'Do you want to quit app?', onTapConfirm: (){
+        SystemNavigator.pop();
+      }, iconType: IconType.ICON, icon: Icons.exit_to_app_rounded,));
     }
   }
 

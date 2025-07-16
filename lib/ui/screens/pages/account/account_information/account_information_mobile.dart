@@ -49,6 +49,7 @@ class AccountInformationMobile extends StatelessWidget {
                                 width: 100,
                                 height: 100,
                                 decoration: BoxDecoration(
+                                  color: whiteColor,
                                   shape: BoxShape.circle,
                                   border: Border.all(
                                     color: AppColors.materialButtonSkin(isDark),

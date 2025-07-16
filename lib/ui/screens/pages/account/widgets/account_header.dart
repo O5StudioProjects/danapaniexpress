@@ -130,7 +130,13 @@ class AccountHeaderSmall extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               GestureDetector(
-                  onTap: ()=> navigation.gotoAccountInformationScreen(),
+                  onTap: (){
+                    if(data == null){
+                      navigation.gotoSignInScreen();
+                    } else{
+                      navigation.gotoAccountInformationScreen();
+                    }
+                  },
                   child: SizedBox(
                       width: 46.0,
                       height: 46.0,
@@ -141,18 +147,25 @@ class AccountHeaderSmall extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          if(data != null)
-                            appIcon(iconType: IconType.ICON, icon:  Icons.verified, color: data.userDefaultAddress != null ? blueColor : greyColor, width: 16.0),
-                          if(data != null) setWidth(8.0),
-                          appText(text: data?.userFullName ?? AppLanguage.signInNowStr(appLanguage),
-                              maxLines: 1,
-                              textStyle: accountHeaderNameTextStyle(text: data?.userFullName ?? AppLanguage.signInNowStr(appLanguage))
-                                  .copyWith(fontSize: HEADING_FONT_SIZE)
-                          ),
+                      GestureDetector(
+                        onTap: (){
+                          if(data == null){
+                            navigation.gotoSignInScreen();
+                          }
+                        },
+                        child: Row(
+                          children: [
+                            if(data != null)
+                              appIcon(iconType: IconType.ICON, icon:  Icons.verified, color: data.userDefaultAddress != null ? blueColor : greyColor, width: 16.0),
+                            if(data != null) setWidth(8.0),
+                            appText(text: data?.userFullName ?? AppLanguage.signInNowStr(appLanguage),
+                                maxLines: 1,
+                                textStyle: accountHeaderNameTextStyle(text: data?.userFullName ?? AppLanguage.signInNowStr(appLanguage))
+                                    .copyWith(fontSize: HEADING_FONT_SIZE)
+                            ),
 
-                        ],
+                          ],
+                        ),
                       ),
 
                       appDivider(height: 6.0),

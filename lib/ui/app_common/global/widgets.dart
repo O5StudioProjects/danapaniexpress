@@ -238,6 +238,14 @@ Widget appTextButton({text, onTap, useDefault = true, customTextColor}) {
 Widget appDivider({height = 15.0}) {
   return Divider(color: AppColors.dividerColorSkin(isDark), height: height);
 }
+Widget appVerticalDivider({height = 46.0}) {
+  return SizedBox(
+    height: height,
+    child: VerticalDivider(
+      color: AppColors.dividerColorSkin(isDark),
+    ),
+  );
+}
 
 Widget appDetailTextButton({detailText, buttonText, onTapButton}) {
   return Text.rich(

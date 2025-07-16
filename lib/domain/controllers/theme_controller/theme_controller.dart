@@ -1,5 +1,6 @@
 
 import 'package:danapaniexpress/core/common_imports.dart';
+import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/core/packages_import.dart';
 
 class ThemeController extends GetxController {
@@ -63,6 +64,7 @@ class ThemeController extends GetxController {
   Future<void> updateInternetConnection({required List<ConnectivityResult> event}) async {
     if(event.contains(ConnectivityResult.none)){
       internet.value = false;
+     // Get.find<NavigationController>().gotoNoInternetScreen();
     } else {
       internet.value = true;
     }

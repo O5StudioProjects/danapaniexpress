@@ -11,6 +11,7 @@ class ProfileImage extends StatelessWidget {
         width: 80.0,
         height: 80.0,
         decoration: BoxDecoration(
+          color: whiteColor,
           shape: BoxShape.circle,
           border: Border.all(
             color: AppColors.cardColorSkin(isDark),

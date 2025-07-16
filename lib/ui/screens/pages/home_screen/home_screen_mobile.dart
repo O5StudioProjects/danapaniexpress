@@ -15,9 +15,6 @@ class HomeScreenMobile extends StatelessWidget {
         color: AppColors.backgroundColorSkin(isDark),
         child: RefreshIndicator(
           onRefresh: () async {
-            await dashboard.fetchAppbarPagerImages();
-            await dashboard.fetchBodyPagerImages();
-            await dashboard.fetchMarquee();
           },
           child: CustomScrollView(
             physics: BouncingScrollPhysics(),

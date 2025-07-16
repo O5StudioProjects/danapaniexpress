@@ -115,8 +115,8 @@ class AuthController extends GetxController {
       authToken.value = token;
       userId.value = userMap['user_id'];
       currentUser.value = UserModel.fromJson(userMap);
+      await clearRegisterForm();
       authStatus.value = AuthStatus.SUCCESS;
-
       showSnackbar(
         isError: false,
         title: AppLanguage.registrationSuccessStr(appLanguage).toString(),
@@ -124,9 +124,8 @@ class AuthController extends GetxController {
           appLanguage,
         ).toString(),
       );
-
-      await clearRegisterForm();
       navigation.gotoDashboardScreen();
+
     } else {
       authStatus.value = AuthStatus.FAILURE;
       showSnackbar(
@@ -140,7 +139,7 @@ class AuthController extends GetxController {
 
   /// LOGIN USER
   Future<void> loginUser() async{
-    authStatus.value = AuthStatus.SUCCESS;
+    authStatus.value = AuthStatus.LOADING;
 
     final rawInput = signInEmailPhoneTextController.value.text.trim();
     final password = signInPasswordTextController.value.text.trim();

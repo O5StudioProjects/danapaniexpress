@@ -17,24 +17,36 @@ class SplashController extends GetxController {
   }
 
   void checkLoginStatus() async {
-    firstTimeLanguageAndThemeScreenStatus.value = await SharedPrefs.getLanguageScreen();
-    firstTimeStartupStatus.value = await SharedPrefs.getStartupScreenPrefs();
 
-    if (firstTimeLanguageAndThemeScreenStatus.value == FIRST_TIME_SCREEN_NOT_OPENED) {
-      await Future.delayed(const Duration(seconds: 3));
-      navigation.gotoLanguageThemeScreen(isNavigation: false, isStart: true);
-      return;
-    }
+    Future.delayed(Duration(seconds: 3), () async {
+      if(internet){
+        firstTimeLanguageAndThemeScreenStatus.value =
+            await SharedPrefs.getLanguageScreen();
+        firstTimeStartupStatus.value = await SharedPrefs.getStartupScreenPrefs();
 
-    if (firstTimeStartupStatus.value == FIRST_TIME_SCREEN_NOT_OPENED) {
-      await Future.delayed(const Duration(seconds: 3));
-      navigation.gotoStartupMainScreen();
-      return;
-    }
+        if (firstTimeLanguageAndThemeScreenStatus.value ==
+            FIRST_TIME_SCREEN_NOT_OPENED) {
+          await Future.delayed(const Duration(seconds: 1));
+          navigation.gotoLanguageThemeScreen(isNavigation: false, isStart: true);
+          return;
+        }
 
-    // ✅ Now check if session exists and navigate accordingly
-    await Future.delayed(const Duration(seconds: 3));
-    await auth.loadSession();
+        if (firstTimeStartupStatus.value == FIRST_TIME_SCREEN_NOT_OPENED) {
+          await Future.delayed(const Duration(seconds: 1));
+          navigation.gotoStartupMainScreen();
+          return;
+        }
+
+        // ✅ Now check if session exists and navigate accordingly
+        await Future.delayed(const Duration(seconds: 1));
+        await auth.loadSession();
+      } else{
+        navigation.gotoNoInternetScreen(isStart: true);
+      }
+    });
+
+
+
   }
 
 

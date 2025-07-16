@@ -9,6 +9,12 @@ class JumpTo {
     Get.offAndToNamed(RouteNames.HomeScreenRoute);
   }
 
+  static gotoNoInternetScreen({required bool isStart}) {
+    Get.toNamed(RouteNames.NoInternetScreen,
+    arguments: {IS_START: isStart}
+    );
+  }
+
   static gotoLanguageThemeScreen({
     required bool isNavigation,
     required bool isStart,

@@ -2,6 +2,7 @@
 
 class RouteNames {
   static const String SplashScreenRoute = '/';
+  static const String NoInternetScreen = "/no_internet_screen";
   ///STARTUP SCREENS
   static const String LanguageThemeScreenRoute = "/language_theme_screen";
   static const String StartupMainScreenRoute = "/startup_main_screen_startup";
