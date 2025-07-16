@@ -40,16 +40,18 @@ class AccountInfoController extends GetxController {
   }
 
   Future<void> setInitialTextValues() async {
-    /// ASSIGN INITIAL VALUES OF CURRENT USER
-    accountNameTextController.value.text = auth.currentUser.value!.userFullName!;
-    accountEmailTextController.value.text = auth.currentUser.value!.userEmail!;
-
     ///VALIDATE
     accountNameTextController.value.addListener(validateNameForm);
     accountEmailTextController.value.addListener(validateEmailForm);
     accountCurrentPasswordTextController.value.addListener(validatePasswordForm);
     accountNewPasswordTextController.value.addListener(validatePasswordForm);
     accountConfirmNewPasswordTextController.value.addListener(validatePasswordForm);
+
+    /// ASSIGN INITIAL VALUES OF CURRENT USER
+    accountNameTextController.value.text = auth.currentUser.value!.userFullName!;
+    accountEmailTextController.value.text = auth.currentUser.value!.userEmail!;
+
+
   }
 
 
@@ -67,6 +69,7 @@ class AccountInfoController extends GetxController {
     uploadImageStatus.value = AuthStatus.LOADING;
 
     if (auth.userId.value == null) {
+      uploadImageStatus.value = AuthStatus.FAILURE;
       showSnackbar(
           isError: true,
           title: AppLanguage.errorStr(appLanguage).toString(),
@@ -76,6 +79,7 @@ class AccountInfoController extends GetxController {
     }
 
     if(selectedImage.value == null){
+      uploadImageStatus.value = AuthStatus.FAILURE;
       showSnackbar(title: AppLanguage.imageNotSelectedStr(appLanguage).toString(), message: AppLanguage.imageNotSelectedDetailStr(appLanguage).toString());
       return;
     }
@@ -86,14 +90,15 @@ class AccountInfoController extends GetxController {
     );
 
     if (result['success'] == true || result['status'] == 'success') {
+      await auth.fetchUserProfile(); // Refresh image in currentUser
+      selectedImage.value = null;
+      uploadImageStatus.value = AuthStatus.SUCCESS;
       showSnackbar(
           isError: false,
           title: 'Success',
           message: result['message'] ?? 'Image uploaded',
       );
-      await auth.fetchUserProfile(); // Refresh image in currentUser
-      selectedImage.value = null;
-      uploadImageStatus.value = AuthStatus.SUCCESS;
+
     } else {
       uploadImageStatus.value = AuthStatus.FAILURE;
       showSnackbar(
@@ -111,7 +116,7 @@ class AccountInfoController extends GetxController {
     String? currentPassword,
     String? newPassword,
   }) async {
-    deleteImageStatus.value = AuthStatus.LOADING;
+    updateProfileStatus.value = AuthStatus.LOADING;
     if (auth.userId.value == null) {
       Get.snackbar('Error', 'User not logged in');
       return;
@@ -126,7 +131,7 @@ class AccountInfoController extends GetxController {
 
     if (result['success'] == true) {
       await auth.fetchUserProfile(); // Refresh local user data
-      deleteImageStatus.value = AuthStatus.SUCCESS;
+      updateProfileStatus.value = AuthStatus.SUCCESS;
       Navigator.pop(gContext);
       showSnackbar(
           isError: false,
@@ -135,7 +140,7 @@ class AccountInfoController extends GetxController {
          position: SnackPosition.TOP
       );
     } else {
-      deleteImageStatus.value = AuthStatus.FAILURE;
+      updateProfileStatus.value = AuthStatus.FAILURE;
       showSnackbar(
           isError: true,
           title: 'Failed',

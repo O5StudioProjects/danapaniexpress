@@ -10,10 +10,12 @@ class NavigationController extends GetxController{
   Future<void> gotoSignInScreen() async {
     JumpTo.gotoSignInScreen();
   }
+  Future<void> gotoNoInternetScreen({bool isStart = false}) async {
+    JumpTo.gotoNoInternetScreen(isStart: isStart);
+  }
   Future<void> gotoStartupMainScreen() async {
     JumpTo.gotoStartupMainScreen();
   }
-
   Future<void> gotoRegisterScreen() async {
     JumpTo.gotoRegisterScreen();
   }

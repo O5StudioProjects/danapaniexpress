@@ -12,7 +12,7 @@ Widget appSliverAppbarHome() {
         statusBarIconBrightness: isDark ? Brightness.light : Brightness.dark,
       ),
       elevation: 0,
-      // automaticallyImplyLeading: false,
+      automaticallyImplyLeading: false,
       expandedHeight: size.height * 0.200,
       floating: true,
       pinned: false,
