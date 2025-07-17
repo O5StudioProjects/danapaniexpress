@@ -11,8 +11,14 @@ class DashboardRepository extends DashboardDataSource{
     return await getPagerDataApi(section);
   }
 
+  /// GET MARQUEE DATA - API
   Future<MarqueeModel> getMarquee() async {
     return await getMarqueeApi();
+  }
+
+  /// GET COVER IMAGES DATA - API
+  Future<CoverImagesModel> getCoverImages() async {
+    return await getCoverImagesApi();
   }
 
   /// GET PAGERS DATA - ASSETS

@@ -521,7 +521,17 @@ class AppLanguage {
   static String? imageNotSelectedDetailStr(String appLanguage) {
     return allLang[appLanguage]?[IMAGE_NOT_SELECTED_DETAIL];
   }
-
-
+  static String? closeStr(String appLanguage) {
+    return allLang[appLanguage]?[CLOSE];
+  }
+  static String? quitStr(String appLanguage) {
+    return allLang[appLanguage]?[QUIT];
+  }
+  static String? doYouWantToCloseAppStr(String appLanguage) {
+    return allLang[appLanguage]?[DO_YOU_WANT_TO_CLOSE_APP];
+  }
+  static String? doYouWantToSignOutStr(String appLanguage) {
+    return allLang[appLanguage]?[DO_YOU_WANT_TO_SIGN_OUT];
+  }
 
 }

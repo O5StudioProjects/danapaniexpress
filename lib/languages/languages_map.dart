@@ -153,6 +153,10 @@ Map<String, Map<String, String>> allLang = {
     UPLOAD_IMAGE: 'Upload Image',
     IMAGE_NOT_SELECTED: 'Image not Selected',
     IMAGE_NOT_SELECTED_DETAIL: 'Select Image from phone gallery',
+    CLOSE: 'Close',
+    QUIT: 'Quit',
+    DO_YOU_WANT_TO_CLOSE_APP: 'Do you want to close app?',
+    DO_YOU_WANT_TO_SIGN_OUT: 'Do you want to Sign out?',
 
   },
 
@@ -309,5 +313,9 @@ Map<String, Map<String, String>> allLang = {
     UPLOAD_IMAGE: 'تصویر اپ لوڈ کریں',
     IMAGE_NOT_SELECTED: 'تصویر منتخب نہیں ہے',
     IMAGE_NOT_SELECTED_DETAIL: 'فون گیلری میں سے تصویر کا نتخاب کریں۔',
+    CLOSE: 'بند کریں',
+    QUIT: 'باہر نکلیں',
+    DO_YOU_WANT_TO_CLOSE_APP: 'کیا آپ ایپ بند کرنا چاہتے ہیں؟',
+    DO_YOU_WANT_TO_SIGN_OUT: 'کیا آپ سائن آؤٹ کرنا چاہتے ہیں؟',
   },
 };

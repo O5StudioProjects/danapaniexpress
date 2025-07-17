@@ -28,4 +28,15 @@ class DashboardDataSource extends BaseRepository {
     return MarqueeModel.fromJson(data);
   }
 
+  /// GET COVER IMAGES - API
+  Future<CoverImagesModel> getCoverImagesApi() async {
+    final uri = Uri.parse(APiEndpoints.getCoverImages); // e.g. https://yourapi.com/get_cover_images.php
+
+    final response = await http.get(uri, headers: apiHeaders);
+
+    final data = handleApiResponseAsMap(response); // Already decodes and checks success
+
+    return CoverImagesModel.fromJson(data);
+  }
+
 }
