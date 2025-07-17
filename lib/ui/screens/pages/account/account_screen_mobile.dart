@@ -1,6 +1,7 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/domain/controllers/account_controller/account_controller.dart';
+import 'package:danapaniexpress/ui/app_common/dialogs/bool_dialog.dart';
 
 class AccountScreenMobile extends StatelessWidget {
   const AccountScreenMobile({super.key});
@@ -274,12 +275,21 @@ class AccountScreenMobile extends StatelessWidget {
                           itemTitle: AppLanguage.signOutStr(appLanguage).toString(),
                           trailingIcon: icArrow,
                           onItemClick: () async {
-                            await auth.logoutUser().then((val) {
-                              Get.find<DashBoardController>()
-                                  .navIndex
-                                  .value =
-                              0;
-                            });
+                            showCustomDialog(context, AppBoolDialog(
+                                title: AppLanguage.signOutStr(appLanguage).toString(),
+                                detail: AppLanguage.doYouWantToSignOutStr(appLanguage).toString(),
+                                iconType: IconType.ICON,
+                              icon: Icons.logout_rounded,
+                              onTapConfirm: () async {
+                                  Get.back();
+                                await auth.logoutUser().then((val) {
+                                  Get.find<DashBoardController>()
+                                      .navIndex
+                                      .value =
+                                  0;
+                                });
+                              },
+                            ));
                           },
                         ),
                       )
@@ -297,7 +307,6 @@ class AccountScreenMobile extends StatelessWidget {
                           },
                         ),
                       ),
-
                       setHeight(MAIN_VERTICAL_PADDING),
                     ],
                   ),

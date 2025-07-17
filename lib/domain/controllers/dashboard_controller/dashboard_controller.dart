@@ -100,13 +100,12 @@ class DashBoardController extends GetxController {
   }
 
   void startupMethods() async {
-
     fetchAppbarPagerImages();
     fetchMarquee();
     fetchCoverImages();
-    categories.fetchCategories();
+    categories.fetchCategories(); // Categories Left
     fetchBodyPagerImages();
-    fetchAllProductLists();
+    fetchAllProductLists(); // Left
     fetchSingleBanners();
   }
 
@@ -157,8 +156,25 @@ class DashBoardController extends GetxController {
 
   // Fetch Cover Images
   Future<void> fetchCoverImages() async {
-    await dashboardRepo.fetchCoverImagesEvent(coverImagesStatus, coverImages);
+    try {
+      coverImagesStatus.value = CoverImagesStatus.LOADING;
+      final data = await dashboardRepo.getCoverImages();
+      coverImages.value = data;
+      coverImagesStatus.value = CoverImagesStatus.SUCCESS;
+
+      if (kDebugMode) {
+        print("Fetched Cover Images: ${data.toJson()}");
+      }
+    } catch (e) {
+      coverImagesStatus.value = CoverImagesStatus.FAILURE;
+      showSnackbar(
+        isError: true,
+        title: 'Cover Images Error',
+        message: 'Failed to fetch cover images: $e',
+      );
+    }
   }
+
 
   Future<void> getSingleProduct(String id) async {
     singleProduct.value = await dashboardRepo.fetchSingleProductById(id);
@@ -181,7 +197,7 @@ class DashBoardController extends GetxController {
       bodyPagerStatus.value = BodyPagerImagesStatus.FAILURE;
       showSnackbar(
         isError: true,
-        title: 'Error',
+        title: 'Body Pager Error',
         message: e.toString(),
       );
     }
@@ -209,7 +225,7 @@ class DashBoardController extends GetxController {
     } catch (e) {
       showSnackbar(
         isError: true,
-        title: 'Error',
+        title: 'Single Banners Error',
         message: 'Failed to fetch single banners: $e',
       );
     }
@@ -405,7 +421,10 @@ class DashBoardController extends GetxController {
     if(navIndex.value > 0){
       navIndex.value = 0;
     } else {
-      showCustomDialog(gContext, AppBoolDialog(title: 'Quit', detail: 'Do you want to quit app?', onTapConfirm: (){
+      showCustomDialog(gContext, AppBoolDialog(
+        title: AppLanguage.quitStr(appLanguage).toString(),
+        detail: AppLanguage.doYouWantToCloseAppStr(appLanguage).toString(),
+        onTapConfirm: (){
         SystemNavigator.pop();
       }, iconType: IconType.ICON, icon: Icons.exit_to_app_rounded,));
     }

@@ -89,10 +89,10 @@ class _AppBoolDialogState extends State<AppBoolDialog> with SingleTickerProvider
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  appTextButton(text: 'Confirm',
+                                  appTextButton(text: AppLanguage.confirmStr(appLanguage),
                                       onTap: widget.onTapConfirm),
                                   appVerticalDivider(),
-                                  appTextButton(text: 'Close',
+                                  appTextButton(text: AppLanguage.closeStr(appLanguage),
                                       onTap: (){
                                         Navigator.of(context).pop();
                                       })
