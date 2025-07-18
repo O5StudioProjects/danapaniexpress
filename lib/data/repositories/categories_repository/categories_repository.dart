@@ -2,34 +2,41 @@ import 'dart:convert';
 
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/data_model_imports.dart';
+import 'package:danapaniexpress/data/repositories/categories_repository/categories_datasource.dart';
 
-class CategoriesRepository {
-  /// FETCH CATEGORIES
-  Future<void> fetchCategoriesListEvent(
-      Rx<CategoriesStatus> status,
-      RxList<CategoryModel> categoriesList,
-      ) async {
-    try {
-      status.value = CategoriesStatus.LOADING;
-      String jsonString = await rootBundle.loadString(jsonCategories);
+class CategoriesRepository extends CategoriesDatasource{
 
-      List<dynamic> jsonData = json.decode(jsonString);
-      List<CategoryModel> value = jsonData
-          .map((item) => CategoryModel.fromJson(item))
-          .toList();
-
-      categoriesList.assignAll(value);
-      status.value = CategoriesStatus.SUCCESS;
-      if (kDebugMode) {
-        print("Categories Fetched");
-      }
-    } catch (e) {
-      status.value = CategoriesStatus.FAILURE;
-      if (kDebugMode) {
-        print("Error loading categories: $e");
-      }
-    }
+  /// GET CATEGORIES DATA - API
+  Future<List<CategoryModel>> getCategories() async {
+    return await getCategoriesDataApi();
   }
+  
+  // /// FETCH CATEGORIES
+  // Future<void> fetchCategoriesListEvent(
+  //     Rx<CategoriesStatus> status,
+  //     RxList<CategoryModel> categoriesList,
+  //     ) async {
+  //   try {
+  //     status.value = CategoriesStatus.LOADING;
+  //     String jsonString = await rootBundle.loadString(jsonCategories);
+  //
+  //     List<dynamic> jsonData = json.decode(jsonString);
+  //     List<CategoryModel> value = jsonData
+  //         .map((item) => CategoryModel.fromJson(item))
+  //         .toList();
+  //
+  //     categoriesList.assignAll(value);
+  //     status.value = CategoriesStatus.SUCCESS;
+  //     if (kDebugMode) {
+  //       print("Categories Fetched");
+  //     }
+  //   } catch (e) {
+  //     status.value = CategoriesStatus.FAILURE;
+  //     if (kDebugMode) {
+  //       print("Error loading categories: $e");
+  //     }
+  //   }
+  // }
 
   /// SINGLE CATEGORY
   Future<void> fetchSingleCategoryEvent({

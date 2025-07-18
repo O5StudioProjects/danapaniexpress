@@ -1,4 +1,5 @@
 import 'package:danapaniexpress/core/data_model_imports.dart';
+
 const String categoriesTable = 'categories';
 
 class CategoryFields {
@@ -50,15 +51,17 @@ class CategoryModel {
     CategoryFields.subCategories: subCategories?.map((e) => e.toJson()).toList(),
   };
 
-  static CategoryModel fromJson(Map<String, Object?> json) => CategoryModel(
-    categoryId: json[CategoryFields.categoryId] as String?,
-    categoryNameEnglish: json[CategoryFields.categoryNameEnglish] as String?,
-    categoryNameUrdu: json[CategoryFields.categoryNameUrdu] as String?,
-    categoryImage: json[CategoryFields.categoryImage] as String?,
-    categoryCoverImage: json[CategoryFields.categoryCoverImage] as String?,
-    categoryIsFeatured: json[CategoryFields.categoryIsFeatured] as bool?,
+  static CategoryModel fromJson(Map<String, dynamic> json) => CategoryModel(
+    categoryId: json[CategoryFields.categoryId]?.toString(),
+    categoryNameEnglish: json[CategoryFields.categoryNameEnglish]?.toString(),
+    categoryNameUrdu: json[CategoryFields.categoryNameUrdu]?.toString(),
+    categoryImage: json[CategoryFields.categoryImage]?.toString(),
+    categoryCoverImage: json[CategoryFields.categoryCoverImage]?.toString(),
+    categoryIsFeatured: json[CategoryFields.categoryIsFeatured] is bool
+        ? json[CategoryFields.categoryIsFeatured] as bool
+        : json[CategoryFields.categoryIsFeatured]?.toString() == '1',
     subCategories: (json[CategoryFields.subCategories] as List<dynamic>?)
-        ?.map((e) => SubCategoriesModel.fromJson(e))
+        ?.map((e) => SubCategoriesModel.fromJson(e as Map<String, dynamic>))
         .toList(),
   );
 

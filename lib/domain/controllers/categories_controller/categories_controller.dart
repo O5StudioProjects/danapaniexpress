@@ -12,12 +12,34 @@ class CategoriesController extends GetxController {
   Rx<CategoryModel?> singleCategory = Rx<CategoryModel?>(null);
   Rx<CategoriesStatus> singleCategoryStatus = CategoriesStatus.IDLE.obs;
 
-  // Fetch Categories
+  // // Fetch Categories
+  // Future<void> fetchCategories() async {
+  //   await categoriesRepo.fetchCategoriesListEvent(
+  //     categoriesStatus,
+  //     categoriesList,
+  //   );
+  // }
+  // Fetch AppBar slider images
   Future<void> fetchCategories() async {
-    await categoriesRepo.fetchCategoriesListEvent(
-      categoriesStatus,
-      categoriesList,
-    );
+    try {
+      categoriesStatus.value = CategoriesStatus.LOADING;
+      final items = await categoriesRepo.getCategories();
+      categoriesList.assignAll(items);
+      if (kDebugMode) {
+        print("Categories Fetched");
+      }
+      categoriesStatus.value = CategoriesStatus.SUCCESS;
+    } catch (e) {
+      categoriesStatus.value = CategoriesStatus.FAILURE;
+      if (kDebugMode) {
+        print("=====================Error loading categories: $e");
+      }
+      showSnackbar(
+        isError: true,
+        title: 'Error',
+        message: "=====================Error loading categories: $e",
+      );
+    }
   }
   // Fetch Category by ID
   Future<void> fetchCategoryById(String id) async {

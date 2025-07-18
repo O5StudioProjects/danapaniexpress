@@ -9,12 +9,15 @@ class HomeScreenMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx((){
       var dashboard = Get.find<DashBoardController>();
+      var categories = Get.find<CategoriesController>();
       return Container(
         height: size.height,
         width: size.width,
         color: AppColors.backgroundColorSkin(isDark),
         child: RefreshIndicator(
           onRefresh: () async {
+            categories.fetchCategories(); // Categories Left
+
           },
           child: CustomScrollView(
             physics: BouncingScrollPhysics(),
