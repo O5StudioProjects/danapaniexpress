@@ -1,0 +1,53 @@
+{
+  "favorites": [
+    {
+      "user_id": "user1",
+      "products": [
+        {
+          "product_id": "P002",
+          "product_image": "https://images.deliveryhero.io/image/darsktores-pk/fresh/WB/Re-Edit%20Commodities-5.JPG",
+          "product_name_eng": "White Sugar 1kg",
+          "product_name_urdu": "سفید چینی 1 کلو",
+          "product_cut_price": 250.0,
+          "product_selling_price": 215.0,
+          "product_size": "1kg",
+          "product_weight_grams": 1000.0,
+          "product_brand": "SweetPure",
+          "product_availability": true,
+          "date_time": "2025-07-18 14:22:00"
+        },
+        {
+          "product_id": "P002",
+          "product_image": "https://images.deliveryhero.io/image/darsktores-pk/fresh/WB/Re-Edit%20Commodities-5.JPG",
+          "product_name_eng": "White Sugar 1kg",
+          "product_name_urdu": "سفید چینی 1 کلو",
+          "product_cut_price": 250.0,
+          "product_selling_price": 215.0,
+          "product_size": "1kg",
+          "product_weight_grams": 1000.0,
+          "product_brand": "SweetPure",
+          "product_availability": true,
+          "date_time": "2025-07-18 14:22:00"
+        }
+      ]
+    },
+    {
+      "user_id": "user2",
+      "products": [
+        {
+          "product_id": "P002",
+          "product_image": "https://images.deliveryhero.io/image/darsktores-pk/fresh/WB/Re-Edit%20Commodities-5.JPG",
+          "product_name_eng": "White Sugar 1kg",
+          "product_name_urdu": "سفید چینی 1 کلو",
+          "product_cut_price": 250.0,
+          "product_selling_price": 215.0,
+          "product_size": "1kg",
+          "product_weight_grams": 1000.0,
+          "product_brand": "SweetPure",
+          "product_availability": true,
+          "date_time": "2025-07-18 14:22:00"
+        }
+      ]
+    }
+  ]
+}

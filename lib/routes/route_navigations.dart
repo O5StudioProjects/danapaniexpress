@@ -70,7 +70,7 @@ class JumpTo {
   }
 
   static gotoProductDetailScreen({
-    required ProductsModel data,
+    required ProductModel data,
   }) {
     Get.toNamed(
       RouteNames.ProductDetailScreenRoute,

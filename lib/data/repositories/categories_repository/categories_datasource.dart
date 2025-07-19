@@ -16,7 +16,22 @@ class CategoriesDatasource extends BaseRepository {
     return list
         .map((item) => CategoryModel.fromJson(item as Map<String, dynamic>))
         .toList();
+  }
 
+  /// category By ID - API
+  Future<CategoryModel?> getCategoryByIDApi(String categoryId) async {
+    final uri = Uri.parse('${APiEndpoints.getCategoryById}?category_id=$categoryId');
+
+    final response = await http.get(uri, headers: apiHeaders);
+    final data = handleApiResponseAsMap(response);
+
+    // Safely extract the 'category' object from nested 'data'
+    final categoryJson = data['data']?['category'];
+    if (categoryJson == null) {
+      throw Exception("Category not found in response");
+    }
+
+    return CategoryModel.fromJson(categoryJson as Map<String, dynamic>);
   }
 
 }

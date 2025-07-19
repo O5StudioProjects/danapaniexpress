@@ -7,10 +7,14 @@ class ProductsScreenMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var productController = Get.find<ProductController>();
-    var data = productController.categoryDataInitial.value!;
     var navigation = Get.find<NavigationController>();
-    return Obx(
-      () => Container(
+    return Obx(() {
+      final categoriesData = productController.categoryDataInitial.value;
+      if (categoriesData == null) {
+        return Center(child: loadingIndicator()); // or any fallback
+      }
+
+      return Container(
         width: size.width,
         height: size.height,
         color: AppColors.backgroundColorSkin(isDark),
@@ -24,14 +28,14 @@ class ProductsScreenMobile extends StatelessWidget {
                 child: productController.showTopHeader.value
                     ? TopImageHeader(
                   title: appLanguage == URDU_LANGUAGE
-                      ? data.categoryNameUrdu.toString()
-                      : data.categoryNameEnglish.toString(),
-                  coverImage: data.categoryCoverImage ?? "",
+                      ? categoriesData.categoryNameUrdu.toString()
+                      : categoriesData.categoryNameEnglish.toString(),
+                  coverImage: categoriesData.categoryCoverImage ?? "",
                 )
                     : appBarCommon(
                   title: appLanguage == URDU_LANGUAGE
-                      ? data.categoryNameUrdu.toString()
-                      : data.categoryNameEnglish.toString(),
+                      ? categoriesData.categoryNameUrdu.toString()
+                      : categoriesData.categoryNameEnglish.toString(),
                   isBackNavigation: true,
                   isTrailing: true,
                   trailingIcon: icSearch,
@@ -56,17 +60,16 @@ class ProductsScreenMobile extends StatelessWidget {
                   constraints: BoxConstraints(minWidth: size.width),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: List.generate(data.subCategories!.length, (
-                      index,
-                    ) {
-                      var listData = data.subCategories![index];
+                    children: List.generate(
+                        categoriesData.subCategories?.length ?? 0, (index,) {
+                      var subCategory = categoriesData.subCategories![index];
                       return GestureDetector(
                         onTap: () =>
-                            productController.onTapSubCategories(index, data),
+                            productController.onTapSubCategories(index, categoriesData),
                         child: TabItems(
-                          text: listData.subCategoryNameEnglish.toString(),
+                          text: appLanguage == URDU_LANGUAGE ? subCategory.subCategoryNameUrdu.toString() :subCategory.subCategoryNameEnglish.toString(),
                           isSelected:
-                              productController.subCategoryIndex.value == index
+                          productController.subCategoryIndex.value == index
                               ? true
                               : false,
                         ),
@@ -79,46 +82,47 @@ class ProductsScreenMobile extends StatelessWidget {
 
             //  setHeight(10.0),
             productController.productsStatus.value ==
-                    ProductsByCatStatus.LOADING
+                ProductsByCatStatus.LOADING
                 ? Expanded(child: loadingIndicator())
                 : productController.productsStatus.value ==
-                      ProductsByCatStatus.FAILURE
+                ProductsByCatStatus.FAILURE
                 ? Expanded(child: ErrorScreen())
                 : productController.productsList.isEmpty
                 ? EmptyScreen(
-                    icon: AppAnims.animEmptyBoxSkin(isDark),
-                    text: AppLanguage.noProductsStr(appLanguage).toString(),
-                  )
+              icon: AppAnims.animEmptyBoxSkin(isDark),
+              text: AppLanguage.noProductsStr(appLanguage).toString(),
+            )
                 : Expanded(
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(minHeight: size.height),
-                      child: GridView.builder(
-                        controller: productController.scrollController,
-                        shrinkWrap: true,
-                        physics: BouncingScrollPhysics(),
-                        padding: EdgeInsets.only(
-                          left: MAIN_HORIZONTAL_PADDING,
-                          right: MAIN_HORIZONTAL_PADDING,
-                          top: 5.0,
-                          bottom: MAIN_VERTICAL_PADDING,
-                        ),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: MAIN_HORIZONTAL_PADDING,
-                          mainAxisSpacing: MAIN_HORIZONTAL_PADDING,
-                          childAspectRatio:
-                              0.6, // tweak this for height vs width
-                        ),
-                        itemCount: productController.productsList.length,
-                        itemBuilder: (context, index) {
-                          var data = productController.productsList[index];
-                          return GestureDetector(
-                              onTap: ()=>  navigation.gotoProductDetailScreen(data: data),
-                              child: ProductItem(data: data));
-                        },
-                      ),
-                    ),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: size.height),
+                child: GridView.builder(
+                  controller: productController.scrollController,
+                  shrinkWrap: true,
+                  physics: BouncingScrollPhysics(),
+                  padding: EdgeInsets.only(
+                    left: MAIN_HORIZONTAL_PADDING,
+                    right: MAIN_HORIZONTAL_PADDING,
+                    top: 5.0,
+                    bottom: MAIN_VERTICAL_PADDING,
                   ),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: MAIN_HORIZONTAL_PADDING,
+                    mainAxisSpacing: MAIN_HORIZONTAL_PADDING,
+                    childAspectRatio:
+                    0.6, // tweak this for height vs width
+                  ),
+                  itemCount: productController.productsList.length,
+                  itemBuilder: (context, index) {
+                    var data = productController.productsList[index];
+                    return GestureDetector(
+                        onTap: () =>
+                            navigation.gotoProductDetailScreen(data: data),
+                        child: ProductItem(data: data));
+                  },
+                ),
+              ),
+            ),
 
             // ✅ Bottom Message Section
             Obx(() {
@@ -150,7 +154,7 @@ class ProductsScreenMobile extends StatelessWidget {
             }),
           ],
         ),
-      ),
-    );
+      );
+    });
   }
 }

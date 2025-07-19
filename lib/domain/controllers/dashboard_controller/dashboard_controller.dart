@@ -34,7 +34,7 @@ class DashBoardController extends GetxController {
 
 
   // Single Product
-  Rx<ProductsModel?> singleProduct = Rx<ProductsModel?>(null);
+  Rx<ProductModel?> singleProduct = Rx<ProductModel?>(null);
 
   // Body Pager Slider
   RxList<PagerImagesModel> bodyPagerList = <PagerImagesModel>[].obs;
@@ -65,10 +65,10 @@ class DashBoardController extends GetxController {
   Rx<ProductsStatus> popularStatus = ProductsStatus.IDLE.obs;
 
   // Lists
-  RxList<ProductsModel> allProducts = <ProductsModel>[].obs;
-  RxList<ProductsModel> featuredProducts = <ProductsModel>[].obs;
-  RxList<ProductsModel> flashSaleProducts = <ProductsModel>[].obs;
-  RxList<ProductsModel> popularProducts = <ProductsModel>[].obs;
+  RxList<ProductModel> allProducts = <ProductModel>[].obs;
+  RxList<ProductModel> featuredProducts = <ProductModel>[].obs;
+  RxList<ProductModel> flashSaleProducts = <ProductModel>[].obs;
+  RxList<ProductModel> popularProducts = <ProductModel>[].obs;
 
   RxBool isLoadingMore = false.obs;
   RxBool hasMoreFeatured = true.obs;
@@ -276,8 +276,9 @@ class DashBoardController extends GetxController {
     } else if (appbarPagerList[index].type == ImagePagerType.CATEGORY) {
       await categories.fetchCategoryById(appbarPagerList[index].typeId.toString())
           .then((value) {
-            navigation.gotoProductsScreen(data: categories.singleCategory.value!);
-          })
+        print(' This is Single Category Data : ${categories.singleCategory.value!.categoryNameEnglish}');
+        navigation.gotoProductsScreen(data: categories.singleCategory.value!);
+      })
           .onError((handleError, str) {
             if (kDebugMode) {
               print(str);
@@ -593,7 +594,7 @@ class DashBoardController extends GetxController {
     popularStatus.value = ProductsStatus.LOADING;
 
     try {
-      final sorted = List<ProductsModel>.from(allProducts)
+      final sorted = List<ProductModel>.from(allProducts)
         ..sort((a, b) {
           final aAvailable = a.productAvailability ?? false;
           final bAvailable = b.productAvailability ?? false;

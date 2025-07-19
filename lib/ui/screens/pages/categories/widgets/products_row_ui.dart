@@ -3,7 +3,7 @@ import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/core/data_model_imports.dart';
 
 class ProductsRowUi extends StatelessWidget {
-  final List<ProductsModel> products;
+  final List<ProductModel> products;
   final String? headingTitle;
   final ProductsScreenType screenType;
   final bool? isTrailingText;

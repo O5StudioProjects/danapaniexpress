@@ -12,13 +12,7 @@ class CategoriesController extends GetxController {
   Rx<CategoryModel?> singleCategory = Rx<CategoryModel?>(null);
   Rx<CategoriesStatus> singleCategoryStatus = CategoriesStatus.IDLE.obs;
 
-  // // Fetch Categories
-  // Future<void> fetchCategories() async {
-  //   await categoriesRepo.fetchCategoriesListEvent(
-  //     categoriesStatus,
-  //     categoriesList,
-  //   );
-  // }
+
   // Fetch AppBar slider images
   Future<void> fetchCategories() async {
     try {
@@ -43,11 +37,25 @@ class CategoriesController extends GetxController {
   }
   // Fetch Category by ID
   Future<void> fetchCategoryById(String id) async {
-    categoriesRepo.fetchSingleCategoryEvent(
-      categoryId: id,
-      categoryData: singleCategory,
-      status: singleCategoryStatus,
-    );
+    try {
+      singleCategoryStatus.value = CategoriesStatus.LOADING;
+      singleCategory.value  = await categoriesRepo.getSingleCategory(categoryId: id);
+      if (kDebugMode) {
+        print("Single Category Fetched :  ${singleCategory.value!.categoryNameEnglish}");
+      }
+      singleCategoryStatus.value = CategoriesStatus.SUCCESS;
+    } catch (e) {
+      singleCategoryStatus.value = CategoriesStatus.FAILURE;
+      if (kDebugMode) {
+        print("=====================Error loading Single Category: $e");
+      }
+      showSnackbar(
+        isError: true,
+        title: 'Error',
+        message: "=====================Error loading Single Category: $e",
+      );
+    }
+
   }
 
 }

@@ -6,10 +6,10 @@ class ProductController extends GetxController {
   final productsRepo  = ProductRepository();
 
   RxInt subCategoryIndex = 0.obs;
-  Rx<CategoryModel?> categoryDataInitial = Rx<CategoryModel?>(null);
+  final Rxn<CategoryModel> categoryDataInitial = Rxn<CategoryModel>();
 
   Rx<ProductsByCatStatus> productsStatus = ProductsByCatStatus.IDLE.obs;
-  RxList<ProductsModel> productsList = <ProductsModel>[].obs;
+  RxList<ProductModel> productsList = <ProductModel>[].obs;
 
   final scrollController = ScrollController();
   RxBool showBottomMessage = true.obs;
@@ -19,7 +19,7 @@ class ProductController extends GetxController {
 // Load-more state for category-based products
   RxBool isLoadingMoreCategory = false.obs;
   RxBool hasMoreCategoryProducts = true.obs;
-  RxList<ProductsModel> categoryProducts = <ProductsModel>[].obs;
+  RxList<ProductModel> categoryProducts = <ProductModel>[].obs;
   int categoryOffset = 0;
   final int categoryLimit = 10;
 
@@ -28,23 +28,35 @@ class ProductController extends GetxController {
 
   @override
   void onInit() {
-    // Optional: Set initial category from navigation arguments
-    categoryDataInitial.value = Get.arguments[DATA_CATEGORY] as CategoryModel?;
-    subCategoryIndex.value = Get.arguments[SUB_CATEGORY_INDEX] ?? 0;
-
-    initCategoryScrollListener(
-      categoryData: categoryDataInitial.value!,
-      subCategoryIndex: subCategoryIndex.value,
-    );
-
-    fetchProductsByCategories(
-      categoryData: categoryDataInitial.value!,
-      subCategoryIndex: subCategoryIndex.value,
-      loadMore: false,
-    );
-
     super.onInit();
+
+    final categoryArg = Get.arguments[DATA_CATEGORY];
+    final subCatIndexArg = Get.arguments[SUB_CATEGORY_INDEX] ?? 0;
+
+    if (categoryArg is CategoryModel) {
+      categoryDataInitial.value = categoryArg;
+      subCategoryIndex.value = subCatIndexArg;
+
+      initCategoryScrollListener(
+        categoryData: categoryDataInitial.value!,
+        subCategoryIndex: subCategoryIndex.value,
+      );
+
+      fetchProductsByCategories(
+        categoryData: categoryDataInitial.value!,
+        subCategoryIndex: subCategoryIndex.value,
+        loadMore: false,
+      );
+    } else {
+      productsStatus.value = ProductsByCatStatus.FAILURE;
+      showSnackbar(
+        isError: true,
+        title: 'Invalid Data',
+        message: 'Category data is missing or invalid.',
+      );
+    }
   }
+
 
   void initCategoryScrollListener({
     required CategoryModel categoryData,
