@@ -7,7 +7,7 @@ import '../../../core/common_imports.dart';
 class ProductRepository {
 
   /// FETCH RELATED PRODUCTS
-  Future<List<ProductsModel>> fetchRelatedProducts({
+  Future<List<ProductModel>> fetchRelatedProducts({
     required String categoryId,
     required String subCategoryId,
     int limit = 10,
@@ -16,8 +16,8 @@ class ProductRepository {
       String jsonString = await rootBundle.loadString(jsonProducts);
       List<dynamic> jsonData = json.decode(jsonString);
 
-      List<ProductsModel> filtered = jsonData
-          .map((item) => ProductsModel.fromJson(item))
+      List<ProductModel> filtered = jsonData
+          .map((item) => ProductModel.fromJson(item))
           .where((product) =>
       product.productCategory == categoryId &&
           product.productSubCategory == subCategoryId)
@@ -35,7 +35,7 @@ class ProductRepository {
 
 
   ///FETCH PRODUCTS BY CATEGORIES
-  Future<List<ProductsModel>> fetchProductsByCategoriesEvent({
+  Future<List<ProductModel>> fetchProductsByCategoriesEvent({
     required CategoryModel categoryData,
     int subCategoryIndex = 0,
     int limit = 10,
@@ -47,8 +47,8 @@ class ProductRepository {
 
       List<dynamic> jsonData = json.decode(jsonString);
 
-      List<ProductsModel> allFiltered = jsonData
-          .map((item) => ProductsModel.fromJson(item))
+      List<ProductModel> allFiltered = jsonData
+          .map((item) => ProductModel.fromJson(item))
           .where((product) =>
       product.productCategory == categoryData.categoryId &&
           product.productSubCategory == subCategoryId)
@@ -66,7 +66,7 @@ class ProductRepository {
     }
   }
 
-  Future<List<ProductsModel>> fetchProductsListEvent({
+  Future<List<ProductModel>> fetchProductsListEvent({
     required ProductFilterType filterType,
     required int limit,
     required int offset, // add this
@@ -79,10 +79,10 @@ class ProductRepository {
     // Apply filter
     switch (filterType) {
       case ProductFilterType.featured:
-        filtered = jsonData.where((item) => item[ProductsFields.productIsFeatured] == true);
+        filtered = jsonData.where((item) => item[ProductFields.productIsFeatured] == true);
         break;
       case ProductFilterType.flashSale:
-        filtered = jsonData.where((item) => item[ProductsFields.productIsFlashsale] == true);
+        filtered = jsonData.where((item) => item[ProductFields.productIsFlashsale] == true);
         break;
       case ProductFilterType.all:
       case ProductFilterType.popular:
@@ -90,8 +90,8 @@ class ProductRepository {
         break;
     }
 
-    List<ProductsModel> result = filtered
-        .map((item) => ProductsModel.fromJson(item))
+    List<ProductModel> result = filtered
+        .map((item) => ProductModel.fromJson(item))
         .toList();
 
     // ✅ Apply offset and limit
@@ -102,7 +102,7 @@ class ProductRepository {
 
 
 //   Future<void> fetchProductsByCategoriesEvent(
-//   RxList<ProductsModel> productsList,
+//   RxList<ProductModel> productsList,
 //   Rx<ProductsByCatStatus> status,
 //   {required CategoryModel categoryData, int subCategoryIndex = 0}
 //
@@ -115,8 +115,8 @@ class ProductRepository {
 //
 //       List<dynamic> jsonData = json.decode(jsonString);
 //
-//       List<ProductsModel> value = jsonData
-//           .map((item) => ProductsModel.fromJson(item))
+//       List<ProductModel> value = jsonData
+//           .map((item) => ProductModel.fromJson(item))
 //           .where((product) =>
 //           product.productCategory == categoryData.categoryId &&
 //           product.productSubCategory == subCategoryId)

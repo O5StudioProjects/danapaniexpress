@@ -65,7 +65,7 @@ class ProductDetailScreenMobile extends StatelessWidget {
     });
   }
 
-  Widget cartSectionUI({required ProductsModel data}) {
+  Widget cartSectionUI({required ProductModel data}) {
     var productDetail = Get.find<ProductDetailController>();
     return Obx(() {
       return Container(
@@ -106,7 +106,7 @@ class ProductDetailScreenMobile extends StatelessWidget {
     });
   }
 
-  Widget productDetailPartUI({required ProductsModel data}) {
+  Widget productDetailPartUI({required ProductModel data}) {
     return Obx(
       ()=> SizedBox(
         width: size.width,
@@ -122,7 +122,7 @@ class ProductDetailScreenMobile extends StatelessWidget {
     );
   }
 
-  Widget productDetailLDataUI({required ProductsModel data}) {
+  Widget productDetailLDataUI({required ProductModel data}) {
     var productDetail = Get.find<ProductDetailController>();
     var dashboard = Get.find<DashBoardController>();
     return Column(
@@ -352,7 +352,7 @@ class ProductDetailScreenMobile extends StatelessWidget {
     );
   }
 
-  Widget centerImageForProductsUI({required ProductsModel data}) {
+  Widget centerImageForProductsUI({required ProductModel data}) {
     return Container(
       width: size.width,
       height: size.height * 0.45,

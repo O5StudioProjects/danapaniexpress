@@ -6,13 +6,13 @@ class ProductDetailController extends GetxController {
   final productRepo = ProductRepository();
   RxInt quantity = 1.obs;
   Rx<ProductsStatus> relatedProductStatus = ProductsStatus.IDLE.obs;
-  Rx<ProductsModel?> productData = Rx<ProductsModel?>(null);
-  RxList<ProductsModel> relatedProductsList = <ProductsModel>[].obs;
+  Rx<ProductModel?> productData = Rx<ProductModel?>(null);
+  RxList<ProductModel> relatedProductsList = <ProductModel>[].obs;
 
 
   @override
   Future<void> onInit() async {
-    productData.value = Get.arguments[DATA_PRODUCT] as ProductsModel;
+    productData.value = Get.arguments[DATA_PRODUCT] as ProductModel;
     fetchRelatedProducts(productData.value!);
 
     super.onInit();
@@ -35,7 +35,7 @@ class ProductDetailController extends GetxController {
     }
   }
 
-  Future<void> fetchRelatedProducts(ProductsModel currentProduct) async {
+  Future<void> fetchRelatedProducts(ProductModel currentProduct) async {
     relatedProductStatus.value = ProductsStatus.LOADING;
 
     try {

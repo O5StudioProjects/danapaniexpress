@@ -3,7 +3,7 @@ import 'package:danapaniexpress/core/controllers_import.dart';
 import '../../../../../core/data_model_imports.dart';
 
 class ProductItem extends StatelessWidget {
-  final ProductsModel data;
+  final ProductModel data;
   const ProductItem({super.key, required this.data});
 
   @override

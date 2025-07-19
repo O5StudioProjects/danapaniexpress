@@ -135,7 +135,7 @@ class DashboardRepository extends DashboardDataSource{
   //   }
   // }
 
-  Future<List<ProductsModel>> fetchProductsListEvent({
+  Future<List<ProductModel>> fetchProductsListEvent({
     required ProductFilterType filterType,
     required int limit,
     required int offset, // add this
@@ -148,10 +148,10 @@ class DashboardRepository extends DashboardDataSource{
     // Apply filter
     switch (filterType) {
       case ProductFilterType.featured:
-        filtered = jsonData.where((item) => item[ProductsFields.productIsFeatured] == true);
+        filtered = jsonData.where((item) => item[ProductFields.productIsFeatured] == true);
         break;
       case ProductFilterType.flashSale:
-        filtered = jsonData.where((item) => item[ProductsFields.productIsFlashsale] == true);
+        filtered = jsonData.where((item) => item[ProductFields.productIsFlashsale] == true);
         break;
       case ProductFilterType.all:
       case ProductFilterType.popular:
@@ -159,8 +159,8 @@ class DashboardRepository extends DashboardDataSource{
         break;
     }
 
-    List<ProductsModel> result = filtered
-        .map((item) => ProductsModel.fromJson(item))
+    List<ProductModel> result = filtered
+        .map((item) => ProductModel.fromJson(item))
         .toList();
 
     // ✅ Apply offset and limit
@@ -170,16 +170,16 @@ class DashboardRepository extends DashboardDataSource{
   }
 
   /// Fetch Single Product
-  Future<ProductsModel?> fetchSingleProductById(String id) async {
+  Future<ProductModel?> fetchSingleProductById(String id) async {
     try {
       String jsonString = await rootBundle.loadString(jsonProducts);
       List<dynamic> jsonData = json.decode(jsonString);
 
       final matched = jsonData.firstWhere(
-            (item) => item[ProductsFields.productId].toString() == id,
+            (item) => item[ProductFields.productId].toString() == id,
       );
 
-      return ProductsModel.fromJson(matched);
+      return ProductModel.fromJson(matched);
     } catch (e) {
       if (kDebugMode) {
         print("Error fetching product with id $id: $e");

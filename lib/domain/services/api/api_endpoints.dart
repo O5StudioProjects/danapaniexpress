@@ -18,6 +18,7 @@ class APiEndpoints {
   static String getMarquee = "$path/marquee_slider.php/get_marquee";
   static String getCoverImages = "$path/cover_img.php/get_cover_img";
   static String getCategories = "$path/get_categories.php/categories";
+  static String getCategoryById = "$path/cat_entry.php/get_categorybyID";
 
   ///GET APIS
   static String getRegisteredUsers = "$path/register.php/get_users";
