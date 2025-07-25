@@ -24,7 +24,6 @@ class AccountInfoController extends GetxController {
   /// IMAGE UPLOADING
   final Rx<File?> selectedImage = Rx<File?>(null);
   final ImagePicker picker = ImagePicker();
-  final RxBool isUploading = false.obs;
   final RxString uploadedImageUrl = ''.obs;
 
   Rx<AuthStatus> uploadImageStatus = AuthStatus.IDLE.obs;

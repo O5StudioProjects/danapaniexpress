@@ -166,7 +166,7 @@
     "product_rating": 4.6,
     "product_is_featured": true,
     "product_featured_id": "",
-    "product_is_flashsale": false,
+    "product_is_flashsale": true,
     "product_flashsale_id": "",
     "product_favorite_list": [
       {

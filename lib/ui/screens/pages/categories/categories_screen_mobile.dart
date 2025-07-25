@@ -6,12 +6,10 @@ class CategoriesScreenMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var controller = Get.find<DashBoardController>();
     var categories = Get.find<CategoriesController>();
-    var navigation = Get.find<NavigationController>();
     return Obx(() {
-      var categoriesData = categories.categoriesList[controller.categoryIndex.value];
-      var subCategoriesData = categories.categoriesList[controller.categoryIndex.value].subCategories!;
+      var categoriesData = categories.categoriesList[categories.categoryIndex.value];
+      var subCategoriesData = categories.categoriesList[categories.categoryIndex.value].subCategories!;
       return Container(
         width: size.width,
         height: size.height,
@@ -40,14 +38,14 @@ class CategoriesScreenMobile extends StatelessWidget {
                                 (index) {
                                   return GestureDetector(
                                     onTap: () {
-                                      controller.onTapCategories(index);
+                                      categories.onTapCategories(index);
                                     },
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         Container(
                                           color:
-                                          controller.categoryIndex.value == index
+                                          categories.categoryIndex.value == index
                                               ? AppColors.secondaryTextColorSkin(isDark).withValues(alpha: 0.4)
                                               : Colors.transparent,
                                           child: Padding(
@@ -97,7 +95,7 @@ class CategoriesScreenMobile extends StatelessWidget {
                                       itemBuilder: (context, index) {
                                         var listData = subCategoriesData[index];
                                         return GestureDetector(
-                                            onTap: ()=> controller.onTapSubCategories(index, categoriesData),
+                                            onTap: ()=> categories.onTapSubCategories(index, categoriesData),
                                             child: SubCategoryItem(data: listData));
                                       },
                                     )

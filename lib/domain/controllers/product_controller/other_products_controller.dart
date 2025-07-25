@@ -1,10 +1,12 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
+import 'package:danapaniexpress/domain/controllers/product_controller/products_controller.dart';
 
 class OtherProductsController extends GetxController {
 
   var dashboardRepo = DashboardRepository();
   final dashBoardController = Get.find<DashBoardController>();
+  final products = Get.find<ProductsController>();
   Rx<ProductsScreenType> productScreenType = ProductsScreenType.CATEGORIES.obs;
   final scrollController = ScrollController();
   RxBool showBottomMessage = true.obs;
@@ -49,7 +51,8 @@ class OtherProductsController extends GetxController {
 
       // ✅ Load more
       if (currentOffset >= maxOffset - 300) {
-        _loadMoreProducts(dashboardController);
+        products.loadMorePopularProducts();
+       // _loadMoreProducts(dashboardController);
       }
     });
   }
@@ -70,7 +73,7 @@ class OtherProductsController extends GetxController {
     } else if (screenType == ProductsScreenType.POPULAR) {
       if (!dashboardController.isLoadingMore.value &&
           dashboardController.hasMoreAllProducts.value) {
-        dashboardController.fetchAllProducts(loadMore: true);
+        products.fetchInitialPopularProducts();
       }
     }
   }

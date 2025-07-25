@@ -1,0 +1,82 @@
+[
+  {
+    "flashsale_id ": "flash001",
+    "product":  {
+      "product_id": "P002",
+      "product_code": "GR002",
+      "product_image": "https://images.deliveryhero.io/image/darsktores-pk/fresh/WB/Re-Edit%20Commodities-5.JPG",
+      "product_name_eng": "White Sugar 1kg",
+      "product_name_urdu": "سفید چینی 1 کلو",
+      "product_detail_eng": "White Sugar 1kg",
+      "product_detail_urdu": "سفید چینی 1 کلو",
+      "product_category": "Grains & Rice",
+      "product_sub_category": "Rice",
+      "product_cut_price": 250.0,
+      "product_selling_price": 215.0,
+      "product_buying_price": 190.0,
+      "product_size": "1kg",
+      "product_weight_grams": 1000.0,
+      "product_brand": "SweetPure",
+      "product_total_sold": 310,
+      "product_rating": 4.2,
+      "product_is_featured": false,
+      "product_featured_id": "",
+      "product_is_flashsale": true,
+      "product_flashsale_id": "FS001",
+      "product_favorite_list": [
+        {
+          "user_id": "user1"
+        }
+      ],
+      "product_availability": true,
+      "Vendor": {
+        "vendor_id": "",
+        "vendor_logo": "",
+        "vendor_name": "",
+        "vendor_website": ""
+      },
+      "prodcut_quantity_limit": 5,
+      "date_time":""
+    }
+  },
+  {
+    "flashsale_id ": "flash002",
+    "product":  {
+      "product_id": "P005",
+      "product_code": "GR005",
+      "product_image": "https://www.digitindahan.com.ph/cdn/shop/products/650965f960aa13a6e5afe3192b929124_1000x.jpg",
+      "product_name_eng": "Fresh Milk 1L",
+      "product_name_urdu": "تازہ دودھ 1 لیٹر",
+      "product_detail_eng": "Fresh Milk 1L",
+      "product_detail_urdu": "تازہ دودھ 1 لیٹر",
+      "product_category": "Dairy",
+      "product_sub_category": "Milk",
+      "product_cut_price": 210.0,
+      "product_selling_price": 185.0,
+      "product_buying_price": 165.0,
+      "product_size": "1L",
+      "product_weight_grams": 1000.0,
+      "product_brand": "Milko",
+      "product_total_sold": 420,
+      "product_rating": 4.6,
+      "product_is_featured": true,
+      "product_featured_id": "",
+      "product_is_flashsale": true,
+      "product_flashsale_id": "",
+      "product_favorite_list": [
+        {
+          "user_id": "user1"
+        }
+      ],
+      "product_availability": false,
+      "Vendor": {
+        "vendor_id": "",
+        "vendor_logo": "",
+        "vendor_name": "",
+        "vendor_website": ""
+      },
+      "prodcut_quantity_limit": 5,
+      "date_time":""
+    }
+  }
+]

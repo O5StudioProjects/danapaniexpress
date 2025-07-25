@@ -4,6 +4,7 @@ import 'package:danapaniexpress/core/packages_import.dart';
 
 Widget appSliverAppbarHome() {
   final controller = Get.find<DashBoardController>();
+  final home = Get.find<HomeController>();
 
   return Obx(
     () => SliverAppBar(
@@ -25,11 +26,11 @@ Widget appSliverAppbarHome() {
           child: Stack(
             children: [
               CarouselSlider(
-                items: controller.appbarPagerList.map((slider) {
+                items: home.appbarPagerList.map((slider) {
                   return Builder(
                     builder: (BuildContext context) {
                       return GestureDetector(
-                          onTap: () => controller.onTapAppbarImagePager(index: controller.appbarPagerList.indexOf(slider)),
+                          onTap: () => home.onTapAppbarImagePager(index: home.appbarPagerList.indexOf(slider)),
                           child: appAsyncImage(slider.imageUrl, width: size.width));
                     },
                   );

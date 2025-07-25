@@ -1,8 +1,10 @@
 import 'package:danapaniexpress/core/common_imports.dart';
+import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/core/data_model_imports.dart';
 
 class CategoriesController extends GetxController {
   final categoriesRepo = CategoriesRepository();
+  final navigation = Get.find<NavigationController>();
 
   // Categories
   RxList<CategoryModel> categoriesList = <CategoryModel>[].obs;
@@ -11,6 +13,23 @@ class CategoriesController extends GetxController {
   // Single category
   Rx<CategoryModel?> singleCategory = Rx<CategoryModel?>(null);
   Rx<CategoriesStatus> singleCategoryStatus = CategoriesStatus.IDLE.obs;
+
+
+  /// CATEGORIES SECTION
+
+  RxInt categoryIndex = 0.obs;
+
+  Future<void> onTapCategories(int index) async {
+    categoryIndex.value = index;
+  }
+
+
+  Future<void> onTapSubCategories(int index, CategoryModel categoryData) async {
+    navigation.gotoProductsScreen(
+      data: categoryData,
+      subCategoryIndex: index,
+    );
+  }
 
 
   // Fetch AppBar slider images

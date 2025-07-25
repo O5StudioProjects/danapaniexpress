@@ -1,0 +1,81 @@
+[
+  {
+    "featured_id": "feature001",
+    "product":   {
+      "product_id": "P001",
+      "product_code": "GR001",
+      "product_image": "https://estore.falakrice.com/cdn/shop/products/extreme5kg.jpg",
+      "product_name_eng": "Basmati Rice 5kg",
+      "product_name_urdu": "باسمتی چاول 5 کلو",
+      "product_detail_eng": "Basmati Rice 5kg",
+      "product_detail_urdu": "باسمتی چاول 5 کلو",
+      "product_category": "Grains & Rice",
+      "product_sub_category": "Rice",
+      "product_cut_price": 2100.0,
+      "product_selling_price": 1799.0,
+      "product_buying_price": 1600.0,
+      "product_size": "5kg",
+      "product_weight_grams": 5000.0,
+      "product_brand": "Super Grain",
+      "product_total_sold": 120,
+      "product_rating": 4.5,
+      "product_is_featured": true,
+      "product_featured_id": "F001",
+      "product_is_flashsale": false,
+      "product_flashsale_id": "",
+      "product_favorite_list": [
+        {"user_id": "user1"},
+        {"user_id": "user2"}
+      ],
+      "product_availability": true,
+      "Vendor": {
+        "vendor_id": "V001",
+        "vendor_logo": "https://cdn.vendor.com/logo.png",
+        "vendor_name": "Super Grain Company",
+        "vendor_website": "https://supergrain.com"
+      },
+      "prodcut_quantity_limit": 5,
+      "date_time":""
+    }
+  },
+  {
+    "featured_id": "feature002",
+    "product":   {
+      "product_id": "P003",
+      "product_code": "GR003",
+      "product_image": "https://salvacookingoil.com/wp-content/uploads/2022/06/1-liter-cooking-oil-1-copy.png",
+      "product_name_eng": "Cooking Oil 1L",
+      "product_name_urdu": "کوکنگ آئل 1 لیٹر",
+      "product_detail_eng": "Cooking Oil 1L",
+      "product_detail_urdu":"کوکنگ آئل 1 لیٹر" ,
+      "product_category": "Bakery",
+      "product_sub_category": "Oil",
+      "product_cut_price": 560.0,
+      "product_selling_price": 499.0,
+      "product_buying_price": 460.0,
+      "product_size": "1L",
+      "product_weight_grams": 910.0,
+      "product_brand": "SunLite",
+      "product_total_sold": 198,
+      "product_rating": 4.7,
+      "product_is_featured": true,
+      "product_featured_id": "F002",
+      "product_is_flashsale": false,
+      "product_flashsale_id": "",
+      "product_favorite_list": [
+        {
+          "user_id": "user1"
+        }
+      ],
+      "product_availability": true,
+      "Vendor": {
+        "vendor_id": "",
+        "vendor_logo": "",
+        "vendor_name": "",
+        "vendor_website": ""
+      },
+      "prodcut_quantity_limit": 5,
+      "date_time":""
+    }
+  }
+]
