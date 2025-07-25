@@ -1,16 +1,18 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
+import 'package:danapaniexpress/domain/controllers/product_controller/products_controller.dart';
 
 class PopularProducts extends StatelessWidget {
   const PopularProducts({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final dashboard = Get.find<DashBoardController>();
+    // final dashboard = Get.find<DashBoardController>();
+    final products = Get.find<ProductsController>();
     final navigation  = Get.find<NavigationController>();
 
     return Obx(() {
-      if (dashboard.popularProducts.isNotEmpty) {
+      if (products.popularProducts.isNotEmpty) {
         return Column(
           children: [
             HomeHeadings(
@@ -33,9 +35,9 @@ class PopularProducts extends StatelessWidget {
                   mainAxisSpacing: MAIN_HORIZONTAL_PADDING,
                   childAspectRatio: 0.6, // tweak this for height vs width
                 ),
-                itemCount: dashboard.popularProducts.length > 50 ? 50 : dashboard.popularProducts.length,
+                itemCount: products.popularProducts.length > 50 ? 50 : products.popularProducts.length,
                 itemBuilder: (context, index) {
-                  var data = dashboard.popularProducts[index];
+                  var data = products.popularProducts[index];
                   return GestureDetector(
                     onTap: ()=>  navigation.gotoProductDetailScreen(data: data),
                     child: ProductItem(

@@ -1,0 +1,35 @@
+{
+  "cart": [
+    {
+      "user_id": "user1",
+      "products": [
+        {
+          "product_id": "P001",
+          "product_name_eng": "Wheat Flour 5kg",
+          "product_image": "https://example.com/wheat.jpg",
+          "product_selling_price": 400.0,
+          "product_cut_price": 450.0,
+          "product_qty": 2,
+          "product_weight_grams": 5000,
+          "product_brand": "GrainBest",
+          "product_availability": true,
+          "prodcut_quantity_limit": 5,
+          "date_time": "2025-07-18 15:30:00"
+        },
+        {
+          "product_id": "P002",
+          "product_name_eng": "White Sugar 1kg",
+          "product_image": "https://example.com/sugar.jpg",
+          "product_selling_price": 215.0,
+          "product_cut_price": 250.0,
+          "product_qty": 1,
+          "product_weight_grams": 1000,
+          "product_brand": "SweetPure",
+          "product_availability": true,
+          "prodcut_quantity_limit": 5,
+          "date_time": "2025-07-18 15:31:00"
+        }
+      ]
+    }
+  ]
+}

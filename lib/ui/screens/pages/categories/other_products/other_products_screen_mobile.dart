@@ -1,5 +1,6 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
+import 'package:danapaniexpress/domain/controllers/product_controller/products_controller.dart';
 
 class OtherProductsScreenMobile extends StatelessWidget {
    const OtherProductsScreenMobile({super.key});
@@ -7,6 +8,8 @@ class OtherProductsScreenMobile extends StatelessWidget {
    @override
    Widget build(BuildContext context) {
      final dashboardController = Get.find<DashBoardController>();
+     final products = Get.find<ProductsController>();
+     final home = Get.find<HomeController>();
      final otherProductsController = Get.find<OtherProductsController>();
      final navigation = Get.find<NavigationController>();
 
@@ -14,18 +17,18 @@ class OtherProductsScreenMobile extends StatelessWidget {
        final screenType = otherProductsController.productScreenType.value;
 
        final coverImage = screenType == ProductsScreenType.FEATURED
-           ? dashboardController.coverImages.value!.featured
+           ? home.coverImages.value!.featured
            : screenType == ProductsScreenType.FLASHSALE
-           ? dashboardController.coverImages.value!.flashSale
+           ? home.coverImages.value!.flashSale
            : screenType == ProductsScreenType.POPULAR
-           ? dashboardController.coverImages.value!.popular
+           ? home.coverImages.value!.popular
            : null ;
 
        final productsList = screenType == ProductsScreenType.FEATURED
            ? dashboardController.featuredProducts
            : screenType == ProductsScreenType.FLASHSALE
            ? dashboardController.flashSaleProducts
-           : dashboardController.popularProducts;
+           : products.popularProducts;
 
        final screenName = screenType == ProductsScreenType.FEATURED
            ? AppLanguage.featuredProductStr(appLanguage)
@@ -39,7 +42,7 @@ class OtherProductsScreenMobile extends StatelessWidget {
            ? dashboardController.featuredStatus.value
            : screenType == ProductsScreenType.FLASHSALE
            ? dashboardController.flashSaleStatus.value
-           : dashboardController.popularStatus.value;
+           : products.popularStatus.value;
 
 
        return Column(
@@ -97,12 +100,12 @@ class OtherProductsScreenMobile extends StatelessWidget {
            Obx(() {
              final screenType = otherProductsController.productScreenType.value;
 
-             final isLoadingMore = dashboardController.isLoadingMore.value;
+             final isLoadingMore = products.isLoadingMore.value;
              final hasMore = screenType == ProductsScreenType.FEATURED
                  ? dashboardController.hasMoreFeatured.value
                  : screenType == ProductsScreenType.FLASHSALE
                  ? dashboardController.hasMoreFlashSale.value
-                 : dashboardController.hasMoreAllProducts.value;
+                 : products.hasMoreAllProducts.value;
 
              final reachedEnd = otherProductsController.reachedEndOfScroll.value;
 

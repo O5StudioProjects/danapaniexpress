@@ -20,6 +20,11 @@ class APiEndpoints {
   static String getCategories = "$path/get_categories.php/categories";
   static String getCategoryById = "$path/cat_entry.php/get_categorybyID";
 
+  static String getPopularProducts = "$path/get_products.php/get_popular_products";
+  static String getProductsByCategories = "$path/get_products.php/get_products_by_category";
+  static String getProductsByCategoriesAndSubCategories = "$path/get_products.php/get_products_by_cat_subcat";
+
+
   ///GET APIS
   static String getRegisteredUsers = "$path/register.php/get_users";
 

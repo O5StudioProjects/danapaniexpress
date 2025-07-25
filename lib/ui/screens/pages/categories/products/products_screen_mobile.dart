@@ -1,18 +1,32 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
+import 'package:danapaniexpress/data/models/sub_categories_model.dart';
+import 'package:danapaniexpress/domain/controllers/product_controller/products_controller.dart';
 
 class ProductsScreenMobile extends StatelessWidget {
   const ProductsScreenMobile({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var productController = Get.find<ProductController>();
+    var productController = Get.find<ProductScrollController>();
+    var product = Get.find<ProductsController>();
     var navigation = Get.find<NavigationController>();
     return Obx(() {
       final categoriesData = productController.categoryDataInitial.value;
+
+
       if (categoriesData == null) {
         return Center(child: loadingIndicator()); // or any fallback
       }
+
+      final List<SubCategoriesModel> subCategoriesList = [
+        SubCategoriesModel( // Dummy "All" item
+          subCategoryId: 'All',
+          subCategoryNameEnglish: 'All',
+          subCategoryNameUrdu: 'تمام',
+        ),
+        ...?categoriesData.subCategories, // Spread real items
+      ];
 
       return Container(
         width: size.width,
@@ -47,47 +61,58 @@ class ProductsScreenMobile extends StatelessWidget {
             //  setHeight(MAIN_VERTICAL_PADDING),
 
             /// SUBCATEGORIES SCROLLABLE ROW
-            Padding(
-              padding: const EdgeInsets.only(
-                left: MAIN_HORIZONTAL_PADDING,
-                top: MAIN_HORIZONTAL_PADDING,
-                bottom: MAIN_HORIZONTAL_PADDING,
-              ),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                physics: BouncingScrollPhysics(),
-                child: ConstrainedBox(
-                  constraints: BoxConstraints(minWidth: size.width),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: List.generate(
-                        categoriesData.subCategories?.length ?? 0, (index,) {
-                      var subCategory = categoriesData.subCategories![index];
-                      return GestureDetector(
-                        onTap: () =>
-                            productController.onTapSubCategories(index, categoriesData),
-                        child: TabItems(
-                          text: appLanguage == URDU_LANGUAGE ? subCategory.subCategoryNameUrdu.toString() :subCategory.subCategoryNameEnglish.toString(),
-                          isSelected:
-                          productController.subCategoryIndex.value == index
-                              ? true
-                              : false,
-                        ),
-                      );
-                    }),
+            Obx((){
+              return Padding(
+                padding: const EdgeInsets.only(
+                  left: MAIN_HORIZONTAL_PADDING,
+                  top: MAIN_HORIZONTAL_PADDING,
+                  bottom: MAIN_HORIZONTAL_PADDING,
+                ),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  physics: BouncingScrollPhysics(),
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(minWidth: size.width),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: List.generate(
+                          subCategoriesList.length, (index,) {
+                        var subCategory = subCategoriesList[index];
+                        return GestureDetector(
+                          onTap: (){
+                            if(index == 0){
+                              product.fetchInitialProductsByCategory(categoriesData.categoryId!);
+                            } else {
+                              product.subCategoryIndex.value = index;
+                              product.fetchInitialProductsByCategoryAndSubCategory(category: categoriesData.categoryId!, subCategory: subCategory.subCategoryId!);
+                            }
+                          },
+
+                          child: TabItems(
+                            text: appLanguage == URDU_LANGUAGE
+                                ? subCategory.subCategoryNameUrdu.toString()
+                                : subCategory.subCategoryNameEnglish.toString(),
+                            isSelected:
+                            product.subCategoryIndex.value == index
+                                ? true
+                                : false,
+                          ),
+                        );
+                      }),
+                    ),
                   ),
                 ),
-              ),
-            ),
+              );
+            }),
 
             //  setHeight(10.0),
-            productController.productsStatus.value ==
+            product.productsStatus.value ==
                 ProductsByCatStatus.LOADING
                 ? Expanded(child: loadingIndicator())
-                : productController.productsStatus.value ==
+                : product.productsStatus.value ==
                 ProductsByCatStatus.FAILURE
                 ? Expanded(child: ErrorScreen())
-                : productController.productsList.isEmpty
+                : product.productsList.isEmpty
                 ? EmptyScreen(
               icon: AppAnims.animEmptyBoxSkin(isDark),
               text: AppLanguage.noProductsStr(appLanguage).toString(),
@@ -112,9 +137,9 @@ class ProductsScreenMobile extends StatelessWidget {
                     childAspectRatio:
                     0.6, // tweak this for height vs width
                   ),
-                  itemCount: productController.productsList.length,
+                  itemCount: product.productsList.length,
                   itemBuilder: (context, index) {
-                    var data = productController.productsList[index];
+                    var data = product.productsList[index];
                     return GestureDetector(
                         onTap: () =>
                             navigation.gotoProductDetailScreen(data: data),
@@ -127,8 +152,8 @@ class ProductsScreenMobile extends StatelessWidget {
             // ✅ Bottom Message Section
             Obx(() {
               final isLoadingMore =
-                  productController.isLoadingMoreCategory.value;
-              final hasMore = productController.hasMoreCategoryProducts.value;
+                  product.isLoadingMore.value;
+              final hasMore = product.hasMoreProducts.value;
               final reachedEnd = productController.reachedEndOfScroll.value;
 
               // ✅ Only show when all products are scrolled & no more left

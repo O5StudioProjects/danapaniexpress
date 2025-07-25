@@ -7,9 +7,9 @@ class SingleBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var controller = Get.find<DashBoardController>();
+    var home = Get.find<HomeController>();
     return Obx((){
-      var banner = homeSingleBanner == HomeSingleBanner.ONE ? controller.singleBannerOne.value : controller.singleBannerTwo.value;
+      var banner = homeSingleBanner == HomeSingleBanner.ONE ? home.singleBannerOne.value : home.singleBannerTwo.value;
       if(banner != null){
         return Padding(
           padding: const EdgeInsets.only(bottom: MAIN_VERTICAL_PADDING),
@@ -18,7 +18,7 @@ class SingleBanner extends StatelessWidget {
             height: size.height * 0.2,
             color: AppColors.backgroundColorSkin(isDark),
             child: GestureDetector(
-                onTap: ()=> controller.onTapSingleBanners(singleBanner: homeSingleBanner),
+                onTap: ()=> home.onTapSingleBanners(singleBanner: homeSingleBanner),
                 child: appAsyncImage(banner.imageUrl, boxFit: BoxFit.cover)),
           ),
         );

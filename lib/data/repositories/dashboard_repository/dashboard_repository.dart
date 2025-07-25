@@ -6,20 +6,14 @@ import 'package:danapaniexpress/data/repositories/dashboard_repository/dashbboar
 
 class DashboardRepository extends DashboardDataSource{
 
-  /// GET PAGERS DATA - API
-  Future<List<PagerImagesModel>> getPagerItems(String section) async {
-    return await getPagerDataApi(section);
+
+
+  /// GET POPULAR PRODUCTS WITH PAGINATION - REPO
+  Future<PaginatedProducts> getPopularProductsPaginated({int page = 1, int limit = 10}) async {
+    final data = await getPopularProductsPaginatedApi(page: page, limit: limit);
+    return PaginatedProducts.fromJson(data); // includes products & total count
   }
 
-  /// GET MARQUEE DATA - API
-  Future<MarqueeModel> getMarquee() async {
-    return await getMarqueeApi();
-  }
-
-  /// GET COVER IMAGES DATA - API
-  Future<CoverImagesModel> getCoverImages() async {
-    return await getCoverImagesApi();
-  }
 
   /// GET PAGERS DATA - ASSETS
 
@@ -169,24 +163,7 @@ class DashboardRepository extends DashboardDataSource{
     return paginated;
   }
 
-  /// Fetch Single Product
-  Future<ProductModel?> fetchSingleProductById(String id) async {
-    try {
-      String jsonString = await rootBundle.loadString(jsonProducts);
-      List<dynamic> jsonData = json.decode(jsonString);
 
-      final matched = jsonData.firstWhere(
-            (item) => item[ProductFields.productId].toString() == id,
-      );
-
-      return ProductModel.fromJson(matched);
-    } catch (e) {
-      if (kDebugMode) {
-        print("Error fetching product with id $id: $e");
-      }
-      return null;
-    }
-  }
 
   // /// SINGLE BANNER ON HOME
   // Future<void> fetchSingleBannerOneEvent(

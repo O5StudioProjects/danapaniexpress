@@ -1,10 +1,10 @@
 export 'package:danapaniexpress/domain/controllers/theme_controller/theme_controller.dart';
 export 'package:danapaniexpress/domain/controllers/startup_controller/startup_controller.dart';
 export 'package:danapaniexpress/domain/controllers/dashboard_controller/dashboard_controller.dart';
-export 'package:danapaniexpress/domain/controllers/home_screen_controller/home_screen_controller.dart';
+export 'package:danapaniexpress/domain/controllers/home_controller/home_controller.dart';
 export 'package:danapaniexpress/domain/controllers/splash_controller/splash_controller.dart';
 export 'package:danapaniexpress/domain/controllers/navigation_controller/navigation_controller.dart';
-export 'package:danapaniexpress/domain/controllers/product_controller/product_controller.dart';
+export 'package:danapaniexpress/domain/controllers/product_controller/product_scroll_controller.dart';
 export 'package:danapaniexpress/domain/controllers/product_controller/product_detail_controller.dart';
 export 'package:danapaniexpress/domain/controllers/cart_controller/cart_controller.dart';
 export 'package:danapaniexpress/domain/controllers/categories_controller/categories_controller.dart';

@@ -1,5 +1,6 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
+import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/core/packages_import.dart';
 
 
@@ -9,10 +10,10 @@ class NotificationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<DashBoardController>();
+    final home = Get.find<HomeController>();
 
     return Obx(() {
-      final data = controller.marqueeData.value;
+      final data = home.marqueeData.value;
 
       if (data == null ||
           (data.marqueeDetailEnglish.isEmpty &&

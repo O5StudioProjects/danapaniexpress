@@ -1,46 +1,45 @@
+import 'package:danapaniexpress/core/data_model_imports.dart';
+
+const String favoritesTable = 'favorites';
+
 class FavoritesFields {
+  static const String userId = 'user_id';
+  static const String products = 'products';
+
   static final List<String> values = [
     userId,
-    productId,
-    dateTime,
+    products,
   ];
-
-  static const String userId = 'user_id';
-  static const String productId = 'product_id';
-  static const String dateTime = 'date_time';
 }
 
 class FavoritesModel {
   final String? userId;
-  final String? productId;
-  final String? dateTime;
+  final List<ProductModel>? products;
 
   const FavoritesModel({
     this.userId,
-    this.productId,
-    this.dateTime,
+    this.products,
   });
-
-  Map<String, Object?> toJson() => {
-    FavoritesFields.userId: userId,
-    FavoritesFields.productId: productId,
-    FavoritesFields.dateTime: dateTime,
-  };
-
-  static FavoritesModel fromJson(Map<String, Object?> json) => FavoritesModel(
-    userId: json[FavoritesFields.userId] as String?,
-    productId: json[FavoritesFields.productId] as String?,
-    dateTime: json[FavoritesFields.dateTime] as String?,
-  );
 
   FavoritesModel copy({
     String? userId,
-    String? productId,
-    String? dateTime,
+    List<ProductModel>? products,
   }) =>
       FavoritesModel(
         userId: userId ?? this.userId,
-        productId: productId ?? this.productId,
-        dateTime: dateTime ?? this.dateTime,
+        products: products ?? this.products,
       );
+
+  static FavoritesModel fromJson(Map<String, dynamic> json) => FavoritesModel(
+    userId: json[FavoritesFields.userId],
+    products: json[FavoritesFields.products] == null
+        ? []
+        : List<ProductModel>.from(
+        json[FavoritesFields.products].map((x) => ProductModel.fromJson(x))),
+  );
+
+  Map<String, dynamic> toJson() => {
+    FavoritesFields.userId: userId,
+    FavoritesFields.products: products?.map((x) => x.toJson()).toList(),
+  };
 }
