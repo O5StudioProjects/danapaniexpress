@@ -124,7 +124,8 @@ class ProductDetailScreenMobile extends StatelessWidget {
 
   Widget productDetailLDataUI({required ProductModel data}) {
     var productDetail = Get.find<ProductDetailController>();
-    var dashboard = Get.find<DashBoardController>();
+    var products = Get.find<ProductsController>();
+    var auth = Get.find<AuthController>();
     return Column(
       crossAxisAlignment: appLanguage == URDU_LANGUAGE
           ? CrossAxisAlignment.end
@@ -141,13 +142,15 @@ class ProductDetailScreenMobile extends StatelessWidget {
                         alpha: 0.7))),
 
             GestureDetector(
-                onTap: () {
-                  Get.find<ThemeController>().changeTheme();
+                onTap: () async {
+                  await productDetail.toggleFavorite(data.productId!);
                 },
-                child: appIcon(iconType: IconType.PNG,
-                    icon: icHeart,
+                child: productDetail.toggleFavoriteStatus.value == Status.LOADING ? loadingIndicator() : appIcon(iconType: IconType.PNG,
+                    icon: data.isFavoriteBy(auth.userId.value ?? '') ? icHeartFill : icHeart,
                     width: 20.0,
-                    color: AppColors.backgroundColorInverseSkin(isDark)))
+                    color: data.isFavoriteBy(auth.userId.value ?? '')
+                        ? AppColors.materialButtonSkin(isDark) // or filled color
+                        : AppColors.backgroundColorInverseSkin(isDark),))
           ],
         ),
         setHeight(MAIN_HORIZONTAL_PADDING),
@@ -345,7 +348,7 @@ class ProductDetailScreenMobile extends StatelessWidget {
               ),
               setHeight(MAIN_VERTICAL_PADDING),
 
-              ProductsRowUi(products: dashboard.featuredProducts, screenType: ProductsScreenType.FEATURED, horizontalPadding: 0.0,firstIndexLeftPadding: 2.0,)
+              ProductsRowUi(products: products.featuredProducts, screenType: ProductsScreenType.FEATURED, horizontalPadding: 0.0,firstIndexLeftPadding: 2.0,)
             ],
           )
       ],

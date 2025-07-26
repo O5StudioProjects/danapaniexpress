@@ -29,7 +29,6 @@ class ProductFields {
     productAvailability,
     vendor,
     isSelected,
-    isFavorite,
     productQuantityLimit,
     dateTime,
   ];
@@ -59,8 +58,7 @@ class ProductFields {
   static const String productAvailability = 'product_availability';
   static const String vendor = 'Vendor';
   static const String isSelected = 'is_selected';
-  static const String isFavorite = 'is_favorite';
-  static const String productQuantityLimit = 'prodcut_quantity_limit';
+  static const String productQuantityLimit = 'prodcut_quantity_limit'; // API typo preserved
   static const String dateTime = 'date_time';
 }
 
@@ -86,11 +84,10 @@ class ProductModel {
   final String? productFeaturedId;
   final bool? productIsFlashsale;
   final String? productFlashsaleId;
-  final List<UserIdModel>? productFavoriteList;
+  final List<String>? productFavoriteList;
   final bool? productAvailability;
   final VendorModel? vendor;
   final bool? isSelected;
-  final bool? isFavorite;
   final int? productQuantityLimit;
   final String? dateTime;
 
@@ -120,43 +117,16 @@ class ProductModel {
     this.productAvailability,
     this.vendor,
     this.isSelected,
-    this.isFavorite,
     this.productQuantityLimit,
     this.dateTime,
   });
 
-  Map<String, Object?> toJson() => {
-    ProductFields.productId: productId,
-    ProductFields.productCode: productCode,
-    ProductFields.productImage: productImage,
-    ProductFields.productNameEng: productNameEng,
-    ProductFields.productNameUrdu: productNameUrdu,
-    ProductFields.productDetailEng: productDetailEng,
-    ProductFields.productDetailUrdu: productDetailUrdu,
-    ProductFields.productCategory: productCategory,
-    ProductFields.productSubCategory: productSubCategory,
-    ProductFields.productCutPrice: productCutPrice,
-    ProductFields.productSellingPrice: productSellingPrice,
-    ProductFields.productBuyingPrice: productBuyingPrice,
-    ProductFields.productSize: productSize,
-    ProductFields.productWeightGrams: productWeightGrams,
-    ProductFields.productBrand: productBrand,
-    ProductFields.productTotalSold: productTotalSold,
-    ProductFields.productRating: productRating,
-    ProductFields.productIsFeatured: productIsFeatured,
-    ProductFields.productFeaturedId: productFeaturedId,
-    ProductFields.productIsFlashsale: productIsFlashsale,
-    ProductFields.productFlashsaleId: productFlashsaleId,
-    ProductFields.productFavoriteList: productFavoriteList?.map((e) => e.toJson()).toList(),
-    ProductFields.productAvailability: productAvailability,
-    ProductFields.vendor: vendor?.toJson(),
-    ProductFields.isSelected: isSelected,
-    ProductFields.isFavorite: isFavorite,
-    ProductFields.productQuantityLimit: productQuantityLimit,
-    ProductFields.dateTime: dateTime,
-  };
+  /// Check if this product is favorited by a specific user
+  bool isFavoriteBy(String userId) {
+    return productFavoriteList?.contains(userId) ?? false;
+  }
 
-  static ProductModel fromJson(Map<String, dynamic> json) => ProductModel(
+  factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
     productId: json[ProductFields.productId]?.toString(),
     productCode: json[ProductFields.productCode]?.toString(),
     productImage: json[ProductFields.productImage]?.toString(),
@@ -179,14 +149,48 @@ class ProductModel {
     productIsFlashsale: json[ProductFields.productIsFlashsale] == true || json[ProductFields.productIsFlashsale]?.toString() == '1',
     productFlashsaleId: json[ProductFields.productFlashsaleId]?.toString(),
     productFavoriteList: (json[ProductFields.productFavoriteList] as List<dynamic>?)
-        ?.map((e) => UserIdModel.fromJson(e)).toList(),
+        ?.map((e) => e['user_id'].toString())
+        .toList(),
     productAvailability: json[ProductFields.productAvailability] == true || json[ProductFields.productAvailability]?.toString() == '1',
     vendor: json[ProductFields.vendor] != null ? VendorModel.fromJson(json[ProductFields.vendor]) : null,
     isSelected: json[ProductFields.isSelected] == true,
-    isFavorite: json[ProductFields.isFavorite] == true,
     productQuantityLimit: int.tryParse(json[ProductFields.productQuantityLimit]?.toString() ?? ''),
     dateTime: json[ProductFields.dateTime]?.toString(),
   );
+
+  Map<String, dynamic> toJson() =>
+      {
+        ProductFields.productId: productId,
+        ProductFields.productCode: productCode,
+        ProductFields.productImage: productImage,
+        ProductFields.productNameEng: productNameEng,
+        ProductFields.productNameUrdu: productNameUrdu,
+        ProductFields.productDetailEng: productDetailEng,
+        ProductFields.productDetailUrdu: productDetailUrdu,
+        ProductFields.productCategory: productCategory,
+        ProductFields.productSubCategory: productSubCategory,
+        ProductFields.productCutPrice: productCutPrice,
+        ProductFields.productSellingPrice: productSellingPrice,
+        ProductFields.productBuyingPrice: productBuyingPrice,
+        ProductFields.productSize: productSize,
+        ProductFields.productWeightGrams: productWeightGrams,
+        ProductFields.productBrand: productBrand,
+        ProductFields.productTotalSold: productTotalSold,
+        ProductFields.productRating: productRating,
+        ProductFields.productIsFeatured: productIsFeatured,
+        ProductFields.productFeaturedId: productFeaturedId,
+        ProductFields.productIsFlashsale: productIsFlashsale,
+        ProductFields.productFlashsaleId: productFlashsaleId,
+        ProductFields.productFavoriteList: productFavoriteList?.map((id) =>
+        {
+          'user_id': id
+        }).toList(),
+        ProductFields.productAvailability: productAvailability,
+        ProductFields.vendor: vendor?.toJson(),
+        ProductFields.isSelected: isSelected,
+        ProductFields.productQuantityLimit: productQuantityLimit,
+        ProductFields.dateTime: dateTime,
+      };
 
   ProductModel copy({
     String? productId,
@@ -210,11 +214,10 @@ class ProductModel {
     String? productFeaturedId,
     bool? productIsFlashsale,
     String? productFlashsaleId,
-    List<UserIdModel>? productFavoriteList,
+    List<String>? productFavoriteList,
     bool? productAvailability,
     VendorModel? vendor,
     bool? isSelected,
-    bool? isFavorite,
     int? productQuantityLimit,
     String? dateTime,
   }) =>
@@ -244,7 +247,6 @@ class ProductModel {
         productAvailability: productAvailability ?? this.productAvailability,
         vendor: vendor ?? this.vendor,
         isSelected: isSelected ?? this.isSelected,
-        isFavorite: isFavorite ?? this.isFavorite,
         productQuantityLimit: productQuantityLimit ?? this.productQuantityLimit,
         dateTime: dateTime ?? this.dateTime,
       );

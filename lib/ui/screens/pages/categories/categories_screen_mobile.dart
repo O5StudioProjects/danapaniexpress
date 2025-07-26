@@ -1,6 +1,8 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
 
+import '../../../../core/data_model_imports.dart';
+
 class CategoriesScreenMobile extends StatelessWidget {
   const CategoriesScreenMobile({super.key});
 
@@ -9,7 +11,17 @@ class CategoriesScreenMobile extends StatelessWidget {
     var categories = Get.find<CategoriesController>();
     return Obx(() {
       var categoriesData = categories.categoriesList[categories.categoryIndex.value];
-      var subCategoriesData = categories.categoriesList[categories.categoryIndex.value].subCategories!;
+      //var subCategoriesData = categories.categoriesList[categories.categoryIndex.value].subCategories!;
+      final List<SubCategoriesModel> subCategoriesList = [
+        SubCategoriesModel( // Dummy "All" item
+          categoryId: categoriesData.categoryId,
+          subCategoryId: 'All',
+          subCategoryNameEnglish: 'All',
+          subCategoryNameUrdu: 'تمام',
+          subCategoryImage: categoriesData.categoryImage
+        ),
+        ...?categoriesData.subCategories, // Spread real items
+      ];
       return Container(
         width: size.width,
         height: size.height,
@@ -56,7 +68,7 @@ class CategoriesScreenMobile extends StatelessWidget {
                                           ),
                                         ),
                                         if(index != categories.categoriesList.length -1)
-                                          appDivider()
+                                          appDivider(height: 0.0)
                                       ],
                                     ),
                                   );
@@ -67,7 +79,7 @@ class CategoriesScreenMobile extends StatelessWidget {
                         ),
 
                         ///SUBCATEGORIES Section
-                        subCategoriesData.isNotEmpty
+                        subCategoriesList.isNotEmpty
                             ? Expanded(
                                 child: ConstrainedBox(
                                   constraints: BoxConstraints(
@@ -91,9 +103,9 @@ class CategoriesScreenMobile extends StatelessWidget {
                                         MAIN_HORIZONTAL_PADDING,
                                         childAspectRatio: 0.7, // tweak this for height vs width
                                       ),
-                                      itemCount: subCategoriesData.length,
+                                      itemCount: subCategoriesList.length,
                                       itemBuilder: (context, index) {
-                                        var listData = subCategoriesData[index];
+                                        var listData = subCategoriesList[index];
                                         return GestureDetector(
                                             onTap: ()=> categories.onTapSubCategories(index, categoriesData),
                                             child: SubCategoryItem(data: listData));

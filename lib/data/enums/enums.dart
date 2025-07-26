@@ -10,6 +10,8 @@ enum IconType {
   URL
 }
 
+enum Status {IDLE, LOADING, SUCCESS, FAILURE}
+
 enum AppbarPagerImagesStatus {
   IDLE, LOADING, SUCCESS, FAILURE
 }

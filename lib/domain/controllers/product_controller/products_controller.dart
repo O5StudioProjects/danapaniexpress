@@ -21,7 +21,6 @@ class ProductsController extends GetxController{
 
   /// IF INDEX IS 0 AND ALL PRODUCTS FROM ONE CATEGORY
   Future<void> fetchInitialProductsByCategory(String category) async {
-    subCategoryIndex.value = 0;
     try {
       productsStatus.value = ProductsByCatStatus.LOADING;
       currentPage = 1;
@@ -122,7 +121,7 @@ class ProductsController extends GetxController{
 
 
 
-  /// OTHER PRODUCTS
+  /// OTHER PRODUCTS - POPULAR PRODUCTS
   final RxList<ProductModel> popularProducts = <ProductModel>[].obs;
   final Rx<ProductsStatus> popularStatus = ProductsStatus.IDLE.obs;
   final RxBool hasMoreAllProducts = true.obs;
@@ -179,8 +178,126 @@ class ProductsController extends GetxController{
     }
   }
 
+  /// OTHER PRODUCTS - FEATURED PRODUCTS
+  final RxList<ProductModel> featuredProducts = <ProductModel>[].obs;
+  final Rx<ProductsStatus> featuredStatus = ProductsStatus.IDLE.obs;
+  final RxBool hasMoreFeaturedProducts = true.obs;
+
+  final int featuredLimit = PRODUCTS_LIMIT;
+  int currentFeaturedPage = 1;
+
+  Future<void> fetchInitialFeaturedProducts() async {
+    try {
+      featuredStatus.value = ProductsStatus.LOADING;
+      currentFeaturedPage = 1;
+
+      final products = await productsRepo.getFeaturedProductsPaginated(
+        page: currentFeaturedPage,
+        limit: featuredLimit,
+      );
+
+
+      featuredProducts.assignAll(products);
+      hasMoreFeaturedProducts.value = products.length == featuredLimit;
+      featuredStatus.value = ProductsStatus.SUCCESS;
+      print('FEATURED products Fetched');
+
+    } catch (e) {
+      featuredStatus.value = ProductsStatus.FAILURE;
+      // handle error or log
+      print('POPULAR products $e');
+    }
+  }
+
+  Future<void> loadMoreFeaturedProducts() async {
+    if (isLoadingMore.value || !hasMoreFeaturedProducts.value) return;
+
+    try {
+      isLoadingMore.value = true;
+      currentFeaturedPage += 1;
+
+      final moreProducts = await productsRepo.getFeaturedProductsPaginated(
+        page: currentFeaturedPage,
+        limit: featuredLimit,
+      );
+
+      if (moreProducts.isNotEmpty) {
+        featuredProducts.addAll(moreProducts);
+      }
+
+      // If fetched less than limit, no more products
+      hasMoreFeaturedProducts.value = moreProducts.length == featuredLimit;
+    } catch (e) {
+      currentFeaturedPage -= 1; // revert page if failed
+      // handle error
+    } finally {
+      isLoadingMore.value = false;
+    }
+  }
+
+  /// OTHER PRODUCTS - FLASH SALE PRODUCTS
+  final RxList<ProductModel> flashSaleProducts = <ProductModel>[].obs;
+  final Rx<ProductsStatus> flashSaleStatus = ProductsStatus.IDLE.obs;
+  final RxBool hasMoreFlashSaleProducts = true.obs;
+
+  final int flashSaleLimit = PRODUCTS_LIMIT;
+  int currentFlashSalePage = 1;
+
+  Future<void> fetchInitialFlashSaleProducts() async {
+    try {
+      flashSaleStatus.value = ProductsStatus.LOADING;
+      currentFlashSalePage = 1;
+
+      final products = await productsRepo.getFlashsaleProductsPaginated(
+        page: currentFlashSalePage,
+        limit: flashSaleLimit,
+      );
+
+
+      flashSaleProducts.assignAll(products);
+      hasMoreFlashSaleProducts.value = products.length == flashSaleLimit;
+      flashSaleStatus.value = ProductsStatus.SUCCESS;
+      print('FLASH SALE products Fetched');
+
+    } catch (e) {
+      flashSaleStatus.value = ProductsStatus.FAILURE;
+      // handle error or log
+      print('POPULAR products $e');
+    }
+  }
+
+  Future<void> loadMoreFlashSaleProducts() async {
+    if (isLoadingMore.value || !hasMoreFlashSaleProducts.value) return;
+
+    try {
+      isLoadingMore.value = true;
+      currentFlashSalePage += 1;
+
+      final moreProducts = await productsRepo.getFlashsaleProductsPaginated(
+        page: currentFlashSalePage,
+        limit: flashSaleLimit,
+      );
+
+      if (moreProducts.isNotEmpty) {
+        flashSaleProducts.addAll(moreProducts);
+      }
+
+      // If fetched less than limit, no more products
+      hasMoreFlashSaleProducts.value = moreProducts.length == flashSaleLimit;
+    } catch (e) {
+      currentFlashSalePage -= 1; // revert page if failed
+      // handle error
+    } finally {
+      isLoadingMore.value = false;
+    }
+  }
+
+
+
+
+
   Future<void> getSingleProduct(String id) async {
-    singleProduct.value = await productsRepo.fetchSingleProductById(id);
+    singleProduct.value = await productsRepo.getSingleProduct(productId: id);
   }
 
 

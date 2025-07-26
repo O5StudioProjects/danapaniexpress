@@ -19,10 +19,13 @@ class APiEndpoints {
   static String getCoverImages = "$path/cover_img.php/get_cover_img";
   static String getCategories = "$path/get_categories.php/categories";
   static String getCategoryById = "$path/cat_entry.php/get_categorybyID";
-
+  static String getSingleProduct = "$path/get_products.php/get_single_product";
   static String getPopularProducts = "$path/get_products.php/get_popular_products";
+  static String getFeaturedProducts = "$path/featured_products.php/get_featured_products";
+  static String getFlashSaleProducts = "$path/flashsale_products.php/get_flashsale_products";
   static String getProductsByCategories = "$path/get_products.php/get_products_by_category";
   static String getProductsByCategoriesAndSubCategories = "$path/get_products.php/get_products_by_cat_subcat";
+  static String toggleFavorite = "$path/favorites_entry.php/toggle_favorite";
 
 
   ///GET APIS

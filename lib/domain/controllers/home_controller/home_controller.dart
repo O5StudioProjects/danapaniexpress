@@ -48,6 +48,8 @@ class HomeController extends GetxController {
     fetchBodyPagerImages();
     fetchSingleBanners();
     fetchInitialPopularProducts();
+    fetchInitialFeaturedProducts();
+    fetchInitialFlashSaleProducts();
   }
 
 
@@ -95,10 +97,20 @@ class HomeController extends GetxController {
   Future<void> fetchCategories() async {
     await categories.fetchCategories();
   }
-  //Fetch Products here
+
+  //Fetch OTHER Products here - POPULAR
   Future<void> fetchInitialPopularProducts() async {
     await products.fetchInitialPopularProducts();
+  }
 
+  //Fetch OTHER Products here - FEATURED
+  Future<void> fetchInitialFeaturedProducts() async {
+    await products.fetchInitialFeaturedProducts();
+  }
+
+  //Fetch OTHER Products here - FLASH SALE
+  Future<void> fetchInitialFlashSaleProducts() async {
+    await products.fetchInitialFlashSaleProducts();
   }
 
   // Fetch Cover Images

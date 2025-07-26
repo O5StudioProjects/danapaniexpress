@@ -4,7 +4,7 @@ import 'package:danapaniexpress/domain/controllers/product_controller/products_c
 
 class ProductScrollController extends GetxController {
 
-  final productsRepo  = ProductRepository();
+  final productsRepo  = ProductDetailRepository();
   var products = Get.find<ProductsController>();
 
   final Rxn<CategoryModel> categoryDataInitial = Rxn<CategoryModel>();
@@ -27,6 +27,8 @@ class ProductScrollController extends GetxController {
 
     if (categoryArg is CategoryModel) {
       categoryDataInitial.value = categoryArg;
+      final subCategories = categoryDataInitial.value!.subCategories ?? [];
+
       products.subCategoryIndex.value = subCatIndexArg;
 
       initCategoryScrollListener(
@@ -34,8 +36,28 @@ class ProductScrollController extends GetxController {
         subCategory: 'All',
       );
 
-      products.fetchInitialProductsByCategory(categoryDataInitial.value!.categoryId!);
+      print('Subcategory Index : ${products.subCategoryIndex.value}');
 
+      if (subCatIndexArg == 0) {
+        // 'All' selected
+        products.fetchInitialProductsByCategory(categoryDataInitial.value!.categoryId!);
+      } else {
+        final realIndex = subCatIndexArg - 1;
+
+        if (realIndex >= 0 && realIndex < subCategories.length) {
+          final subCatId = subCategories[realIndex].subCategoryId!;
+          products.fetchInitialProductsByCategoryAndSubCategory(
+            category: categoryDataInitial.value!.categoryId!,
+            subCategory: subCatId,
+          );
+        } else {
+          showSnackbar(
+            isError: true,
+            title: 'Invalid Index',
+            message: 'Subcategory index is out of bounds.',
+          );
+        }
+      }
     } else {
       showSnackbar(
         isError: true,
@@ -44,6 +66,8 @@ class ProductScrollController extends GetxController {
       );
     }
   }
+
+
 
 
   void initCategoryScrollListener({

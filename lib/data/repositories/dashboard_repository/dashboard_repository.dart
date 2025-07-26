@@ -7,14 +7,6 @@ import 'package:danapaniexpress/data/repositories/dashboard_repository/dashbboar
 class DashboardRepository extends DashboardDataSource{
 
 
-
-  /// GET POPULAR PRODUCTS WITH PAGINATION - REPO
-  Future<PaginatedProducts> getPopularProductsPaginated({int page = 1, int limit = 10}) async {
-    final data = await getPopularProductsPaginatedApi(page: page, limit: limit);
-    return PaginatedProducts.fromJson(data); // includes products & total count
-  }
-
-
   /// GET PAGERS DATA - ASSETS
 
   // Future<void> fetchAppbarPagerImagesListEvent(
@@ -128,40 +120,6 @@ class DashboardRepository extends DashboardDataSource{
   //     }
   //   }
   // }
-
-  Future<List<ProductModel>> fetchProductsListEvent({
-    required ProductFilterType filterType,
-    required int limit,
-    required int offset, // add this
-  }) async {
-    String jsonString = await rootBundle.loadString(jsonProducts);
-    List<dynamic> jsonData = json.decode(jsonString);
-
-    Iterable filtered = jsonData;
-
-    // Apply filter
-    switch (filterType) {
-      case ProductFilterType.featured:
-        filtered = jsonData.where((item) => item[ProductFields.productIsFeatured] == true);
-        break;
-      case ProductFilterType.flashSale:
-        filtered = jsonData.where((item) => item[ProductFields.productIsFlashsale] == true);
-        break;
-      case ProductFilterType.all:
-      case ProductFilterType.popular:
-        filtered = jsonData;
-        break;
-    }
-
-    List<ProductModel> result = filtered
-        .map((item) => ProductModel.fromJson(item))
-        .toList();
-
-    // ✅ Apply offset and limit
-    final paginated = result.skip(offset).take(limit).toList();
-
-    return paginated;
-  }
 
 
 

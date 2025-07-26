@@ -11,5 +11,4 @@ export 'package:danapaniexpress/data/models/address_model.dart';
 export 'package:danapaniexpress/data/models/vendor_model.dart';
 export 'package:danapaniexpress/data/models/user_id_model.dart';
 export 'package:danapaniexpress/data/models/cart_model.dart';
-export 'package:danapaniexpress/data/models/paginated_products_model.dart';
 

@@ -84,7 +84,7 @@ export 'package:danapaniexpress/ui/screens/pages/home_screen/home_screen_widgets
 export 'package:danapaniexpress/ui/app_common/dialogs/custom_dialog.dart';
 export 'package:danapaniexpress/ui/app_common/dialogs/notification_image_popup.dart';
 export 'package:danapaniexpress/data/repositories/categories_repository/categories_repository.dart';
-export 'package:danapaniexpress/data/repositories/product_repository/product_repository.dart';
+export 'package:danapaniexpress/data/repositories/product_detail_repository/product_detail_repository.dart';
 export 'package:danapaniexpress/data/repositories/products_repository/products_repository.dart';
 export 'package:danapaniexpress/data/repositories/dashboard_repository/dashboard_repository.dart';
 

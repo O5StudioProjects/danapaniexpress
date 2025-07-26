@@ -3,9 +3,6 @@ import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/domain/controllers/product_controller/products_controller.dart';
 
 class OtherProductsController extends GetxController {
-
-  var dashboardRepo = DashboardRepository();
-  final dashBoardController = Get.find<DashBoardController>();
   final products = Get.find<ProductsController>();
   Rx<ProductsScreenType> productScreenType = ProductsScreenType.CATEGORIES.obs;
   final scrollController = ScrollController();
@@ -51,32 +48,19 @@ class OtherProductsController extends GetxController {
 
       // ✅ Load more
       if (currentOffset >= maxOffset - 300) {
-        products.loadMorePopularProducts();
+        if(productScreenType.value == ProductsScreenType.POPULAR){
+          products.loadMorePopularProducts();
+        } else if(productScreenType.value == ProductsScreenType.FEATURED){
+          products.loadMoreFeaturedProducts();
+        } else if(productScreenType.value == ProductsScreenType.FLASHSALE){
+          products.loadMoreFlashSaleProducts();
+        }
+
        // _loadMoreProducts(dashboardController);
       }
     });
   }
 
-  void _loadMoreProducts(DashBoardController dashboardController) {
-    final screenType = productScreenType.value;
-
-    if (screenType == ProductsScreenType.FEATURED) {
-      if (!dashboardController.isLoadingMore.value &&
-          dashboardController.hasMoreFeatured.value) {
-        dashboardController.fetchFeaturedProducts(loadMore: true);
-      }
-    } else if (screenType == ProductsScreenType.FLASHSALE) {
-      if (!dashboardController.isLoadingMore.value &&
-          dashboardController.hasMoreFlashSale.value) {
-        dashboardController.fetchFlashSaleProducts(loadMore: true);
-      }
-    } else if (screenType == ProductsScreenType.POPULAR) {
-      if (!dashboardController.isLoadingMore.value &&
-          dashboardController.hasMoreAllProducts.value) {
-        products.fetchInitialPopularProducts();
-      }
-    }
-  }
 
   @override
   void onInit() {
