@@ -1,10 +1,15 @@
 import 'package:danapaniexpress/core/common_imports.dart';
+import 'package:danapaniexpress/core/controllers_import.dart';
+import 'package:danapaniexpress/core/data_model_imports.dart';
 
 class FavoriteProductItem extends StatelessWidget {
-  const FavoriteProductItem({super.key});
+  final ProductModel product;
+  final Function()? onTapFavorite;
+  const FavoriteProductItem({super.key, required this.product, this.onTapFavorite});
 
   @override
   Widget build(BuildContext context) {
+    final favorites = Get.find<FavoritesController>();
     return Padding(
       padding: const EdgeInsets.only(bottom: MAIN_HORIZONTAL_PADDING),
       child: LayoutBuilder(
@@ -12,7 +17,7 @@ class FavoriteProductItem extends StatelessWidget {
           final imageSize = constraints.maxWidth * 0.2;
 
           return Container(
-          //  height: imageSize * 1.4, // fixes container height based on image size + padding
+            //  height: imageSize * 1.4, // fixes container height based on image size + padding
             padding: const EdgeInsets.all(12.0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12.0),
@@ -33,12 +38,13 @@ class FavoriteProductItem extends StatelessWidget {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(12.0),
-                      child: SizedBox(
+                      child: Container(
+                        color: whiteColor,
                         width: imageSize,
                         height: imageSize,
-                        child: appAssetImage(
-                          image: imgProductBackground,
-                          fit: BoxFit.cover,
+                        child: appAsyncImage(
+                          product.productImage,
+                          boxFit: BoxFit.cover,
                         ),
                       ),
                     ),
@@ -49,7 +55,7 @@ class FavoriteProductItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           appText(
-                            text: 'Product Name ',
+                            text: appLanguage == URDU_LANGUAGE ? product.productNameUrdu : product.productNameEng,
                             textStyle: itemTextStyle().copyWith(fontSize: HEADING_FONT_SIZE),
                             textDirection: setTextDirection(appLanguage),
                             maxLines: 1,
@@ -58,14 +64,14 @@ class FavoriteProductItem extends StatelessWidget {
                           Row(
                             children: [
                               appText(
-                                text: '10000 gm',
+                                text: '${product.productWeightGrams} gm',
                                 textStyle: textFormHintTextStyle().copyWith(fontSize: NORMAL_TEXT_FONT_SIZE -2),
                                 maxLines: 1,
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 6.0),
                                 child: appText(
-                                  text: 'L',
+                                  text: product.productSize,
                                   textStyle: itemTextStyle(),
                                   maxLines: 1,
                                 ),
@@ -77,14 +83,14 @@ class FavoriteProductItem extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               appText(
-                                text: 'Rs. 300',
+                                text: 'Rs. ${product.productSellingPrice}',
                                 textStyle: sellingPriceTextStyle(),
                                 maxLines: 1,
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(left: 6.0),
                                 child: appText(
-                                  text: 'Rs. 400',
+                                  text: 'Rs. ${product.productCutPrice}',
                                   maxLines: 1,
                                   textStyle: cutPriceTextStyle(isDetail: false),
                                 ),
@@ -95,12 +101,15 @@ class FavoriteProductItem extends StatelessWidget {
                         ],
                       ),
                     ),
-                   const SizedBox(width: MAIN_HORIZONTAL_PADDING),
-                    appIcon(
-                      iconType: IconType.PNG,
-                      icon: icHeartFill,
-                      width: 24.0,
-                      color: AppColors.materialButtonSkin(isDark),
+                    const SizedBox(width: MAIN_HORIZONTAL_PADDING),
+                    GestureDetector(
+                      onTap: onTapFavorite,
+                      child: appIcon(
+                        iconType: IconType.PNG,
+                        icon: icHeartFill,
+                        width: 24.0,
+                        color: AppColors.materialButtonSkin(isDark),
+                      ),
                     ),
                   ],
                 ),
@@ -111,8 +120,8 @@ class FavoriteProductItem extends StatelessWidget {
                     SizedBox(
                       height: 35.0,
                       child: appMaterialButton(
-                        text: AppLanguage.addToCartStr(appLanguage),
-                        fontSize: SUB_HEADING_TEXT_BUTTON_FONT_SIZE
+                          text: AppLanguage.addToCartStr(appLanguage),
+                          fontSize: SUB_HEADING_TEXT_BUTTON_FONT_SIZE
                       ),
                     ),
 

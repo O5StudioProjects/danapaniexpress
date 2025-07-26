@@ -9,28 +9,27 @@ class EmptyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-        child: Obx(
-          ()=> Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width: size.width * 0.5,
-                  height: size.width * 0.4,
-                  color: Colors.transparent,
-                  child: appIcon(icon: icon, iconType: iconType),
-                ),
-
-                setHeight(MAIN_VERTICAL_PADDING),
-                appText(text: text, textStyle: bodyTextStyle().copyWith(
-                    color: AppColors.materialButtonSkin(isDark),
-                  fontSize: SUB_HEADING_TEXT_BUTTON_FONT_SIZE
-                ))
-              ],
+    return Obx(
+      ()=> Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: size.width * 0.5,
+              height: size.width * 0.4,
+              color: Colors.transparent,
+              child: appIcon(icon: icon, iconType: iconType),
             ),
-          ),
-        ));
+
+            setHeight(MAIN_VERTICAL_PADDING),
+            appText(text: text, textStyle: bodyTextStyle().copyWith(
+                color: AppColors.materialButtonSkin(isDark),
+              fontSize: SUB_HEADING_TEXT_BUTTON_FONT_SIZE
+            ))
+          ],
+        ),
+      ),
+    );
   }
 }
 

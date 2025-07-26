@@ -157,6 +157,7 @@ Map<String, Map<String, String>> allLang = {
     QUIT: 'Quit',
     DO_YOU_WANT_TO_CLOSE_APP: 'Do you want to close app?',
     DO_YOU_WANT_TO_SIGN_OUT: 'Do you want to Sign out?',
+    LOADING: 'Loading...',
 
   },
 
@@ -317,5 +318,7 @@ Map<String, Map<String, String>> allLang = {
     QUIT: 'باہر نکلیں',
     DO_YOU_WANT_TO_CLOSE_APP: 'کیا آپ ایپ بند کرنا چاہتے ہیں؟',
     DO_YOU_WANT_TO_SIGN_OUT: 'کیا آپ سائن آؤٹ کرنا چاہتے ہیں؟',
+    LOADING: 'لوڈ ہو رہا ہے...',
+
   },
 };
