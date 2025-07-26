@@ -8,8 +8,8 @@ class ProductsScreenMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var productController = Get.find<ProductScrollController>();
     var product = Get.find<ProductsController>();
+    var productController = Get.find<ProductScrollController>();
     var navigation = Get.find<NavigationController>();
     return Obx(() {
       final categoriesData = productController.categoryDataInitial.value;

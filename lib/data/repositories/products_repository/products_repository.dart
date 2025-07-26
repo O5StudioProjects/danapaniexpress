@@ -1,9 +1,4 @@
-
-
-import 'dart:convert';
-
 import 'package:danapaniexpress/core/data_model_imports.dart';
-
 import '../../../core/common_imports.dart';
 
 class ProductsRepository extends ProductsDatasource {
@@ -12,7 +7,14 @@ class ProductsRepository extends ProductsDatasource {
   Future<List<ProductModel>> getPopularProductsPaginated({int page = 1, int limit = 10}) async {
     return await getPopularProductsPaginatedApi(page: page, limit: limit);
   }
-
+  /// GET FEATURED PRODUCTS WITH PAGINATION - REPO
+  Future<List<ProductModel>> getFeaturedProductsPaginated({int page = 1, int limit = 10}) async {
+    return await getFeaturedProductsPaginatedApi(page: page, limit: limit);
+  }
+  /// GET FLASH SALE PRODUCTS WITH PAGINATION - REPO
+  Future<List<ProductModel>> getFlashsaleProductsPaginated({int page = 1, int limit = 10}) async {
+    return await getFlashsaleProductsPaginatedApi(page: page, limit: limit);
+  }
 
   Future<List<ProductModel>> getProductsByCategoryPaginated({
     required String category,
@@ -40,25 +42,11 @@ class ProductsRepository extends ProductsDatasource {
     );
   }
 
-
-
-
-  /// Fetch Single Product
-  Future<ProductModel?> fetchSingleProductById(String id) async {
-    try {
-      String jsonString = await rootBundle.loadString(jsonProducts);
-      List<dynamic> jsonData = json.decode(jsonString);
-
-      final matched = jsonData.firstWhere(
-            (item) => item[ProductFields.productId].toString() == id,
-      );
-
-      return ProductModel.fromJson(matched);
-    } catch (e) {
-      if (kDebugMode) {
-        print("Error fetching product with id $id: $e");
-      }
-      return null;
-    }
+  /// GET SINGLE PRODUCT BY ID - REPO
+  Future<ProductModel> getSingleProduct({required String productId}) async {
+    return await getSingleProductApi(productId: productId);
   }
+
+
+
 }

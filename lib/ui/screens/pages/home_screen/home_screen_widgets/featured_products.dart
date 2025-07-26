@@ -7,7 +7,7 @@ class FeaturedProducts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dashboard = Get.find<DashBoardController>();
-    return ProductsRowUi(products: dashboard.featuredProducts, screenType: ProductsScreenType.FEATURED);
+    final products = Get.find<ProductsController>();
+    return ProductsRowUi(products: products.featuredProducts, screenType: ProductsScreenType.FEATURED);
   }
 }

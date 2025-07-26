@@ -7,7 +7,6 @@ class OtherProductsScreenMobile extends StatelessWidget {
 
    @override
    Widget build(BuildContext context) {
-     final dashboardController = Get.find<DashBoardController>();
      final products = Get.find<ProductsController>();
      final home = Get.find<HomeController>();
      final otherProductsController = Get.find<OtherProductsController>();
@@ -25,9 +24,9 @@ class OtherProductsScreenMobile extends StatelessWidget {
            : null ;
 
        final productsList = screenType == ProductsScreenType.FEATURED
-           ? dashboardController.featuredProducts
+           ? products.featuredProducts
            : screenType == ProductsScreenType.FLASHSALE
-           ? dashboardController.flashSaleProducts
+           ? products.flashSaleProducts
            : products.popularProducts;
 
        final screenName = screenType == ProductsScreenType.FEATURED
@@ -39,9 +38,9 @@ class OtherProductsScreenMobile extends StatelessWidget {
            : null;
 
        final loadStatus = screenType == ProductsScreenType.FEATURED
-           ? dashboardController.featuredStatus.value
+           ? products.featuredStatus.value
            : screenType == ProductsScreenType.FLASHSALE
-           ? dashboardController.flashSaleStatus.value
+           ? products.flashSaleStatus.value
            : products.popularStatus.value;
 
 
@@ -102,9 +101,9 @@ class OtherProductsScreenMobile extends StatelessWidget {
 
              final isLoadingMore = products.isLoadingMore.value;
              final hasMore = screenType == ProductsScreenType.FEATURED
-                 ? dashboardController.hasMoreFeatured.value
+                 ? products.hasMoreFeaturedProducts.value
                  : screenType == ProductsScreenType.FLASHSALE
-                 ? dashboardController.hasMoreFlashSale.value
+                 ? products.hasMoreFlashSaleProducts.value
                  : products.hasMoreAllProducts.value;
 
              final reachedEnd = otherProductsController.reachedEndOfScroll.value;

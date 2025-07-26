@@ -1,22 +1,73 @@
 import 'package:danapaniexpress/core/common_imports.dart';
+import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/core/data_model_imports.dart';
 
 class ProductDetailController extends GetxController {
 
-  final productRepo = ProductRepository();
+  final productDetailRepo = ProductDetailRepository();
+  final  productRepo = ProductsRepository();
+  final auth = Get.find<AuthController>();
   RxInt quantity = 1.obs;
   Rx<ProductsStatus> relatedProductStatus = ProductsStatus.IDLE.obs;
+  Rx<Status> toggleFavoriteStatus = Status.IDLE.obs;
   Rx<ProductModel?> productData = Rx<ProductModel?>(null);
   RxList<ProductModel> relatedProductsList = <ProductModel>[].obs;
 
+  RxBool isFavorite = false.obs;
 
   @override
   Future<void> onInit() async {
     productData.value = Get.arguments[DATA_PRODUCT] as ProductModel;
+
+    /// Check initial favorite state
+    // isFavorite.value = productData.value!.productFavoriteList?.contains(auth.userId.value) ?? false;
+    isFavorite.value = productData.value!.isFavoriteBy(auth.userId.value ?? '');
+
+
     fetchRelatedProducts(productData.value!);
 
     super.onInit();
   }
+
+
+  /// TOGGLE FAVORITE - CONTROLLER
+  Future<void> toggleFavorite(String productId) async {
+    try {
+      toggleFavoriteStatus.value = Status.LOADING;
+
+      final response = await productDetailRepo.toggleFavorite(
+        userId: auth.userId.value!,
+        productId: productId,
+      );
+      productData.value = await productRepo.getSingleProduct(productId: productId);
+      isFavorite.value = productData.value!.isFavoriteBy(auth.userId.value ?? '');
+      // Optional: handle success/failure message
+      if (response['status'] == 'added') {
+        showSnackbar(
+          isError: false,
+          title: "Favorite Added",
+          message: response['message'] ?? '',
+        );
+      } else if (response['status'] == 'removed') {
+        showSnackbar(
+          isError: false,
+          title: "Favorite Removed",
+          message: response['message'] ?? '',
+        );
+      }
+
+
+      toggleFavoriteStatus.value = Status.SUCCESS;
+    } catch (e) {
+      toggleFavoriteStatus.value = Status.FAILURE;
+      showSnackbar(
+        isError: true,
+        title: "Error",
+        message: e.toString(),
+      );
+    }
+  }
+
 
 
   onTapMinus(){
@@ -39,7 +90,7 @@ class ProductDetailController extends GetxController {
     relatedProductStatus.value = ProductsStatus.LOADING;
 
     try {
-      final result = await productRepo.fetchRelatedProducts(
+      final result = await productDetailRepo.fetchRelatedProducts(
         categoryId: currentProduct.productCategory!,
         subCategoryId: currentProduct.productSubCategory!,
       );

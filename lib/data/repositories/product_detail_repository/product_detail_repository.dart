@@ -1,10 +1,22 @@
 import 'dart:convert';
 
 import 'package:danapaniexpress/core/data_model_imports.dart';
+import 'package:danapaniexpress/data/repositories/product_detail_repository/product_detail_datasource.dart';
 
 import '../../../core/common_imports.dart';
 
-class ProductRepository {
+class ProductDetailRepository extends ProductDetailDatasource{
+
+
+  /// TOGGLE FAVORITE (Add/Remove) - REPO
+  Future<Map<String, dynamic>> toggleFavorite({
+    required String userId,
+    required String productId,
+  }) async {
+    return await toggleFavoriteApi(userId: userId, productId: productId);
+  }
+
+
 
   /// FETCH RELATED PRODUCTS
   Future<List<ProductModel>> fetchRelatedProducts({
