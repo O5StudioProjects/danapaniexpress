@@ -55,6 +55,7 @@ class ProductDetailController extends GetxController {
       );
       productData.value = await productRepo.getSingleProduct(productId: productId);
       await favorites.fetchFavorites();
+      await auth.fetchUserProfile();
       isFavorite.value = productData.value!.isFavoriteBy(auth.userId.value ?? '');
       // Optional: handle success/failure message
       if (response['status'] == 'added') {
@@ -93,7 +94,7 @@ class ProductDetailController extends GetxController {
     }
   }
 
-  onTapPlus({productLimit = 5}){ //LIMIT TO 5 ITEMS AS QUANTITY
+  onTapPlus({int productLimit = 5}){ //LIMIT TO 5 ITEMS AS QUANTITY
     if(quantity.value < productLimit){
       quantity.value +=1;
     } else {

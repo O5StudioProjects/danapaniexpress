@@ -49,6 +49,7 @@ class FavoritesController  extends GetxController{
         productId: productId,
       );
       await fetchFavorites();
+      await auth.fetchUserProfile();
       // Optional: handle success/failure message
       if (response['status'] == 'added') {
         showSnackbar(

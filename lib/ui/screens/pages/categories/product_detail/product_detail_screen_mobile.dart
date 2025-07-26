@@ -120,17 +120,15 @@ class ProductDetailScreenMobile extends StatelessWidget {
   }
 
   Widget productDetailPartUI({required ProductModel data}) {
-    return Obx(
-      () => SizedBox(
-        width: size.width,
-        child: Padding(
-          padding: const EdgeInsets.only(
-            left: MAIN_HORIZONTAL_PADDING,
-            right: MAIN_HORIZONTAL_PADDING,
-            bottom: MAIN_HORIZONTAL_PADDING,
-          ),
-          child: productDetailLDataUI(data: data),
+    return SizedBox(
+      width: size.width,
+      child: Padding(
+        padding: const EdgeInsets.only(
+          left: MAIN_HORIZONTAL_PADDING,
+          right: MAIN_HORIZONTAL_PADDING,
+          bottom: MAIN_HORIZONTAL_PADDING,
         ),
+        child: productDetailLDataUI(data: data),
       ),
     );
   }
@@ -140,280 +138,284 @@ class ProductDetailScreenMobile extends StatelessWidget {
     var products = Get.find<ProductsController>();
     var nav = Get.find<NavigationController>();
     var auth = Get.find<AuthController>();
-    return Column(
-      crossAxisAlignment: appLanguage == URDU_LANGUAGE
-          ? CrossAxisAlignment.end
-          : CrossAxisAlignment.start,
-      children: [
-        ///CATEGORY AND SUBCATEGORY - FAVORITE BUTTON
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            appText(
-              text: '${data.productCategory} > ${data.productSubCategory}',
-              textStyle: secondaryTextStyle().copyWith(
-                color: AppColors.secondaryTextColorSkin(
-                  isDark,
-                ).withValues(alpha: 0.7),
-              ),
-            ),
-
-            GestureDetector(
-              onTap: () async {
-                if (auth.currentUser.value == null) {
-                  nav.gotoSignInScreen();
-                } else {
-                  await productDetail.toggleFavorite(data.productId!);
-                }
-              },
-              child: productDetail.toggleFavoriteStatus.value == Status.LOADING
-                  ? loadingIndicator()
-                  : appIcon(
-                      iconType: IconType.PNG,
-                      icon: data.isFavoriteBy(auth.userId.value ?? '')
-                          ? icHeartFill
-                          : icHeart,
-                      width: 20.0,
-                      color: data.isFavoriteBy(auth.userId.value ?? '')
-                          ? AppColors.materialButtonSkin(
-                              isDark,
-                            ) // or filled color
-                          : AppColors.backgroundColorInverseSkin(isDark),
-                    ),
-            ),
-          ],
-        ),
-        setHeight(MAIN_HORIZONTAL_PADDING),
-
-        /// PRODUCT NAME
-        appText(
-          text: appLanguage == URDU_LANGUAGE
-              ? data.productNameUrdu
-              : data.productNameEng,
-          textAlign: setTextAlignment(appLanguage),
-          textDirection: setTextDirection(appLanguage),
-          textStyle: bigBoldHeadingTextStyle(),
-        ),
-
-        /// PRODUCT PRICE
-        Padding(
-          padding: const EdgeInsets.only(top: 6.0),
-          child: Row(
+    return Obx((){
+      return Column(
+        crossAxisAlignment: appLanguage == URDU_LANGUAGE
+            ? CrossAxisAlignment.end
+            : CrossAxisAlignment.start,
+        children: [
+          ///CATEGORY AND SUBCATEGORY - FAVORITE BUTTON
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               appText(
-                text: 'Rs. ${data.productSellingPrice!.toStringAsFixed(1)}',
-                textStyle: sellingPriceDetailTextStyle(),
-              ),
-              if (data.productCutPrice != null)
-                Padding(
-                  padding: const EdgeInsets.only(left: 5.0),
-                  child: appText(
-                    text: 'Rs. ${data.productCutPrice?.toStringAsFixed(1)}',
-                    textStyle: cutPriceTextStyle(isDetail: true),
-                  ),
+                text: '${data.productCategory} > ${data.productSubCategory}',
+                textStyle: secondaryTextStyle().copyWith(
+                  color: AppColors.secondaryTextColorSkin(
+                    isDark,
+                  ).withValues(alpha: 0.7),
                 ),
+              ),
+
+              GestureDetector(
+                onTap: () async {
+                  if (auth.currentUser.value == null) {
+                    nav.gotoSignInScreen();
+                  } else {
+                    await productDetail.toggleFavorite(data.productId!);
+                  }
+                },
+                child: productDetail.toggleFavoriteStatus.value == Status.LOADING
+                    ? loadingIndicator()
+                    : appIcon(
+                  iconType: IconType.PNG,
+                  icon: data.isFavoriteBy(auth.userId.value ?? '')
+                      ? icHeartFill
+                      : icHeart,
+                  width: 20.0,
+                  color: data.isFavoriteBy(auth.userId.value ?? '')
+                      ? AppColors.materialButtonSkin(
+                    isDark,
+                  ) // or filled color
+                      : AppColors.backgroundColorInverseSkin(isDark),
+                ),
+              ),
             ],
           ),
-        ),
+          setHeight(MAIN_HORIZONTAL_PADDING),
 
-        /// WEIGHT AND SIZE
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: Row(
+          /// PRODUCT NAME
+          appText(
+            text: appLanguage == URDU_LANGUAGE
+                ? data.productNameUrdu
+                : data.productNameEng,
+            textAlign: setTextAlignment(appLanguage),
+            textDirection: setTextDirection(appLanguage),
+            textStyle: bigBoldHeadingTextStyle(),
+          ),
+
+          /// PRODUCT PRICE
+          Padding(
+            padding: const EdgeInsets.only(top: 6.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                appText(
+                  text: 'Rs. ${data.productSellingPrice!.toStringAsFixed(1)}',
+                  textStyle: sellingPriceDetailTextStyle(),
+                ),
+                if (data.productCutPrice != null)
+                  Padding(
+                    padding: const EdgeInsets.only(left: 5.0),
+                    child: appText(
+                      text: 'Rs. ${data.productCutPrice?.toStringAsFixed(1)}',
+                      textStyle: cutPriceTextStyle(isDetail: true),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+
+          /// WEIGHT AND SIZE
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: appText(
+                    text: '${data.productWeightGrams} gm',
+                    textStyle: textFormHintTextStyle(),
+                  ),
+                ),
+                appText(text: '${data.productSize}', textStyle: itemTextStyle()),
+              ],
+            ),
+          ),
+
+          /// FEATURED / SALE / AVAILABILITY
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 6.0),
+            child: Row(
+              children: [
+                if (data.productBrand!.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.only(right: 5.0),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 8.0,
+                        vertical: 4.0,
+                      ),
+                      decoration: BoxDecoration(
+                        color: EnvColors.specialFestiveColorDark,
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(4.0),
+                          bottomRight: Radius.circular(0.0),
+                        ),
+                      ),
+                      child: appText(
+                        text: data.productBrand,
+                        textStyle: itemTextStyle().copyWith(color: whiteColor),
+                      ),
+                    ),
+                  ),
+
+                if (data.productIsFeatured == true)
+                  Padding(
+                    padding: const EdgeInsets.only(right: 5.0),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 8.0,
+                        vertical: 4.0,
+                      ),
+                      decoration: BoxDecoration(
+                        color: EnvColors.primaryColorLight,
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(4.0),
+                          bottomRight: Radius.circular(0.0),
+                        ),
+                      ),
+                      child: appText(
+                        text: AppLanguage.featureStr(appLanguage),
+                        textStyle: itemTextStyle().copyWith(color: whiteColor),
+                      ),
+                    ),
+                  ),
+
+                if (data.productIsFlashsale == true)
+                  Padding(
+                    padding: const EdgeInsets.only(right: 5.0),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 8.0,
+                        vertical: 4.0,
+                      ),
+                      decoration: BoxDecoration(
+                        color: EnvColors.specialFestiveColorDark,
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(4.0),
+                          bottomRight: Radius.circular(0.0),
+                        ),
+                      ),
+                      child: appText(
+                        text: AppLanguage.flashSaleStr(appLanguage),
+                        textStyle: itemTextStyle().copyWith(color: whiteColor),
+                      ),
+                    ),
+                  ),
+                if (data.productAvailability == false)
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                    decoration: BoxDecoration(
+                      color: EnvColors.secondaryTextColorLight,
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(4.0),
+                        bottomRight: Radius.circular(0.0),
+                      ),
+                    ),
+                    child: appText(
+                      text: AppLanguage.outOfStockStr(appLanguage),
+                      textStyle: itemTextStyle().copyWith(color: whiteColor),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+
+          /// QUANTITY ADD DELETE
+          appDivider(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: appText(
-                  text: '${data.productWeightGrams} gm',
-                  textStyle: textFormHintTextStyle(),
+                padding: EdgeInsets.all(20.0),
+                child: counterButton(
+                  icon: icMinus,
+                  iconType: IconType.PNG,
+                  isLimitExceed: productDetail.quantity.value == 1 ? true : false,
+                  onTap: () => productDetail.onTapMinus(),
                 ),
               ),
-              appText(text: '${data.productSize}', textStyle: itemTextStyle()),
-            ],
-          ),
-        ),
 
-        /// FEATURED / SALE / AVAILABILITY
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 6.0),
-          child: Row(
-            children: [
-              if (data.productBrand!.isNotEmpty)
-                Padding(
-                  padding: const EdgeInsets.only(right: 5.0),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 8.0,
-                      vertical: 4.0,
-                    ),
-                    decoration: BoxDecoration(
-                      color: EnvColors.specialFestiveColorDark,
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(4.0),
-                        bottomRight: Radius.circular(0.0),
+              Obx(
+                    ()=> SizedBox(
+                  width: 30.0,
+                  child: Padding(
+                    padding: const EdgeInsets.all(0.0),
+                    child: Center(
+                      child: appText(
+                        text: productDetail.quantity.string,
+                        textStyle: headingTextStyle().copyWith(
+                          fontSize: 22.0,
+                          fontFamily: oswaldRegular,
+                        ),
                       ),
                     ),
-                    child: appText(
-                      text: data.productBrand,
-                      textStyle: itemTextStyle().copyWith(color: whiteColor),
-                    ),
                   ),
                 ),
+              ),
 
-              if (data.productIsFeatured == true)
-                Padding(
-                  padding: const EdgeInsets.only(right: 5.0),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 8.0,
-                      vertical: 4.0,
-                    ),
-                    decoration: BoxDecoration(
-                      color: EnvColors.primaryColorLight,
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(4.0),
-                        bottomRight: Radius.circular(0.0),
-                      ),
-                    ),
-                    child: appText(
-                      text: AppLanguage.featureStr(appLanguage),
-                      textStyle: itemTextStyle().copyWith(color: whiteColor),
-                    ),
+              Padding(
+                padding: EdgeInsets.all(20.0),
+                child: counterButton(
+                  icon: icPlus,
+                  iconType: IconType.PNG,
+                  isLimitExceed:
+                  data.productQuantityLimit == productDetail.quantity.value
+                      ? true
+                      : false,
+                  onTap: () => productDetail.onTapPlus(
+                    productLimit: data.productQuantityLimit!.toInt(),
                   ),
                 ),
-
-              if (data.productIsFlashsale == true)
-                Padding(
-                  padding: const EdgeInsets.only(right: 5.0),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 8.0,
-                      vertical: 4.0,
-                    ),
-                    decoration: BoxDecoration(
-                      color: EnvColors.specialFestiveColorDark,
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(4.0),
-                        bottomRight: Radius.circular(0.0),
-                      ),
-                    ),
-                    child: appText(
-                      text: AppLanguage.flashSaleStr(appLanguage),
-                      textStyle: itemTextStyle().copyWith(color: whiteColor),
-                    ),
-                  ),
-                ),
-              if (data.productAvailability == false)
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                  decoration: BoxDecoration(
-                    color: EnvColors.secondaryTextColorLight,
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(4.0),
-                      bottomRight: Radius.circular(0.0),
-                    ),
-                  ),
-                  child: appText(
-                    text: AppLanguage.outOfStockStr(appLanguage),
-                    textStyle: itemTextStyle().copyWith(color: whiteColor),
-                  ),
-                ),
+              ),
+              //  setWidth(MAIN_HORIZONTAL_PADDING),
             ],
           ),
-        ),
+          appDivider(),
 
-        /// QUANTITY ADD DELETE
-        appDivider(),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: EdgeInsets.all(20.0),
-              child: counterButton(
-                icon: icMinus,
-                iconType: IconType.PNG,
-                isLimitExceed: productDetail.quantity.value == 1 ? true : false,
-                onTap: () => productDetail.onTapMinus(),
-              ),
-            ),
-
-            SizedBox(
-              width: 30.0,
-              child: Padding(
-                padding: const EdgeInsets.all(0.0),
-                child: Center(
-                  child: appText(
-                    text: productDetail.quantity.string,
-                    textStyle: headingTextStyle().copyWith(
-                      fontSize: 22.0,
-                      fontFamily: oswaldRegular,
-                    ),
+          if (data.productDetailEng!.isNotEmpty)
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                appText(
+                  text: AppLanguage.descriptionStr(appLanguage),
+                  textStyle: headingTextStyle(),
+                ),
+                setHeight(MAIN_HORIZONTAL_PADDING),
+                ReadMoreText(
+                  appLanguage == URDU_LANGUAGE
+                      ? data.productDetailUrdu.toString()
+                      : data.productDetailEng.toString(),
+                  trimLines: 2,
+                  colorClickableText: Colors.blue,
+                  trimMode: TrimMode.Line,
+                  trimCollapsedText: ' ${AppLanguage.seeMoreStr(appLanguage)}',
+                  trimExpandedText: ' ${AppLanguage.seeLessStr(appLanguage)}',
+                  style: secondaryTextStyle(),
+                  textDirection: setTextDirection(appLanguage),
+                  textAlign: setTextAlignment(appLanguage),
+                  moreStyle: appTextButtonStyle().copyWith(
+                    color: AppColors.materialButtonSkin(isDark),
+                  ),
+                  lessStyle: appTextButtonStyle().copyWith(
+                    color: AppColors.materialButtonSkin(isDark),
                   ),
                 ),
-              ),
+                setHeight(MAIN_VERTICAL_PADDING),
+
+                ProductsRowUi(
+                  products: products.featuredProducts,
+                  screenType: ProductsScreenType.FEATURED,
+                  horizontalPadding: 0.0,
+                  firstIndexLeftPadding: 2.0,
+                ),
+              ],
             ),
-
-            Padding(
-              padding: EdgeInsets.all(20.0),
-              child: counterButton(
-                icon: icPlus,
-                iconType: IconType.PNG,
-                isLimitExceed:
-                    data.productQuantityLimit == productDetail.quantity.value
-                    ? true
-                    : false,
-                onTap: () => productDetail.onTapPlus(
-                  productLimit: data.productQuantityLimit!,
-                ),
-              ),
-            ),
-            //  setWidth(MAIN_HORIZONTAL_PADDING),
-          ],
-        ),
-        appDivider(),
-
-        if (data.productDetailEng!.isNotEmpty)
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              appText(
-                text: AppLanguage.descriptionStr(appLanguage),
-                textStyle: headingTextStyle(),
-              ),
-              setHeight(MAIN_HORIZONTAL_PADDING),
-              ReadMoreText(
-                appLanguage == URDU_LANGUAGE
-                    ? data.productDetailUrdu.toString()
-                    : data.productDetailEng.toString(),
-                trimLines: 2,
-                colorClickableText: Colors.blue,
-                trimMode: TrimMode.Line,
-                trimCollapsedText: ' ${AppLanguage.seeMoreStr(appLanguage)}',
-                trimExpandedText: ' ${AppLanguage.seeLessStr(appLanguage)}',
-                style: secondaryTextStyle(),
-                textDirection: setTextDirection(appLanguage),
-                textAlign: setTextAlignment(appLanguage),
-                moreStyle: appTextButtonStyle().copyWith(
-                  color: AppColors.materialButtonSkin(isDark),
-                ),
-                lessStyle: appTextButtonStyle().copyWith(
-                  color: AppColors.materialButtonSkin(isDark),
-                ),
-              ),
-              setHeight(MAIN_VERTICAL_PADDING),
-
-              ProductsRowUi(
-                products: products.featuredProducts,
-                screenType: ProductsScreenType.FEATURED,
-                horizontalPadding: 0.0,
-                firstIndexLeftPadding: 2.0,
-              ),
-            ],
-          ),
-      ],
-    );
+        ],
+      );
+    });
   }
 
   Widget centerImageForProductsUI({required ProductModel data}) {
