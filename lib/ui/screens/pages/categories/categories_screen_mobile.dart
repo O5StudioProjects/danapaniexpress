@@ -114,17 +114,21 @@ class CategoriesScreenMobile extends StatelessWidget {
                                   ),
                                 ),
                               )
-                            : EmptyScreen(
-                                icon: AppAnims.animEmptyBoxSkin(isDark),
-                                text: AppLanguage.noCategoriesStr(appLanguage,).toString(),
-                              ),
+                            : Expanded(
+                              child: EmptyScreen(
+                                  icon: AppAnims.animEmptyBoxSkin(isDark),
+                                  text: AppLanguage.noCategoriesStr(appLanguage,).toString(),
+                                ),
+                            ),
                       ],
                     ),
                   )
-                : EmptyScreen(
-                    icon: AppAnims.animEmptyBoxSkin(isDark),
-                    text: AppLanguage.noCategoriesStr(appLanguage).toString(),
-                  ),
+                : Expanded(
+                  child: EmptyScreen(
+                      icon: AppAnims.animEmptyBoxSkin(isDark),
+                      text: AppLanguage.noCategoriesStr(appLanguage).toString(),
+                    ),
+                ),
           ],
         ),
       );

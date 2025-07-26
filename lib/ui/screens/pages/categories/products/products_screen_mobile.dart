@@ -80,10 +80,10 @@ class ProductsScreenMobile extends StatelessWidget {
                         var subCategory = subCategoriesList[index];
                         return GestureDetector(
                           onTap: (){
+                            product.subCategoryIndex.value = index;
                             if(index == 0){
                               product.fetchInitialProductsByCategory(categoriesData.categoryId!);
                             } else {
-                              product.subCategoryIndex.value = index;
                               product.fetchInitialProductsByCategoryAndSubCategory(category: categoriesData.categoryId!, subCategory: subCategory.subCategoryId!);
                             }
                           },
@@ -113,10 +113,12 @@ class ProductsScreenMobile extends StatelessWidget {
                 ProductsByCatStatus.FAILURE
                 ? Expanded(child: ErrorScreen())
                 : product.productsList.isEmpty
-                ? EmptyScreen(
-              icon: AppAnims.animEmptyBoxSkin(isDark),
-              text: AppLanguage.noProductsStr(appLanguage).toString(),
-            )
+                ? Expanded(
+                  child: EmptyScreen(
+                                icon: AppAnims.animEmptyBoxSkin(isDark),
+                                text: AppLanguage.noProductsStr(appLanguage).toString(),
+                              ),
+                )
                 : Expanded(
               child: ConstrainedBox(
                 constraints: BoxConstraints(minHeight: size.height),

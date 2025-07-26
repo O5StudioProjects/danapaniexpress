@@ -533,5 +533,9 @@ class AppLanguage {
   static String? doYouWantToSignOutStr(String appLanguage) {
     return allLang[appLanguage]?[DO_YOU_WANT_TO_SIGN_OUT];
   }
+  static String? loadingStr(String appLanguage) {
+    return allLang[appLanguage]?[LOADING];
+  }
+
 
 }

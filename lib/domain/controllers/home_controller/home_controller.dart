@@ -9,6 +9,7 @@ class HomeController extends GetxController {
   final homeRepo = HomeRepository();
   final categories = Get.put(CategoriesController(), permanent: true);
   final products = Get.put(ProductsController(), permanent: true);
+  final favorites = Get.put(FavoritesController(), permanent: true);
   final navigation = Get.find<NavigationController>();
   // final categories = Get.find<CategoriesController>();
 
@@ -50,6 +51,7 @@ class HomeController extends GetxController {
     fetchInitialPopularProducts();
     fetchInitialFeaturedProducts();
     fetchInitialFlashSaleProducts();
+    fetchInitialFavoriteProducts();
   }
 
 
@@ -111,6 +113,11 @@ class HomeController extends GetxController {
   //Fetch OTHER Products here - FLASH SALE
   Future<void> fetchInitialFlashSaleProducts() async {
     await products.fetchInitialFlashSaleProducts();
+  }
+
+  //Fetch Favorites Products here - FAVORITES
+  Future<void> fetchInitialFavoriteProducts() async {
+    await favorites.fetchFavorites();
   }
 
   // Fetch Cover Images

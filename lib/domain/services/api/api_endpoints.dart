@@ -26,6 +26,9 @@ class APiEndpoints {
   static String getProductsByCategories = "$path/get_products.php/get_products_by_category";
   static String getProductsByCategoriesAndSubCategories = "$path/get_products.php/get_products_by_cat_subcat";
   static String toggleFavorite = "$path/favorites_entry.php/toggle_favorite";
+  static String getFavorites = "$path/favorites_entry.php/get_user_favorites";
+
+
 
 
   ///GET APIS

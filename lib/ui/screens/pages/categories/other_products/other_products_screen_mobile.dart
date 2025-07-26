@@ -71,7 +71,7 @@ class OtherProductsScreenMobile extends StatelessWidget {
                : loadStatus  == ProductsStatus.FAILURE
                ? Expanded(child: appText(text: 'Error Screen'))
                : productsList.isEmpty
-               ? EmptyScreen(icon: AppAnims.animEmptyBoxSkin(isDark), text: AppLanguage.noProductsStr(appLanguage).toString())
+               ? Expanded(child: EmptyScreen(icon: AppAnims.animEmptyBoxSkin(isDark), text: AppLanguage.noProductsStr(appLanguage).toString()))
                : Expanded(
              child: GridView.builder(
                controller: otherProductsController.scrollController,
