@@ -167,7 +167,11 @@ class ProductDetailScreenMobile extends StatelessWidget {
                   }
                 },
                 child: productDetail.toggleFavoriteStatus.value == Status.LOADING
-                    ? loadingIndicator()
+                    ? SizedBox(
+                  width: 20.0,
+                  height: 20.0,
+                  child: loadingIndicator(),
+                )
                     : appIcon(
                   iconType: IconType.PNG,
                   icon: data.isFavoriteBy(auth.userId.value ?? '')

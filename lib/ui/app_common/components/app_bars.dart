@@ -92,7 +92,7 @@ Widget appSliverAppbarHome() {
   );
 }
 
-Widget appBarCommon({title, isBackNavigation = false, isTrailing = false, trailingIcon, trailingOnTap}) {
+Widget appBarCommon({title, isBackNavigation = false, isTrailing = false, trailingIcon, trailingOnTap, trailingIconType}) {
   return Container(
     width: size.width,
     height: 80,
@@ -134,7 +134,8 @@ Widget appBarCommon({title, isBackNavigation = false, isTrailing = false, traili
             isTrailing
                 ? GestureDetector(
               onTap: trailingOnTap,
-              child: appSvgIcon(
+              child: appIcon(
+                iconType: trailingIconType,
                 icon: trailingIcon,
                 color: AppColors.primaryTextColorSkin(isDark),
                 width: 24.0,

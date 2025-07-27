@@ -28,6 +28,10 @@ class APiEndpoints {
   static String toggleFavorite = "$path/favorites_entry.php/toggle_favorite";
   static String getFavorites = "$path/favorites_entry.php/get_user_favorites";
 
+  static String addToCart = "$path/dpe_cart.php/add_to_cart";
+  static String getCart = "$path/dpe_cart.php/get_cart";
+  static String deleteCartItem = "$path/dpe_cart.php/delete_from_cart";
+  static String emptyCart = "$path/dpe_cart.php/emptyCart";
 
 
 

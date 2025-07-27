@@ -7,16 +7,11 @@ class FavoritesScreenMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var favorites = Get.find<FavoritesController>();
+    var favorites = Get.put(FavoritesController());
     var search = Get.find<SearchProductsController>();
-
+    var auth = Get.find<AuthController>();
+    favorites.fetchFavorites();
     return Obx(() {
-      if(favorites.favoritesList.isEmpty){
-        return Container(
-            color: AppColors.backgroundColorSkin(isDark),
-            child: EmptyScreen(icon: AppAnims.animEmptyFavoritesSkin(isDark), text: AppLanguage.noFavoritesStr(appLanguage).toString()));
-      }
-
       return Container(
           width: size.width,
           height: size.height,
@@ -26,52 +21,52 @@ class FavoritesScreenMobile extends StatelessWidget {
           Column(
             children: [
               appBarCommon(title: AppLanguage.favoritesStr(appLanguage), isBackNavigation: false),
-
-              Padding(
-                padding: const EdgeInsets.only(top: MAIN_HORIZONTAL_PADDING, right: MAIN_HORIZONTAL_PADDING, left: MAIN_HORIZONTAL_PADDING, bottom: MAIN_HORIZONTAL_PADDING),
-                child: AppTextFormField(
-                  textEditingController: search.searchTextController.value,
-                  prefixIcon: Icons.search,
-                  hintText: 'Search products...',
-                ),
-              ),
-
-              favorites.toggleFavoriteStatus.value == Status.LOADING
+              favorites.favoritesStatus.value == Status.LOADING
               ? Padding(
-                padding: EdgeInsets.only(bottom: MAIN_HORIZONTAL_PADDING),
-              child: Column(
-                children: [
-                  loadingIndicator(),
-                  setHeight(MAIN_HORIZONTAL_PADDING),
-                  appText(
-                    text: 'Please Wait..',
-                    textStyle: bodyTextStyle().copyWith(
-                      color: AppColors.materialButtonSkin(isDark),
-                      fontSize: SUB_HEADING_TEXT_BUTTON_FONT_SIZE,
+                padding: const EdgeInsets.only(top: MAIN_HORIZONTAL_PADDING),
+                child: loadingIndicator(),
+              ) : SizedBox.shrink(),
+              auth.currentUser.value == null
+                  ? Expanded(child: appSignInTip())
+                  : favorites.favoritesList.isEmpty
+              ? Expanded(
+                child: Container(
+                    color: AppColors.backgroundColorSkin(isDark),
+                    child: EmptyScreen(icon: AppAnims.animEmptyFavoritesSkin(isDark), text: AppLanguage.noFavoritesStr(appLanguage).toString())),
+              )
+              : Expanded(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: MAIN_HORIZONTAL_PADDING, right: MAIN_HORIZONTAL_PADDING, left: MAIN_HORIZONTAL_PADDING, bottom: MAIN_HORIZONTAL_PADDING),
+                      child: AppTextFormField(
+                        textEditingController: search.searchTextController.value,
+                        prefixIcon: Icons.search,
+                        hintText: 'Search products...',
+                      ),
                     ),
-                  ),
-                ],
-              ),)
-              : SizedBox.shrink(),
 
-              Expanded(
-                child:
-                ListView.builder(
-                  physics: BouncingScrollPhysics(),
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: MAIN_HORIZONTAL_PADDING,
-                    // vertical: MAIN_VERTICAL_PADDING /2,
-                  ),
-                  itemCount: favorites.favoritesList.length,
-                  itemBuilder: (context, index) {
-                    var favoriteData = favorites.favoritesList[index];
-                    return FavoriteProductItem(product: favoriteData, onTapFavorite: () async {
-                      favorites.toggleFavorite(favoriteData.productId!);
-                    },);
-                  },
+                    Expanded(
+                      child:
+                      ListView.builder(
+                        physics: BouncingScrollPhysics(),
+                        shrinkWrap: true,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: MAIN_HORIZONTAL_PADDING,
+                          // vertical: MAIN_VERTICAL_PADDING /2,
+                        ),
+                        itemCount: favorites.favoritesList.length,
+                        itemBuilder: (context, index) {
+                          var favoriteData = favorites.favoritesList[index];
+                          return FavoriteProductItem(product: favoriteData);
+                        },
+                      ),
+                    )
+                  ],
                 ),
               )
+
+
 
             ],
           )

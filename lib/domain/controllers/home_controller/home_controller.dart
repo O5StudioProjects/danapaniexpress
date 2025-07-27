@@ -3,13 +3,11 @@ import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/core/data_model_imports.dart';
 import 'package:danapaniexpress/data/repositories/home_repository/home_repository.dart';
-import 'package:danapaniexpress/domain/controllers/product_controller/products_controller.dart';
 
 class HomeController extends GetxController {
   final homeRepo = HomeRepository();
   final categories = Get.put(CategoriesController(), permanent: true);
   final products = Get.put(ProductsController(), permanent: true);
-  final favorites = Get.put(FavoritesController(), permanent: true);
   final navigation = Get.find<NavigationController>();
   // final categories = Get.find<CategoriesController>();
 
@@ -51,7 +49,7 @@ class HomeController extends GetxController {
     fetchInitialPopularProducts();
     fetchInitialFeaturedProducts();
     fetchInitialFlashSaleProducts();
-    fetchInitialFavoriteProducts();
+    // fetchInitialFavoriteProducts();
   }
 
 
@@ -113,11 +111,6 @@ class HomeController extends GetxController {
   //Fetch OTHER Products here - FLASH SALE
   Future<void> fetchInitialFlashSaleProducts() async {
     await products.fetchInitialFlashSaleProducts();
-  }
-
-  //Fetch Favorites Products here - FAVORITES
-  Future<void> fetchInitialFavoriteProducts() async {
-    await favorites.fetchFavorites();
   }
 
   // Fetch Cover Images

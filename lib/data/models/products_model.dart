@@ -30,6 +30,7 @@ class ProductFields {
     vendor,
     isSelected,
     productQuantityLimit,
+    productQuantity,
     dateTime,
   ];
 
@@ -59,6 +60,7 @@ class ProductFields {
   static const String vendor = 'Vendor';
   static const String isSelected = 'is_selected';
   static const String productQuantityLimit = 'prodcut_quantity_limit'; // API typo preserved
+  static const String productQuantity = 'product_qty'; // API typo preserved
   static const String dateTime = 'date_time';
 }
 
@@ -89,6 +91,7 @@ class ProductModel {
   final VendorModel? vendor;
   final bool? isSelected;
   final int? productQuantityLimit;
+  final int? productQuantity;
   final String? dateTime;
 
   const ProductModel({
@@ -118,6 +121,7 @@ class ProductModel {
     this.vendor,
     this.isSelected,
     this.productQuantityLimit,
+    this.productQuantity,
     this.dateTime,
   });
 
@@ -155,6 +159,7 @@ class ProductModel {
     vendor: json[ProductFields.vendor] != null ? VendorModel.fromJson(json[ProductFields.vendor]) : null,
     isSelected: json[ProductFields.isSelected] == true,
     productQuantityLimit: int.tryParse(json[ProductFields.productQuantityLimit]?.toString() ?? ''),
+    productQuantity: int.tryParse(json[ProductFields.productQuantity]?.toString() ?? ''),
     dateTime: json[ProductFields.dateTime]?.toString(),
   );
 
@@ -189,6 +194,7 @@ class ProductModel {
         ProductFields.vendor: vendor?.toJson(),
         ProductFields.isSelected: isSelected,
         ProductFields.productQuantityLimit: productQuantityLimit,
+        ProductFields.productQuantity: productQuantity,
         ProductFields.dateTime: dateTime,
       };
 
@@ -219,6 +225,7 @@ class ProductModel {
     VendorModel? vendor,
     bool? isSelected,
     int? productQuantityLimit,
+    int? productQuantity,
     String? dateTime,
   }) =>
       ProductModel(
@@ -248,6 +255,7 @@ class ProductModel {
         vendor: vendor ?? this.vendor,
         isSelected: isSelected ?? this.isSelected,
         productQuantityLimit: productQuantityLimit ?? this.productQuantityLimit,
+        productQuantity: productQuantity ?? this.productQuantity,
         dateTime: dateTime ?? this.dateTime,
       );
 }
