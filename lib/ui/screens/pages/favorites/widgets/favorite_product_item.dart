@@ -4,8 +4,7 @@ import 'package:danapaniexpress/core/data_model_imports.dart';
 
 class FavoriteProductItem extends StatelessWidget {
   final ProductModel product;
-  final Function()? onTapFavorite;
-  const FavoriteProductItem({super.key, required this.product, this.onTapFavorite});
+  const FavoriteProductItem({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -102,15 +101,26 @@ class FavoriteProductItem extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: MAIN_HORIZONTAL_PADDING),
-                    GestureDetector(
-                      onTap: onTapFavorite,
-                      child: appIcon(
-                        iconType: IconType.PNG,
-                        icon: icHeartFill,
-                        width: 24.0,
-                        color: AppColors.materialButtonSkin(isDark),
-                      ),
-                    ),
+                    Obx((){
+                      final isLoading = favorites.favoriteLoadingStatus[product.productId] == Status.LOADING;
+                      return GestureDetector(
+                        onTap: (){
+                          favorites.toggleFavorite(product.productId!);
+                        },
+                        child: isLoading
+                            ? SizedBox(
+                          width: 24.0,
+                          height: 24.0,
+                          child: loadingIndicator(),
+                        )
+                            :appIcon(
+                          iconType: IconType.PNG,
+                          icon: icHeartFill,
+                          width: 24.0,
+                          color: AppColors.materialButtonSkin(isDark),
+                        ),
+                      );
+                    })
                   ],
                 ),
                 setHeight(MAIN_VERTICAL_PADDING),

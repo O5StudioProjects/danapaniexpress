@@ -9,7 +9,9 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    var navigation  = Get.find<NavigationController>();
+    var cart  = Get.find<CartController>();
+    var auth  = Get.find<AuthController>();
+    var nav  = Get.find<NavigationController>();
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -45,7 +47,7 @@ class ProductItem extends StatelessWidget {
                   Stack(
                     children: [
                       Container(
-                        width: double.infinity,
+                        width: size.width,
                         height: imageHeight,
                         color: whiteColor,
                         child: ClipRRect(
@@ -151,8 +153,43 @@ class ProductItem extends StatelessWidget {
                       ],
                     ),
                   ),
-                ],
-              ),
+
+                  /// ADD TO CART BUTTON
+                  Obx((){
+                    final isLoading = cart.addCartStatus[data.productId] == Status.LOADING;
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
+                      child: GestureDetector(
+                        onTap: () async {
+                          if(auth.currentUser.value == null){
+                            nav.gotoSignInScreen();
+                          }
+                          else if(data.productAvailability == true){
+                            await cart.addToCart(data.productId!);
+                          } else {
+                            showToast('Product is out of Stock');
+                          }
+
+                        },
+                        child: isLoading ? SizedBox(
+                          height: nameHeight,
+                          child: loadingIndicator(),
+                        ) : Container(
+                          height: nameHeight,
+                          decoration: BoxDecoration(
+                              color: data.productAvailability == false ? AppColors.disableMaterialButtonSkin(isDark) : AppColors.materialButtonSkin(isDark),
+                              borderRadius: BorderRadius.circular(8.0)
+                          ),
+                          child: Center(
+                              child: appText(
+                                  text: AppLanguage.addToCartStr(appLanguage),
+                                  textStyle: buttonTextStyle(color: data.productAvailability == false ? AppColors.materialButtonTextSkin(isDark).withValues(alpha: 0.5) : AppColors.materialButtonTextSkin(isDark)))),
+                        ),
+                      ),
+                    );
+              })
+                      ],
+                    ),
 
               /// 🔹 Flash Sale Tag
               if (data.productIsFlashsale == true)

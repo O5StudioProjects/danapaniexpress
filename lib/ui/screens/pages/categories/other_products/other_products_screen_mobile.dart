@@ -1,6 +1,7 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/domain/controllers/product_controller/products_controller.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class OtherProductsScreenMobile extends StatelessWidget {
    const OtherProductsScreenMobile({super.key});
@@ -60,6 +61,7 @@ class OtherProductsScreenMobile extends StatelessWidget {
                  isBackNavigation: true,
                  isTrailing: true,
                  trailingIcon: icSearch,
+                 trailingIconType: IconType.SVG,
                  trailingOnTap: () {},
                ),
              );
@@ -73,26 +75,52 @@ class OtherProductsScreenMobile extends StatelessWidget {
                : productsList.isEmpty
                ? Expanded(child: EmptyScreen(icon: AppAnims.animEmptyBoxSkin(isDark), text: AppLanguage.noProductsStr(appLanguage).toString()))
                : Expanded(
-             child: GridView.builder(
+             child: SingleChildScrollView(
                controller: otherProductsController.scrollController,
-               padding: EdgeInsets.symmetric(
-                 horizontal: MAIN_HORIZONTAL_PADDING,
-                 vertical: MAIN_VERTICAL_PADDING,
+               physics: BouncingScrollPhysics(),
+               child: Padding(
+                 padding: const EdgeInsets.symmetric(horizontal: MAIN_HORIZONTAL_PADDING, vertical: MAIN_VERTICAL_PADDING),
+                 child: ConstrainedBox(
+                   constraints: BoxConstraints(minHeight: size.height),
+                   child: StaggeredGrid.count(
+                     crossAxisCount: 2,
+                     mainAxisSpacing: MAIN_HORIZONTAL_PADDING,
+                     crossAxisSpacing: MAIN_HORIZONTAL_PADDING,
+                     children:
+                     List.generate(productsList.length, (index,) {
+                       final product = productsList[index];
+                       return GestureDetector(
+                         onTap: () =>
+                             navigation.gotoProductDetailScreen(data: product),
+                         child: ProductItem(data: product),
+                       );
+                     }),
+                   ),
+
+                 ),
                ),
-               itemCount: productsList.length,
-               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                 crossAxisCount: 2,
-                 crossAxisSpacing: MAIN_HORIZONTAL_PADDING,
-                 mainAxisSpacing: MAIN_VERTICAL_PADDING,
-                 childAspectRatio: 0.6,
-               ),
-               itemBuilder: (context, index) {
-                 final product = productsList[index];
-                 return GestureDetector(
-                     onTap: ()=>  navigation.gotoProductDetailScreen(data: product),
-                     child: ProductItem(data: product));
-               },
              ),
+
+             // GridView.builder(
+             //   controller: otherProductsController.scrollController,
+             //   padding: EdgeInsets.symmetric(
+             //     horizontal: MAIN_HORIZONTAL_PADDING,
+             //     vertical: MAIN_VERTICAL_PADDING,
+             //   ),
+             //   itemCount: productsList.length,
+             //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+             //     crossAxisCount: 2,
+             //     crossAxisSpacing: MAIN_HORIZONTAL_PADDING,
+             //     mainAxisSpacing: MAIN_VERTICAL_PADDING,
+             //     childAspectRatio: 0.53,
+             //   ),
+             //   itemBuilder: (context, index) {
+             //     final product = productsList[index];
+             //     return GestureDetector(
+             //         onTap: ()=>  navigation.gotoProductDetailScreen(data: product),
+             //         child: ProductItem(data: product));
+             //   },
+             // ),
            ),
 
            // ✅ Bottom Message Section

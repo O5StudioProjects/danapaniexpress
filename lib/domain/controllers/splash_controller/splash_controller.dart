@@ -19,7 +19,7 @@ class SplashController extends GetxController {
   void checkLoginStatus() async {
 
     Future.delayed(Duration(seconds: 3), () async {
-      if(internet){
+      if(internet || kIsWeb){
         firstTimeLanguageAndThemeScreenStatus.value =
             await SharedPrefs.getLanguageScreen();
         firstTimeStartupStatus.value = await SharedPrefs.getStartupScreenPrefs();

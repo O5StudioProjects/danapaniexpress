@@ -12,8 +12,8 @@ class DashboardBinding extends Bindings{
     Get.put(ProductsController(), permanent: true);
     Get.put(DashBoardController(), permanent: true);
     Get.put(SearchProductsController(), permanent: true);
+    Get.put(CartController(), permanent: true);
     Get.lazyPut(()=> AccountController(), fenix: true);
-    Get.lazyPut(()=> FavoritesController(), fenix: true);
     Get.lazyPut(()=> CartController(), fenix: true);
     Get.lazyPut(()=> SplashController(), fenix: true);
   }

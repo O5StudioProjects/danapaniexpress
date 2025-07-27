@@ -12,14 +12,7 @@ class FavoritesController  extends GetxController{
   /// FAVORITES
   Rx<Status> favoritesStatus = Status.IDLE.obs;
   RxList<ProductModel> favoritesList = <ProductModel>[].obs;
-  Rx<Status> toggleFavoriteStatus = Status.IDLE.obs;
-
-  @override
-  void onInit() {
-    print('Favorites Controller Started');
-    super.onInit();
-  }
-
+  final RxMap<String, Status> favoriteLoadingStatus = <String, Status>{}.obs;
 
 
   Future<void> fetchFavorites() async {
@@ -42,14 +35,12 @@ class FavoritesController  extends GetxController{
   /// TOGGLE FAVORITE - CONTROLLER
   Future<void> toggleFavorite(String productId) async {
     try {
-      toggleFavoriteStatus.value = Status.LOADING;
+      favoriteLoadingStatus[productId] = Status.LOADING;
 
       final response = await favRepo.toggleFavorite(
         userId: auth.userId.value!,
         productId: productId,
       );
-      await fetchFavorites();
-      await auth.fetchUserProfile();
       // Optional: handle success/failure message
       if (response['status'] == 'added') {
         showSnackbar(
@@ -57,18 +48,20 @@ class FavoritesController  extends GetxController{
           title: "Favorite Added",
           message: response['message'] ?? '',
         );
+
       } else if (response['status'] == 'removed') {
+        favoritesList.removeWhere((p) => p.productId == productId);
+        favoriteLoadingStatus[productId] = Status.SUCCESS;
         showSnackbar(
           isError: false,
           title: "Favorite Removed",
           message: response['message'] ?? '',
         );
       }
+      await auth.fetchUserProfile();
 
-
-      toggleFavoriteStatus.value = Status.SUCCESS;
     } catch (e) {
-      toggleFavoriteStatus.value = Status.FAILURE;
+      favoriteLoadingStatus[productId] = Status.FAILURE;
       showSnackbar(
         isError: true,
         title: "Error",

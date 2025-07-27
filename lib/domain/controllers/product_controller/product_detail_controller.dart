@@ -7,7 +7,6 @@ class ProductDetailController extends GetxController {
   final productDetailRepo = ProductDetailRepository();
   final  productRepo = ProductsRepository();
   final auth = Get.find<AuthController>();
-  final favorites = Get.find<FavoritesController>();
 
   RxInt quantity = 1.obs;
   Rx<ProductsStatus> relatedProductStatus = ProductsStatus.IDLE.obs;
@@ -19,9 +18,10 @@ class ProductDetailController extends GetxController {
 
   @override
   Future<void> onInit() async {
-    // productData.value = Get.arguments[DATA_PRODUCT] as ProductModel;
-    var product = Get.arguments[DATA_PRODUCT] as ProductModel;
-    productData.value = await productRepo.getSingleProduct(productId: product.productId!);
+     productData.value = Get.arguments[DATA_PRODUCT] as ProductModel;
+    //var product = Get.arguments[DATA_PRODUCT] as ProductModel;
+    // productData.value = await productRepo.getSingleProduct(productId: productData.value!.productId!);
+     getSingleProduct(productId: productData.value!.productId!);
     isFavorite.value = productData.value!.isFavoriteBy(auth.userId.value ?? '');
     /// Check initial favorite state
     // isFavorite.value = productData.value!.productFavoriteList?.contains(auth.userId.value) ?? false;
@@ -34,12 +34,12 @@ class ProductDetailController extends GetxController {
   }
 
   Future<void> getSingleProduct({required String productId}) async {
-   // toggleFavoriteStatus.value = Status.LOADING;
+   toggleFavoriteStatus.value = Status.LOADING;
     await productRepo.getSingleProduct(productId: productData.value!.productId!).then((value){
-   //   toggleFavoriteStatus.value = Status.SUCCESS;
+     toggleFavoriteStatus.value = Status.SUCCESS;
       productData.value = value;
     }).catchError((error){
-   //   toggleFavoriteStatus.value = Status.FAILURE;
+     toggleFavoriteStatus.value = Status.FAILURE;
     });
 
   }
@@ -54,9 +54,8 @@ class ProductDetailController extends GetxController {
         productId: productId,
       );
       productData.value = await productRepo.getSingleProduct(productId: productId);
-      await favorites.fetchFavorites();
-      await auth.fetchUserProfile();
       isFavorite.value = productData.value!.isFavoriteBy(auth.userId.value ?? '');
+      toggleFavoriteStatus.value = Status.SUCCESS;
       // Optional: handle success/failure message
       if (response['status'] == 'added') {
         showSnackbar(
@@ -71,9 +70,8 @@ class ProductDetailController extends GetxController {
           message: response['message'] ?? '',
         );
       }
+      await auth.fetchUserProfile();
 
-
-      toggleFavoriteStatus.value = Status.SUCCESS;
     } catch (e) {
       toggleFavoriteStatus.value = Status.FAILURE;
       showSnackbar(

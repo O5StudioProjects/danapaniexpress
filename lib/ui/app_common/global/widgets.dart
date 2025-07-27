@@ -1,3 +1,4 @@
+import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/core/packages_import.dart';
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -57,6 +58,23 @@ Widget loadingIndicator() {
       ),
     ),
   );
+}
+
+Widget appSignInTip(){
+  final nav = Get.find<NavigationController>();
+  return Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: MAIN_HORIZONTAL_PADDING),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            appAssetImage(image: EnvImages.imgMainLogo),
+            appMaterialButton(text: AppLanguage.signInStr(appLanguage), onTap: (){
+              nav.gotoSignInScreen();
+            })
+          ],
+        ),
+      ));
 }
 
 Widget appAsyncImage(

@@ -281,7 +281,7 @@ class AccountScreenMobile extends StatelessWidget {
                                 iconType: IconType.ICON,
                               icon: Icons.logout_rounded,
                               onTapConfirm: () async {
-                                  Get.back();
+                                  Navigator.of(context).pop();
                                 await auth.logoutUser().then((val) {
                                   Get.find<DashBoardController>()
                                       .navIndex
