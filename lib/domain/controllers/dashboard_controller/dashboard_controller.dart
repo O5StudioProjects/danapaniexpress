@@ -8,9 +8,7 @@ import 'package:danapaniexpress/ui/app_common/dialogs/bool_dialog.dart';
 class DashBoardController extends GetxController {
   final dashboardRepo = DashboardRepository();
   final productRepo = ProductDetailRepository();
-  final home = Get.find<HomeController>();
   final navigation = Get.find<NavigationController>();
-  final categories = Get.find<CategoriesController>();
 
   // Bottom nav
   RxInt navIndex = 0.obs;
@@ -25,12 +23,10 @@ class DashBoardController extends GetxController {
   void onInit() {
     super.onInit();
     navIndex.value = 0;
-    startupMethods();
 
   }
 
   void startupMethods() async {
-
   }
 
   // Bottom nav change
@@ -55,21 +51,6 @@ class DashBoardController extends GetxController {
     }
   }
 
-  Future<void> onTapTopNotificationDialog(MarqueeModel data) async {
-    if (data.marqueeType == MarqueeType.FEATURED) {
-      navigation.gotoOtherProductsScreen(
-        screenType: ProductsScreenType.FEATURED,
-      );
-    } else if (data.marqueeType == MarqueeType.FLASH_SALE) {
-      navigation.gotoOtherProductsScreen(
-        screenType: ProductsScreenType.FLASHSALE,
-      );
-    } else if (data.marqueeType == MarqueeType.POPULAR) {
-      navigation.gotoOtherProductsScreen(
-        screenType: ProductsScreenType.POPULAR,
-      );
-    }
-  }
 
 
 

@@ -28,7 +28,9 @@ class APiEndpoints {
   static String toggleFavorite = "$path/favorites_entry.php/toggle_favorite";
   static String getFavorites = "$path/favorites_entry.php/get_user_favorites";
 
-  static String addToCart = "$path/dpe_cart.php/add_to_cart";
+  static String addToCartWithQuantity = "$path/dpe_cart.php/add_to_cart_w_quantity";
+  static String addToCart = "$path/dpe_cart.php/add_to_cart_incr_qty"; //same api is used for quantity increment in Cart Product
+  static String decrementQuantityFromCart = "$path/dpe_cart.php/decr_qty_from_cart"; // api is used for quantity decrement in Cart Product
   static String getCart = "$path/dpe_cart.php/get_cart";
   static String deleteCartItem = "$path/dpe_cart.php/delete_from_cart";
   static String emptyCart = "$path/dpe_cart.php/emptyCart";

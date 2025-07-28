@@ -7,6 +7,7 @@ class ProductDetailController extends GetxController {
   final productDetailRepo = ProductDetailRepository();
   final  productRepo = ProductsRepository();
   final auth = Get.find<AuthController>();
+  final favorites = Get.find<FavoritesController>();
 
   RxInt quantity = 1.obs;
   Rx<ProductsStatus> relatedProductStatus = ProductsStatus.IDLE.obs;
@@ -70,7 +71,8 @@ class ProductDetailController extends GetxController {
           message: response['message'] ?? '',
         );
       }
-      await auth.fetchUserProfile();
+      auth.fetchUserProfile();
+      favorites.fetchFavorites();
 
     } catch (e) {
       toggleFavoriteStatus.value = Status.FAILURE;
@@ -88,7 +90,7 @@ class ProductDetailController extends GetxController {
     if(quantity.value > 1){
       quantity.value -=1;
     } else {
-      print('Zero is not allowed');
+      showToast(AppLanguage.selectAtLeastOneProductStr(appLanguage).toString());
     }
   }
 
@@ -96,7 +98,7 @@ class ProductDetailController extends GetxController {
     if(quantity.value < productLimit){
       quantity.value +=1;
     } else {
-      print('Limit Exceeded');
+      showToast(AppLanguage.quantityLimitExceededStr(appLanguage).toString());
     }
   }
 

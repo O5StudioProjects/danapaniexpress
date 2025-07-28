@@ -82,7 +82,14 @@ class ProductDetailScreenMobile extends StatelessWidget {
 
   Widget cartSectionUI({required ProductModel data}) {
     var productDetail = Get.find<ProductDetailController>();
+    var cart = Get.find<CartController>();
+    var auth = Get.find<AuthController>();
+    var nav = Get.find<NavigationController>();
     return Obx(() {
+      final productInCart = cart.cartProducts.firstWhereOrNull(
+            (item) => item.productId == data.productId,
+      );
+      var isAddToCartLoading = cart.addToCartWithQtyStatus.value == Status.LOADING ? true : false;
       return Container(
         color: AppColors.backgroundColorSkin(isDark),
         width: size.width,
@@ -108,9 +115,23 @@ class ProductDetailScreenMobile extends StatelessWidget {
                   ),
                 ],
               ),
-              appMaterialButton(
+              isAddToCartLoading
+              ? SizedBox(
+                width: 100.0,
+                child: loadingIndicator(),
+              )
+              : appMaterialButton(
                 text: AppLanguage.addToCartStr(appLanguage),
-                onTap: () {},
+                onTap: () {
+                  if(auth.currentUser.value == null){
+                    nav.gotoSignInScreen();
+                  }
+                  else if(productInCart != null){
+                    showToast('Product is already in Cart');
+                  } else {
+                    cart.addToCartWithQuantity(productId: data.productId!, userId: auth.currentUser.value!.userId!, productQty: productDetail.quantity.value);
+                  }
+                },
               ),
             ],
           ),
@@ -138,6 +159,7 @@ class ProductDetailScreenMobile extends StatelessWidget {
     var products = Get.find<ProductsController>();
     var nav = Get.find<NavigationController>();
     var auth = Get.find<AuthController>();
+    var cart = Get.find<CartController>();
     return Obx((){
       return Column(
         crossAxisAlignment: appLanguage == URDU_LANGUAGE
@@ -149,6 +171,7 @@ class ProductDetailScreenMobile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              if(data.productCategory != null && data.productSubCategory != null)
               appText(
                 text: '${data.productCategory} > ${data.productSubCategory}',
                 textStyle: secondaryTextStyle().copyWith(
@@ -329,27 +352,58 @@ class ProductDetailScreenMobile extends StatelessWidget {
 
           /// QUANTITY ADD DELETE
           appDivider(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: EdgeInsets.all(20.0),
-                child: counterButton(
-                  icon: icMinus,
-                  iconType: IconType.PNG,
-                  isLimitExceed: productDetail.quantity.value == 1 ? true : false,
-                  onTap: () => productDetail.onTapMinus(),
-                ),
-              ),
+          Obx((){
+            final productInCart = cart.cartProducts.firstWhereOrNull(
+                  (item) => item.productId == data.productId,
+            );
+            var isAddQuantityLoading = cart.addQuantityCartStatus[data.productId] == Status.LOADING ? true : false;
+            var isRemoveQuantityLoading = cart.removeQuantityCartStatus[data.productId] == Status.LOADING ? true : false;
+            return  Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: 26.0,
+                  height: 26.0,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 0.0),
+                    child:
+                    isRemoveQuantityLoading
+                        ? loadingIndicator()
+                        : counterButton(
+                      icon: icMinus,
+                      iconType: IconType.PNG,
+                      isLimitExceed:
+                      productInCart != null ? productInCart.productQuantity == 1 ? true : false
+                      : productDetail.quantity.value == 1 ? true : false,
+                      onTap: (){
+                        if(productInCart != null){
+                          if( productInCart.productQuantity == 1){
+                            showToast(AppLanguage.selectAtLeastOneProductStr(appLanguage).toString());
+                          } else {
+                            cart.removeQuantityFromCart(data.productId!);
+                          }
 
-              Obx(
-                    ()=> SizedBox(
-                  width: 30.0,
+                        } else {
+                          if(productDetail.quantity.value == 1 ){
+                            showToast(AppLanguage.selectAtLeastOneProductStr(appLanguage).toString());
+                          } else {
+                            productDetail.onTapMinus();
+                          }
+
+                        }
+
+                      },
+                    ),
+                  ),
+                ),
+
+                SizedBox(
+                  width: 60.0,
                   child: Padding(
                     padding: const EdgeInsets.all(0.0),
                     child: Center(
                       child: appText(
-                        text: productDetail.quantity.string,
+                        text: productInCart != null ? productInCart.productQuantity.toString() :  productDetail.quantity.string,
                         textStyle: headingTextStyle().copyWith(
                           fontSize: 22.0,
                           fontFamily: oswaldRegular,
@@ -358,28 +412,51 @@ class ProductDetailScreenMobile extends StatelessWidget {
                     ),
                   ),
                 ),
-              ),
 
-              Padding(
-                padding: EdgeInsets.all(20.0),
-                child: counterButton(
-                  icon: icPlus,
-                  iconType: IconType.PNG,
-                  isLimitExceed:
-                  data.productQuantityLimit == productDetail.quantity.value
-                      ? true
-                      : false,
-                  onTap: () => productDetail.onTapPlus(
-                    productLimit: data.productQuantityLimit!.toInt(),
-                  ),
-                ),
-              ),
-              //  setWidth(MAIN_HORIZONTAL_PADDING),
-            ],
-          ),
+                 SizedBox(
+                   width: 26.0,
+                   height: 26.0,
+                   child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 0.0),
+                    child: isAddQuantityLoading ? loadingIndicator()
+                        : counterButton(
+                      icon: icPlus,
+                      iconType: IconType.PNG,
+                      isLimitExceed:
+                          productInCart != null ? productInCart.productQuantity == data.productQuantityLimit ? true : false
+                      : data.productQuantityLimit == productDetail.quantity.value
+                          ? true
+                          : false,
+                      onTap: (){
+                        if(productInCart != null){
+                          if(productInCart.productQuantity == data.productQuantityLimit){
+                            showToast(AppLanguage.quantityLimitExceededStr(appLanguage).toString());
+                          } else {
+                            cart.addQuantityToCart(data.productId!);
+                          }
+                        } else{
+                          if(data.productQuantityLimit == productDetail.quantity.value){
+                            showToast(AppLanguage.quantityLimitExceededStr(appLanguage).toString());
+                          } else {
+                            productDetail.onTapPlus(
+                              productLimit: data.productQuantityLimit ?? productDetail.quantity.value,
+                            );
+                          }
+
+                        }
+
+                      }
+                    ),
+                                   ),
+                 ),
+                //  setWidth(MAIN_HORIZONTAL_PADDING),
+              ],
+            );
+          }),
+
           appDivider(),
 
-          if (data.productDetailEng!.isNotEmpty)
+          if (data.productDetailEng != null && data.productNameUrdu != null)
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

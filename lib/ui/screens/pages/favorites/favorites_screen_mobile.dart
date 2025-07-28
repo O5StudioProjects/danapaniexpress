@@ -10,7 +10,7 @@ class FavoritesScreenMobile extends StatelessWidget {
     var favorites = Get.put(FavoritesController());
     var search = Get.find<SearchProductsController>();
     var auth = Get.find<AuthController>();
-    favorites.fetchFavorites();
+   // favorites.fetchFavorites();
     return Obx(() {
       return Container(
           width: size.width,
@@ -21,11 +21,8 @@ class FavoritesScreenMobile extends StatelessWidget {
           Column(
             children: [
               appBarCommon(title: AppLanguage.favoritesStr(appLanguage), isBackNavigation: false),
-              favorites.favoritesStatus.value == Status.LOADING
-              ? Padding(
-                padding: const EdgeInsets.only(top: MAIN_HORIZONTAL_PADDING),
-                child: loadingIndicator(),
-              ) : SizedBox.shrink(),
+              favorites.favoritesStatus.value == Status.LOADING && favorites.favoritesList.isEmpty
+              ? Expanded(child: loadingIndicator()) :
               auth.currentUser.value == null
                   ? Expanded(child: appSignInTip())
                   : favorites.favoritesList.isEmpty

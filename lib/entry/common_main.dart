@@ -24,6 +24,7 @@ class MyApp extends StatelessWidget {
     Get.put(NavigationController(), permanent: true);
     Get.put<AuthRepository>(AuthRepository(), permanent: true);
     Get.put<AuthController>(AuthController(authRepo: Get.find()), permanent: true);
+    Get.put(DashBoardController(), permanent: true);
 
     final scaffoldKey = GlobalKey<ScaffoldMessengerState>();
     Connectivity connectivity = Connectivity();
