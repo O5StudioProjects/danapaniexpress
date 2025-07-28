@@ -536,6 +536,49 @@ class AppLanguage {
   static String? loadingStr(String appLanguage) {
     return allLang[appLanguage]?[LOADING];
   }
+  static String? visitStr(String appLanguage) {
+    return allLang[appLanguage]?[VISIT];
+  }
+
+  static String? selectAtLeastOneProductStr(String appLanguage) {
+    return allLang[appLanguage]?[SELECT_AT_LEAST_ONE_PRODUCT];
+  }
+
+  static String? quantityLimitExceededStr(String appLanguage) {
+    return allLang[appLanguage]?[QUANTITY_LIMIT_EXCEEDED];
+  }
+
+  static String? productAddedToCartStr(String appLanguage) {
+    return allLang[appLanguage]?[PRODUCT_ADDED_TO_CART];
+  }
+
+  static String? failedToAddToCartStr(String appLanguage) {
+    return allLang[appLanguage]?[FAILED_TO_ADD_TO_CART];
+  }
+
+  static String? cartIsEmptyNowStr(String appLanguage) {
+    return allLang[appLanguage]?[CART_IS_EMPTY_NOW];
+  }
+
+  static String? failedToEmptyCartStr(String appLanguage) {
+    return allLang[appLanguage]?[FAILED_TO_EMPTY_CART];
+  }
+
+  static String? removeProductStr(String appLanguage) {
+    return allLang[appLanguage]?[REMOVE_PRODUCT];
+  }
+
+  static String? removeProductConfirmStr(String appLanguage) {
+    return allLang[appLanguage]?[REMOVE_PRODUCT_CONFIRM];
+  }
+
+  static String? emptyCartConfirmStr(String appLanguage) {
+    return allLang[appLanguage]?[EMPTY_CART_CONFIRM];
+  }
+
+  static String? makeEmptyCartStr(String appLanguage) {
+    return allLang[appLanguage]?[MAKE_EMPTY_CART];
+  }
 
 
 }

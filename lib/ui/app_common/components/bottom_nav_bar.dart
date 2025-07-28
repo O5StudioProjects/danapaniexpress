@@ -1,20 +1,5 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
-import 'package:danapaniexpress/ui/screens/pages/account/account_screen.dart';
-import 'package:danapaniexpress/ui/screens/pages/cart/cart_screen.dart';
-import 'package:danapaniexpress/ui/screens/pages/categories/categories_screen.dart';
-import 'package:danapaniexpress/ui/screens/pages/favorites/favorites_screen.dart';
-import 'package:danapaniexpress/ui/screens/pages/home_screen/home_screen.dart';
-
-
-
-var screenList = [
-  HomeScreen(),
-  CategoriesScreen(),
-  FavoritesScreen(),
-  CartScreen(),
-  AccountScreen()
-];
 
 Widget appBottomNavBar() {
   var dashboardController = Get.find<DashBoardController>();
@@ -49,7 +34,7 @@ Widget appBottomNavBar() {
                       color: Colors.transparent,
                       child: Center(
                         child: navBarItem(dashboardController.navIndex.value == index, data.icon, data.iconFilled,
-                            data.label),
+                            data.label, isCart: index == 3 ? true : false),
                       ),
                     )
                 );
@@ -63,24 +48,61 @@ Widget appBottomNavBar() {
 
 
 
-Widget navBarItem(bool isSelected, icon, iconFilled, label) {
-  return isSelected
-      ? Center(
-    child: Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      decoration: BoxDecoration(
-          color: AppColors.cardColorSkin(isDark),
-          borderRadius: BorderRadius.circular(20.0)),
-      child: Row(
-        children: [
-          appIcon(icon: iconFilled, iconType: IconType.PNG, width: 20.0, color: AppColors.materialButtonSkin(isDark)),
-          setWidth(4.0),
-          Obx(()=> appText(text: label, textStyle: bottomNavItemTextStyle()))
-        ],
-      ),
+Widget navBarItem(bool isSelected, icon, iconFilled, label,
+    {bool isCart = false}) {
+  final auth = Get.find<AuthController>();
+  return Obx((){
+    var cartCount = auth.currentUser.value == null ? 0 : auth.currentUser.value?.userCartCount ?? 0;
+    return isSelected
+        ? Stack(
+      children: [
+        Center(
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: BoxDecoration(
+                color: AppColors.cardColorSkin(isDark),
+                borderRadius: BorderRadius.circular(20.0)),
+            child: Row(
+              children: [
+                appIcon(icon: iconFilled, iconType: IconType.PNG, width: 20.0, color: AppColors.materialButtonSkin(isDark)),
+                setWidth(4.0),
+                Obx(()=> appText(text: label, textStyle: bottomNavItemTextStyle()))
+              ],
+            ),
+          ),
+        ),
+        if(cartCount > 0 && isCart)
+        Positioned(
+          right: 0,
+          child: appCartCount(cartCount),
+        )
+      ],
+    )
+        : Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 14),
+          child: appIcon(icon: icon, iconType: IconType.PNG, width: 20.0, color: AppColors.secondaryTextColorSkin(isDark)),
+        ),
+        if(cartCount > 0 && isCart)
+        Positioned(
+          right: 0,
+          child: appCartCount(cartCount),
+        )
+      ],
+    );
+  });
+}
+
+Widget appCartCount(cartCount){
+  return Container(
+    padding: EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+    decoration: BoxDecoration(
+        color: AppColors.materialButtonSkin(isDark),
+        borderRadius: BorderRadius.circular(100.0)
     ),
-  )
-      : appIcon(icon: icon, iconType: IconType.PNG, width: 20.0, color: AppColors.secondaryTextColorSkin(isDark));
+    child: appText(text: cartCount.toString(), textStyle: itemTextStyle().copyWith(color: AppColors.materialButtonTextSkin(isDark))),
+  );
 }
 
 

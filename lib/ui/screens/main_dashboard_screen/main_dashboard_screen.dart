@@ -8,11 +8,6 @@ class MainDashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var dashboardController = Get.find<DashBoardController>();
-    // var navigation = Get.put(NavigationController(), permanent: true);
-    // var categories = Get.put(CategoriesController(), permanent: true);
-    // var favorites = Get.put(FavoritesController(), permanent: true);
-    // var cart = Get.put(CartController(), permanent: true);
-
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (res, onPop){

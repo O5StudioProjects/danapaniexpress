@@ -167,7 +167,7 @@ class ProductItem extends StatelessWidget {
                           else if(data.productAvailability == true){
                             await cart.addToCart(data.productId!);
                           } else {
-                            showToast('Product is out of Stock');
+                            showToast(AppLanguage.outOfStockStr(appLanguage).toString());
                           }
 
                         },

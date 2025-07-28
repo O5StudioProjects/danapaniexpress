@@ -10,6 +10,7 @@ class AuthBinding extends Bindings{
     // // Register AuthController with injected repository
     // Get.lazyPut<AuthController>(() => AuthController(authRepo: Get.find<AuthRepository>()),
     // );
+    Get.lazyPut(()=> DashBoardController(), fenix: true);
   }
 
 }

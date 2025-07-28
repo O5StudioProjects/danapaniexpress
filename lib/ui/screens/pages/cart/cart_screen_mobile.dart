@@ -10,8 +10,6 @@ class CartScreenMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     final cart = Get.find<CartController>();
     final auth = Get.find<AuthController>();
-    cart.fetchCartProducts();
-
     return Obx(() {
       return Container(
         width: size.width,
@@ -29,8 +27,8 @@ class CartScreenMobile extends StatelessWidget {
                 showCustomDialog(
                   context,
                   AppBoolDialog(
-                    title: 'Empty Cart',
-                    detail: 'Do you want to make cart empty?',
+                    title: AppLanguage.makeEmptyCartStr(appLanguage).toString(),
+                    detail: AppLanguage.emptyCartConfirmStr(appLanguage).toString(),
                     iconType: IconType.PNG,
                     icon: icDeleteCart,
                     onTapConfirm: () async {
@@ -41,17 +39,14 @@ class CartScreenMobile extends StatelessWidget {
                 );
               },
             ),
-            cart.getCartStatus.value == Status.LOADING
-                ? Padding(
-                    padding: const EdgeInsets.only(top: MAIN_VERTICAL_PADDING),
-                    child: loadingIndicator(),
-                  )
-                : SizedBox.shrink(),
 
-
-            auth.currentUser.value == null
-            ? Expanded(child: appSignInTip())
-            : cart.cartProducts.isEmpty
+                cart.emptyCartStatus.value == Status.LOADING
+                ? Expanded(child: loadingIndicator())
+                : cart.getCartStatus.value == Status.LOADING && cart.cartProducts.isEmpty
+                ? Expanded(child: loadingIndicator())
+                : auth.currentUser.value == null
+                ? Expanded(child: appSignInTip())
+                : cart.cartProducts.isEmpty
                 ? Expanded(
                     child: EmptyScreen(
                       icon: AppAnims.animEmptyCartSkin(isDark),
@@ -72,9 +67,75 @@ class CartScreenMobile extends StatelessWidget {
                       },
                     ),
                   ),
+
+
+
+
+            cart.cartProducts.isNotEmpty
+            ? Container(
+              width: size.width,
+              height: 90.0,
+              decoration: BoxDecoration(
+                color: AppColors.backgroundColorSkin(isDark)
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: MAIN_HORIZONTAL_PADDING),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          checkOutItems(
+                            title: 'Products : ',
+                            detail: cart.cartProducts.length.toString()
+                          ),
+                          checkOutItems(
+                              title: 'Quantity : ',
+                              detail: cart.totalProductsQuantity.value.toString()
+                          ),
+                          checkOutItems(
+                              title: 'Discount : ',
+                              detail: 'Rs. ${(cart.totalCutPrice.value - cart.totalSellingPrice.value).toStringAsFixed(1)}',
+                            isDiscount: true
+                          ),
+                          checkOutItems(
+                              title: 'Billing Amount : ',
+                              detail: 'Rs. ${cart.totalSellingPrice.value.toString()}',
+                              isBilling: true
+                          ),
+
+                        ],
+                      ),
+                    ),
+                    setWidth(MAIN_HORIZONTAL_PADDING),
+                    appMaterialButton(
+                      text: 'Checkout',
+                      onTap: (){}
+                    )
+                  ],
+                ),
+              ),
+            )
+                : SizedBox.shrink()
           ],
         ),
       );
     });
   }
+}
+
+Widget checkOutItems({title, detail, isBilling = false, isDiscount = false}){
+  return Row(
+    children: [
+      appText(text: title, textStyle: secondaryTextStyle()),
+      appText(text: detail, textStyle: itemTextStyle().copyWith(
+        color: isBilling ? AppColors.sellingPriceDetailTextSkin(isDark)
+        : isDiscount ? AppColors.sellingPriceTextSkin(isDark)
+            : AppColors.primaryTextColorSkin(isDark),
+        fontSize:  NORMAL_TEXT_FONT_SIZE
+      )),
+    ],
+  );
 }

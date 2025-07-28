@@ -3,6 +3,20 @@ import 'package:danapaniexpress/data/repositories/cart_repository/cart_datasourc
 
 class CartRepository extends CartDatasource{
 
+  /// ADD PRODUCT TO CART WITH SPECIFIC QUANTITY (OR INCREMENT IF EXISTS)
+  Future<Map<String, dynamic>> addToCartWithQuantity({
+    required String userId,
+    required String productId,
+    required int productQty,
+  }) async {
+    return await addToCartWithQuantityApi(
+      userId: userId,
+      productId: productId,
+      productQty: productQty,
+    );
+  }
+
+  /// ADD PRODUCT TO CART AND SAME METHOD USED TO MAKE INCREMENT IN CART
   Future<Map<String, dynamic>> addToCart({
     required String userId,
     required String productId,
@@ -13,6 +27,18 @@ class CartRepository extends CartDatasource{
     );
   }
 
+  /// DECREMENT QUANTITY OF PRODUCT IN CART
+  Future<Map<String, dynamic>> removeProductQuantityFromCart({
+    required String userId,
+    required String productId,
+  }) async {
+    return await removeProductQuantityFromCartApi(
+      userId: userId,
+      productId: productId,
+    );
+  }
+
+  /// GET CART PRODUCTS LIST BY CURRENT USER
   Future<List<ProductModel>> getCartProducts(String userId) async {
     try {
       final response = await getCartApi(userId);

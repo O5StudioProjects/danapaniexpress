@@ -12,7 +12,7 @@ class AppNotificationDialog extends StatefulWidget {
 class _AppNotificationDialogState extends State<AppNotificationDialog> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
-  var dashboardController = Get.find<DashBoardController>();
+  var home = Get.find<HomeController>();
   @override
   void initState() {
 
@@ -68,7 +68,7 @@ class _AppNotificationDialogState extends State<AppNotificationDialog> with Sing
                     child: GestureDetector(
                         onTap: (){
                           Navigator.of(context).pop();
-                          dashboardController.onTapTopNotificationDialog(widget.data);
+                          home.onTapTopNotificationDialog(widget.data);
                         } ,
                         child: appAsyncImage(data.dialogImage, boxFit: BoxFit.fitWidth, )),
                   ),
@@ -95,12 +95,12 @@ class _AppNotificationDialogState extends State<AppNotificationDialog> with Sing
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       appTextButton(text:
-                      'Visit',
+                      AppLanguage.visitStr(appLanguage),
                           onTap: (){
                             Navigator.of(context).pop();
-                            dashboardController.onTapTopNotificationDialog(widget.data);
+                            home.onTapTopNotificationDialog(widget.data);
                           }),
-                      appTextButton(text: 'Close',
+                      appTextButton(text: AppLanguage.closeStr(appLanguage),
                           onTap: (){
                             Navigator.of(context).pop();
                           })
