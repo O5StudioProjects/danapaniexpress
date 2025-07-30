@@ -10,6 +10,7 @@ class CartScreenMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     final cart = Get.find<CartController>();
     final auth = Get.find<AuthController>();
+    final nav = Get.find<NavigationController>();
     return Obx(() {
       return Container(
         width: size.width,
@@ -80,42 +81,61 @@ class CartScreenMobile extends StatelessWidget {
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: MAIN_HORIZONTAL_PADDING),
-                child: Row(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          checkOutItems(
-                            title: 'Products : ',
-                            detail: cart.cartProducts.length.toString()
+
+                    Row(
+                      children: [
+                        Expanded(
+                          child: checkOutItems(
+                              title: 'Products : ',
+                              detail: cart.cartProducts.length.toString()
                           ),
-                          checkOutItems(
+                        ),
+                        Expanded(
+                          child: checkOutItems(
                               title: 'Quantity : ',
                               detail: cart.totalProductsQuantity.value.toString()
                           ),
-                          checkOutItems(
-                              title: 'Discount : ',
-                              detail: 'Rs. ${(cart.totalCutPrice.value - cart.totalSellingPrice.value).toStringAsFixed(1)}',
+                        ),
+                        checkOutItems(
+                            title: 'Saved : ',
+                            detail: 'Rs. ${(cart.totalCutPrice.value - cart.totalSellingPrice.value).toStringAsFixed(1)}',
                             isDiscount: true
-                          ),
-                          checkOutItems(
-                              title: 'Billing Amount : ',
-                              detail: 'Rs. ${cart.totalSellingPrice.value.toString()}',
-                              isBilling: true
-                          ),
-
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    setWidth(MAIN_HORIZONTAL_PADDING),
-                    appMaterialButton(
-                      text: 'Checkout',
-                      onTap: (){}
-                    )
+                    appDivider(),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+
+
+                              checkOutItems(
+                                  title: 'Total : ',
+                                  detail: 'Rs. ${cart.totalSellingPrice.value.toString()}',
+                                  isBilling: true
+                              ),
+
+                            ],
+                          ),
+                        ),
+                        setWidth(MAIN_HORIZONTAL_PADDING),
+
+                        appMaterialButton(
+                            text: 'Checkout',
+                            onTap: ()=> nav.gotoCheckoutScreen()
+                        )
+
+                      ],
+                    ),
                   ],
-                ),
+                )
               ),
             )
                 : SizedBox.shrink()
@@ -134,7 +154,7 @@ Widget checkOutItems({title, detail, isBilling = false, isDiscount = false}){
         color: isBilling ? AppColors.sellingPriceDetailTextSkin(isDark)
         : isDiscount ? AppColors.sellingPriceTextSkin(isDark)
             : AppColors.primaryTextColorSkin(isDark),
-        fontSize:  NORMAL_TEXT_FONT_SIZE
+        fontSize: isBilling ? HEADING_FONT_SIZE : NORMAL_TEXT_FONT_SIZE
       )),
     ],
   );

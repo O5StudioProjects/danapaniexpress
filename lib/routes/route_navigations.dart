@@ -78,6 +78,10 @@ class JumpTo {
 
     );
   }
+  ///CHECKOUT SCREENS
+  static gotoCheckoutScreen() {
+    Get.toNamed(RouteNames.CheckoutScreenRoute);
+  }
 
   ///ACCOUNT SCREENS
   static gotoAccountInformationScreen() {

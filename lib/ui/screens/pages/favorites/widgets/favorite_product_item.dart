@@ -137,8 +137,9 @@ class FavoriteProductItem extends StatelessWidget {
                       ) : SizedBox(
                         height: 35.0,
                         child: appMaterialButton(
-                            text: AppLanguage.addToCartStr(appLanguage),
+                            text: product.productAvailability == false ? AppLanguage.outOfStockStr(appLanguage) :AppLanguage.addToCartStr(appLanguage),
                             fontSize: SUB_HEADING_TEXT_BUTTON_FONT_SIZE,
+                            isDisable: product.productAvailability == false,
                             onTap: () async {
                               if(product.productAvailability == true){
                                 await cart.addToCart(product.productId!);
@@ -148,6 +149,50 @@ class FavoriteProductItem extends StatelessWidget {
                             }
                         ),
                       ),
+
+                      if (product.productBrand!.isNotEmpty)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 5.0),
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 8.0,
+                              vertical: 4.0,
+                            ),
+                            decoration: BoxDecoration(
+                              color: EnvColors.specialFestiveColorDark,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(4.0),
+                                bottomRight: Radius.circular(0.0),
+                              ),
+                            ),
+                            child: appText(
+                              text: product.productBrand,
+                              textStyle: itemTextStyle().copyWith(color: whiteColor),
+                            ),
+                          ),
+                        ),
+
+                      if (product.productIsFlashsale == true)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 5.0),
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 8.0,
+                              vertical: 4.0,
+                            ),
+                            decoration: BoxDecoration(
+                              color: EnvColors.specialFestiveColorDark,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(4.0),
+                                bottomRight: Radius.circular(0.0),
+                              ),
+                            ),
+                            child: appText(
+                              text: AppLanguage.flashSaleStr(appLanguage),
+                              textStyle: itemTextStyle().copyWith(color: whiteColor),
+                            ),
+                          ),
+                        ),
 
                       // appFloatingButton(
                       //   icon: icCart,
