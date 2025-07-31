@@ -75,9 +75,10 @@ class CartScreenMobile extends StatelessWidget {
             cart.cartProducts.isNotEmpty
             ? Container(
               width: size.width,
-              height: 90.0,
+              //height: 100.0,
+              padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
               decoration: BoxDecoration(
-                color: AppColors.backgroundColorSkin(isDark)
+                color: AppColors.cardColorSkin(isDark)
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: MAIN_HORIZONTAL_PADDING),
@@ -86,27 +87,21 @@ class CartScreenMobile extends StatelessWidget {
                   children: [
 
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Expanded(
-                          child: checkOutItems(
-                              title: 'Products : ',
-                              detail: cart.cartProducts.length.toString()
-                          ),
-                        ),
-                        Expanded(
-                          child: checkOutItems(
-                              title: 'Quantity : ',
-                              detail: cart.totalProductsQuantity.value.toString()
-                          ),
+                        checkOutItems(
+                            title: 'Products : ',
+                            detail: cart.cartProducts.length.toString()
                         ),
                         checkOutItems(
-                            title: 'Saved : ',
-                            detail: 'Rs. ${(cart.totalCutPrice.value - cart.totalSellingPrice.value).toStringAsFixed(1)}',
-                            isDiscount: true
+                            title: 'Quantity : ',
+                            detail: cart.totalProductsQuantity.value.toString()
                         ),
+
                       ],
                     ),
                     appDivider(),
+                    setHeight(6.0),
                     Row(
                       children: [
                         Expanded(
@@ -115,7 +110,11 @@ class CartScreenMobile extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
 
-
+                              checkOutItems(
+                                  title: 'Saved : ',
+                                  detail: 'Rs. ${(cart.totalCutPrice.value - cart.totalSellingPrice.value).toStringAsFixed(1)}',
+                                  isDiscount: true
+                              ),
                               checkOutItems(
                                   title: 'Total : ',
                                   detail: 'Rs. ${cart.totalSellingPrice.value.toString()}',

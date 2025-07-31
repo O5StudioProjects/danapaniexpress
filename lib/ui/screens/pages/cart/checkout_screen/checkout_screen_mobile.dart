@@ -31,7 +31,7 @@ class CheckoutScreenMobile extends StatelessWidget {
                 children: [
                   checkoutDetailStatus(
                     title: 'Shipping',
-                    isDone:  checkout.shippingValue,
+                    isDone:  checkout.shippingValue && checkout.shippingSlotCheck,
                   ),
                   Expanded(
                     child: Padding(
@@ -63,24 +63,59 @@ class CheckoutScreenMobile extends StatelessWidget {
                 child: Column(
                     children: [
                   defaultAddressSection(),
+                      Padding(
+                        padding: const EdgeInsets.only(top: MAIN_VERTICAL_PADDING),
+                        child: appDivider(),
+                      ),
                       deliveryType(),
+                      Padding(
+                        padding: const EdgeInsets.only(top: MAIN_VERTICAL_PADDING),
+                        child: appDivider(),
+                      ),
                       selectPaymentMethod(isSelected: checkout.cod.value),
+                      Padding(
+                        padding: const EdgeInsets.only(top: MAIN_VERTICAL_PADDING),
+                        child: appDivider(),
+                      ),
                       reviewOrderedProducts(),
+                      Padding(
+                        padding: const EdgeInsets.only(top: MAIN_VERTICAL_PADDING),
+                        child: appDivider(),
+                      ),
                       billingInfo(),
-
+                      setHeight(MAIN_VERTICAL_PADDING),
                       Padding(
                         padding: const EdgeInsets.all(MAIN_HORIZONTAL_PADDING),
                         child: appMaterialButton(
                           text: 'Place Order',
                           isDisable: checkout.shippingValue && checkout.paymentValue ? false : true,
                           onTap: (){
-                            if(checkout.slotDelivery.value){
-                              if(checkout.selectedSlotId.value != 0){
 
-                              } else {
+                            if(checkout.shippingAddress.value == null){
+                              showSnackbar(title: 'Address not found', message: 'Add Address to place order', isError: true);
+                              return;
+                            }
+
+                            if(!checkout.slotDelivery.value && !checkout.flashDelivery.value){
+                              showSnackbar(title: 'Delivery Type', message: 'Select Delivery Type', isError: true);
+                              return;
+                            }
+                            if(!checkout.cod.value){
+                              showSnackbar(title: 'Payment Method', message: 'Select Payment Method', isError: true);
+                              return;
+                            }
+
+                            if(checkout.slotDelivery.value){
+                              if(checkout.selectedSlotId.value == 0){
                                 showSnackbar(title: 'Select Slot', message: 'Slot is not Selected', isError: true);
+                                return;
                               }
                             }
+
+
+
+
+
                           }
                         ),
                       ),
@@ -130,6 +165,7 @@ Widget defaultAddressSection() {
   var auth = Get.find<AuthController>();
   return Column(
     children: [
+      setHeight(MAIN_HORIZONTAL_PADDING),
       HomeHeadings(
         mainHeadingText: 'Shipping Address',
         isSeeAll: true,
@@ -161,7 +197,7 @@ Widget defaultAddressSection() {
                             addressScreenType: AddressScreenType.IDLE,
                           ),
                         ),
-                        appDivider(),
+                        //appDivider(),
                       ],
                     )
                   : Padding(
@@ -286,11 +322,11 @@ Widget reviewOrderedProducts(){
       children: [
         setHeight(MAIN_VERTICAL_PADDING),
         HomeHeadings(
-          mainHeadingText: 'Ordered Items',
+          mainHeadingText: 'Ordered Products',
           isSeeAll: false,
           isTrailingText: false,
         ),
-        setHeight(MAIN_HORIZONTAL_PADDING),
+        setHeight(MAIN_VERTICAL_PADDING),
 
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: MAIN_HORIZONTAL_PADDING),
@@ -301,14 +337,14 @@ Widget reviewOrderedProducts(){
                 children: [
                   Row(
                     children: [
-                      appText(text: (index +1).toString()),
-                      setWidth(MAIN_HORIZONTAL_PADDING),
+                      appText(text: (index +1).toString(), textStyle: itemTextStyle()),
+                      setWidth(8.0),
                       ClipRRect(
                         borderRadius: BorderRadius.circular(12.0),
                         child: Container(
                           color: whiteColor,
-                          width: size.width * 0.10,
-                          height: size.width * 0.10,
+                          width: size.width * 0.12,
+                          height: size.width * 0.12,
                           child: appAsyncImage(
                             product.productImage,
                             boxFit: BoxFit.cover,
@@ -322,7 +358,7 @@ Widget reviewOrderedProducts(){
                           children: [
                             appText(
                               text: appLanguage == URDU ? product.productNameUrdu : product.productNameEng,
-                              textStyle: itemTextStyle().copyWith(fontSize: TAGS_FONT_SIZE),
+                              textStyle: itemTextStyle().copyWith(fontSize: SUB_HEADING_TEXT_BUTTON_FONT_SIZE),
                               textDirection: setTextDirection(appLanguage),
                               maxLines: 1,
                             ),
@@ -345,6 +381,25 @@ Widget reviewOrderedProducts(){
                                   ),
                               ],
                             ),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                appText(
+                                  text: 'Rs. ${product.productSellingPrice}',
+                                  textStyle: sellingPriceTextStyle().copyWith(fontSize: SUB_HEADING_TEXT_BUTTON_FONT_SIZE),
+                                  maxLines: 1,
+                                ),
+                                setWidth(8.0),
+                                if(product.productCutPrice != null)
+
+                                  appText(
+                                    text: 'Rs. ${product.productCutPrice}',
+                                    maxLines: 1,
+                                    textStyle: cutPriceTextStyle(isDetail: false).copyWith(fontSize: SUB_HEADING_TEXT_BUTTON_FONT_SIZE),
+                                  ),
+
+                              ],
+                            ),
                           ],
                         ),
                       ),
@@ -352,25 +407,7 @@ Widget reviewOrderedProducts(){
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              appText(
-                                text: 'Rs. ${product.productSellingPrice}',
-                                textStyle: sellingPriceTextStyle().copyWith(fontSize: TAGS_FONT_SIZE),
-                                maxLines: 1,
-                              ),
-                              setWidth(8.0),
-                              if(product.productCutPrice != null)
 
-                                appText(
-                                  text: 'Rs. ${product.productCutPrice}',
-                                  maxLines: 1,
-                                  textStyle: cutPriceTextStyle(isDetail: false).copyWith(fontSize: TAGS_FONT_SIZE),
-                                ),
-
-                            ],
-                          ),
                           appText(text: '${product.productQuantity} x ${product.productSellingPrice!.toStringAsFixed(0)} = Rs. ${(product.productQuantity!.toInt() * product.productSellingPrice!.toDouble()).toStringAsFixed(0)}',
                               textStyle: secondaryTextStyle().copyWith(color: AppColors.sellingPriceDetailTextSkin(isDark), fontSize: TAGS_FONT_SIZE)
                           )
@@ -478,9 +515,9 @@ Widget billingInfo(){
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    appText(text: 'Total Payable Amount : ' , textStyle: bodyTextStyle().copyWith(fontWeight: FontWeight.w800)),
+                    appText(text: 'Total Payable Amount : ' , textStyle: headingTextStyle()),
                     setWidth(8.0),
-                    appText(text: 'Rs. ${checkout.totalPayableAmount.toStringAsFixed(1)}' , textStyle: itemTextStyle().copyWith(fontSize: NORMAL_TEXT_FONT_SIZE, color: AppColors.sellingPriceDetailTextSkin(isDark))),
+                    appText(text: 'Rs. ${checkout.totalPayableAmount.toStringAsFixed(1)}' , textStyle: sellingPriceTextStyle().copyWith(fontSize: HEADING_FONT_SIZE, color: AppColors.sellingPriceDetailTextSkin(isDark))),
                   ],
                 ),
               ),

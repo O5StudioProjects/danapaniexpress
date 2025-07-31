@@ -98,10 +98,18 @@ class CheckoutController extends GetxController{
     if(flashDelivery.value){
       if(cart.totalSellingPrice.value < 1000.0){
         return 150.0;
-      } else if(cart.totalSellingPrice.value > 1000.0 || cart.totalSellingPrice.value < 2000.0){
+      } else if(cart.totalSellingPrice.value > 1000.0 && cart.totalSellingPrice.value < 2000.0){
         return 80.0;
-      } else if(cart.totalSellingPrice.value > 2000.0 || cart.totalSellingPrice.value < 3000.0){
+      } else if(cart.totalSellingPrice.value > 2000.0 && cart.totalSellingPrice.value < 3000.0){
         return 50.0;
+      } else if(cart.totalSellingPrice.value > 3000.0){
+        return 0.0;
+      }else {
+        return 0.0;
+      }
+    }else if(slotDelivery.value){
+      if(cart.totalSellingPrice.value < 1000.0){
+        return 100.0;
       } else {
         return 0.0;
       }
@@ -121,6 +129,19 @@ class CheckoutController extends GetxController{
     } else {
       return "Slot Delivery";
     }
+  }
+
+  bool get shippingSlotCheck {
+    if(slotDelivery.value){
+      if(selectedSlotId.value != 0){
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return true;
+    }
+
   }
 
 }
