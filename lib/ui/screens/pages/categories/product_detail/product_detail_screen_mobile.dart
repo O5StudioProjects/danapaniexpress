@@ -89,6 +89,7 @@ class ProductDetailScreenMobile extends StatelessWidget {
       final productInCart = cart.cartProducts.firstWhereOrNull(
             (item) => item.productId == data.productId,
       );
+      var isAddToCartQtyLoading = cart.addToCartWithQtyStatus.value == Status.LOADING ? true : false;
       var isAddToCartLoading = cart.addToCartWithQtyStatus.value == Status.LOADING ? true : false;
       return Container(
         color: AppColors.backgroundColorSkin(isDark),
@@ -115,20 +116,18 @@ class ProductDetailScreenMobile extends StatelessWidget {
                   ),
                 ],
               ),
-              isAddToCartLoading
+              isAddToCartLoading || isAddToCartQtyLoading
               ? SizedBox(
                 width: 100.0,
                 child: loadingIndicator(),
               )
               : appMaterialButton(
-                text: AppLanguage.addToCartStr(appLanguage),
+                text: productInCart != null ? 'Update Cart' : AppLanguage.addToCartStr(appLanguage),
                 onTap: () {
                   if(auth.currentUser.value == null){
                     nav.gotoSignInScreen();
                   }
-                  else if(productInCart != null){
-                    showToast('Product is already in Cart');
-                  } else {
+                   else {
                     cart.addToCartWithQuantity(productId: data.productId!, userId: auth.currentUser.value!.userId!, productQty: productDetail.quantity.value);
                   }
                 },
@@ -373,24 +372,32 @@ class ProductDetailScreenMobile extends StatelessWidget {
                       icon: icMinus,
                       iconType: IconType.PNG,
                       isLimitExceed:
-                      productInCart != null ? productInCart.productQuantity == 1 ? true : false
-                      : productDetail.quantity.value == 1 ? true : false,
+                      // productInCart != null ? productInCart.productQuantity == 1 ? true : false
+                      // :
+                      productDetail.quantity.value == 1 ? true : false,
                       onTap: (){
-                        if(productInCart != null){
-                          if( productInCart.productQuantity == 1){
-                            showToast(AppLanguage.selectAtLeastOneProductStr(appLanguage).toString());
-                          } else {
-                            cart.removeQuantityFromCart(data.productId!);
-                          }
 
+                        if(productDetail.quantity.value == 1 ){
+                          showToast(AppLanguage.selectAtLeastOneProductStr(appLanguage).toString());
                         } else {
-                          if(productDetail.quantity.value == 1 ){
-                            showToast(AppLanguage.selectAtLeastOneProductStr(appLanguage).toString());
-                          } else {
-                            productDetail.onTapMinus();
-                          }
-
+                          productDetail.onTapMinus();
                         }
+
+
+                        // if(productInCart != null){
+                        //   if( productInCart.productQuantity == 1){
+                        //     showToast(AppLanguage.selectAtLeastOneProductStr(appLanguage).toString());
+                        //   } else {
+                        //     cart.removeQuantityFromCart(data.productId!);
+                        //   }
+                        //
+                        // } else {
+                        //   if(productDetail.quantity.value == 1 ){
+                        //     showToast(AppLanguage.selectAtLeastOneProductStr(appLanguage).toString());
+                        //   } else {
+                        //     productDetail.onTapMinus();
+                        //   }
+                        // }
 
                       },
                     ),
@@ -403,7 +410,8 @@ class ProductDetailScreenMobile extends StatelessWidget {
                     padding: const EdgeInsets.all(0.0),
                     child: Center(
                       child: appText(
-                        text: productInCart != null ? productInCart.productQuantity.toString() :  productDetail.quantity.string,
+                      //  text: productInCart != null ? productInCart.productQuantity.toString() :  productDetail.quantity.string,
+                        text:  productDetail.quantity.string,
                         textStyle: headingTextStyle().copyWith(
                           fontSize: 22.0,
                           fontFamily: oswaldRegular,
@@ -423,27 +431,36 @@ class ProductDetailScreenMobile extends StatelessWidget {
                       icon: icPlus,
                       iconType: IconType.PNG,
                       isLimitExceed:
-                          productInCart != null ? productInCart.productQuantity == data.productQuantityLimit ? true : false
-                      : data.productQuantityLimit == productDetail.quantity.value
+                      //     productInCart != null ? productInCart.productQuantity == data.productQuantityLimit ? true : false
+                      // :
+                          data.productQuantityLimit == productDetail.quantity.value
                           ? true
                           : false,
                       onTap: (){
-                        if(productInCart != null){
-                          if(productInCart.productQuantity == data.productQuantityLimit){
-                            showToast(AppLanguage.quantityLimitExceededStr(appLanguage).toString());
-                          } else {
-                            cart.addQuantityToCart(data.productId!);
-                          }
-                        } else{
-                          if(data.productQuantityLimit == productDetail.quantity.value){
-                            showToast(AppLanguage.quantityLimitExceededStr(appLanguage).toString());
-                          } else {
-                            productDetail.onTapPlus(
-                              productLimit: data.productQuantityLimit ?? productDetail.quantity.value,
-                            );
-                          }
 
+                        if(data.productQuantityLimit == productDetail.quantity.value){
+                          showToast(AppLanguage.quantityLimitExceededStr(appLanguage).toString());
+                        } else {
+                          productDetail.onTapPlus(
+                            productLimit: data.productQuantityLimit ?? productDetail.quantity.value,
+                          );
                         }
+
+                        // if(productInCart != null){
+                        //   if(productInCart.productQuantity == data.productQuantityLimit){
+                        //     showToast(AppLanguage.quantityLimitExceededStr(appLanguage).toString());
+                        //   } else {
+                        //     cart.addQuantityToCart(data.productId!);
+                        //   }
+                        // } else{
+                        //   if(data.productQuantityLimit == productDetail.quantity.value){
+                        //     showToast(AppLanguage.quantityLimitExceededStr(appLanguage).toString());
+                        //   } else {
+                        //     productDetail.onTapPlus(
+                        //       productLimit: data.productQuantityLimit ?? productDetail.quantity.value,
+                        //     );
+                        //   }
+                        // }
 
                       }
                     ),

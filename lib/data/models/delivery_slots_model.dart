@@ -48,7 +48,7 @@ class DeliverySlot {
   final int totalLimit;
   final int bookedCount;
   final bool isActive;
-  final bool isAvailable;
+  bool isAvailable;
 
   DeliverySlot({
     required this.slotId,

@@ -66,14 +66,11 @@ class CartProductItem extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Expanded(
-                                    child: SizedBox(
-                                      height: 44.0,
-                                      child: appText(
-                                        text: appLanguage == URDU ? product.productNameUrdu : product.productNameEng,
-                                        textStyle: itemTextStyle().copyWith(fontSize: NORMAL_TEXT_FONT_SIZE),
-                                        textDirection: setTextDirection(appLanguage),
-                                        maxLines: 2,
-                                      ),
+                                    child: appText(
+                                      text: appLanguage == URDU ? product.productNameUrdu : product.productNameEng,
+                                      textStyle: itemTextStyle().copyWith(fontSize: NORMAL_TEXT_FONT_SIZE),
+                                      textDirection: setTextDirection(appLanguage),
+                                      maxLines: 1,
                                     ),
                                   ),
                                   GestureDetector(
@@ -103,7 +100,7 @@ class CartProductItem extends StatelessWidget {
                                 ],
                               ),
         
-                              //  const SizedBox(height: 4),
+                               const SizedBox(height: 8.0),
         
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -199,7 +196,7 @@ class CartProductItem extends StatelessWidget {
         
                                           ],
                                         ),
-                                        setHeight(8.0),
+                                        setHeight(6.0),
                                         Container(
                                           padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 2.0),
                                             decoration: BoxDecoration(
