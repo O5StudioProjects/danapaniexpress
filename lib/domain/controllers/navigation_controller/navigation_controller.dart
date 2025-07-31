@@ -57,8 +57,8 @@ class NavigationController extends GetxController{
   Future<void> gotoAccountInformationScreen() async {
     JumpTo.gotoAccountInformationScreen();
   }
-  Future<void> gotoAddressBookScreen() async {
-    JumpTo.gotoAddressBookScreen();
+  Future<void> gotoAddressBookScreen({AddressScreenType addressScreenType = AddressScreenType.ADDRESSBOOK}) async {
+    JumpTo.gotoAddressBookScreen(addressScreenType: addressScreenType);
   }
   Future<void> gotoAddAddressScreen({required AddressModel? data, CurdType curdType = CurdType.ADD}) async {
     JumpTo.gotoAddAddressScreen(data: data, curdType: curdType);

@@ -16,6 +16,7 @@ class DeliverySlotsWidget extends StatelessWidget {
             height: 60,
             child: ListView.builder(
               padding: const EdgeInsets.only(left: MAIN_HORIZONTAL_PADDING),
+              shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               itemCount: checkout.deliveryDays.length,
               itemBuilder: (context, index) {
@@ -65,32 +66,32 @@ class DeliverySlotsWidget extends StatelessWidget {
           final selectedDay = checkout.deliveryDays[checkout.selectedDayIndex.value];
           final slots = selectedDay.slots;
 
-          return Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.symmetric(horizontal: MAIN_HORIZONTAL_PADDING),
-              itemCount: slots.length,
-              itemBuilder: (context, index) {
-                final slot = slots[index];
-                return Obx(
-                  ()=> IgnorePointer(
-                    ignoring: !slot.isAvailable,
-                    child: Opacity(
-                      opacity: slot.isAvailable ? 1.0 : 0.5,
-                      child: RadioListTile(
-                        title: appText(text: slot.slotLabel, textStyle: itemTextStyle()),
-                        value: slot.slotId,
-                        groupValue: checkout.selectedSlotId.value,
-                        onChanged: (value) {
-                          checkout.selectedSlotId.value = value as int;
-                          print(slot.slotLabel);
-                        },
-                        activeColor: AppColors.materialButtonSkin(isDark),
-                      ),
+          return ListView.builder(
+            padding: const EdgeInsets.symmetric(horizontal: MAIN_HORIZONTAL_PADDING),
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: slots.length,
+            itemBuilder: (context, index) {
+              final slot = slots[index];
+              return Obx(
+                ()=> IgnorePointer(
+                  ignoring: !slot.isAvailable,
+                  child: Opacity(
+                    opacity: slot.isAvailable ? 1.0 : 0.5,
+                    child: RadioListTile(
+                      title: appText(text: slot.slotLabel, textStyle: itemTextStyle()),
+                      value: slot.slotId,
+                      groupValue: checkout.selectedSlotId.value,
+                      onChanged: (value) {
+                        checkout.selectedSlotId.value = value as int;
+                        print(slot.slotLabel);
+                      },
+                      activeColor: AppColors.materialButtonSkin(isDark),
                     ),
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
           );
         }),
       ],
