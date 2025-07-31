@@ -20,6 +20,10 @@ class RouteNames {
 
   static const String HomeScreenRoute = "/home_screen";
 
+  /// CART SCREENS
+  static const String CheckoutScreenRoute = "/check_out_screen";
+
+
 
   ///ACCOUNT SCREEN AND PAGES
   static const String AccountInformationScreenRoute = "/account_information_screen";

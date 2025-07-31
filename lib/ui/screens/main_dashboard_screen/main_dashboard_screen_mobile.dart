@@ -46,18 +46,3 @@ class MainDashboardScreenMobile extends StatelessWidget {
     });
   }
 }
-
-
-
-// return Obx(
-// ()=> Stack(
-// children: [
-// Column(
-// children: [
-// Expanded(
-// child: screenList.elementAt(dashboardController.navIndex.value)),
-// ],
-// )
-// ],
-// ),
-// );

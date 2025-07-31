@@ -78,13 +78,19 @@ class JumpTo {
 
     );
   }
+  ///CHECKOUT SCREENS
+  static gotoCheckoutScreen() {
+    Get.toNamed(RouteNames.CheckoutScreenRoute);
+  }
 
   ///ACCOUNT SCREENS
   static gotoAccountInformationScreen() {
     Get.toNamed(RouteNames.AccountInformationScreenRoute);
   }
-  static gotoAddressBookScreen() {
-    Get.toNamed(RouteNames.AddressBookScreenRoute);
+  static gotoAddressBookScreen({AddressScreenType addressScreenType = AddressScreenType.ADDRESSBOOK}) {
+    Get.toNamed(RouteNames.AddressBookScreenRoute,
+    arguments: {ADDRESS_SCREEN_TYPE: addressScreenType}
+    );
   }
   static gotoAddAddressScreen({required AddressModel? data, required CurdType curdType }) {
     Get.toNamed(RouteNames.AddAddressScreenRoute,

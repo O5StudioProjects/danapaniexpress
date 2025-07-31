@@ -5,17 +5,25 @@ import 'package:danapaniexpress/core/controllers_import.dart';
 class AddressItemUI extends StatelessWidget {
   final AddressModel data;
   final bool isDefault;
-
-  const AddressItemUI({super.key, required this.data, this.isDefault = false});
+  final AddressScreenType addressScreenType;
+  const AddressItemUI({super.key, required this.data, this.isDefault = false, this.addressScreenType = AddressScreenType.ADDRESSBOOK});
 
   @override
   Widget build(BuildContext context) {
     var logoSpaceSize = size.width * 0.15;
     var navigation = Get.find<NavigationController>();
+    var checkout = Get.find<CheckoutController>();
 
     return Obx((){
       return GestureDetector(
-        onTap: ()=> navigation.gotoAddAddressScreen(data: data, curdType: CurdType.UPDATE),
+        onTap: (){
+          if(addressScreenType == AddressScreenType.ADDRESSBOOK){
+            navigation.gotoAddAddressScreen(data: data, curdType: CurdType.UPDATE);
+          } else if(addressScreenType == AddressScreenType.CHECKOUT){
+            checkout.shippingAddress.value = data;
+            Get.back();
+          }
+        } ,
         child: Padding(
           padding: const EdgeInsets.only(bottom: MAIN_HORIZONTAL_PADDING),
           child: Stack(

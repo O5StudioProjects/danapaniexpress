@@ -23,7 +23,6 @@ class DashBoardController extends GetxController {
   void onInit() {
     super.onInit();
     navIndex.value = 0;
-
   }
 
   void startupMethods() async {

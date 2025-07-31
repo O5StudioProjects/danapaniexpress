@@ -1,6 +1,7 @@
 import 'package:danapaniexpress/domain/di/account_binding.dart';
 import 'package:danapaniexpress/domain/di/address_binding.dart';
 import 'package:danapaniexpress/domain/di/auth_binding.dart';
+import 'package:danapaniexpress/domain/di/checkout_binding.dart';
 import 'package:danapaniexpress/domain/di/dashboard_binding.dart';
 import 'package:danapaniexpress/domain/di/product_detail_binding.dart';
 import 'package:danapaniexpress/domain/di/splash_binding.dart';
@@ -24,6 +25,7 @@ import 'package:danapaniexpress/ui/screens/startup_screens/startup_main_screen/s
 import '../domain/di/add_address_binding.dart';
 import '../ui/screens/auth_screen/forgot_password_screen/forgot_password_screen.dart';
 import '../ui/screens/auth_screen/register_screen/register_screen.dart';
+import '../ui/screens/pages/cart/checkout_screen/checkout_screen.dart';
 
 class AppRouter {
   static final routes = [
@@ -105,6 +107,15 @@ class AppRouter {
       transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
       page: () => const ProductDetailScreen(),
       binding: ProductDetailBinding(),
+    ),
+
+    /// CART SCREENS
+    GetPage(
+      name: RouteNames.CheckoutScreenRoute,
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
+      page: () => const CheckoutScreen(),
+      binding: CheckoutBinding(),
     ),
 
     /// ACCOUNT SCREEN AND PAGES

@@ -56,13 +56,14 @@ class CartController  extends GetxController{
       );
 
       if (result['status'] == 'success') {
-        await fetchCartProducts();
         addToCartWithQtyStatus.value = Status.SUCCESS;
         showSnackbar(
           isError: false,
           title: 'Success',
           message: result['message'] ?? 'Product added to cart',
         );
+        await fetchCartProducts();
+        auth.fetchUserProfile();
       } else {
         addToCartWithQtyStatus.value = Status.FAILURE;
         showSnackbar(

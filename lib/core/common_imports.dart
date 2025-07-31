@@ -107,5 +107,6 @@ export 'package:danapaniexpress/ui/screens/pages/account/settings/settings_mobil
 export 'package:danapaniexpress/data/repositories/account_information_repository/account_information_datasource.dart';
 export 'package:danapaniexpress/data/repositories/home_repository/home_datasource.dart';
 export 'package:danapaniexpress/data/repositories/products_repository/products_datasource.dart';
+export 'package:danapaniexpress/ui/screens/pages/cart/checkout_screen/checkout_screen_mobile.dart';
 
 

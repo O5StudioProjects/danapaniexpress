@@ -1,5 +1,6 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
+import 'package:danapaniexpress/ui/screens/pages/account/address_book/widgets/default_address_section.dart';
 
 class AddressBookMobile extends StatelessWidget {
   const AddressBookMobile({super.key});
@@ -8,6 +9,8 @@ class AddressBookMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     var navigation = Get.find<NavigationController>();
     var auth = Get.find<AuthController>();
+    Get.put(CheckoutController());
+    var addressScreenType = Get.arguments[ADDRESS_SCREEN_TYPE] as AddressScreenType;
     return Obx(() {
       var addressList = auth.currentUser.value!.addressBook!;
       var defaultAddress = auth.currentUser.value!.userDefaultAddress;
@@ -40,70 +43,7 @@ class AddressBookMobile extends StatelessWidget {
                             width: size.width,
                             height: size.height * 0.2,
                             child: loadingIndicator())
-                        : defaultAddress != null
-                            ? Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  setHeight(MAIN_VERTICAL_PADDING),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: MAIN_HORIZONTAL_PADDING,
-                                    ),
-                                    child: AddressItemUI(data: defaultAddress, isDefault: true,),
-                                  ),
-                                  appDivider(),
-                                ],
-                              )
-                            : Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: MAIN_HORIZONTAL_PADDING,
-                                  vertical: MAIN_VERTICAL_PADDING,
-                                ),
-                                child: Container(
-                                  width: size.width,
-                                  padding: const EdgeInsets.all(
-                                    MAIN_VERTICAL_PADDING,
-                                  ),
-                
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                          bottom: MAIN_HORIZONTAL_PADDING,
-                                        ),
-                                        child: appIcon(
-                                          iconType: IconType.ICON,
-                                          icon: Icons.location_city_rounded,
-                                          width: 34.0,
-                                          color: AppColors.materialButtonSkin(
-                                            isDark,
-                                          ),
-                                        ),
-                                      ),
-                                      appText(
-                                        text: AppLanguage.defaultAddressNotFoundStr(appLanguage),
-                                        textDirection: setTextDirection(
-                                          appLanguage,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                        textStyle: secondaryTextStyle(),
-                                      ),
-                                      if(addressList.isNotEmpty)
-                                      appText(
-                                        text: AppLanguage.selectFromExistingAddressesStr(appLanguage),
-                                        maxLines: 2,
-                                        textDirection: setTextDirection(
-                                          appLanguage,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                        textStyle: secondaryTextStyle(),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
+                        : DefaultAddressSection(addressScreenType: addressScreenType,),
                 
                         if (addressList.isNotEmpty && auth.getProfileStatus.value == AuthStatus.SUCCESS && (defaultAddress != null && addressList.length > 1 || defaultAddress == null))
                           Column(
@@ -125,7 +65,7 @@ class AddressBookMobile extends StatelessWidget {
                                     var data = addressList[index];
                                     return AddressItemUI(
                                       data: data,
-                                      isDefault: defaultAddress != null && defaultAddress.addressId == data.addressId ? true : false
+                                      isDefault: defaultAddress != null && defaultAddress.addressId == data.addressId ? true : false, addressScreenType: addressScreenType,
                                     );
                                   }),
                                 ),
