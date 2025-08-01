@@ -22,6 +22,7 @@ class RouteNames {
 
   /// CART SCREENS
   static const String CheckoutScreenRoute = "/check_out_screen";
+  static const String OrderPlacedScreenRoute = "/order_placed_screen";
 
 
 

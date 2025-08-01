@@ -82,6 +82,11 @@ class JumpTo {
   static gotoCheckoutScreen() {
     Get.toNamed(RouteNames.CheckoutScreenRoute);
   }
+  static gotoOrderedPlacedScreen({OrderModel? orderData}) {
+    Get.offAndToNamed(RouteNames.OrderPlacedScreenRoute,
+    arguments: {DATA_ORDER: orderData}
+    );
+  }
 
   ///ACCOUNT SCREENS
   static gotoAccountInformationScreen() {

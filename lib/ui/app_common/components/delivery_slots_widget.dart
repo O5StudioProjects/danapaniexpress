@@ -68,7 +68,7 @@ class DeliverySlotsWidget extends StatelessWidget {
         setHeight(MAIN_HORIZONTAL_PADDING),
 
         HomeHeadings(
-          mainHeadingText: 'Select Available Slots',
+          mainHeadingText: AppLanguage.selectAvailableSlotsStr(appLanguage).toString(),
           isSeeAll: false,
           isTrailingText: false,
         ),
@@ -121,19 +121,20 @@ class DeliverySlotsWidget extends StatelessWidget {
                           ),
                           setWidth(8.0),
                           appText(
-                            text: '(Available)',
+                            text: AppLanguage.availableStr(appLanguage),
                             textStyle: itemTextStyle().copyWith(color: AppColors.materialButtonSkin(isDark)),
                           )
                         ],
                       ) : appText(
-                        text: '${slot.slotLabel} (Booked)',
+                        text: '${slot.slotLabel} ${AppLanguage.bookedStr(appLanguage)}',
                         textStyle: itemTextStyle(),
                       ),
                       value: slot.slotId,
                       groupValue: checkout.selectedSlotId.value,
                       onChanged: (value) {
                         checkout.selectedSlotId.value = value as int;
-                        print(slot.slotLabel);
+                        checkout.selectedSlotLabel.value = slot.slotLabel;
+                        print(checkout.selectedSlotLabel.value);
                       },
                       activeColor: AppColors.materialButtonSkin(isDark),
                     ),

@@ -122,7 +122,7 @@ class ProductDetailScreenMobile extends StatelessWidget {
                 child: loadingIndicator(),
               )
               : appMaterialButton(
-                text: productInCart != null ? 'Update Cart' : AppLanguage.addToCartStr(appLanguage),
+                text: productInCart != null ? AppLanguage.updateCartStr(appLanguage) : AppLanguage.addToCartStr(appLanguage),
                 onTap: () {
                   if(auth.currentUser.value == null){
                     nav.gotoSignInScreen();
@@ -477,28 +477,36 @@ class ProductDetailScreenMobile extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                appText(
-                  text: AppLanguage.descriptionStr(appLanguage),
-                  textStyle: headingTextStyle(),
+                SizedBox(
+                  width: size.width,
+                  child: appText(
+                    text: AppLanguage.descriptionStr(appLanguage),
+                    textStyle: headingTextStyle(),
+                    textDirection: setTextDirection(appLanguage),
+                    textAlign: setTextAlignment(appLanguage)
+                  ),
                 ),
                 setHeight(MAIN_HORIZONTAL_PADDING),
-                ReadMoreText(
-                  appLanguage == URDU_LANGUAGE
-                      ? data.productDetailUrdu.toString()
-                      : data.productDetailEng.toString(),
-                  trimLines: 2,
-                  colorClickableText: Colors.blue,
-                  trimMode: TrimMode.Line,
-                  trimCollapsedText: ' ${AppLanguage.seeMoreStr(appLanguage)}',
-                  trimExpandedText: ' ${AppLanguage.seeLessStr(appLanguage)}',
-                  style: secondaryTextStyle(),
-                  textDirection: setTextDirection(appLanguage),
-                  textAlign: setTextAlignment(appLanguage),
-                  moreStyle: appTextButtonStyle().copyWith(
-                    color: AppColors.materialButtonSkin(isDark),
-                  ),
-                  lessStyle: appTextButtonStyle().copyWith(
-                    color: AppColors.materialButtonSkin(isDark),
+                SizedBox(
+                  width: size.width,
+                  child: ReadMoreText(
+                    appLanguage == URDU_LANGUAGE
+                        ? data.productDetailUrdu.toString()
+                        : data.productDetailEng.toString(),
+                    trimLines: 2,
+                    colorClickableText: Colors.blue,
+                    trimMode: TrimMode.Line,
+                    trimCollapsedText: ' ${AppLanguage.seeMoreStr(appLanguage)}',
+                    trimExpandedText: ' ${AppLanguage.seeLessStr(appLanguage)}',
+                    style: secondaryTextStyle(),
+                    textDirection: setTextDirection(appLanguage),
+                    textAlign: setTextAlignment(appLanguage),
+                    moreStyle: appTextButtonStyle().copyWith(
+                      color: AppColors.materialButtonSkin(isDark),
+                    ),
+                    lessStyle: appTextButtonStyle().copyWith(
+                      color: AppColors.materialButtonSkin(isDark),
+                    ),
                   ),
                 ),
                 setHeight(MAIN_VERTICAL_PADDING),

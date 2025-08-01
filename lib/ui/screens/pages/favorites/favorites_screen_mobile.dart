@@ -39,7 +39,7 @@ class FavoritesScreenMobile extends StatelessWidget {
                       child: AppTextFormField(
                         textEditingController: search.searchTextController.value,
                         prefixIcon: Icons.search,
-                        hintText: 'Search favorite products...',
+                        hintText: AppLanguage.searchFavoriteProductsStr(appLanguage),
                       ),
                     ),
 

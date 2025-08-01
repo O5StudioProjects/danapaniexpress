@@ -15,7 +15,7 @@ class ThemeController extends GetxController {
   }
 
   RxBool isDark = false.obs;
-  RxBool internet = false.obs;
+  RxBool internet = true.obs;
   RxString appLanguage = ENGLISH_LANGUAGE.obs;
   RxString languageScreenStatus = FIRST_TIME_SCREEN_NOT_OPENED.obs;
   RxString StartupScreenStatus = FIRST_TIME_SCREEN_NOT_OPENED.obs;

@@ -4,6 +4,9 @@
       "user_id": "u001",
       "order_id": "order_1",
       "order_number": "order_no_6776575765",
+      "rider_id": "rider_id_1",
+      "order_feedback_id": "order_feedback_id_1",
+
       "order_placed_date_time": "",
       "order_confirmed_date_time": "",
       "order_completed_date_time": "",
@@ -13,7 +16,7 @@
       "shipping_method": "Home delivery",
       "total_selling_amount": 100.0,
       "total_cut_price_amount": 150.0,
-      "tota_discount": 50.0,
+      "total_discount": 50.0,
       "delivery_charges": 100.0,
       "sales_tax": 0.0,
       "is_flash_delivery": false,
@@ -23,9 +26,19 @@
       "slot_date": "2025-08-01",
       "slot_id": 1,
       "slot_label": "9:00 AM - 11:00 AM",
+      "special_note_for_rider": "Please Deliver at My home and call when you reach",
 
+      "rider": {
+        "rider_name": "Usman",
+        "rider_image": "https://cdn.prod.website-files.com/5f0d012389d8162ba9f82fdc/63e5dbccbbbc0100c88fd02d_Untitled%20design%20(7)%201(1).jpg"
+      },
+      "order_feedback": {
+        "is_positive": true,
+        "is_negative": false,
+        "feed_back_type": "Good",
+        "feed_back_detail": "Rider was late but its ok he delivered safely. thanks"
+      },
       "user": {
-        "user_id": "u001",
         "user_full_name": "Zain Shakeel",
         "user_email": "zainshakeel@danapaniexpress.com",
         "user_phone": "+923425956300",
@@ -43,9 +56,6 @@
       },
       "ordered_products": [
         {
-          "user_id": "u001",
-          "order_id": "order_1",
-          "order_number": "order_no_6776575765",
           "product_id": "P001",
           "product_name_eng": "Wheat Flour 5kg",
           "product_name_urdu": "باسمتی چاول 5 کلو",
@@ -66,9 +76,6 @@
           }
         },
         {
-          "user_id": "u001",
-          "order_id": "order_1",
-          "order_number": "order_no_6776575765",
           "product_id": "P001",
           "product_name_eng": "Wheat Flour 5kg",
           "product_name_urdu": "باسمتی چاول 5 کلو",

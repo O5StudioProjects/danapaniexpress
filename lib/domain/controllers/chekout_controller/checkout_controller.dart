@@ -16,13 +16,15 @@ class CheckoutController extends GetxController{
   Rx<Status> getDeliverySlotsStatus = Status.IDLE.obs;
   RxInt selectedDayIndex = 0.obs;
   RxInt selectedSlotId = 0.obs;
+  RxString selectedSlotLabel = ''.obs;
 
   RxBool review = false.obs;
   RxBool cod = false.obs;
   RxBool flashDelivery = false.obs;
   RxBool slotDelivery = false.obs;
   RxDouble tax = 0.0.obs;
-  RxString shippingMethod = 'Home Delivery'.obs;
+  RxString shippingMethod = AppLanguage.homeDeliveryStr(appLanguage).toString().obs;
+  var specialNoteTextController = TextEditingController().obs;
 
   final Rx<AddressModel?> shippingAddress = Rx<AddressModel?>(null);
 
@@ -97,7 +99,7 @@ class CheckoutController extends GetxController{
   double get deliveryChargesValue {
     if(flashDelivery.value){
       if(cart.totalSellingPrice.value < 1000.0){
-        return 150.0;
+        return 100.0;
       } else if(cart.totalSellingPrice.value > 1000.0 && cart.totalSellingPrice.value < 2000.0){
         return 80.0;
       } else if(cart.totalSellingPrice.value > 2000.0 && cart.totalSellingPrice.value < 3000.0){
@@ -125,9 +127,9 @@ class CheckoutController extends GetxController{
 
   String get deliveryType {
     if(flashDelivery.value){
-      return "Flash Delivery";
+      return AppLanguage.flashDeliveryStr(appLanguage).toString();
     } else {
-      return "Slot Delivery";
+      return AppLanguage.slotDeliveryStr(appLanguage).toString();
     }
   }
 

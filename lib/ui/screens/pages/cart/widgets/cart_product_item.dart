@@ -69,7 +69,7 @@ class CartProductItem extends StatelessWidget {
                                     child: appText(
                                       text: appLanguage == URDU ? product.productNameUrdu : product.productNameEng,
                                       textStyle: itemTextStyle().copyWith(fontSize: NORMAL_TEXT_FONT_SIZE),
-                                      textDirection: setTextDirection(appLanguage),
+                                      textDirection: TextDirection.ltr,
                                       maxLines: 1,
                                     ),
                                   ),
