@@ -14,6 +14,7 @@ import 'package:danapaniexpress/ui/screens/pages/account/privacy_policy/privacy_
 import 'package:danapaniexpress/ui/screens/pages/account/returns_redunds/returns_refunds_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/account/settings/settings_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/account/terms_conditions/terms_conditions_screen.dart';
+import 'package:danapaniexpress/ui/screens/pages/cart/order_placed_screen/order_placed_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/categories/other_products/other_products_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/categories/product_detail/product_detail_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/categories/products/products_screen.dart';
@@ -112,9 +113,16 @@ class AppRouter {
     /// CART SCREENS
     GetPage(
       name: RouteNames.CheckoutScreenRoute,
-      transition: Transition.rightToLeft,
+      transition: Transition.fadeIn,
       transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
       page: () => const CheckoutScreen(),
+      binding: CheckoutBinding(),
+    ),
+    GetPage(
+      name: RouteNames.OrderPlacedScreenRoute,
+      transition: Transition.fadeIn,
+      transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
+      page: () => const OrderPlacedScreen(),
       binding: CheckoutBinding(),
     ),
 
@@ -125,7 +133,6 @@ class AppRouter {
       transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
       page: () => const AccountInformationScreen(),
       binding: AccountInfoBinding(),
-
     ),
 
     GetPage(
@@ -135,6 +142,7 @@ class AppRouter {
       page: () => const AddressBookScreen(),
       binding: AddressBinding(),
     ),
+
     GetPage(
       name: RouteNames.AddAddressScreenRoute,
       transition: Transition.fadeIn,

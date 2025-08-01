@@ -53,6 +53,10 @@ class NavigationController extends GetxController{
     JumpTo.gotoCheckoutScreen();
   }
 
+  Future<void> gotoOrderedPlacedScreen({OrderModel? orderData}) async {
+    JumpTo.gotoOrderedPlacedScreen(orderData: orderData);
+  }
+
   /// ACCOUNT SCREENS
   Future<void> gotoAccountInformationScreen() async {
     JumpTo.gotoAccountInformationScreen();

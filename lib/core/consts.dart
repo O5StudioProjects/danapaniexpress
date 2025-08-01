@@ -65,6 +65,14 @@ class NotificationsType {
   static const String FLASH_SALE = 'flash_sale';
 }
 
+///ORDER STATUS
+class OrderStatus {
+  static const String ACTIVE = 'Active';
+  static const String CONFIRMED = 'Confirmed';
+  static const String COMPLETED = 'Completed';
+  static const String CANCELLED = 'Cancelled';
+}
+
 class ServiceAreas {
   static const String PUNJAB = 'Punjab';
 

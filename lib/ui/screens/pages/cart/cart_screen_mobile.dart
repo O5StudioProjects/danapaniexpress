@@ -90,11 +90,11 @@ class CartScreenMobile extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         checkOutItems(
-                            title: 'Products : ',
+                            title: AppLanguage.productsColonStr(appLanguage),
                             detail: cart.cartProducts.length.toString()
                         ),
                         checkOutItems(
-                            title: 'Quantity : ',
+                            title: AppLanguage.quantityColonStr(appLanguage),
                             detail: cart.totalProductsQuantity.value.toString()
                         ),
 
@@ -111,12 +111,12 @@ class CartScreenMobile extends StatelessWidget {
                             children: [
 
                               checkOutItems(
-                                  title: 'Saved : ',
+                                  title: AppLanguage.savedColonStr(appLanguage),
                                   detail: 'Rs. ${(cart.totalCutPrice.value - cart.totalSellingPrice.value).toStringAsFixed(1)}',
                                   isDiscount: true
                               ),
                               checkOutItems(
-                                  title: 'Total : ',
+                                  title: AppLanguage.totalColonStr(appLanguage),
                                   detail: 'Rs. ${cart.totalSellingPrice.value.toString()}',
                                   isBilling: true
                               ),
@@ -127,7 +127,7 @@ class CartScreenMobile extends StatelessWidget {
                         setWidth(MAIN_HORIZONTAL_PADDING),
 
                         appMaterialButton(
-                            text: 'Checkout',
+                            text: AppLanguage.checkoutStr(appLanguage),
                             onTap: ()=> nav.gotoCheckoutScreen()
                         )
 
@@ -146,14 +146,33 @@ class CartScreenMobile extends StatelessWidget {
 }
 
 Widget checkOutItems({title, detail, isBilling = false, isDiscount = false}){
-  return Row(
+  return appLanguage == URDU_LANGUAGE
+  ? Row(
     children: [
-      appText(text: title, textStyle: secondaryTextStyle()),
       appText(text: detail, textStyle: itemTextStyle().copyWith(
-        color: isBilling ? AppColors.sellingPriceDetailTextSkin(isDark)
-        : isDiscount ? AppColors.sellingPriceTextSkin(isDark)
-            : AppColors.primaryTextColorSkin(isDark),
-        fontSize: isBilling ? HEADING_FONT_SIZE : NORMAL_TEXT_FONT_SIZE
+          color: isBilling ? AppColors.sellingPriceDetailTextSkin(isDark)
+              : isDiscount ? AppColors.sellingPriceTextSkin(isDark)
+              : AppColors.primaryTextColorSkin(isDark),
+          fontSize: isBilling ? HEADING_FONT_SIZE : NORMAL_TEXT_FONT_SIZE
+      )),
+      setWidth(4.0),
+      appText(text: title, textStyle: secondaryTextStyle(),
+        textDirection: setTextDirection(appLanguage),
+        textAlign: setTextAlignment(appLanguage),),
+
+    ],
+  )
+  : Row(
+    children: [
+      appText(text: title, textStyle: secondaryTextStyle(),
+        textDirection: setTextDirection(appLanguage),
+        textAlign: setTextAlignment(appLanguage),),
+      setWidth(4.0),
+      appText(text: detail, textStyle: itemTextStyle().copyWith(
+          color: isBilling ? AppColors.sellingPriceDetailTextSkin(isDark)
+              : isDiscount ? AppColors.sellingPriceTextSkin(isDark)
+              : AppColors.primaryTextColorSkin(isDark),
+          fontSize: isBilling ? HEADING_FONT_SIZE : NORMAL_TEXT_FONT_SIZE
       )),
     ],
   );

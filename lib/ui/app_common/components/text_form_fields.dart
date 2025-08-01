@@ -7,6 +7,8 @@ class AppTextFormField extends StatefulWidget {
   final bool isPassword;
   final bool readOnly;
   final bool isConstant;
+  final bool isDetail;
+  final String? label;
   final TextInputType textInputType;
   final String? initialValue;
 
@@ -20,7 +22,7 @@ class AppTextFormField extends StatefulWidget {
     this.isPassword = false,
     this.textEditingController,
     this.textInputType = TextInputType.text,
-    this.validator, this.initialValue, this.readOnly = false, this.isConstant =false,
+    this.validator, this.initialValue, this.readOnly = false, this.isConstant =false,  this.isDetail = false, this.label,
   });
 
   @override
@@ -31,6 +33,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
   bool _obscure = true;
   TextDirection _textDirection = TextDirection.ltr;
   TextAlign _textAlign = TextAlign.left;
+  late FocusNode _focusNode;
 
   void _handleTextChange() {
     final text = widget.textEditingController!.text.trim();
@@ -54,11 +57,16 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
 
   @override
   void initState() {
-    widget.textEditingController!.addListener(_handleTextChange);
     super.initState();
+    _focusNode = FocusNode();
+    _focusNode.addListener(() {
+      setState(() {}); // rebuild when focus changes
+    });
+    widget.textEditingController!.addListener(_handleTextChange);
   }
   @override
   void dispose() {
+    _focusNode.dispose();
     widget.textEditingController!.removeListener(_handleTextChange);
     super.dispose();
   }
@@ -68,16 +76,21 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
 
     return TextFormField(
       controller: widget.textEditingController,
+      focusNode: _focusNode,
       validator: widget.validator, // ✅ wire it up
       readOnly: widget.readOnly,
       initialValue: widget.initialValue,
       cursorHeight: 16.0,
+      maxLines: widget.isDetail ? null : 1 ,
       keyboardType: widget.textInputType,
       obscureText: widget.isPassword ? _obscure : false,
       style: editingFormTextStyle(text: widget.textEditingController!.text),
       textDirection: widget.isConstant ? TextDirection.ltr : _textDirection,
       textAlign: widget.isConstant ? TextAlign.start : _textAlign,
       decoration: InputDecoration(
+        //  label: widget.label != null ? appText(text: widget.label, textStyle: itemTextStyle()) : null,
+        labelText: _focusNode.hasFocus ? widget.label : null,
+        labelStyle: secondaryTextStyle(),
         hint: Directionality(
           textDirection: setTextDirection(appLanguage),
           child: Text(

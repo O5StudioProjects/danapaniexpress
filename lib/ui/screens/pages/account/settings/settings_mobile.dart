@@ -27,7 +27,7 @@ class SettingsMobile extends StatelessWidget {
                   child: listItemSwitchButton(
                     iconType: IconType.ICON,
                     leadingIcon: dashboard.floatingAvatarIcon.value ? Icons.insert_emoticon_sharp : Icons.insert_emoticon_rounded,
-                    itemTitle: dashboard.floatingAvatarIcon.value ? 'Hide Floating Icons' : 'Show Floating Icons',
+                    itemTitle: dashboard.floatingAvatarIcon.value ? AppLanguage.hideFloatingIconsStr(appLanguage) : AppLanguage.showFloatingIconsStr(appLanguage),
                     switchValue: dashboard.floatingAvatarIcon.value,
                     onItemClick: () {
                       dashboard.floatingAvatarIcon.value = !dashboard.floatingAvatarIcon.value;
@@ -39,7 +39,7 @@ class SettingsMobile extends StatelessWidget {
                   child: listItemSwitchButton(
                     iconType: IconType.ICON,
                     leadingIcon: isDark ? Icons.dark_mode_rounded : Icons.light_mode_rounded,
-                    itemTitle: isDark ? 'Dark Theme' : 'Light Theme',
+                    itemTitle: isDark ? AppLanguage.darkThemeStr(appLanguage) : AppLanguage.lightThemeStr(appLanguage),
                     switchValue: theme.isDark.value,
                     onItemClick: ()=> theme.changeTheme(),
                   ),

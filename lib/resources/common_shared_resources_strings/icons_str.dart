@@ -74,3 +74,6 @@ const String icOrderActive = '${COMMON_ICON_PATH}ic_order_active.png';
 const String icOrderCancel = '${COMMON_ICON_PATH}ic_order_cancel.png';
 const String icOrderCompleted = '${COMMON_ICON_PATH}ic_order_completed.png';
 const String icOrderConfirmed = '${COMMON_ICON_PATH}ic_order_confirmed.png';
+
+const String icOrderPlacedLight = '${COMMON_ICON_PATH}ic_order_placed_light.png';
+const String icOrderPlacedDark = '${COMMON_ICON_PATH}ic_order_placed_dark.png';

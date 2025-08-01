@@ -580,5 +580,62 @@ class AppLanguage {
     return allLang[appLanguage]?[MAKE_EMPTY_CART];
   }
 
+  static String? updateCartStr(String appLanguage) => allLang[appLanguage]?[UPDATE_CART];
+  static String? searchFavoriteProductsStr(String appLanguage) => allLang[appLanguage]?[SEARCH_FAVORITE_PRODUCTS];
+  static String? selectAvailableSlotsStr(String appLanguage) => allLang[appLanguage]?[SELECT_AVAILABLE_SLOTS];
+  static String? availableStr(String appLanguage) => allLang[appLanguage]?[AVAILABLE];
+  static String? bookedStr(String appLanguage) => allLang[appLanguage]?[BOOKED];
+  static String? productsColonStr(String appLanguage) => allLang[appLanguage]?[PRODUCTS_COLON];
+  static String? quantityColonStr(String appLanguage) => allLang[appLanguage]?[QUANTITY_COLON];
+  static String? checkoutStr(String appLanguage) => allLang[appLanguage]?[CHECKOUT];
+  static String? specialNoteOptionalStr(String appLanguage) => allLang[appLanguage]?[SPECIAL_NOTE_OPTIONAL];
+  static String? placeOrderStr(String appLanguage) => allLang[appLanguage]?[PLACE_ORDER];
+  static String? addressNotFoundStr(String appLanguage) => allLang[appLanguage]?[ADDRESS_NOT_FOUND];
+  static String? addAddressToOrderStr(String appLanguage) => allLang[appLanguage]?[ADD_ADDRESS_TO_ORDER];
+  static String? deliveryTypeStr(String appLanguage) => allLang[appLanguage]?[DELIVERY_TYPE];
+  static String? selectDeliveryTypeStr(String appLanguage) => allLang[appLanguage]?[SELECT_DELIVERY_TYPE];
+  static String? paymentMethodStr(String appLanguage) => allLang[appLanguage]?[PAYMENT_METHOD];
+  static String? selectPaymentMethodStr(String appLanguage) => allLang[appLanguage]?[SELECT_PAYMENT_METHOD];
+  static String? selectSlotStr(String appLanguage) => allLang[appLanguage]?[SELECT_SLOT];
+  static String? slotNotSelectedStr(String appLanguage) => allLang[appLanguage]?[SLOT_NOT_SELECTED];
+  static String? shippingAddressStr(String appLanguage) => allLang[appLanguage]?[SHIPPING_ADDRESS];
+  static String? cashOnDeliveryStr(String appLanguage) => allLang[appLanguage]?[CASH_ON_DELIVERY];
+  static String? selectDeliveryStr(String appLanguage) => allLang[appLanguage]?[SELECT_DELIVERY];
+  static String? flashStr(String appLanguage) => allLang[appLanguage]?[FLASH];
+  static String? slotStr(String appLanguage) => allLang[appLanguage]?[SLOT];
+  static String? orderedProductsStr(String appLanguage) => allLang[appLanguage]?[ORDERED_PRODUCTS];
+  static String? billingInformationStr(String appLanguage) => allLang[appLanguage]?[BILLING_INFORMATION];
+  static String? shippingColonStr(String appLanguage) => allLang[appLanguage]?[SHIPPING_COLON];
+  static String? deliveryTypeColonStr(String appLanguage) => allLang[appLanguage]?[DELIVERY_TYPE_COLON];
+  static String? deliverySlotColonStr(String appLanguage) => allLang[appLanguage]?[DELIVERY_SLOT_COLON];
+  static String? totalProductsColonStr(String appLanguage) => allLang[appLanguage]?[TOTAL_PRODUCTS_COLON];
+  static String? productsQuantityColonStr(String appLanguage) => allLang[appLanguage]?[PRODUCTS_QUANTITY_COLON];
+  static String? totalAmountColonStr(String appLanguage) => allLang[appLanguage]?[TOTAL_AMOUNT_COLON];
+  static String? discountColonStr(String appLanguage) => allLang[appLanguage]?[DISCOUNT_COLON];
+  static String? deliveryChargesColonStr(String appLanguage) => allLang[appLanguage]?[DELIVERY_CHARGES_COLON];
+  static String? gstColonStr(String appLanguage) => allLang[appLanguage]?[GST_COLON];
+  static String? totalPayableAmountColonStr(String appLanguage) => allLang[appLanguage]?[TOTAL_PAYABLE_AMOUNT_COLON];
+  static String? homeDeliveryStr(String appLanguage) => allLang[appLanguage]?[HOME_DELIVERY];
+  static String? flashDeliveryStr(String appLanguage) => allLang[appLanguage]?[FLASH_DELIVERY];
+  static String? slotDeliveryStr(String appLanguage) => allLang[appLanguage]?[SLOT_DELIVERY];
+  static String? shippingStr(String appLanguage) => allLang[appLanguage]?[SHIPPING];
+  static String? paymentStr(String appLanguage) => allLang[appLanguage]?[PAYMENT];
+  static String? reviewStr(String appLanguage) => allLang[appLanguage]?[REVIEW];
+  static String? savedColonStr(String appLanguage) => allLang[appLanguage]?[SAVED];
+  static String? totalColonStr(String appLanguage) => allLang[appLanguage]?[TOTAL];
+  static String? hideFloatingIconsStr(String appLanguage) => allLang[appLanguage]?[HIDE_FLOATING_ICONS];
+  static String? showFloatingIconsStr(String appLanguage) => allLang[appLanguage]?[SHOW_FLOATING_ICONS];
+  static String? darkThemeStr(String appLanguage) => allLang[appLanguage]?[DARK_THEME];
+  static String? lightThemeStr(String appLanguage) => allLang[appLanguage]?[LIGHT_THEME];
+  static String? orderPlacedSuccessfullyStr(String appLanguage) => allLang[appLanguage]?[ORDER_PLACED_SUCCESSFULLY];
+  static String? orderNumberStr(String appLanguage) => allLang[appLanguage]?[ORDER_NUMBER];
+  static String? orderPlacedDescriptionStr(String appLanguage) => allLang[appLanguage]?[ORDER_PLACED_DESCRIPTION];
+  static String? thankYouTrustStr(String appLanguage) => allLang[appLanguage]?[THANK_YOU_TRUST];
+  static String? companyNameStr(String appLanguage) => allLang[appLanguage]?[COMPANY_NAME];
+  static String? checkOrderHistoryStr(String appLanguage) => allLang[appLanguage]?[CHECK_ORDER_HISTORY];
+  static String? orderHistoryStr(String appLanguage) => allLang[appLanguage]?[ORDER_HISTORY];
+  static String? customerSupportMessageStr(String appLanguage) => allLang[appLanguage]?[CUSTOMER_SUPPORT_MESSAGE];
+  static String? continueShoppingStr(String appLanguage) => allLang[appLanguage]?[CONTINUE_SHOPPING];
+
 
 }

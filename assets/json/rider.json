@@ -1,0 +1,14 @@
+[
+  {
+    "rider_id": "rider_id_1",
+    "rider_name": "Usman",
+    "rider_phone": "03336363343",
+    "rider_image": "https://cdn.prod.website-files.com/5f0d012389d8162ba9f82fdc/63e5dbccbbbc0100c88fd02d_Untitled%20design%20(7)%201(1).jpg",
+    "rider_city": "Sahiwal",
+    "rider_detail": "Employee of Dana Pani Express",
+    "rider_rating": 0.0,
+    "rider_completed_orders": 5,
+    "rider_cancelled_orders": 2,
+    "rider_zone_id": "zone_id_1"
+  }
+]
