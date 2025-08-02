@@ -65,7 +65,7 @@ class OrderPlacedScreenMobile extends StatelessWidget {
                           style: secondaryTextStyle(),
                         ),
                         TextSpan(
-                          text: AppLanguage.companyNameStr(appLanguage),
+                          text: '${AppLanguage.appNameStr(appLanguage)}\n\n',
                           style: buttonTextStyle().copyWith(
                             fontSize: SUB_HEADING_TEXT_BUTTON_FONT_SIZE,
                             color: AppColors.materialButtonSkin(isDark),

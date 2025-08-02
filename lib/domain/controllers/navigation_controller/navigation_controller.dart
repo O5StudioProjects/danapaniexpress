@@ -73,8 +73,8 @@ class NavigationController extends GetxController{
   Future<void> gotoPrivacyPolicyScreen() async {
     JumpTo.gotoPrivacyPolicyScreen();
   }
-  Future<void> gotoTermsConditionsScreen() async {
-    JumpTo.gotoTermsConditionsScreen();
+  Future<void> gotoTermsConditionsScreen({required bool isStart}) async {
+    JumpTo.gotoTermsConditionsScreen(isStart: isStart);
   }
   Future<void> gotoReturnsRefundsScreen() async {
     JumpTo.gotoReturnsRefundsScreen();

@@ -225,6 +225,7 @@ Map<String, Map<String, String>> allLang = {
     ORDER_HISTORY: 'Order History',
     CUSTOMER_SUPPORT_MESSAGE: 'Have any questions? Reach directly to our\n',
     CONTINUE_SHOPPING: 'Continue Shopping',
+    NO_SEARCHED_PRODUCT: 'No matching product found',
 
   },
 
@@ -453,6 +454,7 @@ Map<String, Map<String, String>> allLang = {
     ORDER_HISTORY: 'آرڈر ہسٹری',
     CUSTOMER_SUPPORT_MESSAGE: 'کوئی سوال ہے؟ براہ راست رابطہ کریں\n',
     CONTINUE_SHOPPING: 'خریداری جاری رکھیں',
+    NO_SEARCHED_PRODUCT: 'کوئی مطابقت رکھنے والی مصنوعات نہیں ملیں',
 
   },
 };

@@ -104,6 +104,19 @@ class SharedPrefs {
   }
 
 
+  static setTermsConditionsScreenPrefs(bool value) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove(ACCEPT_TERMS);
+    await prefs.setBool(ACCEPT_TERMS, value);
+  }
+
+  static Future<bool> getTermsConditionsScreenPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.reload();
+    return prefs.getBool(ACCEPT_TERMS) ?? false;
+  }
+
+
   /// AUTH METHODS
   static saveUser(String userId, String authToken) async {
     final prefs = await SharedPreferences.getInstance();

@@ -1,5 +1,6 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
+import 'package:danapaniexpress/domain/controllers/terms_conditions_controller/terms_conditions_controller.dart';
 
 import '../../../core/packages_import.dart';
 
@@ -9,6 +10,7 @@ class SplashController extends GetxController {
 
   var navigation = Get.find<NavigationController>();
   var auth = Get.find<AuthController>();
+  var terms = Get.find<TermsConditionsController>();
 
   @override
   Future<void> onInit() async {
@@ -19,13 +21,15 @@ class SplashController extends GetxController {
   void checkLoginStatus() async {
 
     Future.delayed(Duration(seconds: 3), () async {
-      if(internet || kIsWeb){
+      if(terms.acceptTerms.value == false){
+        navigation.gotoTermsConditionsScreen(isStart: true);
+      }
+      else if(internet || kIsWeb){
         firstTimeLanguageAndThemeScreenStatus.value =
             await SharedPrefs.getLanguageScreen();
         firstTimeStartupStatus.value = await SharedPrefs.getStartupScreenPrefs();
 
-        if (firstTimeLanguageAndThemeScreenStatus.value ==
-            FIRST_TIME_SCREEN_NOT_OPENED) {
+        if (firstTimeLanguageAndThemeScreenStatus.value == FIRST_TIME_SCREEN_NOT_OPENED) {
           await Future.delayed(const Duration(seconds: 1));
           navigation.gotoLanguageThemeScreen(isNavigation: false, isStart: true);
           return;
@@ -40,34 +44,14 @@ class SplashController extends GetxController {
         // ✅ Now check if session exists and navigate accordingly
         await Future.delayed(const Duration(seconds: 1));
         await auth.loadSession();
+
       } else{
         navigation.gotoNoInternetScreen(isStart: true);
       }
     });
 
-
-
   }
 
-
-  Future<void> changeScreen() async {
-    firstTimeLanguageAndThemeScreenStatus.value = await SharedPrefs.getLanguageScreen();
-    firstTimeStartupStatus.value = await SharedPrefs.getStartupScreenPrefs();
-    final isUserLoggedIn = await SharedPrefs.isLoggedIn();
-    if (isUserLoggedIn) {
-      await Future.delayed(const Duration(seconds: 3), () => navigation.gotoDashboardScreen());
-    } else {
-      if (firstTimeLanguageAndThemeScreenStatus.value == FIRST_TIME_SCREEN_NOT_OPENED) {
-        await Future.delayed(const Duration(seconds: 3), () => navigation.gotoLanguageThemeScreen(isNavigation: false, isStart: true));
-        //  JumpTo.gotoLanguageThemeScreen(isNavigation: false, isStart: true));
-      } else if (firstTimeLanguageAndThemeScreenStatus.value == FIRST_TIME_SCREEN_OPENED && firstTimeStartupStatus.value == FIRST_TIME_SCREEN_NOT_OPENED) {
-        await Future.delayed(const Duration(seconds: 3), () => navigation.gotoStartupMainScreen());
-      } else if (firstTimeLanguageAndThemeScreenStatus.value ==
-          FIRST_TIME_SCREEN_OPENED && firstTimeStartupStatus.value == FIRST_TIME_SCREEN_OPENED){
-        await Future.delayed(const Duration(seconds: 3), () => navigation.gotoSignInScreen());
-      }
-    }
-  }
 
 
     // else {

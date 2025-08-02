@@ -15,7 +15,7 @@ class FavoriteProductItem extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: MAIN_HORIZONTAL_PADDING),
       child: LayoutBuilder(
         builder: (context, constraints) {
-          final imageSize = constraints.maxWidth * 0.2;
+          final imageSize = constraints.maxWidth * 0.15;
 
           return Obx((){
             final isLoading = cart.addCartStatus[product.productId] == Status.LOADING;
@@ -61,29 +61,27 @@ class FavoriteProductItem extends StatelessWidget {
                             children: [
                               appText(
                                 text: appLanguage == URDU_LANGUAGE ? product.productNameUrdu : product.productNameEng,
-                                textStyle: itemTextStyle().copyWith(fontSize: HEADING_FONT_SIZE),
+                                textStyle: itemTextStyle().copyWith(fontSize: NORMAL_TEXT_FONT_SIZE),
                                 textDirection: setTextDirection(appLanguage),
                                 maxLines: 1,
                               ),
-                              const SizedBox(height: 4),
                               Row(
                                 children: [
                                   appText(
                                     text: '${product.productWeightGrams} gm',
-                                    textStyle: textFormHintTextStyle().copyWith(fontSize: NORMAL_TEXT_FONT_SIZE -2),
+                                    textStyle: textFormHintTextStyle().copyWith(fontSize: TAGS_FONT_SIZE),
                                     maxLines: 1,
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 6.0),
                                     child: appText(
                                       text: product.productSize,
-                                      textStyle: itemTextStyle(),
+                                      textStyle: itemTextStyle().copyWith(fontSize: TAGS_FONT_SIZE),
                                       maxLines: 1,
                                     ),
                                   ),
                                 ],
                               ),
-                              const SizedBox(height: 6.0),
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
@@ -106,7 +104,7 @@ class FavoriteProductItem extends StatelessWidget {
                             ],
                           ),
                         ),
-                        const SizedBox(width: MAIN_HORIZONTAL_PADDING),
+                        setHeight(8.0),
                         Obx((){
                           final isLoading = favorites.favoriteLoadingStatus[product.productId] == Status.LOADING;
                           return GestureDetector(
@@ -129,7 +127,7 @@ class FavoriteProductItem extends StatelessWidget {
                         })
                       ],
                     ),
-                    setHeight(MAIN_VERTICAL_PADDING),
+                    setHeight(8.0),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [

@@ -212,7 +212,7 @@ Widget defaultAddressSection() {
                             data: checkout.shippingAddress.value!,
                             isDefault:
                                 checkout.shippingAddress.value!.addressId ==
-                                    defaultAddress!.addressId
+                                    defaultAddress?.addressId
                                 ? true
                                 : false,
                             addressScreenType: AddressScreenType.IDLE,

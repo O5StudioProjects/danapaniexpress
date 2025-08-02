@@ -120,8 +120,10 @@ class JumpTo {
   static gotoPrivacyPolicyScreen() {
     Get.toNamed(RouteNames.PrivacyPolicyScreenRoute);
   }
-  static gotoTermsConditionsScreen() {
-    Get.toNamed(RouteNames.TermsConditionsScreenRoute);
+  static gotoTermsConditionsScreen({required bool isStart,}) {
+    Get.toNamed(RouteNames.TermsConditionsScreenRoute,
+    arguments: {IS_START: isStart},
+    );
   }
   static gotoReturnsRefundsScreen() {
     Get.toNamed(RouteNames.ReturnsRefundsScreenRoute);

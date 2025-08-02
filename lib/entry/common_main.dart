@@ -1,6 +1,7 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/packages_import.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
+import 'package:danapaniexpress/domain/controllers/terms_conditions_controller/terms_conditions_controller.dart';
 import 'package:danapaniexpress/domain/di/auth_binding.dart';
 
 Future<void> commonMain() async {
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
     Get.put<AuthRepository>(AuthRepository(), permanent: true);
     Get.put<AuthController>(AuthController(authRepo: Get.find()), permanent: true);
     Get.put(DashBoardController(), permanent: true);
+    Get.put(TermsConditionsController(), permanent: true);
 
     final scaffoldKey = GlobalKey<ScaffoldMessengerState>();
     Connectivity connectivity = Connectivity();
