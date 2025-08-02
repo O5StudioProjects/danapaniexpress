@@ -83,6 +83,13 @@ class NavigationController extends GetxController{
     JumpTo.gotoLanguageScreen(isNavigation: isNavigation, isStart: isStart);
   }
 
+  ///SEARCH SCREEN
+
+  Future<void> gotoSearchScreen() async {
+    JumpTo.gotoSearchScreen();
+  }
+
+
 
 
   /// LAUNCH URLS

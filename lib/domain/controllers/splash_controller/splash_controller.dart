@@ -11,6 +11,7 @@ class SplashController extends GetxController {
   var navigation = Get.find<NavigationController>();
   var auth = Get.find<AuthController>();
   var terms = Get.find<TermsConditionsController>();
+  Rx<Status> startupStatus = Status.IDLE.obs;
 
   @override
   Future<void> onInit() async {
@@ -19,24 +20,28 @@ class SplashController extends GetxController {
   }
 
   void checkLoginStatus() async {
+    startupStatus.value = Status.LOADING;
 
     Future.delayed(Duration(seconds: 3), () async {
       if(terms.acceptTerms.value == false){
         navigation.gotoTermsConditionsScreen(isStart: true);
       }
       else if(internet || kIsWeb){
+        startupStatus.value = Status.LOADING;
         firstTimeLanguageAndThemeScreenStatus.value =
             await SharedPrefs.getLanguageScreen();
         firstTimeStartupStatus.value = await SharedPrefs.getStartupScreenPrefs();
 
         if (firstTimeLanguageAndThemeScreenStatus.value == FIRST_TIME_SCREEN_NOT_OPENED) {
           await Future.delayed(const Duration(seconds: 1));
+          startupStatus.value = Status.SUCCESS;
           navigation.gotoLanguageThemeScreen(isNavigation: false, isStart: true);
           return;
         }
 
         if (firstTimeStartupStatus.value == FIRST_TIME_SCREEN_NOT_OPENED) {
           await Future.delayed(const Duration(seconds: 1));
+          startupStatus.value = Status.SUCCESS;
           navigation.gotoStartupMainScreen();
           return;
         }
@@ -44,8 +49,10 @@ class SplashController extends GetxController {
         // ✅ Now check if session exists and navigate accordingly
         await Future.delayed(const Duration(seconds: 1));
         await auth.loadSession();
+        startupStatus.value = Status.SUCCESS;
 
       } else{
+        startupStatus.value = Status.SUCCESS;
         navigation.gotoNoInternetScreen(isStart: true);
       }
     });
