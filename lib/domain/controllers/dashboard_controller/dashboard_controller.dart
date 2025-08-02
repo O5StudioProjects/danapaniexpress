@@ -9,6 +9,7 @@ class DashBoardController extends GetxController {
   final dashboardRepo = DashboardRepository();
   final productRepo = ProductDetailRepository();
   final navigation = Get.find<NavigationController>();
+  final favorite = Get.put(FavoritesController());
 
   // Bottom nav
   RxInt navIndex = 0.obs;
@@ -31,6 +32,8 @@ class DashBoardController extends GetxController {
   // Bottom nav change
   void onBottomNavItemTap(int index) {
     navIndex.value = index;
+    favorite.searchFavoriteTextController.value.clear();
+    favorite.searchQuery.value = '';
   }
 
 

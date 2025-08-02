@@ -35,6 +35,9 @@ class RouteNames {
   static const String TermsConditionsScreenRoute = "/terms_conditions_screen";
   static const String ReturnsRefundsScreenRoute = "/returns_refunds_screen";
 
+  ///SEARCH SCREEN
+  static const String SearchScreenRoute = "/search_screen";
+
 
 
 }

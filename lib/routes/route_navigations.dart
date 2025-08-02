@@ -129,4 +129,9 @@ class JumpTo {
     Get.toNamed(RouteNames.ReturnsRefundsScreenRoute);
   }
 
+  /// SEARCH SCREEN
+  static gotoSearchScreen() {
+    Get.toNamed(RouteNames.SearchScreenRoute);
+  }
+
 }

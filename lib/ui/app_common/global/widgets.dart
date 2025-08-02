@@ -317,8 +317,9 @@ Widget appBackNavigationButton() {
 }
 
 Widget appSearchButton({iconColor = whiteColor}) {
+  final nav = Get.find<NavigationController>();
   return GestureDetector(
-    onTap: () {},
+    onTap: ()=> nav.gotoSearchScreen(),
     child: appSvgIcon(icon: icSearch, width: 24.0, color: iconColor),
   );
 }

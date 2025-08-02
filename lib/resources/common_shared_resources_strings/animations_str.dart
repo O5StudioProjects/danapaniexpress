@@ -52,3 +52,5 @@ const String animLoadingLight= '${COMMON_ANIMATION_PATH}anim_loading_light.json'
 
 const String animLoadingDark2= '${COMMON_ANIMATION_PATH}anim_loading_dark_2.json';
 const String animLoadingLight2= '${COMMON_ANIMATION_PATH}anim_loading_light_2.json';
+
+const String animSearch= '${COMMON_ANIMATION_PATH}anim_search.json';

@@ -35,7 +35,7 @@ class ProductsScreenMobile extends StatelessWidget {
         color: AppColors.backgroundColorSkin(isDark),
         child: Column(
           children: [
-            // Top Banner
+            /// Top Banner
             Obx(() {
               return AnimatedSwitcher(
                 duration: const Duration(milliseconds: 250),
@@ -54,7 +54,7 @@ class ProductsScreenMobile extends StatelessWidget {
                         isTrailing: true,
                         trailingIcon: icSearch,
                         trailingIconType: IconType.SVG,
-                        trailingOnTap: () {},
+                        trailingOnTap: ()=> navigation.gotoSearchScreen(),
                       ),
               );
             }),

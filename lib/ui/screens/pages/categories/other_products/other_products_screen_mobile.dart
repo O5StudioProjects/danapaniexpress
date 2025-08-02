@@ -62,7 +62,7 @@ class OtherProductsScreenMobile extends StatelessWidget {
                  isTrailing: true,
                  trailingIcon: icSearch,
                  trailingIconType: IconType.SVG,
-                 trailingOnTap: () {},
+                 trailingOnTap: ()=> navigation.gotoSearchScreen(),
                ),
              );
            }),

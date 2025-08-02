@@ -64,22 +64,23 @@ Widget appSliverAppbarHome() {
 
                     Align(
                       alignment: Alignment.centerRight,
-                      child: GestureDetector(
-                        onTap: () {
-                        },
-                        child: Container(
-                          padding: EdgeInsets.all(6.0),
-                          decoration: BoxDecoration(
-                            color: AppColors.floatingButtonSkin(isDark),
-                            borderRadius: BorderRadius.circular(100),
-                          ),
-                          child: appSvgIcon(
-                            icon: icSearch,
-                            width: 20.0,
-                            color: whiteColor,
-                          ),
-                        ),
-                      ),
+                      // child: GestureDetector(
+                      //   onTap: () {
+                      //   },
+                      //   child: Container(
+                      //     padding: EdgeInsets.all(6.0),
+                      //     decoration: BoxDecoration(
+                      //       color: AppColors.floatingButtonSkin(isDark),
+                      //       borderRadius: BorderRadius.circular(100),
+                      //     ),
+                      //     child: appSvgIcon(
+                      //       icon: icSearch,
+                      //       width: 20.0,
+                      //       color: whiteColor,
+                      //     ),
+                      //   ),
+                      // ),
+                      child: appSearchButton(),
                     ),
                   ],
                 ),

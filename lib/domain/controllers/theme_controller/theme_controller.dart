@@ -64,7 +64,7 @@ class ThemeController extends GetxController {
   Future<void> updateInternetConnection({required List<ConnectivityResult> event}) async {
     if(event.contains(ConnectivityResult.none)){
       internet.value = false;
-     // Get.find<NavigationController>().gotoNoInternetScreen();
+      //Get.find<NavigationController>().gotoNoInternetScreen();
     } else {
       internet.value = true;
     }

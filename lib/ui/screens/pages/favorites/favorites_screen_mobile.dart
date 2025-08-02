@@ -1,14 +1,13 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
-import 'package:danapaniexpress/domain/controllers/search_controller/search_controller.dart';
 
 class FavoritesScreenMobile extends StatelessWidget {
   const FavoritesScreenMobile({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var favorites = Get.put(FavoritesController());
     var auth = Get.find<AuthController>();
+    var favorites = Get.find<FavoritesController>();
 
     return Obx(() {
       return Container(
@@ -52,7 +51,10 @@ class FavoritesScreenMobile extends StatelessWidget {
 
                     Expanded(
                       child: Obx(() {
-                        final searchText = favorites.searchFavoriteTextController.value.text.trim();
+                        final searchText = favorites.searchQuery.value.trim();
+                        final displayList = searchText.isNotEmpty
+                            ? favorites.filteredFavoritesList
+                            : favorites.favoritesList;
 
                         if (searchText.isNotEmpty && favorites.filteredFavoritesList.isEmpty) {
                           // 🔍 No match found
@@ -66,10 +68,6 @@ class FavoritesScreenMobile extends StatelessWidget {
                             ),
                           );
                         }
-
-                        final displayList = searchText.isNotEmpty
-                            ? favorites.filteredFavoritesList
-                            : favorites.favoritesList;
 
                         return ListView.builder(
                           physics: const BouncingScrollPhysics(),
@@ -85,10 +83,6 @@ class FavoritesScreenMobile extends StatelessWidget {
                   ],
                 ),
               ),
-
-
-
-
             ],
           )
       );

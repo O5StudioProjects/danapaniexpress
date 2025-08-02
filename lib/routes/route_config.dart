@@ -4,6 +4,7 @@ import 'package:danapaniexpress/domain/di/auth_binding.dart';
 import 'package:danapaniexpress/domain/di/checkout_binding.dart';
 import 'package:danapaniexpress/domain/di/dashboard_binding.dart';
 import 'package:danapaniexpress/domain/di/product_detail_binding.dart';
+import 'package:danapaniexpress/domain/di/search_binding.dart';
 import 'package:danapaniexpress/domain/di/splash_binding.dart';
 import 'package:danapaniexpress/ui/screens/main_dashboard_screen/main_dashboard_screen.dart';
 import 'package:danapaniexpress/ui/screens/other_screens/no_internet_screen/no_internet_screen.dart';
@@ -18,6 +19,7 @@ import 'package:danapaniexpress/ui/screens/pages/cart/order_placed_screen/order_
 import 'package:danapaniexpress/ui/screens/pages/categories/other_products/other_products_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/categories/product_detail/product_detail_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/categories/products/products_screen.dart';
+import 'package:danapaniexpress/ui/screens/search_screen/search_screen.dart';
 import 'package:danapaniexpress/ui/screens/splash_screen/splash_screen.dart';
 import 'package:danapaniexpress/ui/screens/startup_screens/language_theme_screen.dart';
 import 'package:danapaniexpress/core/common_imports.dart';
@@ -180,6 +182,14 @@ class AppRouter {
       // binding: AddAddressBinding(),
     ),
 
+    ///SEARCH SCREEN
+    GetPage(
+      name: RouteNames.SearchScreenRoute,
+      transition: Transition.fadeIn,
+      transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
+      page: () => const SearchScreen(),
+      binding: SearchBinding(),
+    ),
 
   ];
 }
