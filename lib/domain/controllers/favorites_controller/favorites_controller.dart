@@ -70,6 +70,32 @@ class FavoritesController  extends GetxController{
     }
   }
 
+  RxList<ProductModel> filteredFavoritesList = <ProductModel>[].obs;
+  final RxString searchQuery = ''.obs;
+  var searchFavoriteTextController = TextEditingController().obs;
+
+  void applySearchFilter(String query) {
+    searchQuery.value = query.toLowerCase();
+
+    final result = favoritesList.where((product) {
+      final titleUrdu = product.productNameUrdu?.toLowerCase() ?? '';
+      final titleEnglish = product.productNameEng?.toLowerCase() ?? '';
+      final brand = product.productBrand?.toLowerCase() ?? '';
+      final matchesText = titleUrdu.contains(searchQuery.value) || titleEnglish.contains(searchQuery.value) || brand.contains(searchQuery.value);
+
+      return matchesText;
+    }).toList();
+
+    filteredFavoritesList.assignAll(result);
+  }
+
+  @override
+  void onInit() {
+    ever(favoritesList, (_) {
+      applySearchFilter(searchQuery.value); // keep filtered list in sync
+    });
+    super.onInit();
+  }
   @override
   void onClose() {
     print('Favorites Controller Stopped');

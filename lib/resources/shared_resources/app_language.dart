@@ -636,6 +636,6 @@ class AppLanguage {
   static String? orderHistoryStr(String appLanguage) => allLang[appLanguage]?[ORDER_HISTORY];
   static String? customerSupportMessageStr(String appLanguage) => allLang[appLanguage]?[CUSTOMER_SUPPORT_MESSAGE];
   static String? continueShoppingStr(String appLanguage) => allLang[appLanguage]?[CONTINUE_SHOPPING];
-
+  static String? noSearchedProductStr(String appLanguage) => allLang[appLanguage]?[NO_SEARCHED_PRODUCT];
 
 }

@@ -8,9 +8,8 @@ class FavoritesScreenMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var favorites = Get.put(FavoritesController());
-    var search = Get.find<SearchProductsController>();
     var auth = Get.find<AuthController>();
-   // favorites.fetchFavorites();
+
     return Obx(() {
       return Container(
           width: size.width,
@@ -35,33 +34,58 @@ class FavoritesScreenMobile extends StatelessWidget {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: MAIN_HORIZONTAL_PADDING, right: MAIN_HORIZONTAL_PADDING, left: MAIN_HORIZONTAL_PADDING, bottom: MAIN_HORIZONTAL_PADDING),
+                      padding: const EdgeInsets.only(
+                        top: MAIN_HORIZONTAL_PADDING,
+                        right: MAIN_HORIZONTAL_PADDING,
+                        left: MAIN_HORIZONTAL_PADDING,
+                        bottom: MAIN_HORIZONTAL_PADDING,
+                      ),
                       child: AppTextFormField(
-                        textEditingController: search.searchTextController.value,
+                        textEditingController: favorites.searchFavoriteTextController.value,
                         prefixIcon: Icons.search,
                         hintText: AppLanguage.searchFavoriteProductsStr(appLanguage),
+                        onChanged: (text) {
+                          favorites.applySearchFilter(text);
+                        },
                       ),
                     ),
 
                     Expanded(
-                      child:
-                      ListView.builder(
-                        physics: BouncingScrollPhysics(),
-                        shrinkWrap: true,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: MAIN_HORIZONTAL_PADDING,
-                          // vertical: MAIN_VERTICAL_PADDING /2,
-                        ),
-                        itemCount: favorites.favoritesList.length,
-                        itemBuilder: (context, index) {
-                          var favoriteData = favorites.favoritesList[index];
-                          return FavoriteProductItem(product: favoriteData);
-                        },
-                      ),
-                    )
+                      child: Obx(() {
+                        final searchText = favorites.searchFavoriteTextController.value.text.trim();
+
+                        if (searchText.isNotEmpty && favorites.filteredFavoritesList.isEmpty) {
+                          // 🔍 No match found
+                          return Center(
+                            child: Text(
+                              AppLanguage.noSearchedProductStr(appLanguage).toString(), // Define this in your localization
+                              style: bodyTextStyle().copyWith(
+                                  color: AppColors.materialButtonSkin(isDark),
+                                  fontSize: SUB_HEADING_TEXT_BUTTON_FONT_SIZE
+                              ),
+                            ),
+                          );
+                        }
+
+                        final displayList = searchText.isNotEmpty
+                            ? favorites.filteredFavoritesList
+                            : favorites.favoritesList;
+
+                        return ListView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          padding: const EdgeInsets.symmetric(horizontal: MAIN_HORIZONTAL_PADDING),
+                          itemCount: displayList.length,
+                          itemBuilder: (context, index) {
+                            final product = displayList[index];
+                            return FavoriteProductItem(product: product);
+                          },
+                        );
+                      }),
+                    ),
                   ],
                 ),
-              )
+              ),
+
 
 
 

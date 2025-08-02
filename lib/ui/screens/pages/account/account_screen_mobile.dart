@@ -147,7 +147,7 @@ class AccountScreenMobile extends StatelessWidget {
                           leadingIcon: Icons.receipt_long_rounded,
                           itemTitle: AppLanguage.termsConditionsStr(appLanguage).toString(),
                           trailingIcon: icArrow,
-                          onItemClick: ()=> navigate.gotoTermsConditionsScreen(),
+                          onItemClick: ()=> navigate.gotoTermsConditionsScreen(isStart: false),
                         ),
                       ),
 

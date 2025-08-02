@@ -66,13 +66,59 @@ class CartProductItem extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Expanded(
-                                    child: appText(
-                                      text: appLanguage == URDU ? product.productNameUrdu : product.productNameEng,
-                                      textStyle: itemTextStyle().copyWith(fontSize: NORMAL_TEXT_FONT_SIZE),
-                                      textDirection: TextDirection.ltr,
-                                      maxLines: 1,
-                                    ),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+
+                                      children: [
+                                        appText(
+                                          text: appLanguage == URDU ? product.productNameUrdu : product.productNameEng,
+                                          textStyle: itemTextStyle().copyWith(fontSize: NORMAL_TEXT_FONT_SIZE),
+                                          textDirection: TextDirection.ltr,
+                                          maxLines: 1,
+                                        ),
+                                        Row(
+                                          children: [
+                                            if(product.productWeightGrams != null)
+                                              appText(
+                                                text: '${product.productWeightGrams} gm',
+                                                textStyle: textFormHintTextStyle().copyWith(fontSize: NORMAL_TEXT_FONT_SIZE -2),
+                                                maxLines: 1,
+                                              ),
+                                            if(product.productSize != null)
+                                              Padding(
+                                                padding: const EdgeInsets.only(left: 6.0),
+                                                child: appText(
+                                                  text: product.productSize,
+                                                  textStyle: itemTextStyle(),
+                                                  maxLines: 1,
+                                                ),
+                                              ),
+                                          ],
+                                        ),
+                                        Row(
+                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                          children: [
+                                            if(product.productSellingPrice != null)
+                                              appText(
+                                                text: 'Rs. ${product.productSellingPrice}',
+                                                textStyle: sellingPriceTextStyle(),
+                                                maxLines: 1,
+                                              ),
+                                            setWidth(8.0),
+                                            if(product.productCutPrice != null)
+                                              appText(
+                                                text: 'Rs. ${product.productCutPrice}',
+                                                maxLines: 1,
+                                                textStyle: cutPriceTextStyle(isDetail: false),
+                                              ),
+                                          ],
+                                        )
+
+                                      ],
+                                    )
                                   ),
+
+
                                   GestureDetector(
                                     onTap: (){
                                       showCustomDialog(context, AppBoolDialog(
@@ -99,154 +145,79 @@ class CartProductItem extends StatelessWidget {
         
                                 ],
                               ),
-        
-                               const SizedBox(height: 8.0),
-        
+
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                  Expanded(
+                                    child: Container(
+                                        padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 2.0),
+                                        decoration: BoxDecoration(
+                                          // color: AppColors.materialButtonSkin(isDark),
+                                            borderRadius: BorderRadius.circular(4.0)
+                                        ),
+                                        child: appText(text: '${product.productQuantity} x ${product.productSellingPrice!.toStringAsFixed(0)} = Rs. ${(product.productQuantity!.toInt() * product.productSellingPrice!.toDouble()).toStringAsFixed(0)}',
+                                            textStyle: secondaryTextStyle().copyWith(color: AppColors.sellingPriceDetailTextSkin(isDark))
+                                        )),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      Row(
-                                        children: [
-                                          if(product.productWeightGrams != null)
-                                            appText(
-                                              text: '${product.productWeightGrams} gm',
-                                              textStyle: textFormHintTextStyle().copyWith(fontSize: NORMAL_TEXT_FONT_SIZE -2),
-                                              maxLines: 1,
-                                            ),
-                                          if(product.productSize != null)
-                                            Padding(
-                                              padding: const EdgeInsets.only(left: 6.0),
-                                              child: appText(
-                                                text: product.productSize,
-                                                textStyle: itemTextStyle(),
-                                                maxLines: 1,
-                                              ),
-                                            ),
-                                        ],
+
+                                      SizedBox(
+                                        width: 20.0,
+                                        height: 20.0,
+                                        child: isRemoveQuantityLoading
+                                            ? loadingIndicator()
+                                            : counterButton(icon: icMinus, iconType: IconType.PNG,
+                                            isLimitExceed: product.productQuantity! == 1 ? true : false,
+                                            onTap: () async{
+                                              if(product.productQuantity! == 1 ){
+                                                showToast(AppLanguage.selectAtLeastOneProductStr(appLanguage).toString());
+                                              } else {
+                                                await cart.removeQuantityFromCart(product.productId!);
+                                              }
+                                            }),
                                       ),
-                                      setHeight(2.0),
-                                      if(product.productCutPrice != null)
-                                        appText(
-                                          text: 'Rs. ${product.productCutPrice}',
-                                          maxLines: 1,
-                                          textStyle: cutPriceTextStyle(isDetail: false),
+
+
+                                      SizedBox(
+                                        width: 40.0,
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                                          child: Center(child: appText(text: '${product.productQuantity}', textStyle: bodyTextStyle(). copyWith(fontSize: 20.0))),
                                         ),
-                                      if(product.productSellingPrice != null)
-                                        appText(
-                                          text: 'Rs. ${product.productSellingPrice}',
-                                          textStyle: sellingPriceTextStyle(),
-                                          maxLines: 1,
-                                        ),
-        
+                                      ),
+                                      SizedBox(
+                                        width: 20.0,
+                                        height: 20.0,
+                                        child: isAddQuantityLoading
+                                            ? loadingIndicator()
+                                            : counterButton(icon: icPlus, iconType: IconType.PNG,
+                                            isLimitExceed: product.productQuantityLimit == product.productQuantity ? true : false,
+                                            onTap: () async{
+                                              if(product.productQuantityLimit == product.productQuantity){
+                                                showToast(AppLanguage.quantityLimitExceededStr(appLanguage).toString());
+                                              } else {
+                                                await cart.addQuantityToCart(product.productId!);
+                                              }
+
+                                            }),
+                                      )
+
+
                                     ],
                                   ),
-                                  //Spacer(),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.end,
-                                          children: [
 
-                                            SizedBox(
-                                              width: 24.0,
-                                              height: 24.0,
-                                              child: isRemoveQuantityLoading
-                                                  ? loadingIndicator()
-                                                  : counterButton(icon: icMinus, iconType: IconType.PNG,
-                                                  isLimitExceed: product.productQuantity! == 1 ? true : false,
-                                                  onTap: () async{
-                                                    if(product.productQuantity! == 1 ){
-                                                      showToast(AppLanguage.selectAtLeastOneProductStr(appLanguage).toString());
-                                                    } else {
-                                                      await cart.removeQuantityFromCart(product.productId!);
-                                                    }
-                                                  }),
-                                            ),
-
-
-                                            SizedBox(
-                                              width: 50.0,
-                                              child: Padding(
-                                                padding: EdgeInsets.symmetric(horizontal: 10.0),
-                                                child: Center(child: appText(text: '${product.productQuantity}', textStyle: bodyTextStyle(). copyWith(fontSize: 24.0))),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 24.0,
-                                              height: 24.0,
-                                              child: isAddQuantityLoading
-                                                  ? loadingIndicator()
-                                                  : counterButton(icon: icPlus, iconType: IconType.PNG,
-                                                  isLimitExceed: product.productQuantityLimit == product.productQuantity ? true : false,
-                                                  onTap: () async{
-                                                    if(product.productQuantityLimit == product.productQuantity){
-                                                      showToast(AppLanguage.quantityLimitExceededStr(appLanguage).toString());
-                                                    } else {
-                                                      await cart.addQuantityToCart(product.productId!);
-                                                    }
-
-                                                  }),
-                                            )
-
-        
-                                          ],
-                                        ),
-                                        setHeight(6.0),
-                                        Container(
-                                          padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 2.0),
-                                            decoration: BoxDecoration(
-                                             // color: AppColors.materialButtonSkin(isDark),
-                                              borderRadius: BorderRadius.circular(4.0)
-                                            ),
-                                            child: appText(text: '${product.productQuantity} x ${product.productSellingPrice!.toStringAsFixed(0)} = Rs. ${(product.productQuantity!.toInt() * product.productSellingPrice!.toDouble()).toStringAsFixed(0)}',
-                                            textStyle: secondaryTextStyle().copyWith(color: AppColors.sellingPriceDetailTextSkin(isDark))
-                                            )),
-        
-                                      ],
-                                    ),
-                                  )
-        
                                 ],
                               )
-        
-        
-        
         
                             ],
                           ),
                         ),
-                        // setWidth(MAIN_HORIZONTAL_PADDING),
-        
-        
+
                       ],
                     ),
-                    //  Spacer(),
-                    //   setHeight(MAIN_HORIZONTAL_PADDING),
-                    //   Row(
-                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //
-                    //     children: [
-                    //       appIcon(
-                    //           icon: icDeleteCart,
-                    //           iconType: IconType.PNG,
-                    //           width: 24.0,
-                    //           color: EnvColors.specialFestiveColorDark
-                    //       ),
-                    //      Spacer(),
-                    //       counterButton(icon: icMinus, iconType: IconType.PNG, onTap: (){}),
-                    //       Padding(
-                    //         padding: EdgeInsets.symmetric(horizontal: MAIN_HORIZONTAL_PADDING),
-                    //         child: appText(text: '1', textStyle: bodyTextStyle(). copyWith(fontSize: 24.0)),
-                    //       ),
-                    //       counterButton(icon: icPlus, iconType: IconType.PNG, onTap: (){}),
-                    //
-                    //     ],
-                    //   )
         
                   ],
                 ),
