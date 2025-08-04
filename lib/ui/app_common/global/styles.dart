@@ -118,6 +118,17 @@ TextStyle itemTextStyle({height = 0.0}){
     fontWeight: FontWeight.w800
   );
 }
+TextStyle dateItemTextStyle({height = 0.0}){
+  return TextStyle(
+      color: AppColors.primaryTextColorSkin(isDark),
+      height: height,
+      fontSize: appLanguage == URDU_LANGUAGE ? (NORMAL_TEXT_FONT_SIZE) : NORMAL_TEXT_FONT_SIZE -2.0,
+      //fontSize: NORMAL_TEXT_FONT_SIZE,
+      fontFamily:  setFont(appLanguage, urdu: urduRegular, englishFont: nunitoSemibold),
+      fontWeight: FontWeight.w800,
+
+  );
+}
 
 TextStyle tabItemTextStyle({height = 0.0, required bool isSelected}){
   return TextStyle(

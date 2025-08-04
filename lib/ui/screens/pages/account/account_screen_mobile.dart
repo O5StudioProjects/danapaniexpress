@@ -53,10 +53,10 @@ class AccountScreenMobile extends StatelessWidget {
                               isSeeAll: true,
                               isTrailingText: true,
                               trailingText: AppLanguage.viewAllOrdersStr(appLanguage).toString(),
-                              onTapSeeAllText: () {},
+                              onTapSeeAllText: ()=> navigate.gotoOrdersScreen(),
                             ),
                             setHeight(MAIN_VERTICAL_PADDING),
-                            MyOrders(),
+                            MyOrders(ordersScreen: false,),
                           ],
                         ),
 

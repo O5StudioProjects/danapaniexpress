@@ -24,6 +24,12 @@ class NavigationController extends GetxController{
     JumpTo.gotoForgotPasswordScreen();
   }
 
+  /// STARTUP SCREEN
+
+  Future<void> gotoServiceAreasScreen({required bool isStart}) async {
+    JumpTo.gotoServiceAreasScreen(isStart: isStart);
+  }
+
   Future<void> gotoDashboardScreen() async {
     JumpTo.gotoDashboardScreen();
   }
@@ -55,6 +61,10 @@ class NavigationController extends GetxController{
 
   Future<void> gotoOrderedPlacedScreen({OrderModel? orderData}) async {
     JumpTo.gotoOrderedPlacedScreen(orderData: orderData);
+  }
+
+  Future<void> gotoOrdersScreen({int screenIndex = 0}) async {
+    JumpTo.gotoOrdersScreen(screenIndex: screenIndex);
   }
 
   /// ACCOUNT SCREENS

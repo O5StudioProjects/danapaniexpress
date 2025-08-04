@@ -637,5 +637,17 @@ class AppLanguage {
   static String? customerSupportMessageStr(String appLanguage) => allLang[appLanguage]?[CUSTOMER_SUPPORT_MESSAGE];
   static String? continueShoppingStr(String appLanguage) => allLang[appLanguage]?[CONTINUE_SHOPPING];
   static String? noSearchedProductStr(String appLanguage) => allLang[appLanguage]?[NO_SEARCHED_PRODUCT];
+  static String? availableServiceAreasStr(String appLanguage) => allLang[appLanguage]?[AVAILABLE_SERVICE_AREAS];
+  static String? cityNotSelectedStr(String appLanguage) => allLang[appLanguage]?[CITY_NOT_SELECTED];
+  static String? orderNumberHashStr(String appLanguage) => allLang[appLanguage]?[ORDER_NUMBER_HASH];
+  static String? orderPlacedOnStr(String appLanguage) => allLang[appLanguage]?[ORDER_PLACED_ON];
+  static String? orderConfirmedOnStr(String appLanguage) => allLang[appLanguage]?[ORDER_CONFIRMED_ON];
+  static String? orderCompletedOnStr(String appLanguage) => allLang[appLanguage]?[ORDER_COMPLETED_ON];
+  static String? orderCancelledOnStr(String appLanguage) => allLang[appLanguage]?[ORDER_CANCELLED_ON];
+  static String? orderAmountStr(String appLanguage) => allLang[appLanguage]?[ORDER_AMOUNT];
+  static String? activeStr(String appLanguage) => allLang[appLanguage]?[ACTIVE];
+  static String? confirmedStr(String appLanguage) => allLang[appLanguage]?[CONFIRMED];
+  static String? completedStr(String appLanguage) => allLang[appLanguage]?[COMPLETED];
+  static String? cancelledStr(String appLanguage) => allLang[appLanguage]?[CANCELLED];
 
 }

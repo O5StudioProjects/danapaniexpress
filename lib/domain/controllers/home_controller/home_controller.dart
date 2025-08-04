@@ -15,6 +15,10 @@ class HomeController extends GetxController {
 
   ///HOME SCREEN
 
+  // EVENTS POPUP
+  Rx<PagerImagesModel?> eventsPopupData = Rx<PagerImagesModel?>(null);
+  Rx<Status> eventsPopupStatus = Status.IDLE.obs;
+
   // AppBar Slider
   RxList<PagerImagesModel> appbarPagerList = <PagerImagesModel>[].obs;
   Rx<AppbarPagerImagesStatus> appbarPagerStatus = AppbarPagerImagesStatus.IDLE.obs;
@@ -53,10 +57,34 @@ class HomeController extends GetxController {
     fetchInitialFlashSaleProducts();
     fetchInitialFavoriteProducts();
     fetchInitialCartProducts();
+    fetchEventsPopup();
   }
 
 
   ///HOME SCREEN Methods
+
+  // Fetch Events Popup
+  Future<void> fetchEventsPopup() async {
+    try {
+      eventsPopupStatus.value = Status.LOADING;
+      final eventList = await homeRepo.getPagerItems(
+        ImagePagerSections.EVENTS_POPUP,
+      );
+      if (eventList.isNotEmpty) {
+        eventsPopupData.value = eventList.first;
+      }
+      if (kDebugMode) {
+        print("Fetched ${eventList.length} Events PopUp");
+      }
+      eventsPopupStatus.value = Status.SUCCESS;
+    } catch (e) {
+      eventsPopupStatus.value = Status.FAILURE;
+      if (kDebugMode) {
+        print(e);
+      }
+      showSnackbar(isError: true, title: 'Error', message: e.toString());
+    }
+  }
 
   // Fetch AppBar slider images
   Future<void> fetchAppbarPagerImages() async {

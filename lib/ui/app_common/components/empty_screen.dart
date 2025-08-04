@@ -5,7 +5,8 @@ class EmptyScreen extends StatelessWidget {
   final String icon;
   final IconType iconType;
   final String text;
-  const EmptyScreen({super.key, required this.icon, required this.text, this.iconType = IconType.ANIM});
+  final dynamic color;
+  const EmptyScreen({super.key, required this.icon, required this.text, this.iconType = IconType.ANIM, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class EmptyScreen extends StatelessWidget {
               width: size.width * 0.5,
               height: size.width * 0.4,
               color: Colors.transparent,
-              child: appIcon(icon: icon, iconType: iconType),
+              child: appIcon(icon: icon, iconType: iconType, color: color),
             ),
 
             setHeight(MAIN_VERTICAL_PADDING),
@@ -32,7 +33,6 @@ class EmptyScreen extends StatelessWidget {
     );
   }
 }
-
 
 class ErrorScreen extends StatelessWidget {
   const ErrorScreen({super.key});
@@ -95,3 +95,4 @@ class NoInternet extends StatelessWidget {
     });
   }
 }
+

@@ -40,6 +40,12 @@ class JumpTo {
     Get.toNamed(RouteNames.ForgotPasswordScreenRoute);
   }
 
+  ///STARTUP SCREEN
+  static gotoServiceAreasScreen({required bool isStart}) {
+    Get.toNamed(RouteNames.ServiceAreasScreenRoute,
+      arguments: {IS_START: isStart},);
+  }
+
   ///DASHBOARD SCREEN AND PAGES SCREENS
   static gotoDashboardScreen() {
     Get.offAndToNamed(RouteNames.MainDashboardScreenRoute);
@@ -85,6 +91,12 @@ class JumpTo {
   static gotoOrderedPlacedScreen({OrderModel? orderData}) {
     Get.offAndToNamed(RouteNames.OrderPlacedScreenRoute,
     arguments: {DATA_ORDER: orderData}
+    );
+  }
+
+  static gotoOrdersScreen({int screenIndex = 0}) {
+    Get.toNamed(RouteNames.OrdersScreenRoute,
+        arguments: {ORDERS_INDEX: screenIndex}
     );
   }
 

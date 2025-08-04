@@ -134,6 +134,7 @@ class DeliverySlotsWidget extends StatelessWidget {
                       onChanged: (value) {
                         checkout.selectedSlotId.value = value as int;
                         checkout.selectedSlotLabel.value = slot.slotLabel;
+                        checkout.selectedSlotDate.value = selectedDay.date;
                         print(checkout.selectedSlotLabel.value);
                       },
                       activeColor: AppColors.materialButtonSkin(isDark),

@@ -23,24 +23,24 @@ class OrderFeedbackFields {
 }
 
 class OrderFeedbackModel {
-  final String orderFeedbackId;
-  final String userId;
-  final String orderId;
-  final String orderNumber;
-  final bool isPositive;
-  final bool isNegative;
-  final String feedbackType;
-  final String feedbackDetail;
+  final String? orderFeedbackId;
+  final String? userId;
+  final String? orderId;
+  final String? orderNumber;
+  final bool? isPositive;
+  final bool? isNegative;
+  final String? feedbackType;
+  final String? feedbackDetail;
 
   OrderFeedbackModel({
-    required this.orderFeedbackId,
-    required this.userId,
-    required this.orderId,
-    required this.orderNumber,
-    required this.isPositive,
-    required this.isNegative,
-    required this.feedbackType,
-    required this.feedbackDetail,
+    this.orderFeedbackId,
+    this.userId,
+    this.orderId,
+    this.orderNumber,
+    this.isPositive,
+    this.isNegative,
+    this.feedbackType,
+    this.feedbackDetail,
   });
 
   OrderFeedbackModel copyWith({
@@ -71,8 +71,8 @@ class OrderFeedbackModel {
       userId: json['user_id'],
       orderId: json['order_id'],
       orderNumber: json['order_number'],
-      isPositive: json['is_positive'],
-      isNegative: json['is_negative'],
+      isPositive: json['is_positive'] == true,
+      isNegative: json['is_negative'] == true,
       feedbackType: json['feed_back_type'],
       feedbackDetail: json['feed_back_detail'],
     );

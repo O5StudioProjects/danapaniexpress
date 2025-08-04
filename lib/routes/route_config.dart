@@ -5,12 +5,15 @@ import 'package:danapaniexpress/domain/di/checkout_binding.dart';
 import 'package:danapaniexpress/domain/di/dashboard_binding.dart';
 import 'package:danapaniexpress/domain/di/product_detail_binding.dart';
 import 'package:danapaniexpress/domain/di/search_binding.dart';
+import 'package:danapaniexpress/domain/di/service_area_binding.dart';
+import 'package:danapaniexpress/domain/di/settings_binding.dart';
 import 'package:danapaniexpress/domain/di/splash_binding.dart';
 import 'package:danapaniexpress/ui/screens/main_dashboard_screen/main_dashboard_screen.dart';
 import 'package:danapaniexpress/ui/screens/other_screens/no_internet_screen/no_internet_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/account/account_information/account_information_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/account/address_book/add_address/add_address_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/account/address_book/address_book_screen.dart';
+import 'package:danapaniexpress/ui/screens/pages/account/my_orders/my_orders_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/account/privacy_policy/privacy_policy_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/account/returns_redunds/returns_refunds_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/account/settings/settings_screen.dart';
@@ -21,11 +24,13 @@ import 'package:danapaniexpress/ui/screens/pages/categories/product_detail/produ
 import 'package:danapaniexpress/ui/screens/pages/categories/products/products_screen.dart';
 import 'package:danapaniexpress/ui/screens/search_screen/search_screen.dart';
 import 'package:danapaniexpress/ui/screens/splash_screen/splash_screen.dart';
+import 'package:danapaniexpress/ui/screens/startup_screens/cities_screen/service_areas_screen.dart';
 import 'package:danapaniexpress/ui/screens/startup_screens/language_theme_screen.dart';
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/ui/screens/startup_screens/startup_main_screen/startup_main_screen.dart';
 
 import '../domain/di/add_address_binding.dart';
+import '../domain/di/orders_binding.dart';
 import '../ui/screens/auth_screen/forgot_password_screen/forgot_password_screen.dart';
 import '../ui/screens/auth_screen/register_screen/register_screen.dart';
 import '../ui/screens/pages/cart/checkout_screen/checkout_screen.dart';
@@ -56,6 +61,13 @@ class AppRouter {
       transition: Transition.rightToLeft,
       transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
       page: () => const StartupMainScreen(),
+    ),
+    GetPage(
+      name: RouteNames.ServiceAreasScreenRoute,
+      transition: Transition.rightToLeft,
+      transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
+      page: () => const ServiceAreasScreen(),
+      binding: ServiceAreaBinding()
     ),
 
     /// AUTH SCREENS
@@ -127,6 +139,13 @@ class AppRouter {
       page: () => const OrderPlacedScreen(),
       binding: CheckoutBinding(),
     ),
+    GetPage(
+      name: RouteNames.OrdersScreenRoute,
+      transition: Transition.fadeIn,
+      transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
+      page: () => const MyOrdersScreen(),
+      binding: OrdersBinding(),
+    ),
 
     /// ACCOUNT SCREEN AND PAGES
     GetPage(
@@ -158,7 +177,7 @@ class AppRouter {
       transition: Transition.fadeIn,
       transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
       page: () => const SettingsScreen(),
-      // binding: AddAddressBinding(),
+      binding: SettingsBinding(),
     ),
     GetPage(
       name: RouteNames.PrivacyPolicyScreenRoute,
