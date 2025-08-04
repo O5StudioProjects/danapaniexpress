@@ -28,28 +28,28 @@ class RiderFields {
 }
 
 class RiderModel {
-  final String riderId;
-  final String riderName;
-  final String riderPhone;
-  final String riderImage;
-  final String riderCity;
-  final String riderDetail;
-  final double riderRating;
-  final int riderCompletedOrders;
-  final int riderCancelledOrders;
-  final String riderZoneId;
+  final String? riderId;
+  final String? riderName;
+  final String? riderPhone;
+  final String? riderImage;
+  final String? riderCity;
+  final String? riderDetail;
+  final double? riderRating;
+  final int? riderCompletedOrders;
+  final int? riderCancelledOrders;
+  final String? riderZoneId;
 
   const RiderModel({
-    required this.riderId,
-    required this.riderName,
-    required this.riderPhone,
-    required this.riderImage,
-    required this.riderCity,
-    required this.riderDetail,
-    required this.riderRating,
-    required this.riderCompletedOrders,
-    required this.riderCancelledOrders,
-    required this.riderZoneId,
+    this.riderId,
+    this.riderName,
+    this.riderPhone,
+    this.riderImage,
+    this.riderCity,
+    this.riderDetail,
+    this.riderRating,
+    this.riderCompletedOrders,
+    this.riderCancelledOrders,
+    this.riderZoneId,
   });
 
   RiderModel copyWith({

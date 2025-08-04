@@ -27,6 +27,7 @@ dependencies:
   cached_network_image: ^3.4.1
   smooth_page_indicator: ^1.2.1
   readmore: ^3.0.0
+  confetti: ^0.8.0
 
   # URL launches and pdf library and navigations
   url_launcher: ^6.3.1

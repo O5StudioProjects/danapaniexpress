@@ -1,5 +1,6 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
+import 'package:danapaniexpress/domain/controllers/service_area_controller/service_area_controller.dart';
 
 class SettingsMobile extends StatelessWidget {
   const SettingsMobile({super.key});
@@ -9,6 +10,7 @@ class SettingsMobile extends StatelessWidget {
     var theme = Get.find<ThemeController>();
     var navigation = Get.find<NavigationController>();
     var dashboard = Get.find<DashBoardController>();
+    var serviceArea = Get.find<ServiceAreaController>();
     return Obx((){
       var arrow = appLanguage == URDU_LANGUAGE ? icArrowLeftSmall : icArrowRightSmall;
       return Container(
@@ -58,6 +60,18 @@ class SettingsMobile extends StatelessWidget {
                   ),
                 ),
 
+                Padding(
+                  padding: const EdgeInsets.only(top: MAIN_HORIZONTAL_PADDING),
+                  child: listItemInfoIcon(
+                    iconType: IconType.ICON,
+                    leadingIcon:Icons.location_on_rounded,
+                    itemTitle: AppLanguage.cityStr(appLanguage),
+                    trailingIcon: arrow,
+                    trailingText: serviceArea.serviceArea.value,
+                    // switchValue: theme.isDark.value,
+                    onItemClick: ()=> navigation.gotoServiceAreasScreen(isStart: false),
+                  ),
+                ),
               ],
             ))
           ],

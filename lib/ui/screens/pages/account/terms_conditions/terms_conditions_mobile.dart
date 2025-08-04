@@ -1,4 +1,5 @@
 import 'package:danapaniexpress/core/common_imports.dart';
+import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/domain/controllers/terms_conditions_controller/terms_conditions_controller.dart';
 
 class TermsConditionsMobile extends StatelessWidget {
@@ -9,6 +10,7 @@ class TermsConditionsMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var terms = Get.find<TermsConditionsController>();
+    var nav = Get.find<NavigationController>();
     var isStart = Get.arguments[IS_START] as bool;
     return Obx(
       ()=> Container(
@@ -19,7 +21,7 @@ class TermsConditionsMobile extends StatelessWidget {
           children: [
             appBarCommon(
               title: AppLanguage.termsConditionsStr(appLanguage),
-              isBackNavigation: true,
+              isBackNavigation: isStart ? false : true,
             ),
             Expanded(
               child: SingleChildScrollView(
@@ -132,6 +134,7 @@ class TermsConditionsMobile extends StatelessWidget {
                                 ? loadingIndicator()
                                 : appMaterialButton(text: 'Continue', isDisable: !terms.acceptTerms.value, onTap: () async {
                               if(terms.acceptTerms.value){
+                                nav.gotoServiceAreasScreen(isStart: isStart);
                                 terms.onTapContinue();
                               }
                             })),

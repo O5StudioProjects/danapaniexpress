@@ -67,70 +67,16 @@ class CheckoutScreenMobile extends StatelessWidget {
                     //setHeight(MAIN_VERTICAL_PADDING),
                     Padding(
                       padding: const EdgeInsets.all(MAIN_HORIZONTAL_PADDING),
-                      child: appMaterialButton(
+                      child:
+                      checkout.checkOutStatus.value == Status.LOADING
+                        ? loadingIndicator()
+                      : appMaterialButton(
                         text: AppLanguage.placeOrderStr(appLanguage),
                         isDisable:
                             checkout.shippingValue && checkout.paymentValue
                             ? false
                             : true,
-                        onTap: () {
-                          if (checkout.shippingAddress.value == null) {
-                            showSnackbar(
-                              title: AppLanguage.addressNotFoundStr(
-                                appLanguage,
-                              ).toString(),
-                              message: AppLanguage.addAddressToOrderStr(
-                                appLanguage,
-                              ).toString(),
-                              isError: true,
-                            );
-                            return;
-                          }
-
-                          if (!checkout.slotDelivery.value &&
-                              !checkout.flashDelivery.value) {
-                            showSnackbar(
-                              title: AppLanguage.deliveryTypeStr(
-                                appLanguage,
-                              ).toString(),
-                              message: AppLanguage.selectDeliveryTypeStr(
-                                appLanguage,
-                              ).toString(),
-                              isError: true,
-                            );
-                            return;
-                          }
-                          if (!checkout.cod.value) {
-                            showSnackbar(
-                              title: AppLanguage.paymentMethodStr(
-                                appLanguage,
-                              ).toString(),
-                              message: AppLanguage.selectPaymentMethodStr(
-                                appLanguage,
-                              ).toString(),
-                              isError: true,
-                            );
-                            return;
-                          }
-
-                          if (checkout.slotDelivery.value) {
-                            if (checkout.selectedSlotId.value == 0) {
-                              showSnackbar(
-                                title: AppLanguage.selectSlotStr(
-                                  appLanguage,
-                                ).toString(),
-                                message: AppLanguage.slotNotSelectedStr(
-                                  appLanguage,
-                                ).toString(),
-                                isError: true,
-                              );
-                              return;
-                            }
-                          }
-
-                          nav.gotoOrderedPlacedScreen(orderData: null);
-
-                        },
+                        onTap: () async => checkout.onTapCheckout(),
                       ),
                     ),
                     setHeight(MAIN_VERTICAL_PADDING),
@@ -306,38 +252,48 @@ Widget deliveryType() {
         isTrailingText: false,
       ),
       setHeight(MAIN_HORIZONTAL_PADDING),
-      Row(
-        children: [
-          Expanded(
-            child: listItemIcon(
-              iconType: IconType.PNG,
-              leadingIcon: icFlashSale,
-              trailingIcon: checkout.flashDelivery.value
-                  ? icRadioButtonSelected
-                  : icRadioButton,
-              itemTitle: AppLanguage.flashStr(appLanguage),
-              onItemClick: () {
-                checkout.flashDelivery.value = true;
-                checkout.slotDelivery.value = false;
-              },
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: MAIN_HORIZONTAL_PADDING),
+        child: Row(
+          children: [
+            Expanded(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child: listItemIcon(
+                  iconType: IconType.PNG,
+                  leadingIcon: icFlashSale,
+                  trailingIcon: checkout.flashDelivery.value
+                      ? icRadioButtonSelected
+                      : icRadioButton,
+                  itemTitle: AppLanguage.flashStr(appLanguage),
+                  onItemClick: () {
+                    checkout.flashDelivery.value = true;
+                    checkout.slotDelivery.value = false;
+                  },
+                ),
+              ),
             ),
-          ),
-          setWidth(8.0),
-          Expanded(
-            child: listItemIcon(
-              iconType: IconType.ICON,
-              leadingIcon: Icons.calendar_month_rounded,
-              trailingIcon: checkout.slotDelivery.value
-                  ? icRadioButtonSelected
-                  : icRadioButton,
-              itemTitle: AppLanguage.slotStr(appLanguage),
-              onItemClick: () {
-                checkout.slotDelivery.value = true;
-                checkout.flashDelivery.value = false;
-              },
+            setWidth(8.0),
+            Expanded(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8.0),
+                child: listItemIcon(
+                  iconType: IconType.ICON,
+                  leadingIcon: Icons.calendar_month_rounded,
+                  trailingIcon: checkout.slotDelivery.value
+                      ? icRadioButtonSelected
+                      : icRadioButton,
+                  itemTitle: AppLanguage.slotStr(appLanguage),
+                  onItemClick: () {
+                    checkout.slotDelivery.value = true;
+                    checkout.flashDelivery.value = false;
+                    checkout.fetchDeliveryDaysWithSlots();
+                  },
+                ),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       setHeight(MAIN_HORIZONTAL_PADDING),
       checkout.slotDelivery.value == true

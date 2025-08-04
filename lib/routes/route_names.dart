@@ -6,6 +6,7 @@ class RouteNames {
   ///STARTUP SCREENS
   static const String LanguageThemeScreenRoute = "/language_theme_screen";
   static const String StartupMainScreenRoute = "/startup_main_screen_startup";
+  static const String ServiceAreasScreenRoute = "/service_areas_screen";
 
   ///AUTH SCREENS
   static const String SignInScreenRoute = "/sign_in_screen";
@@ -23,6 +24,8 @@ class RouteNames {
   /// CART SCREENS
   static const String CheckoutScreenRoute = "/check_out_screen";
   static const String OrderPlacedScreenRoute = "/order_placed_screen";
+  ///ORDERS SCREEN
+  static const String OrdersScreenRoute = "/orders_screen";
 
 
 
@@ -37,7 +40,6 @@ class RouteNames {
 
   ///SEARCH SCREEN
   static const String SearchScreenRoute = "/search_screen";
-
 
 
 }

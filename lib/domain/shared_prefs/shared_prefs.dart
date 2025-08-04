@@ -18,6 +18,18 @@ class SharedPrefs {
     return prefs.getString(LANGUAGE_TYPE) ?? ENGLISH_LANGUAGE;
   }
 
+  static setServiceArea(String value) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove(SERVICE_AREA);
+    await prefs.setString(SERVICE_AREA, value);
+  }
+
+  static Future<String> getServiceArea() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.reload();
+    return prefs.getString(SERVICE_AREA) ?? '';
+  }
+
   static setDarkTheme(bool value) async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove(THEME_VALUE);

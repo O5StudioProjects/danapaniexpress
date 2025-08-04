@@ -1,5 +1,6 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
+import 'package:danapaniexpress/domain/controllers/service_area_controller/service_area_controller.dart';
 import 'package:danapaniexpress/domain/controllers/terms_conditions_controller/terms_conditions_controller.dart';
 
 import '../../../core/packages_import.dart';
@@ -11,6 +12,7 @@ class SplashController extends GetxController {
   var navigation = Get.find<NavigationController>();
   var auth = Get.find<AuthController>();
   var terms = Get.find<TermsConditionsController>();
+  var serviceArea = Get.find<ServiceAreaController>();
   Rx<Status> startupStatus = Status.IDLE.obs;
 
   @override

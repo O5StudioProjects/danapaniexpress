@@ -16,6 +16,6 @@ var orderTabsModelList = [
   OrderTabsModel(icon: icOrderActive, titleEng: 'Active', titleUrdu: 'فعال'),
   OrderTabsModel(icon: icOrderConfirmed, titleEng: 'Confirmed', titleUrdu: 'تصدیق شدہ'),
   OrderTabsModel(icon: icOrderCompleted, titleEng: 'Completed', titleUrdu: 'مکمل'),
-  OrderTabsModel(icon: icOrderCancel, titleEng: 'Canceled', titleUrdu: 'منسوخ'),
+  OrderTabsModel(icon: icOrderCancel, titleEng: 'Cancelled', titleUrdu: 'منسوخ'),
 ];
 

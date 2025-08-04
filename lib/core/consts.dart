@@ -7,6 +7,7 @@ const LANGUAGE_TYPE = 'LANGUAGETYPE';
 const LANGUAGE_SCREEN = 'LANGUAGE_SCREEN';
 const STARTUP_SCREEN = 'STARTUP_SCREEN';
 const ACCEPT_TERMS = 'ACCEPT_TERMS';
+const SERVICE_AREA = 'SERVICE_AREA';
 const IS_LOGGED_IN_KEY = 'IS_LOGGED_IN_KEY';
 const USER_ID_KEY = 'USER_ID_KEY';
 const USER_ID = 'USER_ID';
@@ -42,11 +43,14 @@ class ImagePagerType {
   static const String FEATURED = 'featured';
   static const String POPULAR = 'popular';
   static const String FLASH_SALE = 'flash_sale';
+  static const String EVENTS_POPUP = 'events_popup';
 }
 ///IMAGE PAGER SECTIONS
 class ImagePagerSections {
   static const String BODY_PAGER = 'body_pager';
   static const String APPBAR_PAGER = 'appbar_pager';
+  static const String EVENTS_POPUP = 'events_popup';
+
 }
 class SingleBanners {
   static const String BANNER_ONE = 'banner_one';
@@ -80,6 +84,10 @@ class ServiceAreas {
   static const String SAHIWAL = 'Sahiwal';
   static const String OKARA = 'Okara';
   static const String GUJRAT = 'Gujrat';
+
+}
+class PaymentMethods {
+  static const String COD = 'Cash on delivery';
 
 }
 
