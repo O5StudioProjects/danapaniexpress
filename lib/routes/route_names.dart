@@ -26,6 +26,7 @@ class RouteNames {
   static const String OrderPlacedScreenRoute = "/order_placed_screen";
   ///ORDERS SCREEN
   static const String OrdersScreenRoute = "/orders_screen";
+  static const String OrdersDetailScreenRoute = "/orders_detail_screen";
 
 
 

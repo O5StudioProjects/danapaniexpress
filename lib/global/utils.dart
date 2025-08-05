@@ -30,8 +30,13 @@ Size get size {
 }
 
 String formatDateTime(String rawDateTime) {
-  final parsedDate = DateTime.parse(rawDateTime);
-  return DateFormat('dd MMM yyyy, hh:mm a').format(parsedDate);
+  try {
+    final parsedDate = DateTime.parse(rawDateTime);
+    return DateFormat('dd MMM yyyy hh:mm a').format(parsedDate);
+  } catch (e) {
+    debugPrint('Invalid date string: $rawDateTime');
+    return 'Invalid Date';
+  }
 }
 
 String orderStatusConversion(String orderStatus){

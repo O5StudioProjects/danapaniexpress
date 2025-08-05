@@ -100,6 +100,12 @@ class JumpTo {
     );
   }
 
+  static gotoOrdersDetailScreen({required OrderModel orderModel}) {
+    Get.toNamed(RouteNames.OrdersDetailScreenRoute,
+        arguments: {DATA_ORDER: orderModel}
+    );
+  }
+
   ///ACCOUNT SCREENS
   static gotoAccountInformationScreen() {
     Get.toNamed(RouteNames.AccountInformationScreenRoute);

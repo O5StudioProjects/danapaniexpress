@@ -7,6 +7,8 @@ import '../../../data/models/order_model.dart';
 
 class OrdersController extends GetxController {
   final scrollController = ScrollController();
+  final pageController = PageController(); // ⬅️ Add this for PageView
+
   final ordersRepo = OrdersRepository();
   final auth = Get.find<AuthController>();
   RxInt screenIndex = 0.obs;
@@ -33,7 +35,17 @@ class OrdersController extends GetxController {
 
   void updateTabIndex(int index) {
     screenIndex.value = index;
-    scrollToIndex(); // ← trigger scroll on tab change
+    pageController.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+    scrollToIndex(); // scroll horizontal tab bar
+  }
+
+  void onPageChanged(int index) {
+    screenIndex.value = index;
+    scrollToIndex(); // keep horizontal tab bar in sync
   }
 
 
@@ -62,6 +74,15 @@ class OrdersController extends GetxController {
     ordersList.clear();
     ordersStatus.value = Status.IDLE;
   }
+  /// Helper method to filter orders by current tab index
+  List<OrderModel> getOrdersForTab(int index) {
+    final tab = orderTabsModelList[index];
 
+    if (tab.statusKey.isEmpty) return [];
+
+    return ordersList
+        .where((order) => order.orderStatus == tab.statusKey)
+        .toList();
+  }
 
 }
