@@ -2,6 +2,7 @@ import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/core/data_model_imports.dart';
 import 'package:danapaniexpress/data/repositories/checkout_repository/checkout_repository.dart';
+import 'package:danapaniexpress/domain/controllers/orders_controller/orders_controller.dart';
 
 import '../../../data/models/delivery_slots_model.dart';
 
@@ -10,6 +11,7 @@ class CheckoutController extends GetxController {
   final cart = Get.find<CartController>();
   final auth = Get.find<AuthController>();
   final nav = Get.find<NavigationController>();
+  final order = Get.put(OrdersController());
   RxList<DeliveryDay> deliveryDays = <DeliveryDay>[].obs;
   Rx<Status> getDeliveryDaysStatus = Status.IDLE.obs;
   Rx<Status> getDeliverySlotsStatus = Status.IDLE.obs;
@@ -182,7 +184,7 @@ class CheckoutController extends GetxController {
       );
 
       if (result['success'] == true) {
-
+        order.getOrdersByUserId();
         checkOutStatus.value = Status.SUCCESS;
         showSnackbar(
           isError: false,

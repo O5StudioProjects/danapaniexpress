@@ -9,6 +9,7 @@ class OrderPlacedScreenMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var orderData = Get.arguments[DATA_ORDER] as OrderModel?;
+    var nav = Get.find<NavigationController>();
     return Container(
       width: size.width,
       height: size.height,
@@ -43,15 +44,15 @@ class OrderPlacedScreenMobile extends StatelessWidget {
                       fontSize: SECONDARY_HEADING_FONT_SIZE,
                     ),
                   ),
-                  appText(
-                    text: '${AppLanguage.orderNumberStr(appLanguage)} ${orderData?.orderNumber}',
-                    textStyle: headingTextStyle().copyWith(
-                      color: AppColors.materialButtonSkin(isDark),
-                      fontSize: HEADING_FONT_SIZE,
-                    ),
-                    textDirection: setTextDirection(appLanguage),
-                    textAlign: setTextAlignment(appLanguage)
-                  ),
+                  // appText(
+                  //   text: '${AppLanguage.orderNumberStr(appLanguage)} ${orderData?.orderNumber}',
+                  //   textStyle: headingTextStyle().copyWith(
+                  //     color: AppColors.materialButtonSkin(isDark),
+                  //     fontSize: HEADING_FONT_SIZE,
+                  //   ),
+                  //   textDirection: setTextDirection(appLanguage),
+                  //   textAlign: setTextAlignment(appLanguage)
+                  // ),
                   setHeight(MAIN_VERTICAL_PADDING),
                   Text.rich(
                     textAlign: TextAlign.center,
@@ -75,12 +76,14 @@ class OrderPlacedScreenMobile extends StatelessWidget {
                           text: AppLanguage.checkOrderHistoryStr(appLanguage),
                           style: secondaryTextStyle(),
                         ),
-                        TextSpan(
-                          text: AppLanguage.orderHistoryStr(appLanguage),
-                          style: buttonTextStyle().copyWith(
-                            fontSize: SUB_HEADING_TEXT_BUTTON_FONT_SIZE,
-                            color: AppColors.materialButtonSkin(isDark),
-                          ),
+                        WidgetSpan(
+                            child: GestureDetector(
+                              onTap: ()=> nav.gotoOrdersScreen(screenIndex: 0),
+                              child: appText(text: AppLanguage.orderHistoryStr(appLanguage), textStyle: buttonTextStyle().copyWith(
+                                fontSize: NORMAL_TEXT_FONT_SIZE,
+                                color: AppColors.materialButtonSkin(isDark),
+                              )),
+                            )
                         ),
                       ],
                     ),

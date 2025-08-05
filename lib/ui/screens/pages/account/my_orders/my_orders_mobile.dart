@@ -1,5 +1,6 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/domain/controllers/orders_controller/orders_controller.dart';
+import 'package:danapaniexpress/ui/screens/pages/account/my_orders/widgets/order_item.dart';
 import 'package:path/path.dart';
 
 import '../../../../../data/models/order_model.dart';
@@ -11,7 +12,7 @@ class MyOrdersMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     final orders = Get.find<OrdersController>();
     orders.screenIndex.value = Get.arguments[ORDERS_INDEX]  ?? 0;
-
+    orders.getOrdersByUserId();
     return Container(
       width: size.width,
       height: size.height,
@@ -22,10 +23,17 @@ class MyOrdersMobile extends StatelessWidget {
           setHeight(MAIN_HORIZONTAL_PADDING),
           MyOrders(ordersScreen: true),
           Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: MAIN_HORIZONTAL_PADDING),
-                child: showOrdersList(context: context),
-              )
+            child: PageView.builder(
+              controller: orders.pageController,
+              onPageChanged: orders.onPageChanged,
+              itemCount: orderTabsModelList.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: MAIN_HORIZONTAL_PADDING),
+                  child: OrdersListForTab(index: index),
+                );
+              },
+            ),
           ),
         ],
       ),
@@ -33,64 +41,64 @@ class MyOrdersMobile extends StatelessWidget {
   }
 }
 
-Widget showOrdersList({context}) {
-  final orders = Get.find<OrdersController>();
-
-  return Obx(() {
-    List<OrderModel> getFilteredList(int index) {
-      var status = OrderStatus.ACTIVE;
-
-      switch (index) {
-        case 0:
-          status = OrderStatus.ACTIVE;
-          break;
-        case 1:
-          status = OrderStatus.CONFIRMED;
-          break;
-        case 2:
-          status = OrderStatus.COMPLETED;
-          break;
-        case 3:
-          status = OrderStatus.CANCELLED;
-          break;
-      }
-
-      var filtered = orders.ordersList
-          .where((order) => order.orderStatus == status)
-          .toList();
-
-      return sortByDateDesc(filtered, status);
-    }
-
-    final screenIndex = orders.screenIndex.value;
-    final ordersList = getFilteredList(screenIndex);
-
-    if (orders.ordersStatus.value == Status.LOADING) {
-      return loadingIndicator();
-    } else if (orders.ordersStatus.value == Status.FAILURE) {
-      return ErrorScreen();
-    } else if (ordersList.isEmpty) {
-      final tabModel = orderTabsModelList[screenIndex];
-      return EmptyScreen(
-        icon: tabModel.icon,
-        iconType: IconType.PNG,
-        text: appLanguage == URDU_LANGUAGE ? tabModel.titleUrdu : tabModel.titleEng,
-        color: AppColors.materialButtonSkin(isDark),
-      );
-    }
-
-    return ListView.builder(
-      itemCount: ordersList.length,
-      padding: const EdgeInsets.only(bottom: MAIN_HORIZONTAL_PADDING),
-      shrinkWrap: true,
-      physics: const BouncingScrollPhysics(),
-      itemBuilder: (context, index) {
-        final data = ordersList[index];
-        return orderItemUI(data);
-      },
-    );
-  });
-}
+// Widget showOrdersList({context}) {
+//   final orders = Get.find<OrdersController>();
+//
+//   return Obx(() {
+//     List<OrderModel> getFilteredList(int index) {
+//       var status = OrderStatus.ACTIVE;
+//
+//       switch (index) {
+//         case 0:
+//           status = OrderStatus.ACTIVE;
+//           break;
+//         case 1:
+//           status = OrderStatus.CONFIRMED;
+//           break;
+//         case 2:
+//           status = OrderStatus.COMPLETED;
+//           break;
+//         case 3:
+//           status = OrderStatus.CANCELLED;
+//           break;
+//       }
+//
+//       var filtered = orders.ordersList
+//           .where((order) => order.orderStatus == status)
+//           .toList();
+//
+//       return sortByDateDesc(filtered, status);
+//     }
+//
+//     final screenIndex = orders.screenIndex.value;
+//     final ordersList = getFilteredList(screenIndex);
+//
+//     if (orders.ordersStatus.value == Status.LOADING) {
+//       return loadingIndicator();
+//     } else if (orders.ordersStatus.value == Status.FAILURE) {
+//       return ErrorScreen();
+//     } else if (ordersList.isEmpty) {
+//       final tabModel = orderTabsModelList[screenIndex];
+//       return EmptyScreen(
+//         icon: tabModel.icon,
+//         iconType: IconType.PNG,
+//         text: appLanguage == URDU_LANGUAGE ? '${tabModel.titleUrdu} لسٹ خالی ہے' : '${tabModel.titleEng} list is empty',
+//         color: AppColors.materialButtonSkin(isDark),
+//       );
+//     }
+//
+//     return ListView.builder(
+//       itemCount: ordersList.length,
+//       padding: const EdgeInsets.only(bottom: MAIN_HORIZONTAL_PADDING),
+//       shrinkWrap: true,
+//       physics: const BouncingScrollPhysics(),
+//       itemBuilder: (context, index) {
+//         final data = ordersList[index];
+//         return OrderItemUI(data: data, index: index+1,);
+//       },
+//     );
+//   });
+// }
 List<OrderModel> sortByDateDesc(List<OrderModel> list, status) {
   list.sort((a, b) {
     String? aDateStr;
@@ -124,169 +132,48 @@ List<OrderModel> sortByDateDesc(List<OrderModel> list, status) {
   return list;
 }
 
+class OrdersListForTab extends StatelessWidget {
+  final int index;
+  const OrdersListForTab({super.key, required this.index});
 
-Widget orderItemUI(OrderModel data){
-  final orders = Get.find<OrdersController>();
-  return Obx((){
-    var activeOrders = orders.screenIndex.value == 0;
-    var confirmedOrders = orders.screenIndex.value == 1;
-    var completedOrders = orders.screenIndex.value == 2;
-    var cancelledOrders = orders.screenIndex.value == 3;
+  @override
+  Widget build(BuildContext context) {
+    final orders = Get.find<OrdersController>();
 
-    return Padding(
-      padding: const EdgeInsets.only(bottom: MAIN_HORIZONTAL_PADDING),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(12.0),
-        child: Stack(
-          children: [
-            Container(
-              width: size.width,
-              padding: EdgeInsets.all(MAIN_HORIZONTAL_PADDING),
-              decoration: BoxDecoration(
-                color: AppColors.cardColorSkin(isDark),
-                borderRadius: BorderRadius.circular(12.0),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withAlpha(30),
-                    blurRadius: 1,
-                    spreadRadius: 0,
-                    offset: const Offset(1, 2),
-                  ),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: appLanguage == URDU_LANGUAGE ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-                children: [
-                  Text.rich(
-                      textDirection: setTextDirection(appLanguage),
-                      textAlign: setTextAlignment(appLanguage),
-                      TextSpan(
-                          text: '${AppLanguage.orderNumberStr(appLanguage)} ',
-                          style: bodyTextStyle(),
-                          children: [
-                            TextSpan(
-                                text:  data.orderNumber?.split('_').last ?? '',
-                                style: itemTextStyle()
-                            )
-                          ]
-                      )),
-                  setHeight(4.0),
-                  if(activeOrders)...[
-                    Text.rich(
-                        textDirection: setTextDirection(appLanguage),
-                        textAlign: setTextAlignment(appLanguage),
-                        TextSpan(
-                            text: AppLanguage.orderPlacedOnStr(appLanguage),
-                            style: bodyTextStyle(),
-                            children: [
-                              WidgetSpan(
-                                  child: appText(text: formatDateTime(data.orderPlacedDateTime.toString()),
-                                  textStyle: itemTextStyle().copyWith(fontSize: NORMAL_TEXT_FONT_SIZE),
-                                    textDirection: TextDirection.ltr,
-                                  )
-                              ),
-                            ]
-                        )),
-                  ] else if(confirmedOrders)...[
-                    Text.rich(
-                        textDirection: setTextDirection(appLanguage),
-                        textAlign: setTextAlignment(appLanguage),
-                        TextSpan(
-                            text: AppLanguage.orderConfirmedOnStr(appLanguage),
-                            style: bodyTextStyle(),
-                            children: [
-                              WidgetSpan(
-                                  child: appText(text: formatDateTime(data.orderConfirmedDateTime.toString()),
-                                    textStyle: itemTextStyle().copyWith(fontSize: NORMAL_TEXT_FONT_SIZE),
-                                    textDirection: TextDirection.ltr,
-                                  )
-                              ),
+    return Obx(() {
+      if (orders.ordersStatus.value == Status.LOADING) {
+        return loadingIndicator();
+      }
 
-                            ]
-                        )),
-                  ] else if(completedOrders)...[
-                    Text.rich(
-                        textDirection: setTextDirection(appLanguage),
-                        textAlign: setTextAlignment(appLanguage),
-                        TextSpan(
-                            text: AppLanguage.orderCompletedOnStr(appLanguage),
-                            style: bodyTextStyle(),
-                            children: [
-                              WidgetSpan(
-                                  child: appText(text: formatDateTime(data.orderCompletedDateTime.toString()),
-                                    textStyle: itemTextStyle().copyWith(fontSize: NORMAL_TEXT_FONT_SIZE),
-                                    textDirection: TextDirection.ltr,
-                                  )
-                              ),
+      final tabModel = orderTabsModelList[index];
+      final list = orders.getOrdersForTab(index);
+      final sortedList = sortByDateDesc(list, tabModel.statusKey);
 
-                            ]
-                        )),
-                  ] else if(cancelledOrders)...[
-                    Text.rich(
-                        textDirection: setTextDirection(appLanguage),
-                        textAlign: setTextAlignment(appLanguage),
-                        TextSpan(
-                            text: AppLanguage.orderCancelledOnStr(appLanguage),
-                            style: bodyTextStyle(),
-                            children: [
-                              WidgetSpan(
-                                  child: appText(text: formatDateTime(data.orderCancelledDateTime.toString()),
-                                    textStyle: itemTextStyle().copyWith(fontSize: NORMAL_TEXT_FONT_SIZE),
-                                    textDirection: TextDirection.ltr,
-                                  )
-                              ),
-                            ]
-                        )),
-                  ],
-                  setHeight(4.0),
+      if (orders.ordersStatus.value == Status.FAILURE) {
+        return ErrorScreen();
+      }
 
-                  Text.rich(
-                    textDirection: setTextDirection(appLanguage),
-                      textAlign: setTextAlignment(appLanguage),
-                      TextSpan(
-                          text: AppLanguage.orderAmountStr(appLanguage),
-                          style: bodyTextStyle(),
-                          children: [
-                            TextSpan(
-                                text: 'Rs. ${data.totalSellingAmount! + data.deliveryCharges!}',
-                                style: sellingPriceTextStyle().copyWith(fontSize: NORMAL_TEXT_FONT_SIZE-2),
-                            )
-                          ]
-                      )),
+      if (sortedList.isEmpty) {
+        return EmptyScreen(
+          icon: tabModel.icon,
+          iconType: IconType.PNG,
+          text: appLanguage == URDU_LANGUAGE
+              ? '${tabModel.titleUrdu} لسٹ خالی ہے'
+              : '${tabModel.titleEng} list is empty',
+          color: AppColors.materialButtonSkin(isDark),
+        );
+      }
 
-                ],
-              ),
-            ),
-            appLanguage == URDU_LANGUAGE
-            ? Positioned(
-              left: 0,
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                decoration: BoxDecoration(
-                    color: AppColors.materialButtonSkin(isDark),
-                    borderRadius: BorderRadius.only(bottomRight: Radius.circular(12.0))
-                ),
-                child: Center(child: appText(text: orderStatusConversion(data.orderStatus.toString()), textStyle: itemTextStyle().copyWith(
-                    color: AppColors.materialButtonTextSkin(isDark)
-                ))),
-              ),
-            )
-            : Positioned(
-              right: 0,
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                decoration: BoxDecoration(
-                  color: AppColors.materialButtonSkin(isDark),
-                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(12.0))
-                ),
-                child: Center(child: appText(text: orderStatusConversion(data.orderStatus.toString()), textStyle: itemTextStyle().copyWith(
-                  color: AppColors.materialButtonTextSkin(isDark)
-                ))),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  });
+      return ListView.builder(
+        itemCount: sortedList.length,
+        padding: const EdgeInsets.only(bottom: MAIN_HORIZONTAL_PADDING),
+        shrinkWrap: true,
+        physics: const BouncingScrollPhysics(),
+        itemBuilder: (context, i) {
+          final data = sortedList[i];
+          return OrderItemUI(data: data, index: i + 1);
+        },
+      );
+    });
+  }
 }

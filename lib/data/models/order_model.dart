@@ -33,7 +33,7 @@ class OrderModel {
 
   final RiderModel? rider;
   final OrderFeedbackModel? orderFeedback;
-  final UserModel? user;
+  final OrderUserModel? user;
   final List<OrderedProductModel>? orderedProducts;
 
   const OrderModel({
@@ -97,7 +97,7 @@ class OrderModel {
       orderFeedback: json['order_feedback'] != null
           ? OrderFeedbackModel.fromJson(json['order_feedback'])
           : null,
-      user: json['user'] != null ? UserModel.fromJson(json['user']) : null,
+      user: json['user'] != null ? OrderUserModel.fromJson(json['user']) : null,
       orderedProducts: (json['ordered_products'] as List<dynamic>?)
           ?.map((e) => OrderedProductModel.fromJson(e))
           .toList(),
@@ -132,8 +132,51 @@ class OrderModel {
       'special_note_for_rider': specialNoteForRider,
       'rider': rider?.toJson(),
       'order_feedback': orderFeedback?.toJson(),
-      'user': user?.toJson(),
+      'user': user?.toJson(), // ✅ fixed
       'ordered_products': orderedProducts?.map((e) => e.toJson()).toList(),
     };
   }
+
 }
+
+
+class OrderUserModel {
+  final String? fullName;
+  final String? email;
+  final String? phone;
+  final String? image;
+  final AddressModel? shippingAddress;
+
+  OrderUserModel({
+    this.fullName,
+    this.email,
+    this.phone,
+    this.image,
+    this.shippingAddress,
+  });
+
+  factory OrderUserModel.fromJson(Map<String, dynamic> json) {
+    return OrderUserModel(
+      fullName: json['user_full_name'] as String?,
+      email: json['user_email'] as String?,
+      phone: json['user_phone'] as String?,
+      image: json['user_image'] as String?,
+      shippingAddress: json['user_shipping_address'] != null
+          ? AddressModel.fromJson(
+        json['user_shipping_address'] as Map<String, dynamic>,
+      )
+          : null,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'user_full_name': fullName,
+      'user_email': email,
+      'user_phone': phone,
+      'user_image': image,
+      'user_shipping_address': shippingAddress?.toJson(),
+    };
+  }
+}
+

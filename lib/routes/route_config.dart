@@ -14,6 +14,7 @@ import 'package:danapaniexpress/ui/screens/pages/account/account_information/acc
 import 'package:danapaniexpress/ui/screens/pages/account/address_book/add_address/add_address_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/account/address_book/address_book_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/account/my_orders/my_orders_screen.dart';
+import 'package:danapaniexpress/ui/screens/pages/account/my_orders/order_detail_screen/order_detail_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/account/privacy_policy/privacy_policy_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/account/returns_redunds/returns_refunds_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/account/settings/settings_screen.dart';
@@ -144,6 +145,13 @@ class AppRouter {
       transition: Transition.fadeIn,
       transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
       page: () => const MyOrdersScreen(),
+      binding: OrdersBinding(),
+    ),
+    GetPage(
+      name: RouteNames.OrdersDetailScreenRoute,
+      transition: Transition.fadeIn,
+      transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
+      page: () => const OrderDetailScreen(),
       binding: OrdersBinding(),
     ),
 
