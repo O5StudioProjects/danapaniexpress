@@ -1,0 +1,38 @@
+[
+  {
+    "province": {
+      "province_id": "p_1",
+      "province_name": "Punjab",
+      "cities": [
+        {
+          "city_id": "c_1",
+          "city_name": "Gujrat",
+          "areas": [
+            {
+              "area_id": "a_1",
+              "area_name": "Jalalpur Jattan"
+            },
+            {
+              "area_id": "a_2",
+              "area_name": "Islam Garh"
+            }
+          ]
+        },
+        {
+          "city_id": "c_2",
+          "city_name": "Sahiwal",
+          "areas": [
+            {
+              "area_id": "a_1",
+              "area_name": "Jalalpur Jattan"
+            },
+            {
+              "area_id": "a_2",
+              "area_name": "Islam Garh"
+            }
+          ]
+        }
+      ]
+    }
+  }
+]

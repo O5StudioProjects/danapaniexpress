@@ -105,6 +105,17 @@ class JumpTo {
         arguments: {DATA_ORDER: orderModel}
     );
   }
+  static gotoOrdersFeedbackScreen({OrderModel? orderData}) {
+    Get.toNamed(RouteNames.OrderFeedbackScreenRoute,
+        arguments: {DATA_ORDER: orderData}
+    );
+  }
+  static gotoOrdersFeedbackCompleteScreen({OrderModel? orderData}) {
+    Get.offAndToNamed(RouteNames.OrderFeedbackCompletedScreenRoute,
+        arguments: {DATA_ORDER: orderData}
+    );
+  }
+
 
   ///ACCOUNT SCREENS
   static gotoAccountInformationScreen() {
