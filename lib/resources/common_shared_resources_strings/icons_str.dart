@@ -77,3 +77,13 @@ const String icOrderConfirmed = '${COMMON_ICON_PATH}ic_order_confirmed.png';
 
 const String icOrderPlacedLight = '${COMMON_ICON_PATH}ic_order_placed_light.png';
 const String icOrderPlacedDark = '${COMMON_ICON_PATH}ic_order_placed_dark.png';
+
+const String icLike = '${COMMON_ICON_PATH}ic_like.png';
+const String icLikeFilled = '${COMMON_ICON_PATH}ic_like_filled.png';
+const String icDislike = '${COMMON_ICON_PATH}ic_dislike.png';
+const String icDislikeFilled = '${COMMON_ICON_PATH}ic_dislike_filled.png';
+const String icPoor = '${COMMON_ICON_PATH}ic_poor.png';
+const String icVeryPoor = '${COMMON_ICON_PATH}ic_very_poor.png';
+const String icNeutral = '${COMMON_ICON_PATH}ic_neutral.png';
+const String icGood = '${COMMON_ICON_PATH}ic_good.png';
+const String icExcellent = '${COMMON_ICON_PATH}ic_excellent.png';

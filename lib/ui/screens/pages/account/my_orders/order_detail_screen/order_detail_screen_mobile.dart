@@ -1,13 +1,18 @@
 import 'package:danapaniexpress/core/common_imports.dart';
+import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/core/data_model_imports.dart';
+import 'package:danapaniexpress/domain/controllers/orders_controller/orders_controller.dart';
 
 class OrderDetailScreenMobile extends StatelessWidget {
   const OrderDetailScreenMobile({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var orders = Get.find<OrdersController>();
+    var data = Get.arguments[DATA_ORDER] as OrderModel;
+    orders.fetchOrderByNumber(data.orderNumber!);
     return Obx(() {
-      var orderData = Get.arguments[DATA_ORDER] as OrderModel;
+      var orderData = orders.selectedOrder.value;
       return Container(
         width: size.width,
         height: size.height,
@@ -16,7 +21,9 @@ class OrderDetailScreenMobile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             appBarCommon(title: 'Order Detail', isBackNavigation: true),
-            Expanded(
+            orderData == null || orders.getOrderByNumberStatus.value == Status.LOADING
+            ? Expanded(child: loadingIndicator())
+            : Expanded(
               child: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
                 child: Padding(
@@ -45,12 +52,17 @@ class OrderDetailScreenMobile extends StatelessWidget {
                       paymentSection(orderData),
                       setHeight(MAIN_VERTICAL_PADDING),
                       addressSection(orderData),
-                      setHeight(MAIN_VERTICAL_PADDING),
-                      riderSection(orderData),
-                      if(orderData.orderStatus != OrderStatus.CANCELLED)
-
+                      if(orderData.rider != null)
                         setHeight(MAIN_VERTICAL_PADDING),
-                      if(orderData.orderStatus != OrderStatus.CANCELLED)
+                      riderSection(orderData),
+                      if(orderData.orderFeedback != null)
+                        setHeight(MAIN_VERTICAL_PADDING),
+                      userFeedback(orderData),
+                      if (orderData.orderStatus != OrderStatus.CANCELLED &&
+                          (orderData.orderStatus != OrderStatus.COMPLETED || orderData.orderFeedback == null))
+                        setHeight(MAIN_VERTICAL_PADDING),
+                      if (orderData.orderStatus != OrderStatus.CANCELLED &&
+                          (orderData.orderStatus != OrderStatus.COMPLETED || orderData.orderFeedback == null))
                       buttonSection(orderData),
                       setHeight(MAIN_VERTICAL_PADDING),
 
@@ -235,7 +247,9 @@ Widget addressSection(OrderModel orderData){
       titleText: 'Shipping Address',
       column: Column(
         children: [
-          appText(text: '${userData.name!}, ${userData.phone}, ${userData.address}, ${userData.nearestPlace}, ${userData.city}, ${userData.postalCode}', maxLines: 50),
+          appText(text: '${userData.name!}, ${userData.phone}, ${userData.address}, ${userData.nearestPlace}, ${userData.city}, ${userData.postalCode}', maxLines: 50,
+          textStyle: bodyTextStyle().copyWith(fontSize: NORMAL_TEXT_FONT_SIZE-2)
+          ),
           setHeight(8.0),
           orderDetailItemsFixedUI(
               titleText: 'Shipping',
@@ -431,33 +445,65 @@ Widget riderSection(OrderModel orderData){
   );
 }
 
-/// BUTTON SECTION
-Widget buttonSection(OrderModel orderData){
-  return appMaterialButton(
-    text: orderData.orderStatus == OrderStatus.COMPLETED ? orderData.orderFeedback == null ? 'Give your feedback' : 'Order Again' : 'Cancel Order',
-    isDisable: orderData.orderStatus == OrderStatus.CONFIRMED,
-    onTap: (){
-      if(orderData.orderStatus == OrderStatus.CONFIRMED){
-
-        showSnackbar(title: 'Order confirmed non cancelable', message: 'Please contact our customer service to cancel confirmed Order.');
-
-      } else if(orderData.orderStatus == OrderStatus.COMPLETED){
-        if(orderData.orderFeedback == null ){
-          showSnackbar(title: 'Feedback', message: 'Please provide your valuable feedback');
-        } else{
-          showToast('Order Again');
-        }
-
-      } else if(orderData.orderStatus == OrderStatus.ACTIVE){
-        showToast('Cancel Order');
-
-      }
-    }
-  );
+/// USER FEEDBACK SECTION STARTED HERE
+Widget userFeedback(OrderModel orderData){
+  return orderData.orderFeedback == null
+      ? SizedBox.shrink()
+      : GestureDetector(
+    onTap: ()=> Get.find<NavigationController>().gotoOrdersFeedbackScreen(orderModel: orderData),
+        child: orderDetailSectionsUI(
+        titleText: 'My Feedback',
+        column:
+        Column(
+          children: [
+            orderDetailItemsFixedUI(
+                titleText: 'About our service',
+                detailText: orderData.orderFeedback!.feedbackType
+            ),
+            setHeight(8.0),
+            orderDetailItemsFixedUI(
+                titleText: 'App experience',
+                detailText: orderData.orderFeedback!.isPositive == true ? 'Positive' : 'Negative'
+            ),
+            if(orderData.orderFeedback!.feedbackDetail!.isNotEmpty)
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                setHeight(8.0),
+                appDivider(),
+                setHeight(8.0),
+                appText(
+                  text: 'Feedback comments',
+                  textStyle: itemTextStyle().copyWith(fontWeight: FontWeight.w800,
+                    color: AppColors.primaryTextColorSkin(isDark),
+                  ),
+                ),
+                setHeight(8.0),
+                appText(text: orderData.orderFeedback!.feedbackDetail.toString(), maxLines: 100,
+                    textStyle: bodyTextStyle().copyWith(fontSize: NORMAL_TEXT_FONT_SIZE-2)
+                ),
+              ],
+            )
+          ],
+        )
+          ),
+      );
 }
 
-
-
+/// BUTTON SECTION
+Widget buttonSection(OrderModel orderData){
+  var orders = Get.find<OrdersController>();
+  return Obx((){
+    return
+      orders.updateOrderStatus.value == Status.LOADING
+      ? loadingIndicator()
+      : appMaterialButton(
+        text: orderData.orderStatus == OrderStatus.COMPLETED && orderData.orderFeedback == null ? 'Give your feedback' : 'Cancel Order',
+        isDisable: orderData.orderStatus == OrderStatus.CONFIRMED,
+        onTap: ()=> orders.onTapButtonSectionsOrderTap()
+    );
+  });
+}
 
 
 Widget orderDetailSectionsUI({titleText, column}) {

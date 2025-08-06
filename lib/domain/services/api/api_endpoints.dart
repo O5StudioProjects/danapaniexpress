@@ -38,6 +38,11 @@ class APiEndpoints {
   static String getDeliveryDaysAndSlots = "https://danapaniexpress.com/rest_api/get_delivery_days.php";
   static String checkoutOrder = "$path/dpe_checkout.php/checkout";
   static String getOrdersByUserId = "$path/dpe_checkout.php/get_all_orders_by_user_id";
+  static String updateOrder = "$path/dpe_checkout.php/update_order";
+  static String getOrderByNumber = "$path/dpe_checkout.php/get_order_by_number";
+  static String insertOrderFeedback = "$path/dpe_orders_feedback.php/insert_order_feedback";
+  static String updateRider = "$path/dpe_riders.php/update_rider";
+
 
 
 

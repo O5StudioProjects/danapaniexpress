@@ -69,6 +69,12 @@ class NavigationController extends GetxController{
   Future<void> gotoOrdersDetailScreen({required OrderModel orderModel}) async {
     JumpTo.gotoOrdersDetailScreen(orderModel: orderModel);
   }
+  Future<void> gotoOrdersFeedbackScreen({required OrderModel orderModel}) async {
+    JumpTo.gotoOrdersFeedbackScreen(orderData: orderModel);
+  }
+  Future<void> gotoOrdersFeedbackCompleteScreen({required OrderModel orderModel}) async {
+    JumpTo.gotoOrdersFeedbackCompleteScreen(orderData: orderModel);
+  }
 
   /// ACCOUNT SCREENS
   Future<void> gotoAccountInformationScreen() async {

@@ -1,7 +1,6 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/domain/controllers/orders_controller/orders_controller.dart';
 import 'package:danapaniexpress/ui/screens/pages/account/my_orders/widgets/order_item.dart';
-import 'package:path/path.dart';
 
 import '../../../../../data/models/order_model.dart';
 
@@ -12,93 +11,75 @@ class MyOrdersMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     final orders = Get.find<OrdersController>();
     orders.screenIndex.value = Get.arguments[ORDERS_INDEX]  ?? 0;
-    orders.getOrdersByUserId();
-    return Container(
-      width: size.width,
-      height: size.height,
-      color: AppColors.backgroundColorSkin(isDark),
-      child: Column(
-        children: [
-          appBarCommon(title: AppLanguage.myOrdersStr(appLanguage), isBackNavigation: true),
-          setHeight(MAIN_HORIZONTAL_PADDING),
-          MyOrders(ordersScreen: true),
-          Expanded(
-            child: PageView.builder(
-              controller: orders.pageController,
-              onPageChanged: orders.onPageChanged,
-              itemCount: orderTabsModelList.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: MAIN_HORIZONTAL_PADDING),
-                  child: OrdersListForTab(index: index),
-                );
-              },
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      orders.getOrdersByUserId();
+      orders.pageController.jumpToPage(orders.screenIndex.value);
+    });
+
+    return Obx((){
+      return Container(
+        width: size.width,
+        height: size.height,
+        color: AppColors.backgroundColorSkin(isDark),
+        child: Column(
+          children: [
+            appBarCommon(title: AppLanguage.myOrdersStr(appLanguage), isBackNavigation: true),
+            if (orders.ordersStatus.value != Status.LOADING)
+            Container(
+              color: AppColors.cardColorSkin(isDark),
+              padding: EdgeInsets.all(4.0),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: MAIN_HORIZONTAL_PADDING),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Obx(() {
+                      final currentIndex = orders.screenIndex.value;
+                      final currentTab = orderTabsModelList[currentIndex];
+                      return appText(
+                        text: 'Total ${currentTab.titleEng} Orders',
+                        textStyle: itemTextStyle(),
+                      );
+                    }),
+                    Spacer(),
+                    Obx(() {
+                      final currentIndex = orders.screenIndex.value;
+                      final currentList = orders.getOrdersForTab(currentIndex);
+                      return appText(
+                        text: '${currentList.length}',
+                        textStyle: bodyTextStyle(),
+                      );
+                    }),
+
+                  ],
+                ),
+              ),
             ),
-          ),
-        ],
-      ),
-    );
+            setHeight(MAIN_HORIZONTAL_PADDING),
+            MyOrders(ordersScreen: true),
+
+            Expanded(
+              child: PageView.builder(
+                controller: orders.pageController,
+                onPageChanged: orders.onPageChanged,
+                itemCount: orderTabsModelList.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: MAIN_HORIZONTAL_PADDING),
+                    child: OrdersListForTab(index: index),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      );
+    });
+
+
   }
 }
 
-// Widget showOrdersList({context}) {
-//   final orders = Get.find<OrdersController>();
-//
-//   return Obx(() {
-//     List<OrderModel> getFilteredList(int index) {
-//       var status = OrderStatus.ACTIVE;
-//
-//       switch (index) {
-//         case 0:
-//           status = OrderStatus.ACTIVE;
-//           break;
-//         case 1:
-//           status = OrderStatus.CONFIRMED;
-//           break;
-//         case 2:
-//           status = OrderStatus.COMPLETED;
-//           break;
-//         case 3:
-//           status = OrderStatus.CANCELLED;
-//           break;
-//       }
-//
-//       var filtered = orders.ordersList
-//           .where((order) => order.orderStatus == status)
-//           .toList();
-//
-//       return sortByDateDesc(filtered, status);
-//     }
-//
-//     final screenIndex = orders.screenIndex.value;
-//     final ordersList = getFilteredList(screenIndex);
-//
-//     if (orders.ordersStatus.value == Status.LOADING) {
-//       return loadingIndicator();
-//     } else if (orders.ordersStatus.value == Status.FAILURE) {
-//       return ErrorScreen();
-//     } else if (ordersList.isEmpty) {
-//       final tabModel = orderTabsModelList[screenIndex];
-//       return EmptyScreen(
-//         icon: tabModel.icon,
-//         iconType: IconType.PNG,
-//         text: appLanguage == URDU_LANGUAGE ? '${tabModel.titleUrdu} لسٹ خالی ہے' : '${tabModel.titleEng} list is empty',
-//         color: AppColors.materialButtonSkin(isDark),
-//       );
-//     }
-//
-//     return ListView.builder(
-//       itemCount: ordersList.length,
-//       padding: const EdgeInsets.only(bottom: MAIN_HORIZONTAL_PADDING),
-//       shrinkWrap: true,
-//       physics: const BouncingScrollPhysics(),
-//       itemBuilder: (context, index) {
-//         final data = ordersList[index];
-//         return OrderItemUI(data: data, index: index+1,);
-//       },
-//     );
-//   });
-// }
 List<OrderModel> sortByDateDesc(List<OrderModel> list, status) {
   list.sort((a, b) {
     String? aDateStr;
@@ -148,7 +129,6 @@ class OrdersListForTab extends StatelessWidget {
       final tabModel = orderTabsModelList[index];
       final list = orders.getOrdersForTab(index);
       final sortedList = sortByDateDesc(list, tabModel.statusKey);
-
       if (orders.ordersStatus.value == Status.FAILURE) {
         return ErrorScreen();
       }
@@ -171,6 +151,7 @@ class OrdersListForTab extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         itemBuilder: (context, i) {
           final data = sortedList[i];
+          orders.ordersCount.value = sortedList.length;
           return OrderItemUI(data: data, index: i + 1);
         },
       );
