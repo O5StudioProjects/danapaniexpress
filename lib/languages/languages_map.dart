@@ -238,6 +238,8 @@ Map<String, Map<String, String>> allLang = {
     CONFIRMED: 'Confirmed',
     COMPLETED: 'Completed',
     CANCELLED: 'Cancelled',
+    FLASH_DELIVERY_INFO: 'Flash Delivery offers faster delivery service in the same day within 30 to 60 minutes almost, but the delivery charge depends on the total selling price of the items in the cart.\n\nDelivery Charges for Flash Delivery:\nLess than 1000 -> 100\n1000 – 1999.99 -> 80\n2000 – 2999.99 -> 50\n3000 or more -> FREE (0)',
+    SLOT_DELIVERY_INFO: 'Slot Delivery allows the user to pick a delivery time slot, usually for scheduled or next-day delivery.\n\nDelivery Charges for Slot Delivery:\nLess than 1000 -> 100\n1000 or more -> FREE (0)',
 
   },
 
@@ -479,6 +481,8 @@ Map<String, Map<String, String>> allLang = {
     CONFIRMED: 'تصدیق شدہ',
     COMPLETED: 'مکمل',
     CANCELLED: 'منسوخ',
+    FLASH_DELIVERY_INFO: 'فلیش ڈیلیوری ایک تیز سروس ہے جو عموماً 30 سے 60 منٹ میں اُسی دن آرڈر فراہم کرتی ہے، تاہم ڈیلیوری چارجز کارٹ میں موجود اشیاء کی کل قیمت پر منحصر ہوتے ہیں۔\n\nفلیش ڈیلیوری کے چارجز:\n1000 سے کم -> 100\n1000 – 1999.99 -> 80\n2000 – 2999.99 -> 50\n3000 یا زیادہ -> مفت (0)',
+    SLOT_DELIVERY_INFO: 'سلاٹ ڈیلیوری صارف کو ڈیلیوری کا وقت منتخب کرنے کی سہولت دیتی ہے، جو کہ عموماً اگلے دن یا شیڈول کے مطابق ہوتی ہے۔\n\nسلاٹ ڈیلیوری کے چارجز:\n1000 سے کم -> 100\n1000 یا زیادہ -> مفت (0)',
 
   },
 };

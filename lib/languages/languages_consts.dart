@@ -247,4 +247,6 @@ const ACTIVE = 'ACTIVE';
 const CONFIRMED = 'CONFIRMED';
 const COMPLETED = 'COMPLETED';
 const CANCELLED = 'CANCELLED';
+const FLASH_DELIVERY_INFO = 'FlashDeliveryInfo';
+const SLOT_DELIVERY_INFO = 'SlotDeliveryInfo';
 

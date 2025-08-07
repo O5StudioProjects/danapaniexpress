@@ -1,15 +1,17 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
 
-class EventsDialog extends StatefulWidget {
-  final MarqueeModel data;
-  const EventsDialog({super.key, required this.data});
+import '../../../data/models/pager_image_model.dart';
+
+class AppEventsDialog extends StatefulWidget {
+  final PagerImagesModel? data;
+  const AppEventsDialog({super.key, required this.data});
 
   @override
-  State<EventsDialog> createState() => _EventsDialogState();
+  State<AppEventsDialog> createState() => _AppEventsDialogState();
 }
 
-class _EventsDialogState extends State<EventsDialog> with SingleTickerProviderStateMixin {
+class _AppEventsDialogState extends State<AppEventsDialog> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
   var home = Get.find<HomeController>();
@@ -42,24 +44,47 @@ class _EventsDialogState extends State<EventsDialog> with SingleTickerProviderSt
     return ScaleTransition(
       scale: _scaleAnimation,
       child: PopScope(
-        canPop: true,
-        onPopInvokedWithResult: (onPop, result){
-          _controller.reverse().then((_) => Navigator.pop(context));
-        },
+        canPop: false,
+        // onPopInvokedWithResult: (onPop, result){
+        //   _controller.reverse().then((_) => Navigator.pop(context));
+        // },
         child: Dialog(
-            shadowColor: data.dialogImage.isNotEmpty ? Colors.transparent : Colors.black.withValues(alpha: 0.3),
-            backgroundColor: data.dialogImage.isNotEmpty ? Colors.transparent : AppColors.backgroundColorSkin(isDark),
+            shadowColor: Colors.black.withValues(alpha: 0.3),
+            backgroundColor:AppColors.cardColorSkin(isDark),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             ),
             child:  Padding(
-              padding: const EdgeInsets.all(0.0),
-              child: data.dialogImage.isNotEmpty
-                  ? Column(
+              padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: MAIN_HORIZONTAL_PADDING, bottom: MAIN_HORIZONTAL_PADDING),
+              child:  Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Row(
+                    children: [
+                      Container(
+                          width: 40.0,
+                          height: 40.0,
+                          decoration: BoxDecoration(
+                              color: AppColors.backgroundColorSkin(isDark),
+                              borderRadius: BorderRadius.circular(100),
+                            border: Border.all(color: AppColors.materialButtonSkin(isDark))
+                          ),
+                          child: appAssetImage(image: EnvImages.imgMainLogo,)),
+                      setWidth(8.0),
+                      Expanded(child: appText(text: AppLanguage.welcomeToDanaPaniExpressStr(appLanguage), 
+                          maxLines: 2,
+                          textAlign: setTextAlignment(appLanguage),
+                          textDirection: setTextDirection(appLanguage),
+                          textStyle: headingTextStyle().copyWith(color: AppColors.materialButtonSkin(isDark)))),
+
+                    ],
+                  ),
+
+
+                  setHeight(MAIN_HORIZONTAL_PADDING),
                   Container(
+                    height: 450.0,
                     clipBehavior: Clip.antiAlias,
                     constraints: BoxConstraints(maxWidth: size.width),
                     decoration: BoxDecoration(
@@ -68,47 +93,38 @@ class _EventsDialogState extends State<EventsDialog> with SingleTickerProviderSt
                     child: GestureDetector(
                         onTap: (){
                           Navigator.of(context).pop();
-                          home.onTapTopNotificationDialog(widget.data);
+                          home.onTapTopNotificationEventDialog(widget.data!);
                         } ,
-                        child: appAsyncImage(data.dialogImage, boxFit: BoxFit.fitWidth, )),
+                        child: appAsyncImage(data!.imageUrl, boxFit: BoxFit.cover, )),
                   ),
                   setHeight(MAIN_VERTICAL_PADDING),
-                  appFloatingButton(iconType: IconType.ICON, icon: Icons.close, onTap: (){
-                    Navigator.of(context).pop();
-                  }),
-                ],
-              )
-                  : Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  appIcon(iconType: IconType.ANIM, icon: AppAnims.animNotificationSkin(isDark), width: 70.0),
-                  setHeight(20.0),
-                  appText(text: appLanguage == URDU_LANGUAGE ? data.marqueeTitleUrdu : data.marqueeTitleEnglish, textStyle: headingTextStyle()),
-                  setHeight(8.0),
-                  appText(text: appLanguage == URDU_LANGUAGE ? data.marqueeDetailUrdu : data.marqueeDetailEnglish,
-                      textAlign: TextAlign.center,
-                      maxLines: 100, textStyle: bodyTextStyle()),
-                  setHeight(20.0),
-                  appDivider(),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      appTextButton(text:
-                      AppLanguage.visitStr(appLanguage),
+                      Expanded(
+                        child: appMaterialButton(
+                            text: AppLanguage.closeStr(appLanguage),
+                            onTap: (){
+                              Navigator.of(context).pop();
+                            }
+                        ),
+                      ),
+                      setWidth(MAIN_HORIZONTAL_PADDING),
+                      Expanded(
+                        child: appMaterialButton(
+                          text: AppLanguage.visitStr(appLanguage),
                           onTap: (){
                             Navigator.of(context).pop();
-                            home.onTapTopNotificationDialog(widget.data);
-                          }),
-                      appTextButton(text: AppLanguage.closeStr(appLanguage),
-                          onTap: (){
-                            Navigator.of(context).pop();
-                          })
+                            home.onTapTopNotificationEventDialog(widget.data!);
+                          }
+                        ),
+                      ),
+
+
                     ],
                   )
-
                 ],
-              ),
+              )
+
             )
         ),
       )

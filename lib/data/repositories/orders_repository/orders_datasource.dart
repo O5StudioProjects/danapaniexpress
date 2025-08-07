@@ -9,9 +9,29 @@ import '../../models/order_model.dart';
 
 class OrdersDatasource extends BaseRepository{
 
-  /// GET ORDERS BY USER ID
-  Future<List<OrderModel>> getOrdersByUserIdApi(String userId) async {
-    final uri = Uri.parse('${APiEndpoints.getOrdersByUserId}?user_id=$userId');
+
+  /// GET ORDERS BY USER ID (with pagination)
+  Future<List<OrderModel>> getOrdersByUserIdApi(String userId, {int page = 1, int limit = 10}) async {
+    final uri = Uri.parse('${APiEndpoints.getOrdersByUserId}?user_id=$userId&page=$page&limit=$limit');
+
+    final response = await http.get(
+      uri,
+      headers: apiHeaders,
+    );
+
+    final decoded = handleApiResponseAsMap(response); // Map<String, dynamic>
+    final List<dynamic> ordersList = decoded['orders'];
+
+    return ordersList.map((e) => OrderModel.fromJson(e)).toList();
+  }
+/*
+  /// THIS CODE WILL BE USED IN ADMIN APP
+  /// GET ALL ORDERS (with pagination)
+  Future<Map<String, dynamic>> getAllOrdersApi({
+    required int page,
+    required int limit,
+  }) async {
+    final uri = Uri.parse('${APiEndpoints.getOrdersByUserId}?page=$page&limit=$limit');
 
     final response = await http.get(
       uri,
@@ -19,10 +39,16 @@ class OrdersDatasource extends BaseRepository{
     );
 
     final decoded = handleApiResponseAsMap(response); // returns Map<String, dynamic>
-    final List<dynamic> ordersList = decoded['orders'];
 
-    return ordersList.map((e) => OrderModel.fromJson(e)).toList();
+    final List<dynamic> ordersList = decoded['orders'];
+    final Map<String, dynamic> pagination = decoded['pagination'];
+
+    return {
+      'orders': ordersList.map((e) => OrderModel.fromJson(e)).toList(),
+      'pagination': pagination,
+    };
   }
+*/
 
   /// GET ORDER BY ORDER NUMBER
   Future<OrderModel> getOrderByNumberApi(String orderNumber) async {

@@ -3,6 +3,7 @@ import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/core/data_model_imports.dart';
 import 'package:danapaniexpress/data/repositories/home_repository/home_repository.dart';
+import 'package:danapaniexpress/ui/app_common/dialogs/events_popup.dart';
 
 class HomeController extends GetxController {
   final homeRepo = HomeRepository();
@@ -77,6 +78,9 @@ class HomeController extends GetxController {
         print("Fetched ${eventList.length} Events PopUp");
       }
       eventsPopupStatus.value = Status.SUCCESS;
+      showCustomDialog(gContext,
+          AppEventsDialog(data: eventsPopupData.value), isDismissible: false);
+
     } catch (e) {
       eventsPopupStatus.value = Status.FAILURE;
       if (kDebugMode) {
@@ -417,5 +421,48 @@ class HomeController extends GetxController {
     }
   }
 
+  Future<void> onTapTopNotificationEventDialog(PagerImagesModel data) async {
+    if (data.type == ImagePagerType.FEATURED) {
+      navigation.gotoOtherProductsScreen(
+        screenType: ProductsScreenType.FEATURED,
+      );
+    } else if (data.type == ImagePagerType.FLASH_SALE) {
+      navigation.gotoOtherProductsScreen(
+        screenType: ProductsScreenType.FLASHSALE,
+      );
+    } else if (data.type == ImagePagerType.POPULAR) {
+      navigation.gotoOtherProductsScreen(
+        screenType: ProductsScreenType.POPULAR,
+      );
+    } else if (data.type == ImagePagerType.CATEGORY) {
+      await categories
+          .fetchCategoryById(data.typeId.toString())
+          .then((value) {
+        print(
+          ' This is Single Category Data : ${categories.singleCategory.value!.categoryNameEnglish}',
+        );
+        navigation.gotoProductsScreen(
+          data: categories.singleCategory.value!,
+        );
+      })
+          .onError((handleError, str) {
+        if (kDebugMode) {
+          print(str);
+        }
+        return;
+      });
+    } else if (data.type == ImagePagerType.PRODUCT) {
+      await products.getSingleProduct(data.typeId.toString())
+          .then((value) {
+        navigation.gotoProductDetailScreen(data: products.singleProduct.value!);
+      })
+          .onError((handleError, str) {
+        if (kDebugMode) {
+          print(str);
+        }
+        return;
+      });
+    }
+  }
 
 }

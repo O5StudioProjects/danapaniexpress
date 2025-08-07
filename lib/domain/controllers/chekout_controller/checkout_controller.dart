@@ -184,7 +184,7 @@ class CheckoutController extends GetxController {
       );
 
       if (result['success'] == true) {
-        order.getOrdersByUserId();
+        order.fetchInitialOrders();
         checkOutStatus.value = Status.SUCCESS;
         showSnackbar(
           isError: false,
