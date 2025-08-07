@@ -1,5 +1,6 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
+import 'package:danapaniexpress/ui/app_common/dialogs/delivery_info_dialog.dart';
 import 'package:danapaniexpress/ui/screens/pages/account/address_book/widgets/default_address_section.dart';
 import 'package:danapaniexpress/ui/screens/pages/cart/widgets/top_checkout_status.dart';
 
@@ -244,12 +245,21 @@ Widget selectPaymentMethod({isSelected = false}) {
 Widget deliveryType() {
   var checkout = Get.find<CheckoutController>();
   return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       setHeight(MAIN_VERTICAL_PADDING),
-      HomeHeadings(
-        mainHeadingText: AppLanguage.selectDeliveryStr(appLanguage).toString(),
-        isSeeAll: false,
-        isTrailingText: false,
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: MAIN_HORIZONTAL_PADDING),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            appText(text: AppLanguage.selectDeliveryStr(appLanguage), textStyle: headingTextStyle()),
+            setWidth(8.0),
+            GestureDetector(
+                onTap: ()=> showCustomDialog(gContext, AppDeliveryInfoDialog()),
+                child: appIcon(iconType: IconType.ICON, icon: Icons.info_rounded, width: 20.0, color: AppColors.secondaryTextColorSkin(isDark)))
+          ],
+        ),
       ),
       setHeight(MAIN_HORIZONTAL_PADDING),
       Padding(

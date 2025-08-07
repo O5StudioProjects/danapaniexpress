@@ -7,10 +7,15 @@ import '../../models/order_model.dart';
 
 class OrdersRepository extends OrdersDatasource {
 
-  /// GET ORDERS BY USER ID
-  Future<List<OrderModel>> getOrdersByUserId(String userId) async {
-    return await getOrdersByUserIdApi(userId);
+  /// GET ORDERS BY USER ID (with pagination)
+  Future<List<OrderModel>> getOrdersByUserId(String userId, {int page = 1, int limit = 10}) async {
+    return await getOrdersByUserIdApi(userId, page: page, limit: limit);
   }
+
+/*  /// GET ALL ORDERS (with pagination) /// THIS CODE WILL BE USED IN ADMIN APP
+  Future<Map<String, dynamic>> getAllOrders(int page, int limit) async {
+    return await getAllOrdersApi(page: page, limit: limit);
+  }*/
 
   /// GET ORDER BY ORDER NUMBER
   Future<OrderModel> getOrderByNumber(String orderNumber) async {

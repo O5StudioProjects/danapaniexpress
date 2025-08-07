@@ -65,28 +65,133 @@ class OrdersController extends GetxController {
   }
 
 
-
   /// ORDER SECTION
   RxList<OrderModel> ordersList = <OrderModel>[].obs;
   Rx<Status> ordersStatus = Status.IDLE.obs;
+  final int ordersLimit = ORDERS_LIMIT;
+  int currentPage = 1;
 
-  Future<void> getOrdersByUserId() async {
-    var userId = auth.currentUser.value!.userId!;
+  RxBool hasMoreOrders = true.obs;
+  RxBool isLoadingMore = false.obs;
+  RxBool showBottomMessage = true.obs;
+  RxBool reachedEndOfScroll = false.obs;
+  final String userId = Get.find<AuthController>().currentUser.value!.userId!;
+
+  /// INITIAL FETCH
+  Future<void> fetchInitialOrders() async {
     try {
       ordersStatus.value = Status.LOADING;
-      final orders = await ordersRepo.getOrdersByUserId(userId);
-      ordersList.assignAll(orders);
+      currentPage = 1;
+
+      final List<OrderModel> fetchedOrders =
+      await ordersRepo.getOrdersByUserId(userId, page: currentPage, limit: ordersLimit);
+
+      ordersList.clear();
+      ordersList.assignAll(fetchedOrders);
+
+      hasMoreOrders.value = fetchedOrders.length == ordersLimit;
       ordersStatus.value = Status.SUCCESS;
     } catch (e) {
       ordersStatus.value = Status.FAILURE;
-      print("Exception : $e");
-      showSnackbar(
-        isError: true,
-        title: 'Failed',
-        message: 'Could not fetch orders: ${e.toString()}',
-      );
+      showSnackbar(isError: true, title: 'Error', message: 'Failed to load orders.');
     }
   }
+
+  /// LOAD MORE
+  Future<void> loadMoreOrders() async {
+    if (isLoadingMore.value || !hasMoreOrders.value) return;
+
+    try {
+      isLoadingMore.value = true;
+      currentPage++;
+
+      final List<OrderModel> moreOrders =
+      await ordersRepo.getOrdersByUserId(userId, page: currentPage, limit: ordersLimit);
+
+      ordersList.addAll(moreOrders);
+
+      if (moreOrders.length < ordersLimit) {
+        hasMoreOrders.value = false;
+      }
+    } catch (e) {
+      currentPage--; // rollback on failure
+      showSnackbar(isError: true, title: 'Error', message: 'Failed to load more orders.');
+    } finally {
+      isLoadingMore.value = false;
+    }
+  }
+
+
+/*  /// ORDER SECTION THIS CODE WILL BE USED IN ADMIN APP
+  RxList<OrderModel> ordersList = <OrderModel>[].obs;
+  Rx<Status> ordersStatus = Status.IDLE.obs;
+  final int ordersLimit = ORDERS_LIMIT;
+  int currentPage = 1;
+
+  RxBool hasMoreOrders = true.obs;
+  RxBool isLoadingMore = false.obs;
+  /// INITIAL FETCH
+  Future<void> fetchInitialOrders() async {
+    try {
+      ordersStatus.value = Status.LOADING;
+      currentPage = 1;
+
+      final result = await ordersRepo.getAllOrders(currentPage, ordersLimit);
+      final List<OrderModel> fetchedOrders = result['orders'];
+
+      ordersList.clear();
+      ordersList.assignAll(fetchedOrders);
+
+      hasMoreOrders.value = fetchedOrders.length == ordersLimit;
+      ordersStatus.value = Status.SUCCESS;
+    } catch (e) {
+      ordersStatus.value = Status.FAILURE;
+      showSnackbar(isError: true, title: 'Error', message: 'Failed to load orders.');
+    }
+  }
+  /// LOAD MORE
+  Future<void> loadMoreOrders() async {
+    if (isLoadingMore.value || !hasMoreOrders.value) return;
+
+    try {
+      isLoadingMore.value = true;
+      currentPage++;
+
+      final result = await ordersRepo.getAllOrders(currentPage, ordersLimit);
+      final List<OrderModel> moreOrders = result['orders'];
+
+      ordersList.addAll(moreOrders);
+
+      if (moreOrders.length < ordersLimit) {
+        hasMoreOrders.value = false;
+      }
+    } catch (e) {
+      currentPage--; // rollback on failure
+      showSnackbar(isError: true, title: 'Error', message: 'Failed to load more orders.');
+    } finally {
+      isLoadingMore.value = false;
+    }
+  }*/
+
+
+
+  // Future<void> getOrdersByUserId() async {
+  //   var userId = auth.currentUser.value!.userId!;
+  //   try {
+  //     ordersStatus.value = Status.LOADING;
+  //     final orders = await ordersRepo.getOrdersByUserId(userId);
+  //     ordersList.assignAll(orders);
+  //     ordersStatus.value = Status.SUCCESS;
+  //   } catch (e) {
+  //     ordersStatus.value = Status.FAILURE;
+  //     print("Exception : $e");
+  //     showSnackbar(
+  //       isError: true,
+  //       title: 'Failed',
+  //       message: 'Could not fetch orders: ${e.toString()}',
+  //     );
+  //   }
+  // }
 
   /// UPDATE ORDER
   Future<void> updateOrder({
@@ -108,7 +213,7 @@ class OrdersController extends GetxController {
         if (orderNumber != null || orderNumber!.isNotEmpty) {
           await fetchOrderByNumber(orderNumber);
         }
-        await getOrdersByUserId();
+        await fetchInitialOrders();
         updateOrderStatus.value = Status.SUCCESS;
         showSnackbar(
           isError: false,

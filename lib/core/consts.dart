@@ -43,7 +43,6 @@ class ImagePagerType {
   static const String FEATURED = 'featured';
   static const String POPULAR = 'popular';
   static const String FLASH_SALE = 'flash_sale';
-  static const String EVENTS_POPUP = 'events_popup';
 }
 ///IMAGE PAGER SECTIONS
 class ImagePagerSections {

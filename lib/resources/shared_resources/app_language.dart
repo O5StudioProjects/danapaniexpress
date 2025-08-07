@@ -649,5 +649,10 @@ class AppLanguage {
   static String? confirmedStr(String appLanguage) => allLang[appLanguage]?[CONFIRMED];
   static String? completedStr(String appLanguage) => allLang[appLanguage]?[COMPLETED];
   static String? cancelledStr(String appLanguage) => allLang[appLanguage]?[CANCELLED];
+  static String? flashDeliveryInfo(String appLanguage) =>
+      allLang[appLanguage]?[FLASH_DELIVERY_INFO];
+
+  static String? slotDeliveryInfo(String appLanguage) =>
+      allLang[appLanguage]?[SLOT_DELIVERY_INFO];
 
 }

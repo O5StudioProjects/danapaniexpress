@@ -1,5 +1,6 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
+import 'package:danapaniexpress/ui/app_common/dialogs/events_popup.dart';
 
 
 class HomeScreenMobile extends StatelessWidget {
@@ -7,16 +8,21 @@ class HomeScreenMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var home = Get.find<HomeController>();
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   if(home.eventsPopupData.value != null){
+    //     showCustomDialog(context, AppEventsDialog(data: home.eventsPopupData.value));
+    //   }
+    //
+    // });
     return Obx((){
-      var products = Get.find<ProductsController>();
       return Container(
         height: size.height,
         width: size.width,
         color: AppColors.backgroundColorSkin(isDark),
         child: RefreshIndicator(
           onRefresh: () async {
-            products.fetchInitialFeaturedProducts();
-            products.fetchInitialFlashSaleProducts();
+
           },
           child: CustomScrollView(
             physics: BouncingScrollPhysics(),

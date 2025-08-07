@@ -1,5 +1,6 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/domain/controllers/orders_controller/orders_controller.dart';
+import 'package:danapaniexpress/ui/app_common/components/app_pull_to_refresh.dart';
 import 'package:danapaniexpress/ui/screens/pages/account/my_orders/widgets/order_item.dart';
 
 import '../../../../../data/models/order_model.dart';
@@ -12,7 +13,7 @@ class MyOrdersMobile extends StatelessWidget {
     final orders = Get.find<OrdersController>();
     orders.screenIndex.value = Get.arguments[ORDERS_INDEX]  ?? 0;
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      orders.getOrdersByUserId();
+      orders.fetchInitialOrders();
       orders.pageController.jumpToPage(orders.screenIndex.value);
     });
 
@@ -71,6 +72,36 @@ class MyOrdersMobile extends StatelessWidget {
                 },
               ),
             ),
+
+            /// SHOW BOTTOM MESSAGE /LOADING INDICATOR
+            Obx(() {
+              final isLoadingMore = orders.isLoadingMore.value;
+              final hasMore = orders.hasMoreOrders.value;
+              final reachedEnd = orders.reachedEndOfScroll.value;
+
+              // ✅ Only show when all products are scrolled & no more left
+              if (!hasMore && reachedEnd) {
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 0),
+                  child: Center(
+                    child: appText(
+                      text: 'No more orders',
+                      textStyle: itemTextStyle(),
+                    ),
+                  ),
+                );
+              }
+
+              // ✅ Show loading if fetching more
+              if (isLoadingMore) {
+                return Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: loadingIndicator(),
+                );
+              }
+
+              return SizedBox(); // nothing to show
+            })
           ],
         ),
       );
@@ -113,22 +144,65 @@ List<OrderModel> sortByDateDesc(List<OrderModel> list, status) {
   return list;
 }
 
-class OrdersListForTab extends StatelessWidget {
+class OrdersListForTab extends StatefulWidget {
   final int index;
   const OrdersListForTab({super.key, required this.index});
 
   @override
-  Widget build(BuildContext context) {
-    final orders = Get.find<OrdersController>();
+  State<OrdersListForTab> createState() => _OrdersListForTabState();
+}
 
+class _OrdersListForTabState extends State<OrdersListForTab> {
+  final ScrollController _scrollController = ScrollController();
+  final orders = Get.find<OrdersController>();
+  double _previousOffset = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_scrollListener);
+  }
+
+  void _scrollListener() {
+    final currentOffset = _scrollController.position.pixels;
+    final maxOffset = _scrollController.position.maxScrollExtent;
+
+    // ✅ Bottom message visibility
+    if (currentOffset > _previousOffset) {
+      orders.showBottomMessage.value = true;
+    } else {
+      orders.showBottomMessage.value = false;
+    }
+
+    // ✅ End of scroll detection
+    orders.reachedEndOfScroll.value = currentOffset >= maxOffset - 10;
+
+    // // ✅ Load more trigger
+    if (currentOffset >= maxOffset - 200) {
+      if (orders.hasMoreOrders.value && !orders.isLoadingMore.value) {
+        orders.loadMoreOrders();
+      }
+    }
+
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Obx(() {
       if (orders.ordersStatus.value == Status.LOADING) {
         return loadingIndicator();
       }
 
-      final tabModel = orderTabsModelList[index];
-      final list = orders.getOrdersForTab(index);
+      final tabModel = orderTabsModelList[widget.index];
+      final list = orders.getOrdersForTab(widget.index);
       final sortedList = sortByDateDesc(list, tabModel.statusKey);
+
       if (orders.ordersStatus.value == Status.FAILURE) {
         return ErrorScreen();
       }
@@ -145,14 +219,15 @@ class OrdersListForTab extends StatelessWidget {
       }
 
       return ListView.builder(
+        controller: _scrollController,
         itemCount: sortedList.length,
         padding: const EdgeInsets.only(bottom: MAIN_HORIZONTAL_PADDING),
         shrinkWrap: true,
         physics: const BouncingScrollPhysics(),
         itemBuilder: (context, i) {
-          final data = sortedList[i];
-          orders.ordersCount.value = sortedList.length;
-          return OrderItemUI(data: data, index: i + 1);
+            final data = sortedList[i];
+            orders.ordersCount.value = sortedList.length;
+            return OrderItemUI(data: data, index: i + 1);
         },
       );
     });
