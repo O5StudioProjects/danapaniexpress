@@ -98,6 +98,9 @@ class NavigationController extends GetxController{
   Future<void> gotoReturnsRefundsScreen() async {
     JumpTo.gotoReturnsRefundsScreen();
   }
+  Future<void> gotoCustomerServiceScreen() async {
+    JumpTo.gotoCustomerServiceScreen();
+  }
   Future<void> gotoLanguageScreen({required bool isNavigation, required bool isStart}) async {
     JumpTo.gotoLanguageScreen(isNavigation: isNavigation, isStart: isStart);
   }

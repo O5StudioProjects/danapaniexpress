@@ -47,6 +47,10 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    fetchInitialMethods();
+  }
+
+  Future<void> fetchInitialMethods() async {
     fetchCategories();
     fetchAppbarPagerImages();
     fetchMarquee();
@@ -60,7 +64,6 @@ class HomeController extends GetxController {
     fetchInitialCartProducts();
     fetchEventsPopup();
   }
-
 
   ///HOME SCREEN Methods
 

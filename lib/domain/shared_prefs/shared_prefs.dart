@@ -43,16 +43,16 @@ class SharedPrefs {
   }
 
 
-  static setAvatar(bool value) async{
+  static setFloatingIcon(bool value) async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.remove(AVATAR_ACTIVE);
-    await prefs.setBool(AVATAR_ACTIVE, value);
+    await prefs.remove(FLOATING_ACTIVE);
+    await prefs.setBool(FLOATING_ACTIVE, value);
   }
 
-  static Future<bool> getAvatar() async {
+  static Future<bool> getFloatingIcon() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.reload();
-    return prefs.getBool(AVATAR_ACTIVE) ?? true;
+    return prefs.getBool(FLOATING_ACTIVE) ?? true;
   }
 
   // static setTextAlignment(String value) async{

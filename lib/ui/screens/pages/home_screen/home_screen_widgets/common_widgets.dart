@@ -16,7 +16,7 @@ class HomeHeadings extends StatelessWidget {
     return Obx(
       ()=> Padding(
         padding:  EdgeInsets.only(right: horizontalPadding!, left: horizontalPadding!),
-        child: appLanguage == URDU_LANGUAGE
+        child: isRightLang
             ? Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -119,14 +119,14 @@ class CategoryItem extends StatelessWidget {
              // height: nameHeight,
               child: Center(
                 child: appText(
-                  text: appLanguage == URDU_LANGUAGE
+                  text: isRightLang
                       ? data.categoryNameUrdu
                       : data.categoryNameEnglish,
                   maxLines: 1,
                   overFlow: TextOverflow.ellipsis,
                   textAlign: TextAlign.center,
                   textStyle: bodyTextStyle().copyWith(
-                    fontSize: appLanguage == URDU_LANGUAGE
+                    fontSize: isRightLang
                         ? TAGS_FONT_SIZE + 2
                         : TAGS_FONT_SIZE,
                   ),
@@ -194,14 +194,14 @@ class SubCategoryItem extends StatelessWidget {
             Flexible(
               child: Center(
                 child: appText(
-                  text: appLanguage == URDU_LANGUAGE
+                  text: isRightLang
                       ? data.subCategoryNameUrdu
                       : data.subCategoryNameEnglish,
                   maxLines: 1,
                   overFlow: TextOverflow.ellipsis,
                   textAlign: TextAlign.center,
                   textStyle: bodyTextStyle().copyWith(
-                    fontSize: appLanguage == URDU_LANGUAGE
+                    fontSize: isRightLang
                         ? SUB_HEADING_TEXT_BUTTON_FONT_SIZE + 2
                         : SUB_HEADING_TEXT_BUTTON_FONT_SIZE,
                   ),

@@ -161,7 +161,7 @@ class ProductDetailScreenMobile extends StatelessWidget {
     var cart = Get.find<CartController>();
     return Obx((){
       return Column(
-        crossAxisAlignment: appLanguage == URDU_LANGUAGE
+        crossAxisAlignment: isRightLang
             ? CrossAxisAlignment.end
             : CrossAxisAlignment.start,
         children: [
@@ -213,7 +213,7 @@ class ProductDetailScreenMobile extends StatelessWidget {
 
           /// PRODUCT NAME
           appText(
-            text: appLanguage == URDU_LANGUAGE
+            text: isRightLang
                 ? data.productNameUrdu
                 : data.productNameEng,
             textAlign: setTextAlignment(appLanguage),
@@ -490,7 +490,7 @@ class ProductDetailScreenMobile extends StatelessWidget {
                 SizedBox(
                   width: size.width,
                   child: ReadMoreText(
-                    appLanguage == URDU_LANGUAGE
+                    isRightLang
                         ? data.productDetailUrdu.toString()
                         : data.productDetailEng.toString(),
                     trimLines: 2,

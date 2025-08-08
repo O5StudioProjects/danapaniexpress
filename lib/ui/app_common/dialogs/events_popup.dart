@@ -72,7 +72,7 @@ class _AppEventsDialogState extends State<AppEventsDialog> with SingleTickerProv
                           ),
                           child: appAssetImage(image: EnvImages.imgMainLogo,)),
                       setWidth(8.0),
-                      Expanded(child: appText(text: AppLanguage.welcomeToDanaPaniExpressStr(appLanguage), 
+                      Expanded(child: appText(text: AppLanguage.welcomeToAppNameStr(appLanguage),
                           maxLines: 2,
                           textAlign: setTextAlignment(appLanguage),
                           textDirection: setTextDirection(appLanguage),

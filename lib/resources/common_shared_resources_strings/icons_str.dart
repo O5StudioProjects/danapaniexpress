@@ -87,3 +87,5 @@ const String icVeryPoor = '${COMMON_ICON_PATH}ic_very_poor.png';
 const String icNeutral = '${COMMON_ICON_PATH}ic_neutral.png';
 const String icGood = '${COMMON_ICON_PATH}ic_good.png';
 const String icExcellent = '${COMMON_ICON_PATH}ic_excellent.png';
+const String icFadedAdminLogo = '${COMMON_ICON_PATH}ic_faded_admins_logo.gif';
+

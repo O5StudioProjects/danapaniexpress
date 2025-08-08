@@ -157,7 +157,7 @@ Widget listItemSwitchButton({
       height: LIST_ITEM_HEIGHT,
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       decoration: BoxDecoration(color: AppColors.cardColorSkin(isDark)),
-      child: appLanguage == URDU_LANGUAGE
+      child: isRightLang
           ? Row(
               children: [
                 SizedBox(

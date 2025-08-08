@@ -211,7 +211,7 @@ class _OrdersListForTabState extends State<OrdersListForTab> {
         return EmptyScreen(
           icon: tabModel.icon,
           iconType: IconType.PNG,
-          text: appLanguage == URDU_LANGUAGE
+          text: isRightLang
               ? '${tabModel.titleUrdu} لسٹ خالی ہے'
               : '${tabModel.titleEng} list is empty',
           color: AppColors.materialButtonSkin(isDark),

@@ -67,6 +67,12 @@ class AppAnims {
       return animLoadingLight2;
     }
   }
-
+  static String animLogoBgSkin(isDark){
+    if (isDark) {
+      return animLogoBgDark;
+    } else {
+      return animLogoBgLight;
+    }
+  }
 
 }

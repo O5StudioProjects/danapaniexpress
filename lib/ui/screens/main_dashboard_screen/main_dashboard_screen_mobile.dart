@@ -1,5 +1,6 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
+import 'package:danapaniexpress/ui/app_common/components/floating_icon.dart';
 
 import '../pages/account/account_screen.dart';
 import '../pages/cart/cart_screen.dart';
@@ -29,7 +30,16 @@ class MainDashboardScreenMobile extends StatelessWidget {
             child: Obx(
               ()=> Column(
                 children: [
-                  Expanded(child: screenList.elementAt(dashboardController.navIndex.value)),
+                  Expanded(child:
+                  Stack(
+                  children: [
+                    screenList.elementAt(dashboardController.navIndex.value),
+                    if(dashboardController.floatingIcon.value)
+                    AppFloatingIcon()
+                ],
+              )
+                  ),
+
                   Container(
                     width: size.width,
                     height: BOTTOM_NAV_BAR_SIZE,

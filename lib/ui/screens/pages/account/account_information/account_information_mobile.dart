@@ -13,7 +13,7 @@ class AccountInformationMobile extends StatelessWidget {
     var account = Get.find<AccountInfoController>();
     return Obx((){
       var data = auth.currentUser.value;
-      var icArrow = appLanguage == URDU_LANGUAGE ? icArrowLeftSmall : icArrowRightSmall;
+      var icArrow = isRightLang ? icArrowLeftSmall : icArrowRightSmall;
       var imageUploadMenu = [
         ImageUploadModel(
             id: DEFAULT_IMAGE,

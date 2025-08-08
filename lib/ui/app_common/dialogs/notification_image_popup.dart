@@ -84,9 +84,9 @@ class _AppNotificationDialogState extends State<AppNotificationDialog> with Sing
                 children: [
                   appIcon(iconType: IconType.ANIM, icon: AppAnims.animNotificationSkin(isDark), width: 70.0),
                   setHeight(20.0),
-                  appText(text: appLanguage == URDU_LANGUAGE ? data.marqueeTitleUrdu : data.marqueeTitleEnglish, textStyle: headingTextStyle()),
+                  appText(text: isRightLang ? data.marqueeTitleUrdu : data.marqueeTitleEnglish, textStyle: headingTextStyle()),
                   setHeight(8.0),
-                  appText(text: appLanguage == URDU_LANGUAGE ? data.marqueeDetailUrdu : data.marqueeDetailEnglish,
+                  appText(text: isRightLang ? data.marqueeDetailUrdu : data.marqueeDetailEnglish,
                       textAlign: TextAlign.center,
                       maxLines: 100, textStyle: bodyTextStyle()),
                   setHeight(20.0),

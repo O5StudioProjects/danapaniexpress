@@ -60,7 +60,7 @@ class FavoriteProductItem extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               appText(
-                                text: appLanguage == URDU_LANGUAGE ? product.productNameUrdu : product.productNameEng,
+                                text: isRightLang ? product.productNameUrdu : product.productNameEng,
                                 textStyle: itemTextStyle().copyWith(fontSize: NORMAL_TEXT_FONT_SIZE),
                                 textDirection: setTextDirection(appLanguage),
                                 maxLines: 1,

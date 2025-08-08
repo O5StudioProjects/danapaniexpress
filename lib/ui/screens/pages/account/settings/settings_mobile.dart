@@ -12,7 +12,7 @@ class SettingsMobile extends StatelessWidget {
     var dashboard = Get.find<DashBoardController>();
     var serviceArea = Get.find<ServiceAreaController>();
     return Obx((){
-      var arrow = appLanguage == URDU_LANGUAGE ? icArrowLeftSmall : icArrowRightSmall;
+      var arrow = isRightLang ? icArrowLeftSmall : icArrowRightSmall;
       return Container(
         width: size.width,
         height: size.height,
@@ -28,11 +28,12 @@ class SettingsMobile extends StatelessWidget {
                   padding: const EdgeInsets.only(top: MAIN_VERTICAL_PADDING),
                   child: listItemSwitchButton(
                     iconType: IconType.ICON,
-                    leadingIcon: dashboard.floatingAvatarIcon.value ? Icons.insert_emoticon_sharp : Icons.insert_emoticon_rounded,
-                    itemTitle: dashboard.floatingAvatarIcon.value ? AppLanguage.hideFloatingIconsStr(appLanguage) : AppLanguage.showFloatingIconsStr(appLanguage),
-                    switchValue: dashboard.floatingAvatarIcon.value,
+                    leadingIcon: dashboard.floatingIcon.value ? Icons.insert_emoticon_sharp : Icons.insert_emoticon_rounded,
+                    itemTitle: dashboard.floatingIcon.value ? AppLanguage.hideFloatingIconsStr(appLanguage) : AppLanguage.showFloatingIconsStr(appLanguage),
+                    switchValue: dashboard.floatingIcon.value,
                     onItemClick: () {
-                      dashboard.floatingAvatarIcon.value = !dashboard.floatingAvatarIcon.value;
+                      dashboard.floatingIcon.value = !dashboard.floatingIcon.value;
+                      SharedPrefs.setFloatingIcon(dashboard.floatingIcon.value);
                     },
                   ),
                 ),

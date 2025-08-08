@@ -19,7 +19,7 @@ Widget appText({
   textAlign,
   maxLines,
   textDirection,
-  overFlow = TextOverflow.ellipsis,
+  overFlow,
 }) {
   return Text(
     text!,
@@ -189,7 +189,7 @@ Widget appMaterialButton({
                     ? textColor
                     : AppColors.materialButtonTextSkin(isDark),
               ).copyWith(
-                fontSize: appLanguage == URDU_LANGUAGE
+                fontSize: isRightLang
                     ? fontSize + 2
                     : fontSize,
               ),

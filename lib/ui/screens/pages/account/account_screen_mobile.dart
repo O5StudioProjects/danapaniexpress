@@ -13,7 +13,7 @@ class AccountScreenMobile extends StatelessWidget {
     var account = Get.find<AccountController>();
 
     return Obx((){
-      var icArrow = appLanguage == URDU_LANGUAGE ? icArrowLeftSmall : icArrowRightSmall;
+      var icArrow = isRightLang ? icArrowLeftSmall : icArrowRightSmall;
       return Container(
           width: size.width,
           height: size.height,
@@ -37,7 +37,7 @@ class AccountScreenMobile extends StatelessWidget {
                   physics: BouncingScrollPhysics(),
                   controller: account.scrollController,
                   child: Column(
-                    crossAxisAlignment: appLanguage == URDU_LANGUAGE
+                    crossAxisAlignment: isRightLang
                         ? CrossAxisAlignment.end
                         : CrossAxisAlignment.start,
 
@@ -63,7 +63,7 @@ class AccountScreenMobile extends StatelessWidget {
                       /// MY PROFILE SECTION
                       if(auth.currentUser.value != null)
                         Column(
-                          crossAxisAlignment: appLanguage == URDU_LANGUAGE
+                          crossAxisAlignment: isRightLang
                               ? CrossAxisAlignment.end
                               : CrossAxisAlignment.start,
                           children: [
@@ -188,7 +188,7 @@ class AccountScreenMobile extends StatelessWidget {
                           leadingIcon: icAdmins,
                           itemTitle: AppLanguage.customerServiceStr(appLanguage).toString(),
                           trailingIcon: icArrow,
-                          onItemClick: () async => await navigate.launchPhoneCall(phoneNumber: ContactUs.Phone),
+                          onItemClick: () async => await navigate.gotoCustomerServiceScreen(),
                         ),
                       ),
 

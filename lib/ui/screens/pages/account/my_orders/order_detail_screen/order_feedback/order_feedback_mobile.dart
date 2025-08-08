@@ -48,7 +48,7 @@ class OrderFeedbackMobile extends StatelessWidget {
                                     children: [
                                       appIcon(iconType: IconType.SVG, icon: index != orders.feedbackItemIndex.value ? icRadioButton : icRadioButtonSelected, width: 24.0, color: AppColors.materialButtonSkin(isDark)),
                                       setWidth(MAIN_VERTICAL_PADDING),
-                                      Expanded(child: appText(text: appLanguage == URDU_LANGUAGE ? item.titleUrdu : item.titleEnglish, textStyle: bodyTextStyle())),
+                                      Expanded(child: appText(text: isRightLang ? item.titleUrdu : item.titleEnglish, textStyle: bodyTextStyle())),
                                       setWidth(MAIN_VERTICAL_PADDING),
                                       appIcon(iconType: IconType.PNG, icon: item.icon, width: 24.0)
                                     ],

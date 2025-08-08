@@ -12,7 +12,7 @@ const IS_LOGGED_IN_KEY = 'IS_LOGGED_IN_KEY';
 const USER_ID_KEY = 'USER_ID_KEY';
 const USER_ID = 'USER_ID';
 const AUTH_TOKEN = 'AUTH_TOKEN';
-const AVATAR_ACTIVE = 'AVATAR_ACTIVE';
+const FLOATING_ACTIVE = 'FLOATING_ACTIVE';
 const LANGUAGE_CODE = 'language_code';
 const countryCode = 'countryCode';
 
@@ -94,6 +94,8 @@ class ContactUs {
   static const String Email = 'support@danapaniexpress.com';
   static const String Phone = '+923425956300';
   static const String Whatsapp = '+923425956300';
+  static const String CustomerService = '+923425956300';
+  static const String CustomOrders = '+923425956300';
 }
 
 class FollowUs {

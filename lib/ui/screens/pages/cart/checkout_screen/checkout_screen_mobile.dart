@@ -366,7 +366,7 @@ Widget reviewOrderedProducts() {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             appText(
-                              text: appLanguage == URDU_LANGUAGE
+                              text: isRightLang
                                   ? product.productNameUrdu
                                   : product.productNameEng,
                               textStyle: itemTextStyle().copyWith(
@@ -517,7 +517,7 @@ Widget billingInfo() {
                   horizontal: MAIN_HORIZONTAL_PADDING,
                   vertical: 8.0,
                 ),
-                child: appLanguage == URDU_LANGUAGE
+                child: isRightLang
                     ? Row(
                         children: [
                           appText(
@@ -617,7 +617,7 @@ Widget billingInfo() {
               Container(
                 padding: EdgeInsets.all(MAIN_HORIZONTAL_PADDING),
                 color: AppColors.backgroundColorSkin(isDark),
-                child: appLanguage == URDU_LANGUAGE
+                child: isRightLang
                 ? Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -682,7 +682,7 @@ Widget billingInfoItems({title, detail, detailTextStyle}) {
       horizontal: MAIN_HORIZONTAL_PADDING,
       vertical: 8.0,
     ),
-    child: appLanguage == URDU_LANGUAGE
+    child: isRightLang
         ? Row(
             children: [
               appText(

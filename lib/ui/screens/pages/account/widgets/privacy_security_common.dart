@@ -6,7 +6,7 @@ Widget mainTitle(String text) {
     child: Text(
       text,
       style: bigBoldHeadingTextStyle(),
-      textDirection: appLanguage == URDU_LANGUAGE ? TextDirection.rtl : TextDirection.ltr,
+      textDirection: isRightLang ? TextDirection.rtl : TextDirection.ltr,
     ),
   );
 }
@@ -17,14 +17,14 @@ Widget sectionTitle(String text) {
     child: Text(
       text,
       style: bigBoldHeadingTextStyle().copyWith(fontSize: 18.0),
-      textDirection: appLanguage == URDU_LANGUAGE ? TextDirection.rtl : TextDirection.ltr,
+      textDirection: isRightLang ? TextDirection.rtl : TextDirection.ltr,
     ),
   );
 }
 
 Widget sectionBody(String text) {
   return Directionality(
-    textDirection: appLanguage == URDU_LANGUAGE ? TextDirection.rtl : TextDirection.ltr,
+    textDirection: isRightLang ? TextDirection.rtl : TextDirection.ltr,
     child: Text(
       text,
       style: bodyTextStyle(),

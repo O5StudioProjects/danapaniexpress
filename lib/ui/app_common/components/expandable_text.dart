@@ -50,7 +50,7 @@ class _ExpandableTextState extends State<ExpandableText> {
     final defaultLinkStyle = const TextStyle(color: Colors.blue, fontWeight: FontWeight.w500);
 
     return Column(
-      crossAxisAlignment: appLanguage == URDU_LANGUAGE ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+      crossAxisAlignment: isRightLang ? CrossAxisAlignment.end : CrossAxisAlignment.start,
       children: [
         Text(
           widget.text,

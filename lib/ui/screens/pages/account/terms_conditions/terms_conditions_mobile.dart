@@ -5,7 +5,7 @@ import 'package:danapaniexpress/domain/controllers/terms_conditions_controller/t
 class TermsConditionsMobile extends StatelessWidget {
   const TermsConditionsMobile({super.key});
 
-  bool get isUrdu => appLanguage == URDU_LANGUAGE;
+  bool get isUrdu => isRightLang;
 
   @override
   Widget build(BuildContext context) {
