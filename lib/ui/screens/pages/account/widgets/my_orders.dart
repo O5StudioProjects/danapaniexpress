@@ -64,7 +64,7 @@ Widget accountScreenOrdersList(OrderTabsModel orderData, index) {
             ),
             setHeight(MAIN_HORIZONTAL_PADDING / 2),
             appText(
-              text: appLanguage == URDU_LANGUAGE
+              text: isRightLang
                   ? orderData.titleUrdu
                   : orderData.titleEng,
               textStyle: itemTextStyle(),
@@ -112,7 +112,7 @@ Widget ordersScreenOrdersList(OrderTabsModel orderData, index) {
               ),
             ],
           ),
-          child: appLanguage == URDU_LANGUAGE
+          child: isRightLang
               ? Row(
                   children: [
                     appText(

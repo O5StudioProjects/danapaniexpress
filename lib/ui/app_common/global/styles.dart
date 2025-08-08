@@ -7,7 +7,7 @@ TextStyle splashHeadingTextStyle(){
       height: 0.0,
       fontSize: SPLASH_HEADING_TEXT_FONT_SIZE,
       fontFamily:  setFont(appLanguage),
-      fontWeight: appLanguage != ENGLISH_LANGUAGE ? FontWeight.bold : null
+      fontWeight: isRightLang ? FontWeight.bold : null
   );
 }
 
@@ -24,7 +24,7 @@ TextStyle appBarTextStyle(){
   return TextStyle(
       color: AppColors.primaryTextColorSkin(isDark),
       height: 0.0,
-      fontSize: appLanguage == URDU_LANGUAGE ? (HEADING_FONT_SIZE + 2.0) : HEADING_FONT_SIZE,
+      fontSize: isRightLang ? (HEADING_FONT_SIZE + 2.0) : HEADING_FONT_SIZE,
      // fontSize: HEADING_FONT_SIZE,
       fontFamily:  setFont(appLanguage, urdu: urduRegular, englishFont: poppinsBold)
   );
@@ -34,7 +34,7 @@ TextStyle headingTextStyle({height = 0.0}){
   return TextStyle(
       color: AppColors.primaryTextColorSkin(isDark),
       height: height,
-      fontSize: appLanguage == URDU_LANGUAGE ? (HEADING_FONT_SIZE + 2.0) : HEADING_FONT_SIZE,
+      fontSize: isRightLang ? (HEADING_FONT_SIZE + 2.0) : HEADING_FONT_SIZE,
       //fontSize:  HEADING_FONT_SIZE,
       fontFamily:  setFont(appLanguage, urdu: urduSemibold, englishFont: oswaldSemibold),
       //fontWeight: appLanguage != ENGLISH_LANGUAGE ? FontWeight.bold : null
@@ -45,7 +45,7 @@ TextStyle startupHeadingTextStyle({height = 0.0}){
   return TextStyle(
     color: AppColors.primaryHeadingTextSkin(isDark),
     height: height,
-    fontSize: appLanguage == URDU_LANGUAGE ? (PRIMARY_HEADING_FONT_SIZE + 2.0) : PRIMARY_HEADING_FONT_SIZE,
+    fontSize: isRightLang ? (PRIMARY_HEADING_FONT_SIZE + 2.0) : PRIMARY_HEADING_FONT_SIZE,
     //fontSize:  PRIMARY_HEADING_FONT_SIZE,
     fontFamily:  setFont(appLanguage, urdu: urduSemibold, englishFont: oswaldSemibold),
     // fontWeight: getAppLanguage != ROMAN_URDU_ENGLISH_LANGUAGE ? FontWeight.bold : null
@@ -56,7 +56,7 @@ TextStyle bigBoldHeadingTextStyle({height = 0.0}){
   return TextStyle(
     color: AppColors.primaryHeadingTextSkin(isDark),
     height: height,
-    fontSize: appLanguage == URDU_LANGUAGE ? (PRIMARY_HEADING_FONT_SIZE + 2.0) : PRIMARY_HEADING_FONT_SIZE,
+    fontSize: isRightLang ? (PRIMARY_HEADING_FONT_SIZE + 2.0) : PRIMARY_HEADING_FONT_SIZE,
     //fontSize:  PRIMARY_HEADING_FONT_SIZE,
     fontFamily:  setFont(appLanguage, urdu: urduSemibold, englishFont: poppinsBold),
     // fontWeight: getAppLanguage != ROMAN_URDU_ENGLISH_LANGUAGE ? FontWeight.bold : null
@@ -67,7 +67,7 @@ TextStyle secondaryTextStyle({height = 0.0}){
   return TextStyle(
     color: AppColors.secondaryTextColorSkin(isDark),
     height: height,
-    fontSize: appLanguage == URDU_LANGUAGE ? (SUB_HEADING_TEXT_BUTTON_FONT_SIZE + 2.0) : SUB_HEADING_TEXT_BUTTON_FONT_SIZE,
+    fontSize: isRightLang ? (SUB_HEADING_TEXT_BUTTON_FONT_SIZE + 2.0) : SUB_HEADING_TEXT_BUTTON_FONT_SIZE,
     //fontSize:  PRIMARY_HEADING_FONT_SIZE,
     fontFamily:  setFont(appLanguage, urdu: urduSemibold, englishFont: robotoRegular),
     // fontWeight: getAppLanguage != ROMAN_URDU_ENGLISH_LANGUAGE ? FontWeight.bold : null
@@ -78,7 +78,7 @@ TextStyle accountSecondaryTextStyle({height = 0.0}){
   return TextStyle(
     color: AppColors.secondaryTextColorSkin(isDark),
     height: height,
-    fontSize: appLanguage == URDU_LANGUAGE ? (SUB_HEADING_TEXT_BUTTON_FONT_SIZE + 2.0) : SUB_HEADING_TEXT_BUTTON_FONT_SIZE,
+    fontSize: isRightLang ? (SUB_HEADING_TEXT_BUTTON_FONT_SIZE + 2.0) : SUB_HEADING_TEXT_BUTTON_FONT_SIZE,
     //fontSize:  PRIMARY_HEADING_FONT_SIZE,
     fontFamily:  setFont(appLanguage, urdu: urduSemibold, englishFont: nunitoMedium),
     // fontWeight: getAppLanguage != ROMAN_URDU_ENGLISH_LANGUAGE ? FontWeight.bold : null
@@ -89,7 +89,7 @@ TextStyle bodyTextStyle({height = 0.0}){
   return TextStyle(
     color: AppColors.primaryTextColorSkin(isDark),
     height: height,
-    fontSize: appLanguage == URDU_LANGUAGE ? (NORMAL_TEXT_FONT_SIZE + 2.0) : NORMAL_TEXT_FONT_SIZE,
+    fontSize: isRightLang ? (NORMAL_TEXT_FONT_SIZE + 2.0) : NORMAL_TEXT_FONT_SIZE,
    // fontSize:  NORMAL_TEXT_FONT_SIZE,
     fontFamily:  setFont(appLanguage, urdu: urduSemibold, englishFont: robotoRegular),
     // fontWeight: getAppLanguage != ROMAN_URDU_ENGLISH_LANGUAGE ? FontWeight.bold : null
@@ -112,7 +112,7 @@ TextStyle itemTextStyle({height = 0.0}){
   return TextStyle(
       color: AppColors.primaryTextColorSkin(isDark),
       height: height,
-      fontSize: appLanguage == URDU_LANGUAGE ? (NORMAL_TEXT_FONT_SIZE) : NORMAL_TEXT_FONT_SIZE -2.0,
+      fontSize: isRightLang ? (NORMAL_TEXT_FONT_SIZE) : NORMAL_TEXT_FONT_SIZE -2.0,
       //fontSize: NORMAL_TEXT_FONT_SIZE,
       fontFamily:  setFont(appLanguage, urdu: urduRegular, englishFont: nunitoSemibold),
     fontWeight: FontWeight.w800
@@ -122,7 +122,7 @@ TextStyle dateItemTextStyle({height = 0.0}){
   return TextStyle(
       color: AppColors.primaryTextColorSkin(isDark),
       height: height,
-      fontSize: appLanguage == URDU_LANGUAGE ? (NORMAL_TEXT_FONT_SIZE) : NORMAL_TEXT_FONT_SIZE -2.0,
+      fontSize: isRightLang ? (NORMAL_TEXT_FONT_SIZE) : NORMAL_TEXT_FONT_SIZE -2.0,
       //fontSize: NORMAL_TEXT_FONT_SIZE,
       fontFamily:  setFont(appLanguage, urdu: urduRegular, englishFont: nunitoSemibold),
       fontWeight: FontWeight.w800,
@@ -134,7 +134,7 @@ TextStyle tabItemTextStyle({height = 0.0, required bool isSelected}){
   return TextStyle(
       color: isSelected ? AppColors.selectedTabItemsTextColorSkin(isDark) : AppColors.tabItemsTextColorSkin(isDark),
       height: height,
-      fontSize: appLanguage == URDU_LANGUAGE ? (NORMAL_TEXT_FONT_SIZE) : NORMAL_TEXT_FONT_SIZE -2.0,
+      fontSize: isRightLang ? (NORMAL_TEXT_FONT_SIZE) : NORMAL_TEXT_FONT_SIZE -2.0,
       //fontSize: NORMAL_TEXT_FONT_SIZE,
       fontFamily:  setFont(appLanguage, urdu: urduRegular, englishFont: nunitoSemibold),
       fontWeight: FontWeight.w800
@@ -179,7 +179,7 @@ TextStyle buttonTextStyle({color}){
   return TextStyle(
       color: color,
       height:  0.0,
-      fontSize: appLanguage == URDU_LANGUAGE ? (NORMAL_TEXT_FONT_SIZE + 2.0) : NORMAL_TEXT_FONT_SIZE,
+      fontSize: isRightLang ? (NORMAL_TEXT_FONT_SIZE + 2.0) : NORMAL_TEXT_FONT_SIZE,
       //fontSize: NORMAL_TEXT_FONT_SIZE,
       fontFamily:  setFont(appLanguage, urdu: urduSemibold, englishFont: poppinsBold,)
   );
@@ -189,7 +189,7 @@ TextStyle bottomNavItemTextStyle(){
   return TextStyle(
       color: AppColors.materialButtonSkin(isDark),
       height:  0.0,
-      fontSize: appLanguage == URDU_LANGUAGE ? (SUB_HEADING_TEXT_BUTTON_FONT_SIZE + 2.0) : SUB_HEADING_TEXT_BUTTON_FONT_SIZE,
+      fontSize: isRightLang ? (SUB_HEADING_TEXT_BUTTON_FONT_SIZE + 2.0) : SUB_HEADING_TEXT_BUTTON_FONT_SIZE,
       //fontSize: NORMAL_TEXT_FONT_SIZE,
       fontFamily:  setFont(appLanguage, urdu: urduSemibold, englishFont: poppinsSemibold,)
   );
@@ -200,7 +200,7 @@ TextStyle appTextButtonStyle({color, fontSize = SUB_HEADING_TEXT_BUTTON_FONT_SIZ
       color: color,
       height: 0.0,
       fontWeight: FontWeight.w800,
-      fontSize: appLanguage == URDU_LANGUAGE ? (fontSize + 2.0) : fontSize,
+      fontSize: isRightLang ? (fontSize + 2.0) : fontSize,
       fontFamily:  setFont(appLanguage, urdu: urduRegular, englishFont: nunitoSemibold),
   );
 }
@@ -209,7 +209,7 @@ TextStyle textFormHintTextStyle({height = 0.0}){
   return TextStyle(
       color: AppColors.secondaryTextColorSkin(isDark).withValues(alpha: 0.8),
       height: height,
-      fontSize: appLanguage == URDU_LANGUAGE ? (NORMAL_TEXT_FONT_SIZE + 2.0) : NORMAL_TEXT_FONT_SIZE,
+      fontSize: isRightLang ? (NORMAL_TEXT_FONT_SIZE + 2.0) : NORMAL_TEXT_FONT_SIZE,
       fontFamily:  setFont(appLanguage, urdu: urduRegular, englishFont: interRegular)
   );
 }
@@ -235,20 +235,29 @@ TextStyle sliverAppSubHeadingTextStyle(){
 TextStyle sliverAppDescriptionTextStyle(){
   return TextStyle(
       color: whiteColor,
-      fontSize: appLanguage!= URDU_LANGUAGE ? SUB_HEADING_TEXT_BUTTON_FONT_SIZE : NORMAL_TEXT_FONT_SIZE,
+      fontSize: !isRightLang ? SUB_HEADING_TEXT_BUTTON_FONT_SIZE : NORMAL_TEXT_FONT_SIZE,
       height: 0.0,
       fontFamily:  setFont(appLanguage, urdu: urduRegular, englishFont: interRegular)
   );
 }
 
-TextStyle marqueeTextStyle({data}){
+TextStyle marqueeDynamicTextStyle({data}){
   return TextStyle(
       color: AppColors.primaryTextColorSkin(isDark),
-      fontSize: appLanguage == URDU_LANGUAGE ? (NORMAL_TEXT_FONT_SIZE + 2.0) : NORMAL_TEXT_FONT_SIZE,
+      fontSize: isRightLang ? (NORMAL_TEXT_FONT_SIZE + 2.0) : NORMAL_TEXT_FONT_SIZE,
       height: 0.0,
       fontFamily:  setFont(appLanguage,
         urdu: setFontDynamicDataMarquee(language: appLanguage, data: data, urdu: urduRegular,  english: poppinsRegular),
         englishFont: setFontDynamicDataMarquee(language: appLanguage, data: data, urdu: urduRegular, english: poppinsRegular),
+      )
+  );
+}
+TextStyle marqueeTextStyle(){
+  return TextStyle(
+      color: AppColors.primaryTextColorSkin(isDark),
+      fontSize: isRightLang ? (NORMAL_TEXT_FONT_SIZE + 2.0) : NORMAL_TEXT_FONT_SIZE,
+      height: 0.0,
+      fontFamily:  setFont(appLanguage, urdu: urduRegular,  englishFont: poppinsRegular
       )
   );
 }

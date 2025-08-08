@@ -157,6 +157,9 @@ class JumpTo {
   static gotoReturnsRefundsScreen() {
     Get.toNamed(RouteNames.ReturnsRefundsScreenRoute);
   }
+  static gotoCustomerServiceScreen() {
+    Get.toNamed(RouteNames.CustomerSeriveScreenRoute);
+  }
 
   /// SEARCH SCREEN
   static gotoSearchScreen() {

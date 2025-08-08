@@ -26,90 +26,104 @@ class OrderPlacedScreenMobile extends StatelessWidget {
                isReview: true,
              ),
            ),
+
            Expanded(
              child: Padding(
                padding: const EdgeInsets.all(MAIN_HORIZONTAL_PADDING),
-               child: Column(
-                 mainAxisAlignment: MainAxisAlignment.center,
-                 crossAxisAlignment: CrossAxisAlignment.center,
+               child: Stack(
                  children: [
-                   appIcon(
-                     iconType: IconType.PNG,
-                     icon: isDark ? icOrderPlacedDark : icOrderPlacedLight,
-                     width: 150.0,
-                   ),
-                   setHeight(LIST_ITEM_HEIGHT),
-                   appText(
-                     text: AppLanguage.orderPlacedSuccessfullyStr(appLanguage),
-                     textStyle: headingTextStyle().copyWith(
-                       color: AppColors.materialButtonSkin(isDark),
-                       fontSize: SECONDARY_HEADING_FONT_SIZE,
-                     ),
-                   ),
-                   // appText(
-                   //   text: '${AppLanguage.orderNumberStr(appLanguage)} ${orderData?.orderNumber}',
-                   //   textStyle: headingTextStyle().copyWith(
-                   //     color: AppColors.materialButtonSkin(isDark),
-                   //     fontSize: HEADING_FONT_SIZE,
-                   //   ),
-                   //   textDirection: setTextDirection(appLanguage),
-                   //   textAlign: setTextAlignment(appLanguage)
-                   // ),
-                   setHeight(MAIN_VERTICAL_PADDING),
-                   Text.rich(
-                     textAlign: TextAlign.center,
-                     TextSpan(
-                       text:
-                       AppLanguage.orderPlacedDescriptionStr(appLanguage),
-                       style: secondaryTextStyle(),
-                       children: [
+                   Column(
+                     mainAxisAlignment: MainAxisAlignment.center,
+                     crossAxisAlignment: CrossAxisAlignment.center,
+                     children: [
+                       appIcon(
+                         iconType: IconType.PNG,
+                         icon: isDark ? icOrderPlacedDark : icOrderPlacedLight,
+                         width: 150.0,
+                       ),
+                       setHeight(LIST_ITEM_HEIGHT),
+                       appText(
+                         text: AppLanguage.orderPlacedSuccessfullyStr(appLanguage),
+                         textStyle: headingTextStyle().copyWith(
+                           color: AppColors.materialButtonSkin(isDark),
+                           fontSize: SECONDARY_HEADING_FONT_SIZE,
+                         ),
+                       ),
+
+                       // appText(
+                       //   text: '${AppLanguage.orderNumberStr(appLanguage)} ${orderData?.orderNumber}',
+                       //   textStyle: headingTextStyle().copyWith(
+                       //     color: AppColors.materialButtonSkin(isDark),
+                       //     fontSize: HEADING_FONT_SIZE,
+                       //   ),
+                       //   textDirection: setTextDirection(appLanguage),
+                       //   textAlign: setTextAlignment(appLanguage)
+                       // ),
+                       setHeight(MAIN_VERTICAL_PADDING),
+                       Text.rich(
+                         textAlign: TextAlign.center,
                          TextSpan(
-                           text: AppLanguage.thankYouTrustStr(appLanguage),
+                           text:
+                           AppLanguage.orderPlacedDescriptionStr(appLanguage),
                            style: secondaryTextStyle(),
-                         ),
-                         TextSpan(
-                           text: '${AppLanguage.appNameStr(appLanguage)}\n\n',
-                           style: buttonTextStyle().copyWith(
-                             fontSize: SUB_HEADING_TEXT_BUTTON_FONT_SIZE,
-                             color: AppColors.materialButtonSkin(isDark),
-                           ),
-                         ),
-                         TextSpan(
-                           text: AppLanguage.checkOrderHistoryStr(appLanguage),
-                           style: secondaryTextStyle(),
-                         ),
-                         WidgetSpan(
-                             child: GestureDetector(
-                               onTap: ()=> nav.gotoOrdersScreen(screenIndex: 0),
-                               child: appText(text: AppLanguage.orderHistoryStr(appLanguage), textStyle: buttonTextStyle().copyWith(
-                                 fontSize: NORMAL_TEXT_FONT_SIZE,
+                           children: [
+                             TextSpan(
+                               text: AppLanguage.thankYouTrustStr(appLanguage),
+                               style: secondaryTextStyle(),
+                             ),
+                             TextSpan(
+                               text: '${AppLanguage.appNameStr(appLanguage)}\n\n',
+                               style: buttonTextStyle().copyWith(
+                                 fontSize: SUB_HEADING_TEXT_BUTTON_FONT_SIZE,
                                  color: AppColors.materialButtonSkin(isDark),
-                               )),
-                             )
+                               ),
+                             ),
+                             TextSpan(
+                               text: AppLanguage.checkOrderHistoryStr(appLanguage),
+                               style: secondaryTextStyle(),
+                             ),
+                             WidgetSpan(
+                                 child: GestureDetector(
+                                   onTap: ()=> nav.gotoOrdersScreen(screenIndex: 0),
+                                   child: appText(text: AppLanguage.orderHistoryStr(appLanguage), textStyle: buttonTextStyle().copyWith(
+                                     fontSize: NORMAL_TEXT_FONT_SIZE,
+                                     color: AppColors.materialButtonSkin(isDark),
+                                   )),
+                                 )
+                             ),
+                           ],
                          ),
-                       ],
-                     ),
-                   ),
-                   Spacer(),
-                   setHeight(MAIN_VERTICAL_PADDING),
-                   appDivider(),
-                   setHeight(MAIN_VERTICAL_PADDING),
-                   Text.rich(
-                     textAlign: TextAlign.center,
-                     TextSpan(
-                       text: AppLanguage.customerSupportMessageStr(appLanguage),
-                       style: secondaryTextStyle(),
-                       children: [
+                       ),
+                       Spacer(),
+                       setHeight(MAIN_VERTICAL_PADDING),
+                       appDivider(),
+                       setHeight(MAIN_VERTICAL_PADDING),
+                       Text.rich(
+                         textAlign: TextAlign.center,
                          TextSpan(
-                           text: AppLanguage.customerServiceStr(appLanguage),
-                           style: buttonTextStyle().copyWith(
-                             fontSize: SUB_HEADING_TEXT_BUTTON_FONT_SIZE,
-                             color: AppColors.materialButtonSkin(isDark),
-                           ),
+                           text: AppLanguage.customerSupportMessageStr(appLanguage),
+                           style: secondaryTextStyle(),
+                           children: [
+                             TextSpan(
+                               text: AppLanguage.customerServiceStr(appLanguage),
+                               style: buttonTextStyle().copyWith(
+                                 fontSize: SUB_HEADING_TEXT_BUTTON_FONT_SIZE,
+                                 color: AppColors.materialButtonSkin(isDark),
+                               ),
+                             ),
+                           ],
                          ),
-                       ],
-                     ),
+                       ),
+                     ],
                    ),
+                   Positioned(
+                     top: 0,
+                       right: 2,
+
+                       child: SizedBox(
+                           width: size.width,
+                           child: Center(child: appIcon(iconType: IconType.ANIM, icon: animConfetti, width: 120.0)))),
+
                  ],
                ),
              ),

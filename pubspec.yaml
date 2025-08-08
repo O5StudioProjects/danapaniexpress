@@ -29,6 +29,7 @@ dependencies:
   readmore: ^3.0.0
   confetti: ^0.8.0
   flutter_rating_bar: ^4.0.1
+  animated_text_kit: ^4.2.3
 
   # URL launches and pdf library and navigations
   url_launcher: ^6.3.1

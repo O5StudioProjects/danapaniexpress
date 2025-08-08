@@ -15,7 +15,7 @@ class DashBoardController extends GetxController {
   RxInt navIndex = 0.obs;
 
   /// FLOATING DYNAMIC AVATARS/ICONS
-  RxBool floatingAvatarIcon = true.obs;
+  RxBool floatingIcon = true.obs;
 
 
 
@@ -24,6 +24,11 @@ class DashBoardController extends GetxController {
   void onInit() {
     super.onInit();
     navIndex.value = 0;
+    getFloatingIcon();
+  }
+
+  Future<void> getFloatingIcon() async {
+    floatingIcon.value = await SharedPrefs.getFloatingIcon();
   }
 
   void startupMethods() async {

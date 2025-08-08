@@ -92,7 +92,7 @@ class AccountHeader extends StatelessWidget {
                                   appText(text: AppLanguage.ordersStr(appLanguage), textStyle: accountSecondaryTextStyle()),
                                 ],
                               )
-                                  : appText(text: AppLanguage.welcomeToDanaPaniExpressStr(appLanguage), textStyle: secondaryTextStyle())
+                                  : appText(text: AppLanguage.welcomeToAppNameStr(appLanguage), textStyle: secondaryTextStyle())
                             ],
                           ),
                         ),
@@ -188,7 +188,7 @@ class AccountHeaderSmall extends StatelessWidget {
                           appText(text: AppLanguage.ordersStr(appLanguage), textStyle: accountSecondaryTextStyle()),
                         ],
                       )
-                          : appText(text: AppLanguage.welcomeToDanaPaniExpressStr(appLanguage), textStyle: secondaryTextStyle())
+                          : appText(text: AppLanguage.welcomeToAppNameStr(appLanguage), textStyle: secondaryTextStyle())
                     ],
                   )
               ),

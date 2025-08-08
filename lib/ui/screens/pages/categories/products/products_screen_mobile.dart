@@ -41,13 +41,13 @@ class ProductsScreenMobile extends StatelessWidget {
                 duration: const Duration(milliseconds: 250),
                 child: productController.showTopHeader.value
                     ? TopImageHeader(
-                        title: appLanguage == URDU_LANGUAGE
+                        title: isRightLang
                             ? categoriesData.categoryNameUrdu.toString()
                             : categoriesData.categoryNameEnglish.toString(),
                         coverImage: categoriesData.categoryCoverImage ?? "",
                       )
                     : appBarCommon(
-                        title: appLanguage == URDU_LANGUAGE
+                        title: isRightLang
                             ? categoriesData.categoryNameUrdu.toString()
                             : categoriesData.categoryNameEnglish.toString(),
                         isBackNavigation: true,
@@ -97,7 +97,7 @@ class ProductsScreenMobile extends StatelessWidget {
                           },
 
                           child: TabItems(
-                            text: appLanguage == URDU_LANGUAGE
+                            text: isRightLang
                                 ? subCategory.subCategoryNameUrdu.toString()
                                 : subCategory.subCategoryNameEnglish.toString(),
                             isSelected: product.subCategoryIndex.value == index

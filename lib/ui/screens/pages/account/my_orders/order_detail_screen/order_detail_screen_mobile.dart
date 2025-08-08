@@ -297,7 +297,7 @@ Widget productsSection(OrderModel orderData){
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             appText(
-                              text: appLanguage == URDU_LANGUAGE
+                              text: isRightLang
                                   ? product.productNameUrdu
                                   : product.productNameEng,
                               textStyle: itemTextStyle().copyWith(

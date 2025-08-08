@@ -146,7 +146,7 @@ class CartScreenMobile extends StatelessWidget {
 }
 
 Widget checkOutItems({title, detail, isBilling = false, isDiscount = false}){
-  return appLanguage == URDU_LANGUAGE
+  return isRightLang
   ? Row(
     children: [
       appText(text: detail, textStyle: itemTextStyle().copyWith(

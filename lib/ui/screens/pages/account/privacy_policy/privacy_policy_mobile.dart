@@ -3,7 +3,7 @@ import 'package:danapaniexpress/core/common_imports.dart';
 class PrivacyPolicyMobile extends StatelessWidget {
   const PrivacyPolicyMobile({super.key});
 
-  bool get isUrdu => appLanguage == URDU_LANGUAGE;
+  bool get isUrdu => isRightLang;
 
   @override
   Widget build(BuildContext context) {

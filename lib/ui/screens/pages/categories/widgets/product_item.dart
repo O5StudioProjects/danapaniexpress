@@ -106,11 +106,11 @@ class ProductItem extends StatelessWidget {
                         SizedBox(
                           height: nameHeight,
                           child: Align(
-                            alignment: appLanguage == URDU_LANGUAGE
+                            alignment: isRightLang
                                 ? Alignment.centerRight
                                 : Alignment.centerLeft,
                             child: appText(
-                              text: appLanguage == URDU_LANGUAGE
+                              text: isRightLang
                                   ? data.productNameUrdu
                                   : data.productNameEng,
                               maxLines: 2,

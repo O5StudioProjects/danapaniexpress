@@ -66,7 +66,7 @@ class OrderItemUI extends StatelessWidget {
                       setWidth(8.0),
                       Expanded(
                         child: Column(
-                          crossAxisAlignment: appLanguage == URDU_LANGUAGE ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                          crossAxisAlignment: isRightLang ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                           children: [
                             orderDetailItemsUI(
                               titleText: '${AppLanguage.orderNumberStr(appLanguage)} ',
@@ -156,7 +156,7 @@ class OrderItemUI extends StatelessWidget {
                     ],
                   ),
                 ),
-                appLanguage == URDU_LANGUAGE
+                isRightLang
                     ? Positioned(
                   left: 0,
                   child: Container(

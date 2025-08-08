@@ -30,7 +30,7 @@ class NotificationBar extends StatelessWidget {
           },
           child: SizedBox(
             width: size.width,
-            child: appLanguage == URDU_LANGUAGE
+            child: isRightLang
                 ? _buildMarqueeRow(
               isUrdu: true,
               title: setMultiLanguageText(
@@ -99,7 +99,7 @@ class NotificationBar extends StatelessWidget {
                 child: Marquee(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   text: content,
-                  style: marqueeTextStyle(data: data), // Or pass data
+                  style: marqueeDynamicTextStyle(data: data), // Or pass data
                   scrollAxis: Axis.horizontal,
                   velocity: 50.0,
                   blankSpace: 20.0,

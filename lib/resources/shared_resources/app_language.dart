@@ -388,8 +388,8 @@ class AppLanguage {
     return allLang[appLanguage]?[ORDERS];
   }
 
-  static String? welcomeToDanaPaniExpressStr(String appLanguage) {
-    return allLang[appLanguage]?[WELCOME_TO_DANA_PANI_EXPRESS];
+  static String? welcomeToAppNameStr(String appLanguage) {
+    return allLang[appLanguage]?[WELCOME_TO_APP_NAME];
   }
 
   static String? uploadProfilePictureStr(String appLanguage) {
@@ -654,5 +654,27 @@ class AppLanguage {
 
   static String? slotDeliveryInfo(String appLanguage) =>
       allLang[appLanguage]?[SLOT_DELIVERY_INFO];
+
+  static String? customOrderInfoStr(String appLanguage) =>
+      allLang[appLanguage]?[CUSTOM_ORDER_INFO];
+
+  static String? customOrdersStr(String appLanguage) =>
+      allLang[appLanguage]?[CUSTOM_ORDERS];
+  static String? complaintsQueriesStr(String appLanguage) =>
+      allLang[appLanguage]?[COMPLAINTS_QUERIES];
+  static String? complaintsDescriptionStr(String appLanguage) =>
+      allLang[appLanguage]?[COMPLAINTS_DESCRIPTION];
+  static String? customOrderShortInfoStr(String appLanguage) =>
+      allLang[appLanguage]?[CUSTOM_ORDER_SHORT_INFO];
+  static String? forCustomOrdersStr(String appLanguage) =>
+      allLang[appLanguage]?[FOR_CUSTOM_ORDERS];
+
+  static String? clickHereStr(String appLanguage) =>
+      allLang[appLanguage]?[CLICK_HERE];
+  static String? customOrderLongLine1Str(String appLanguage) =>
+      allLang[appLanguage]?[CUSTOM_ORDER_LONG_LINE_1];
+
+  static String? customOrderLongLine2Str(String appLanguage) =>
+      allLang[appLanguage]?[CUSTOM_ORDER_LONG_LINE_2];
 
 }

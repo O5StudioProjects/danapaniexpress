@@ -13,6 +13,7 @@ import 'package:danapaniexpress/ui/screens/other_screens/no_internet_screen/no_i
 import 'package:danapaniexpress/ui/screens/pages/account/account_information/account_information_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/account/address_book/add_address/add_address_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/account/address_book/address_book_screen.dart';
+import 'package:danapaniexpress/ui/screens/pages/account/customer_service/customer_service.dart';
 import 'package:danapaniexpress/ui/screens/pages/account/my_orders/my_orders_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/account/my_orders/order_detail_screen/order_detail_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/account/my_orders/order_detail_screen/order_feedback/order_feedback.dart';
@@ -222,6 +223,13 @@ class AppRouter {
       transition: Transition.fadeIn,
       transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
       page: () => const ReturnsRefundsScreen(),
+      // binding: AddAddressBinding(),
+    ),
+    GetPage(
+      name: RouteNames.CustomerSeriveScreenRoute,
+      transition: Transition.fadeIn,
+      transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
+      page: () => const CustomerService(),
       // binding: AddAddressBinding(),
     ),
 

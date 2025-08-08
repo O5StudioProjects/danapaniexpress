@@ -29,7 +29,7 @@ class CategoriesScreenMobile extends StatelessWidget {
         child: Column(
           children: [
             appBarCommon(
-              title: appLanguage == URDU_LANGUAGE ? categoriesData.categoryNameUrdu : categoriesData.categoryNameEnglish,
+              title: isRightLang ? categoriesData.categoryNameUrdu : categoriesData.categoryNameEnglish,
               isBackNavigation: false,
             ),
             categories.categoriesList.isNotEmpty

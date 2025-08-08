@@ -7,17 +7,18 @@ String get appLanguage {
   return language;
 }
 
+bool get isRightLang {
+  if(appLanguage == URDU_LANGUAGE){
+    return true;
+  } else {
+    return false;
+  }
+}
+
 bool get isDark {
   var theme = Get.find<ThemeController>().isDark.value;
   return theme;
 }
-
-// bool get isSubscribed {
-//  // var subscription = Get.put(InAppController()).subscription.value;
-//   var subscription = Get.find<InAppController>().subscription.value;
-//
-//   return subscription;
-// }
 
 bool get internet {
   var connection = Get.find<ThemeController>().internet.value;
