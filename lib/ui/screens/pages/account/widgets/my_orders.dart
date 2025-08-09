@@ -84,6 +84,16 @@ Widget ordersScreenOrdersList(OrderTabsModel orderData, index) {
   });
   return Obx(() {
     var currentIndex = index == orders.screenIndex.value;
+    final currentList = orders.getOrdersForTab(orders.screenIndex.value);
+    final status = () {
+      switch ( orders.screenIndex.value) {
+        case 0: return orders.activeOrdersStatus.value;
+        case 1: return orders.confirmedOrdersStatus.value;
+        case 2: return orders.completedOrdersStatus.value;
+        case 3: return orders.cancelledOrdersStatus.value;
+        default: return Status.IDLE;
+      }
+    }();
     return Padding(
       padding: const EdgeInsets.only(
         right: MAIN_HORIZONTAL_PADDING,
@@ -115,7 +125,16 @@ Widget ordersScreenOrdersList(OrderTabsModel orderData, index) {
           child: isRightLang
               ? Row(
                   children: [
-                    appText(
+                    currentIndex && status != Status.LOADING
+                    ? appText(
+                      text: '${orderData.titleUrdu} (${currentList.length})',
+                      textStyle: itemTextStyle().copyWith(
+                        color: currentIndex
+                            ? AppColors.materialButtonTextSkin(isDark)
+                            : AppColors.primaryTextColorSkin(isDark),
+                      ),
+                    )
+                    : appText(
                       text: orderData.titleUrdu,
                       textStyle: itemTextStyle().copyWith(
                         color: currentIndex
@@ -145,7 +164,16 @@ Widget ordersScreenOrdersList(OrderTabsModel orderData, index) {
                           : AppColors.materialButtonSkin(isDark),
                     ),
                     setWidth(8.0),
-                    appText(
+                    currentIndex && status != Status.LOADING
+                    ? appText(
+                      text: '${orderData.titleEng} (${currentList.length})',
+                      textStyle: itemTextStyle().copyWith(
+                        color: currentIndex
+                            ? AppColors.materialButtonTextSkin(isDark)
+                            : AppColors.primaryTextColorSkin(isDark),
+                      ),
+                    )
+                    : appText(
                       text: orderData.titleEng,
                       textStyle: itemTextStyle().copyWith(
                         color: currentIndex

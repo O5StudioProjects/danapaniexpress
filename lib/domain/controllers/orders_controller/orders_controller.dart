@@ -1,4 +1,3 @@
-import 'package:confetti/confetti.dart';
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/data/repositories/orders_repository/orders_repository.dart';
@@ -15,7 +14,7 @@ class OrdersController extends GetxController {
   final nav = Get.find<NavigationController>();
 
   RxInt screenIndex = 0.obs;
-  RxInt ordersCount = 0.obs;
+  // RxInt ordersCount = 0.obs;
   var updateOrderStatus = Status.IDLE.obs;
   var getOrderByNumberStatus = Status.IDLE.obs;
   var insertFeedbackStatus = Status.IDLE.obs;
@@ -33,6 +32,8 @@ class OrdersController extends GetxController {
   RxBool isNegative = false.obs;
   var feedbackTextController = TextEditingController().obs;
 
+  RxBool showBottomMessage = true.obs;
+  RxBool reachedEndOfScroll = false.obs;
 
   /// SCROLLER AND PAGER SECTION FOR MY ORDER SCREEN
   void scrollToIndex() {
@@ -64,6 +65,7 @@ class OrdersController extends GetxController {
     scrollToIndex(); // keep horizontal tab bar in sync
   }
 
+/*
 
   /// ORDER SECTION
   RxList<OrderModel> ordersList = <OrderModel>[].obs;
@@ -120,6 +122,245 @@ class OrdersController extends GetxController {
       isLoadingMore.value = false;
     }
   }
+*/
+
+
+
+  // ===== ORDER STATUS LISTS =====
+  final String userId = Get.find<AuthController>().currentUser.value!.userId!;
+// Active Orders
+  RxList<OrderModel> activeOrders = <OrderModel>[].obs;
+  Rx<Status> activeOrdersStatus = Status.IDLE.obs;
+  int activeCurrentPage = 1;
+  RxBool activeHasMore = true.obs;
+  RxBool activeLoadingMore = false.obs;
+  final int activeOrdersLimit = ORDERS_LIMIT;
+
+// Confirmed Orders
+  RxList<OrderModel> confirmedOrders = <OrderModel>[].obs;
+  Rx<Status> confirmedOrdersStatus = Status.IDLE.obs;
+  int confirmedCurrentPage = 1;
+  RxBool confirmedHasMore = true.obs;
+  RxBool confirmedLoadingMore = false.obs;
+  final int confirmedOrdersLimit = ORDERS_LIMIT;
+
+// Completed Orders
+  RxList<OrderModel> completedOrders = <OrderModel>[].obs;
+  Rx<Status> completedOrdersStatus = Status.IDLE.obs;
+  int completedCurrentPage = 1;
+  RxBool completedHasMore = true.obs;
+  RxBool completedLoadingMore = false.obs;
+  final int completedOrdersLimit = ORDERS_LIMIT;
+
+// Cancelled Orders
+  RxList<OrderModel> cancelledOrders = <OrderModel>[].obs;
+  Rx<Status> cancelledOrdersStatus = Status.IDLE.obs;
+  int cancelledCurrentPage = 1;
+  RxBool cancelledHasMore = true.obs;
+  RxBool cancelledLoadingMore = false.obs;
+  final int cancelledOrdersLimit = ORDERS_LIMIT;
+
+
+  List<OrderModel> getOrdersForTab(int index) {
+    switch (index) {
+      case 0: return activeOrders;
+      case 1: return confirmedOrders;
+      case 2: return completedOrders;
+      case 3: return cancelledOrders;
+      default: return [];
+    }
+  }
+
+  void fetchOrdersForTab(int index) {
+    switch (index) {
+      case 0: fetchInitialActiveOrders(); break;
+      case 1: fetchInitialConfirmedOrders(); break;
+      case 2: fetchInitialCompletedOrders(); break;
+      case 3: fetchInitialCancelledOrders(); break;
+    }
+  }
+
+  void loadMoreOrdersForTab(int index) {
+    switch (index) {
+      case 0: loadMoreActiveOrders(); break;
+      case 1: loadMoreConfirmedOrders(); break;
+      case 2: loadMoreCompletedOrders(); break;
+      case 3: loadMoreCancelledOrders(); break;
+    }
+  }
+
+  RxBool getHasMoreForTab(int index) {
+    switch (index) {
+      case 0: return activeHasMore;
+      case 1: return confirmedHasMore;
+      case 2: return completedHasMore;
+      case 3: return cancelledHasMore;
+      default: return false.obs;
+    }
+  }
+
+  RxBool getLoadingMoreForTab(int index) {
+    switch (index) {
+      case 0: return activeLoadingMore;
+      case 1: return confirmedLoadingMore;
+      case 2: return completedLoadingMore;
+      case 3: return cancelledLoadingMore;
+      default: return false.obs;
+    }
+  }
+
+
+
+  /// ===== GENERIC METHOD FOR INITIAL FETCH =====
+  Future<void> _fetchInitialOrdersByStatus({
+    required String status,
+    required RxList<OrderModel> targetList,
+    required Rx<Status> targetStatus,
+    required RxBool targetHasMore,
+    required int orderLimit,
+    required void Function(int) setCurrentPage,
+  }) async {
+    try {
+      targetStatus.value = Status.LOADING;
+      setCurrentPage(1);
+
+      final fetchedOrders = await ordersRepo.getOrdersByUserIdAndStatus(
+        userId,
+        status,
+        page: 1,
+        limit: orderLimit,
+      );
+
+      targetList.assignAll(fetchedOrders);
+      targetHasMore.value = fetchedOrders.length == orderLimit;
+      targetStatus.value = Status.SUCCESS;
+    } catch (e) {
+      targetStatus.value = Status.FAILURE;
+      showSnackbar(isError: true, title: 'Error', message: 'Failed to load $status orders.');
+    }
+  }
+
+  /// ===== GENERIC METHOD FOR LOAD MORE =====
+  Future<void> _loadMoreOrdersByStatus({
+    required String status,
+    required RxList<OrderModel> targetList,
+    required RxBool targetHasMore,
+    required RxBool targetLoadingMore,
+    required int currentPage,
+    required int orderLimit,
+    required void Function(int) setCurrentPage,
+  }) async {
+    if (targetLoadingMore.value || !targetHasMore.value) return;
+
+    try {
+      targetLoadingMore.value = true;
+      final nextPage = currentPage + 1;
+      setCurrentPage(nextPage);
+
+      final moreOrders = await ordersRepo.getOrdersByUserIdAndStatus(
+        userId,
+        status,
+        page: nextPage,
+        limit: orderLimit,
+      );
+
+      targetList.addAll(moreOrders);
+
+      if (moreOrders.length < orderLimit) {
+        targetHasMore.value = false;
+      }
+    } catch (e) {
+      setCurrentPage(currentPage); // rollback
+      showSnackbar(isError: true, title: 'Error', message: 'Failed to load more $status orders.');
+    } finally {
+      targetLoadingMore.value = false;
+    }
+  }
+
+  /// ===== PUBLIC METHODS FOR EACH STATUS =====
+
+// Active
+  Future<void> fetchInitialActiveOrders() => _fetchInitialOrdersByStatus(
+    status: OrderStatus.ACTIVE,
+    targetList: activeOrders,
+    targetStatus: activeOrdersStatus,
+    targetHasMore: activeHasMore,
+    orderLimit: activeOrdersLimit,
+    setCurrentPage: (val) => activeCurrentPage = val,
+  );
+
+  Future<void> loadMoreActiveOrders() => _loadMoreOrdersByStatus(
+    status: OrderStatus.ACTIVE,
+    targetList: activeOrders,
+    targetHasMore: activeHasMore,
+    targetLoadingMore: activeLoadingMore,
+    currentPage: activeCurrentPage,
+    orderLimit: activeOrdersLimit,
+    setCurrentPage: (val) => activeCurrentPage = val,
+  );
+
+// Confirmed
+  Future<void> fetchInitialConfirmedOrders() => _fetchInitialOrdersByStatus(
+    status: OrderStatus.CONFIRMED,
+    targetList: confirmedOrders,
+    targetStatus: confirmedOrdersStatus,
+    targetHasMore: confirmedHasMore,
+    orderLimit: confirmedOrdersLimit,
+    setCurrentPage: (val) => confirmedCurrentPage = val,
+  );
+
+  Future<void> loadMoreConfirmedOrders() => _loadMoreOrdersByStatus(
+    status: OrderStatus.CONFIRMED,
+    targetList: confirmedOrders,
+    targetHasMore: confirmedHasMore,
+    targetLoadingMore: confirmedLoadingMore,
+    currentPage: confirmedCurrentPage,
+    orderLimit: confirmedOrdersLimit,
+    setCurrentPage: (val) => confirmedCurrentPage = val,
+  );
+
+// Completed
+  Future<void> fetchInitialCompletedOrders() => _fetchInitialOrdersByStatus(
+    status: OrderStatus.COMPLETED,
+    targetList: completedOrders,
+    targetStatus: completedOrdersStatus,
+    targetHasMore: completedHasMore,
+    orderLimit: completedOrdersLimit,
+    setCurrentPage: (val) => completedCurrentPage = val,
+  );
+
+  Future<void> loadMoreCompletedOrders() => _loadMoreOrdersByStatus(
+    status: OrderStatus.COMPLETED,
+    targetList: completedOrders,
+    targetHasMore: completedHasMore,
+    targetLoadingMore: completedLoadingMore,
+    currentPage: completedCurrentPage,
+    orderLimit: completedOrdersLimit,
+    setCurrentPage: (val) => completedCurrentPage = val,
+  );
+
+// Cancelled
+  Future<void> fetchInitialCancelledOrders() => _fetchInitialOrdersByStatus(
+    status: OrderStatus.CANCELLED,
+    targetList: cancelledOrders,
+    targetStatus: cancelledOrdersStatus,
+    targetHasMore: cancelledHasMore,
+    orderLimit: cancelledOrdersLimit,
+    setCurrentPage: (val) => cancelledCurrentPage = val,
+  );
+
+  Future<void> loadMoreCancelledOrders() => _loadMoreOrdersByStatus(
+    status: OrderStatus.CANCELLED,
+    targetList: cancelledOrders,
+    targetHasMore: cancelledHasMore,
+    targetLoadingMore: cancelledLoadingMore,
+    currentPage: cancelledCurrentPage,
+    orderLimit: cancelledOrdersLimit,
+    setCurrentPage: (val) => cancelledCurrentPage = val,
+  );
+
+
+
 
 
 /*  /// ORDER SECTION THIS CODE WILL BE USED IN ADMIN APP
@@ -213,7 +454,8 @@ class OrdersController extends GetxController {
         if (orderNumber != null || orderNumber!.isNotEmpty) {
           await fetchOrderByNumber(orderNumber);
         }
-        await fetchInitialOrders();
+        await fetchInitialActiveOrders();
+        await auth.fetchUserProfile();
         updateOrderStatus.value = Status.SUCCESS;
         showSnackbar(
           isError: false,
@@ -277,7 +519,7 @@ class OrdersController extends GetxController {
         icon: Icons.cancel_rounded,
         onTapConfirm: (){
             Navigator.of(gContext).pop();
-            updateOrder(orderId: selectedOrder.value!.orderId!, orderNumber: selectedOrder.value!.orderNumber, orderStatus: OrderStatus.CANCELLED);
+            updateOrder(orderId: selectedOrder.value!.orderId!, riderId: selectedOrder.value!.riderId, orderNumber: selectedOrder.value!.orderNumber, orderStatus: OrderStatus.CANCELLED);
         },
       ));
 
@@ -285,20 +527,26 @@ class OrdersController extends GetxController {
   }
 
   void clearOrders() {
-    ordersList.clear();
-    ordersStatus.value = Status.IDLE;
+    activeOrders.clear();
+    confirmedOrders.clear();
+    completedOrders.clear();
+    cancelledOrders.clear();
+    activeOrdersStatus.value = Status.IDLE;
+    confirmedOrdersStatus.value = Status.IDLE;
+    completedOrdersStatus.value = Status.IDLE;
+    cancelledOrdersStatus.value = Status.IDLE;
   }
 
-  /// Helper method to filter orders by current tab index
-  List<OrderModel> getOrdersForTab(int index) {
-    final tab = orderTabsModelList[index];
-
-    if (tab.statusKey.isEmpty) return [];
-
-    return ordersList
-        .where((order) => order.orderStatus == tab.statusKey)
-        .toList();
-  }
+  // /// Helper method to filter orders by current tab index
+  // List<OrderModel> getOrdersForTab(int index) {
+  //   final tab = orderTabsModelList[index];
+  //
+  //   if (tab.statusKey.isEmpty) return [];
+  //
+  //   return ordersList
+  //       .where((order) => order.orderStatus == tab.statusKey)
+  //       .toList();
+  // }
 
 
   /// FEEDBACK SECTION

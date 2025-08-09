@@ -115,7 +115,9 @@ class JumpTo {
         arguments: {DATA_ORDER: orderData}
     );
   }
-
+  static gotoOrdersFilterScreen() {
+    Get.toNamed(RouteNames.OrdersFilterScreenRoute);
+  }
 
   ///ACCOUNT SCREENS
   static gotoAccountInformationScreen() {

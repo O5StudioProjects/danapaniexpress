@@ -24,6 +24,35 @@ class OrdersDatasource extends BaseRepository{
 
     return ordersList.map((e) => OrderModel.fromJson(e)).toList();
   }
+
+  /// GET ORDERS BY USER ID AND STATUS (with pagination)
+  Future<List<OrderModel>> getOrdersByUserIdAndStatusApi(
+      String userId,
+      String orderStatus, {
+        int page = 1,
+        int limit = 10,
+      }) async {
+    final uri = Uri.parse(
+      '${APiEndpoints.getOrdersByUserIdAndStatus}'
+          '?user_id=$userId'
+          '&order_status=$orderStatus'
+          '&page=$page'
+          '&limit=$limit',
+    );
+
+    final response = await http.get(
+      uri,
+      headers: apiHeaders,
+    );
+
+    final decoded = handleApiResponseAsMap(response); // Map<String, dynamic>
+    final List<dynamic> ordersList = decoded['orders'];
+
+    return ordersList.map((e) => OrderModel.fromJson(e)).toList();
+  }
+
+
+
 /*
   /// THIS CODE WILL BE USED IN ADMIN APP
   /// GET ALL ORDERS (with pagination)
