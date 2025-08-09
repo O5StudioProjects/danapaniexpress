@@ -40,9 +40,13 @@ class APiEndpoints {
   static String getOrdersByUserId = "$path/dpe_checkout.php/get_all_orders_by_user_id";
   static String updateOrder = "$path/dpe_checkout.php/update_order";
   static String getOrderByNumber = "$path/dpe_checkout.php/get_order_by_number";
+  static String getOrdersByUserIdAndStatus = "$path/dpe_checkout.php/get_all_orders_by_user_id_status";
+  static String getOrdersByUserIdAndDate = "$path/dpe_checkout.php/get_all_orders_by_user_id_date";
+
+
+
   static String insertOrderFeedback = "$path/dpe_orders_feedback.php/insert_order_feedback";
   static String updateRider = "$path/dpe_riders.php/update_rider";
-
 
 
 

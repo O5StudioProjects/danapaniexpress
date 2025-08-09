@@ -8,6 +8,7 @@ class CustomOrdersBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final auth = Get.find<AuthController>();
+    final nav = Get.find<NavigationController>();
 
     return Obx(() {
       final userId = auth.currentUser.value;
@@ -20,6 +21,7 @@ class CustomOrdersBanner extends StatelessWidget {
         padding: const EdgeInsets.only(bottom: MAIN_VERTICAL_PADDING),
         child: GestureDetector(
           onTap: () {
+            nav.gotoCustomerServiceScreen();
             // Your notification dialog code here
            // showCustomDialog(context, AppNotificationDialog(data: data));
           },

@@ -14,6 +14,7 @@ import 'package:danapaniexpress/ui/screens/pages/account/account_information/acc
 import 'package:danapaniexpress/ui/screens/pages/account/address_book/add_address/add_address_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/account/address_book/address_book_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/account/customer_service/customer_service.dart';
+import 'package:danapaniexpress/ui/screens/pages/account/my_orders/filter_orders_screen/filter_orders_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/account/my_orders/my_orders_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/account/my_orders/order_detail_screen/order_detail_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/account/my_orders/order_detail_screen/order_feedback/order_feedback.dart';
@@ -35,6 +36,7 @@ import 'package:danapaniexpress/ui/screens/startup_screens/startup_main_screen/s
 
 import '../domain/di/add_address_binding.dart';
 import '../domain/di/orders_binding.dart';
+import '../domain/di/orders_filter_binding.dart';
 import '../ui/screens/auth_screen/forgot_password_screen/forgot_password_screen.dart';
 import '../ui/screens/auth_screen/register_screen/register_screen.dart';
 import '../ui/screens/pages/cart/checkout_screen/checkout_screen.dart';
@@ -170,6 +172,13 @@ class AppRouter {
       transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
       page: () => const OrderFeedbackComplete(),
       binding: OrdersBinding(),
+    ),
+    GetPage(
+      name: RouteNames.OrdersFilterScreenRoute,
+      transition: Transition.fadeIn,
+      transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
+      page: () => const FilterOrdersScreen(),
+      binding: OrdersFilterBinding(),
     ),
 
     /// ACCOUNT SCREEN AND PAGES

@@ -29,6 +29,7 @@ class RouteNames {
   static const String OrdersDetailScreenRoute = "/orders_detail_screen";
   static const String OrderFeedbackScreenRoute = "/orders_feedback_screen";
   static const String OrderFeedbackCompletedScreenRoute = "/orders_feedback_completed_screen";
+  static const String OrdersFilterScreenRoute = "/orders_filter_screen";
 
 
 

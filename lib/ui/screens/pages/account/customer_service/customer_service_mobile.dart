@@ -28,12 +28,10 @@ class CustomerServiceMobile extends StatelessWidget {
                   marqueeSection(),
 
                   /// CUSTOM ORDER SECTION
-                  auth.currentUser.value!.userId != null
+                  auth.currentUser.value?.userId != null
                   ? bodyItemSection(
                     heading: AppLanguage.customOrdersStr(appLanguage),
                     detail: AppLanguage.customOrderInfoStr(appLanguage),
-                    buttonText: AppLanguage.customOrdersStr(appLanguage),
-                      onTap: () async => nav.launchWhatsApp(phone: ContactUs.CustomOrders)
                   )
                   : SizedBox.shrink(),
 
@@ -41,10 +39,22 @@ class CustomerServiceMobile extends StatelessWidget {
                   bodyItemSection(
                       heading: AppLanguage.complaintsQueriesStr(appLanguage),
                       detail: AppLanguage.complaintsDescriptionStr(appLanguage),
-                      buttonText: AppLanguage.customerServiceStr(appLanguage),
-                      onTap: () async => nav.launchWhatsApp(phone: ContactUs.CustomerService)
                   ),
-                  setHeight(MAIN_VERTICAL_PADDING)
+                  setHeight(MAIN_VERTICAL_PADDING),
+
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: MAIN_HORIZONTAL_PADDING),
+                    child: Row(
+                      children: [
+
+                        if(auth.currentUser.value?.userId != null)
+                        Expanded(child: appMaterialButton(text: AppLanguage.customOrdersStr(appLanguage), onTap: () async => nav.launchWhatsApp(phone: ContactUs.CustomOrders))),
+                        if(auth.currentUser.value?.userId != null) setWidth(8.0),
+                        Expanded(child: appMaterialButton(text: AppLanguage.customerServiceStr(appLanguage), onTap: () async => nav.launchWhatsApp(phone: ContactUs.CustomerService))),
+
+                      ],
+                    ),
+                  )
                 ],
               ),
             ))
@@ -74,7 +84,7 @@ Widget welcomePart() {
   );
 }
 
-Widget bodyItemSection({heading, detail, buttonText, onTap}) {
+Widget bodyItemSection({heading, detail}) {
   return Padding(
     padding: const EdgeInsets.only(
       top: MAIN_VERTICAL_PADDING,
@@ -90,7 +100,6 @@ Widget bodyItemSection({heading, detail, buttonText, onTap}) {
           setHeight(MAIN_HORIZONTAL_PADDING),
           appText(text: detail, textStyle: bodyTextStyle()),
           setHeight(MAIN_HORIZONTAL_PADDING),
-          appMaterialButton(text: buttonText, onTap: onTap),
         ],
       ),
     ),
