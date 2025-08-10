@@ -34,7 +34,7 @@ Widget appBottomNavBar() {
                       color: Colors.transparent,
                       child: Center(
                         child: navBarItem(dashboardController.navIndex.value == index, data.icon, data.iconFilled,
-                            data.label, isCart: index == 3 ? true : false),
+                            data.label, isCart: index == 3 ? true : false, isAccount: index == 4 ? true : false),
                       ),
                     )
                 );
@@ -49,8 +49,9 @@ Widget appBottomNavBar() {
 
 
 Widget navBarItem(bool isSelected, icon, iconFilled, label,
-    {bool isCart = false}) {
+    {bool isCart = false, bool isAccount = false}) {
   final auth = Get.find<AuthController>();
+  final pendingFeedback = Get.find<PendingFeedbackController>();
   return Obx((){
     var cartCount = auth.currentUser.value == null ? 0 : auth.currentUser.value?.userCartCount ?? 0;
     return isSelected
@@ -75,7 +76,13 @@ Widget navBarItem(bool isSelected, icon, iconFilled, label,
         Positioned(
           right: 0,
           child: appCartCount(cartCount),
-        )
+        ),
+        if(isAccount && pendingFeedback.completedOrdersWithoutFeedback.isNotEmpty)
+          Positioned(
+            right: 0,
+            top: 4,
+            child: appActiveNotification(),
+          )
       ],
     )
         : Stack(
@@ -88,7 +95,13 @@ Widget navBarItem(bool isSelected, icon, iconFilled, label,
         Positioned(
           right: 0,
           child: appCartCount(cartCount),
-        )
+        ),
+        if(isAccount && pendingFeedback.completedOrdersWithoutFeedback.isNotEmpty)
+          Positioned(
+            right: 2,
+            bottom: 12,
+            child: appActiveNotification(),
+          )
       ],
     );
   });
@@ -102,6 +115,18 @@ Widget appCartCount(cartCount){
         borderRadius: BorderRadius.circular(100.0)
     ),
     child: Center(child: appText(text: cartCount.toString(), textStyle: itemTextStyle().copyWith(color: AppColors.materialButtonTextSkin(isDark), fontSize: TAGS_FONT_SIZE))),
+  );
+}
+
+Widget appActiveNotification(){
+  return Container(
+    width: 12.0,
+    height: 12.0,
+    decoration: BoxDecoration(
+        color: AppColors.materialButtonSkin(isDark),
+        borderRadius: BorderRadius.circular(100.0),
+      border: Border.all(color: AppColors.backgroundColorSkin(isDark))
+    ),
   );
 }
 

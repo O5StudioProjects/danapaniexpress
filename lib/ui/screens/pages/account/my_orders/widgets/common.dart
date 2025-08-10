@@ -12,9 +12,11 @@ Widget orderDetailItemsUI({
     TextSpan(
       children: [
         WidgetSpan(
+          alignment: PlaceholderAlignment.middle,
           child: appText(text: titleText, textStyle: titleTextStyle),
         ),
         WidgetSpan(
+          alignment: PlaceholderAlignment.middle,
           child: appText(text: detailText, textStyle: detailTextStyle),
         ),
       ],

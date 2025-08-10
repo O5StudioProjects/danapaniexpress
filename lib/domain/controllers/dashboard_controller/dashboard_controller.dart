@@ -10,6 +10,7 @@ class DashBoardController extends GetxController {
   final productRepo = ProductDetailRepository();
   final navigation = Get.find<NavigationController>();
   final favorite = Get.put(FavoritesController());
+  final pendingFeedback = Get.put(PendingFeedbackController(), permanent: true);
 
   // Bottom nav
   RxInt navIndex = 0.obs;
@@ -25,6 +26,7 @@ class DashBoardController extends GetxController {
     super.onInit();
     navIndex.value = 0;
     getFloatingIcon();
+
   }
 
   Future<void> getFloatingIcon() async {
@@ -57,8 +59,6 @@ class DashBoardController extends GetxController {
       }, iconType: IconType.ICON, icon: Icons.exit_to_app_rounded,));
     }
   }
-
-
 
 
 }

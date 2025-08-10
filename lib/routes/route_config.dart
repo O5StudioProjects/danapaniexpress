@@ -19,6 +19,7 @@ import 'package:danapaniexpress/ui/screens/pages/account/my_orders/my_orders_scr
 import 'package:danapaniexpress/ui/screens/pages/account/my_orders/order_detail_screen/order_detail_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/account/my_orders/order_detail_screen/order_feedback/order_feedback.dart';
 import 'package:danapaniexpress/ui/screens/pages/account/my_orders/order_detail_screen/order_feedback_complete/order_feedback_complete.dart';
+import 'package:danapaniexpress/ui/screens/pages/account/pending_feedback/pending_feedback.dart';
 import 'package:danapaniexpress/ui/screens/pages/account/privacy_policy/privacy_policy_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/account/returns_redunds/returns_refunds_screen.dart';
 import 'package:danapaniexpress/ui/screens/pages/account/settings/settings_screen.dart';
@@ -182,6 +183,12 @@ class AppRouter {
     ),
 
     /// ACCOUNT SCREEN AND PAGES
+    GetPage(
+      name: RouteNames.PendingFeedbackScreenRoute,
+      transition: Transition.fadeIn,
+      transitionDuration: Duration(milliseconds: SCREEN_ANIMATION_DURATION),
+      page: () => const PendingFeedback(),
+    ),
     GetPage(
       name: RouteNames.AccountInformationScreenRoute,
       transition: Transition.fadeIn,

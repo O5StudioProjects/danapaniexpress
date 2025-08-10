@@ -34,6 +34,7 @@ class RouteNames {
 
 
   ///ACCOUNT SCREEN AND PAGES
+  static const String PendingFeedbackScreenRoute = "/pending_feedback_screen";
   static const String AccountInformationScreenRoute = "/account_information_screen";
   static const String AddressBookScreenRoute = "/address_book_screen";
   static const String AddAddressScreenRoute = "/add_address_screen";

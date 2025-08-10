@@ -73,6 +73,7 @@ class OrderFeedbackCompleteMobile extends StatelessWidget {
                           style: secondaryTextStyle(),
                         ),
                         WidgetSpan(
+                          alignment: PlaceholderAlignment.middle,
                             child: GestureDetector(
                               onTap: ()=> nav.gotoOrdersScreen(screenIndex: 0),
                               child: appText(text: AppLanguage.orderHistoryStr(appLanguage), textStyle: buttonTextStyle().copyWith(
@@ -94,13 +95,17 @@ class OrderFeedbackCompleteMobile extends StatelessWidget {
                       text: AppLanguage.customerSupportMessageStr(appLanguage),
                       style: secondaryTextStyle(),
                       children: [
-                        TextSpan(
-                          text: AppLanguage.customerServiceStr(appLanguage),
-                          style: buttonTextStyle().copyWith(
-                            fontSize: SUB_HEADING_TEXT_BUTTON_FONT_SIZE,
-                            color: AppColors.materialButtonSkin(isDark),
-                          ),
-                        ),
+                        WidgetSpan(
+                            child: GestureDetector(
+                              onTap: ()=> nav.gotoCustomerServiceScreen(),
+                              child: appText(text: AppLanguage.customerServiceStr(appLanguage),
+                                textStyle: buttonTextStyle().copyWith(
+                                  fontSize: NORMAL_TEXT_FONT_SIZE,
+                                  color: AppColors.materialButtonSkin(isDark),
+                                ),
+                              ),
+                            )
+                        )
                       ],
                     ),
                   ),

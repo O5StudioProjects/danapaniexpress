@@ -2,7 +2,7 @@ import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
 
 class EmptyScreen extends StatelessWidget {
-  final String icon;
+  final dynamic icon;
   final IconType iconType;
   final String text;
   final dynamic color;
