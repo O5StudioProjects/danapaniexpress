@@ -11,6 +11,7 @@ class OrdersController extends GetxController {
   final ordersRepo = OrdersRepository();
 
   final auth = Get.find<AuthController>();
+  final pendingFeedback = Get.find<PendingFeedbackController>();
   final nav = Get.find<NavigationController>();
 
   RxInt screenIndex = 0.obs;
@@ -434,6 +435,9 @@ class OrdersController extends GetxController {
   //   }
   // }
 
+
+
+
   /// UPDATE ORDER
   Future<void> updateOrder({
     required String orderId,
@@ -579,6 +583,7 @@ class OrdersController extends GetxController {
             riderRating: riderRating.value
         );
         await fetchOrderByNumber(orderNumber);
+        await pendingFeedback.fetchCompletedOrdersWithoutFeedback();
         insertFeedbackStatus.value = Status.SUCCESS;
         showSnackbar(
           isError: false,

@@ -120,6 +120,9 @@ class JumpTo {
   }
 
   ///ACCOUNT SCREENS
+  static gotoPendingFeedbackScreen() {
+    Get.toNamed(RouteNames.PendingFeedbackScreenRoute);
+  }
   static gotoAccountInformationScreen() {
     Get.toNamed(RouteNames.AccountInformationScreenRoute);
   }

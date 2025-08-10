@@ -1,6 +1,7 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/domain/controllers/account_controller/account_controller.dart';
+import 'package:danapaniexpress/domain/controllers/pending_feedback_controller/pending_feedback_controller.dart';
 import 'package:danapaniexpress/domain/controllers/product_controller/products_controller.dart';
 import 'package:danapaniexpress/domain/controllers/search_controller/search_controller.dart';
 
@@ -14,6 +15,8 @@ class DashboardBinding extends Bindings{
     Get.put(SearchProductsController(), permanent: true);
     Get.put(CartController(), permanent: true);
     Get.put(FavoritesController(), permanent: true);
+    Get.put(PendingFeedbackController(), permanent: true);
+
     Get.lazyPut(()=> AccountController(), fenix: true);
     Get.lazyPut(()=> SplashController(), fenix: true);
   }

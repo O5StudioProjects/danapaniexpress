@@ -11,6 +11,7 @@ class AccountScreenMobile extends StatelessWidget {
     var auth = Get.find<AuthController>();
     var navigate = Get.find<NavigationController>();
     var account = Get.find<AccountController>();
+    var pendingFeedback = Get.find<PendingFeedbackController>();
 
     return Obx((){
       var icArrow = isRightLang ? icArrowLeftSmall : icArrowRightSmall;
@@ -59,6 +60,42 @@ class AccountScreenMobile extends StatelessWidget {
                             MyOrders(ordersScreen: false,),
                           ],
                         ),
+
+
+                      /// PENDING FEEDBACK SECTION
+                      if(auth.currentUser.value != null)
+                        Column(
+                          crossAxisAlignment: isRightLang
+                              ? CrossAxisAlignment.end
+                              : CrossAxisAlignment.start,
+                          children: [
+                            HomeHeadings(
+                              mainHeadingText: 'Orders Feedback',
+                              isSeeAll: false,
+                              isTrailingText: false,
+                            ),
+                            setHeight(MAIN_VERTICAL_PADDING),
+
+                            ///ACCOUNT INFORMATION - (VERTICAL PADDING)
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                top: 0,
+                              ),
+                              child: listItemIcon(
+                                iconType: IconType.ICON,
+                                leadingIcon: Icons.feedback_rounded,
+                                itemTitle: 'Orders Feedback',
+                                trailingIcon: icArrow,
+                                isActiveNotification: pendingFeedback.completedOrdersWithoutFeedback.isNotEmpty ? true : false,
+                                onItemClick: ()=> navigate.gotoPendingFeedbackScreen(),
+                              ),
+                            ),
+
+                            setHeight(MAIN_VERTICAL_PADDING),
+                          ],
+                        ),
+
+
 
                       /// MY PROFILE SECTION
                       if(auth.currentUser.value != null)

@@ -12,6 +12,7 @@ class AppTextFormField extends StatefulWidget {
   final TextInputType textInputType;
   final String? initialValue;
   final Function(String)? onChanged;
+  final Function(String)? onSubmit;
   final TextEditingController? textEditingController;
   final String? Function(String?)? validator; // ✅ add validator
 
@@ -22,7 +23,7 @@ class AppTextFormField extends StatefulWidget {
     this.isPassword = false,
     this.textEditingController,
     this.textInputType = TextInputType.text,
-    this.validator, this.initialValue, this.readOnly = false, this.isConstant =false,  this.isDetail = false, this.label, this.onChanged
+    this.validator, this.initialValue, this.readOnly = false, this.isConstant =false,  this.isDetail = false, this.label, this.onChanged, this.onSubmit
   });
 
   @override
@@ -85,6 +86,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
       keyboardType: widget.textInputType,
       obscureText: widget.isPassword ? _obscure : false,
       onChanged: widget.onChanged,
+      onFieldSubmitted: widget.onSubmit,
       style: editingFormTextStyle(text: widget.textEditingController!.text),
       textDirection: widget.isConstant ? TextDirection.ltr : _textDirection,
       textAlign: widget.isConstant ? TextAlign.start : _textAlign,

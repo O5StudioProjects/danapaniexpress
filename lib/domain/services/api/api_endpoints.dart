@@ -27,6 +27,7 @@ class APiEndpoints {
   static String getProductsByCategoriesAndSubCategories = "$path/get_products.php/get_products_by_cat_subcat";
   static String toggleFavorite = "$path/favorites_entry.php/toggle_favorite";
   static String getFavorites = "$path/favorites_entry.php/get_user_favorites";
+  static String searchProducts = "$path/get_products.php/search_product";
 
   static String addToCartWithQuantity = "$path/dpe_cart.php/add_to_cart_w_quantity";
   static String addToCart = "$path/dpe_cart.php/add_to_cart_incr_qty"; //same api is used for quantity increment in Cart Product
@@ -42,6 +43,7 @@ class APiEndpoints {
   static String getOrderByNumber = "$path/dpe_checkout.php/get_order_by_number";
   static String getOrdersByUserIdAndStatus = "$path/dpe_checkout.php/get_all_orders_by_user_id_status";
   static String getOrdersByUserIdAndDate = "$path/dpe_checkout.php/get_all_orders_by_user_id_date";
+  static String completedOrdersWithoutFeedback = "$path/dpe_checkout.php/get_all_orders_by_user_id_status_feedback";
 
 
 

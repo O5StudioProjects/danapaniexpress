@@ -81,6 +81,9 @@ class NavigationController extends GetxController{
 
 
   /// ACCOUNT SCREENS
+  Future<void> gotoPendingFeedbackScreen() async {
+    JumpTo.gotoPendingFeedbackScreen();
+  }
   Future<void> gotoAccountInformationScreen() async {
     JumpTo.gotoAccountInformationScreen();
   }

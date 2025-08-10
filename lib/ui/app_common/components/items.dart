@@ -7,6 +7,7 @@ Widget listItemIcon({
   itemTitle,
   trailingIcon,
   onItemClick,
+  isActiveNotification = false
 }) {
   return GestureDetector(
     onTap: onItemClick,
@@ -15,57 +16,76 @@ Widget listItemIcon({
       height: LIST_ITEM_HEIGHT,
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       decoration: BoxDecoration(color: AppColors.cardColorSkin(isDark)),
-      child: appLanguage == ENGLISH_LANGUAGE
+      child: isRightLang
           ? Row(
-              children: [
-                setIcon(
-                  iconType: iconType,
-                  iconName: leadingIcon,
-                  isPngColor: isPngColor,
-                  color: AppColors.backgroundColorInverseSkin(isDark),
-                ),
-                // appSvgIcon(icon: leadingIcon, width: 24.0, color: AppColors.blackInLightWhiteInDarkSkin(isDark)),
-                setWidth(8.0),
-                Expanded(
-                  child: appText(
-                    text: itemTitle,
-                    textAlign: TextAlign.start,
-                    textStyle: bodyAutoTextStyle(text: itemTitle),
-                  ),
-                ),
-                setWidth(8.0),
-                appSvgIcon(
-                  icon: trailingIcon,
-                  width: 24.0,
-                  color: AppColors.materialButtonSkin(isDark),
-                ),
-              ],
-            )
+        children: [
+          appSvgIcon(
+            icon: trailingIcon,
+            width: 24.0,
+            color: AppColors.materialButtonSkin(isDark),
+          ),
+          setWidth(8.0),
+          Expanded(
+            child: appText(
+              text: itemTitle,
+              textAlign: TextAlign.end,
+              textStyle: bodyAutoTextStyle(text: itemTitle),
+            ),
+          ),
+          setWidth(8.0),
+          setIcon(
+            iconType: iconType,
+            iconName: leadingIcon,
+            isPngColor: isPngColor,
+            color: AppColors.backgroundColorInverseSkin(isDark),
+          ),
+          // appSvgIcon(icon: leadingIcon, width: 24.0, color: AppColors.blackInLightWhiteInDarkSkin(isDark)),
+        ],
+      )
           : Row(
+        children: [
+          SizedBox(
+            width: 30.0,
+            height: 30.0,
+            child: Stack(
               children: [
-                appSvgIcon(
-                  icon: trailingIcon,
-                  width: 24.0,
-                  color: AppColors.materialButtonSkin(isDark),
-                ),
-                setWidth(8.0),
-                Expanded(
-                  child: appText(
-                    text: itemTitle,
-                    textAlign: TextAlign.end,
-                    textStyle: bodyAutoTextStyle(text: itemTitle),
+                Positioned(
+                  top:0,
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: setIcon(
+                    iconType: iconType,
+                    iconName: leadingIcon,
+                    isPngColor: isPngColor,
+                    color: AppColors.backgroundColorInverseSkin(isDark),
                   ),
                 ),
-                setWidth(8.0),
-                setIcon(
-                  iconType: iconType,
-                  iconName: leadingIcon,
-                  isPngColor: isPngColor,
-                  color: AppColors.backgroundColorInverseSkin(isDark),
-                ),
-                // appSvgIcon(icon: leadingIcon, width: 24.0, color: AppColors.blackInLightWhiteInDarkSkin(isDark)),
+                if(isActiveNotification)
+                Positioned(
+                    top: 0,
+                    child: appActiveNotification())
               ],
             ),
+          ),
+
+          // appSvgIcon(icon: leadingIcon, width: 24.0, color: AppColors.blackInLightWhiteInDarkSkin(isDark)),
+          setWidth(8.0),
+          Expanded(
+            child: appText(
+              text: itemTitle,
+              textAlign: TextAlign.start,
+              textStyle: bodyAutoTextStyle(text: itemTitle),
+            ),
+          ),
+          setWidth(8.0),
+          appSvgIcon(
+            icon: trailingIcon,
+            width: 24.0,
+            color: AppColors.materialButtonSkin(isDark),
+          ),
+        ],
+      ),
     ),
   );
 }

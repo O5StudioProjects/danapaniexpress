@@ -5,6 +5,7 @@ import 'package:danapaniexpress/core/data_model_imports.dart';
 import 'package:danapaniexpress/data/repositories/home_repository/home_repository.dart';
 import 'package:danapaniexpress/ui/app_common/dialogs/events_popup.dart';
 
+
 class HomeController extends GetxController {
   final homeRepo = HomeRepository();
   final categories = Get.put(CategoriesController(), permanent: true);
@@ -12,6 +13,7 @@ class HomeController extends GetxController {
   final cart = Get.put(CartController(), permanent: true);
   final favorites = Get.put(FavoritesController(), permanent: true);
   final navigation = Get.find<NavigationController>();
+  final pendingFeedback = Get.find<PendingFeedbackController>();
   //final cart = Get.find<CartController>();
 
   ///HOME SCREEN
@@ -63,6 +65,7 @@ class HomeController extends GetxController {
     fetchInitialFavoriteProducts();
     fetchInitialCartProducts();
     fetchEventsPopup();
+    fetchPendingFeedbackOrders();
   }
 
   ///HOME SCREEN Methods
@@ -235,6 +238,12 @@ class HomeController extends GetxController {
         message: 'Failed to fetch single banners: $e',
       );
     }
+  }
+
+  // FETCH PENDING FEEDBACK ORDERS
+
+  Future<void> fetchPendingFeedbackOrders() async {
+    pendingFeedback.fetchCompletedOrdersWithoutFeedback();
   }
 
   /// ON TAP METHODS ON HOME SCREEN
