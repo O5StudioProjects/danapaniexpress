@@ -173,7 +173,7 @@ class OrdersListSection extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         itemBuilder: (context, i) {
           final data = orderList[i];
-          return OrderItemUI(data: data, index: i + 1);
+          return OrderItemUI(data: data, isFilterScreen: true, index: i + 1);
         },
       );
 

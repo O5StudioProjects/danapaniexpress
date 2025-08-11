@@ -7,7 +7,8 @@ import '../../../../../../domain/controllers/orders_controller/orders_controller
 class OrderItemUI extends StatelessWidget {
   final OrderModel data;
   final int index;
-  const OrderItemUI({super.key, required this.data, required this.index});
+  final bool isFilterScreen;
+  const OrderItemUI({super.key, required this.data, required this.index, this.isFilterScreen = false});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +44,7 @@ class OrderItemUI extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Expanded(
-                        child: ShowOrderData(data: data),
+                        child: isFilterScreen ? ShowFilteredOrderData(data: data) : ShowOrderData(data: data),
                       ),
                       setWidth(8.0),
                       ShowIndexNumber(index: index),
@@ -55,7 +56,7 @@ class OrderItemUI extends StatelessWidget {
                       ShowIndexNumber(index: index),
                       setWidth(8.0),
                       Expanded(
-                        child: ShowOrderData(data: data),
+                        child: isFilterScreen ? ShowFilteredOrderData(data: data) : ShowOrderData(data: data),
                       )
                     ],
                   ),
@@ -138,7 +139,7 @@ class ShowIndexNumber extends StatelessWidget {
                   //   color: AppColors.materialButtonSkin(isDark)
                 ),
                 child: Center(child: appText(text: index.toString(), textStyle: itemTextStyle().copyWith(
-                    fontSize: NORMAL_TEXT_FONT_SIZE-2
+                    fontSize: isRightLang ? NORMAL_TEXT_FONT_SIZE :  NORMAL_TEXT_FONT_SIZE-2
                 ))))
           ],
         ),
@@ -164,16 +165,14 @@ class ShowOrderData extends StatelessWidget {
         crossAxisAlignment: isRightLang ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: [
           orderDetailItemsUI(
-              titleText: '${AppLanguage.orderNumberStr(appLanguage)} ',
+              titleText: AppLanguage.orderNumberHashStr(appLanguage),
               titleTextStyle: secondaryTextStyle().copyWith(
                   color: AppColors.primaryTextColorSkin(isDark),
-                  fontSize: NORMAL_TEXT_FONT_SIZE,
+                  fontSize: isRightLang ? NORMAL_TEXT_FONT_SIZE+2 : NORMAL_TEXT_FONT_SIZE,
                   fontWeight: FontWeight.w800
               ),
               detailText: data.orderNumber?.split('_').last ?? '',
-              detailTextStyle: bodyTextStyle().copyWith(
-                  fontSize: NORMAL_TEXT_FONT_SIZE
-              )
+              detailTextStyle: bodyTextStyle().copyWith(fontFamily: robotoRegular, fontSize: NORMAL_TEXT_FONT_SIZE)
           ),
           setHeight(4.0),
           if(activeOrders)...[
@@ -181,14 +180,12 @@ class ShowOrderData extends StatelessWidget {
                 titleText: AppLanguage.orderPlacedOnStr(appLanguage),
                 titleTextStyle: secondaryTextStyle().copyWith(
                     color: AppColors.primaryTextColorSkin(isDark),
-                    fontSize: NORMAL_TEXT_FONT_SIZE,
+                    fontSize: isRightLang ? NORMAL_TEXT_FONT_SIZE+2 : NORMAL_TEXT_FONT_SIZE,
                     fontWeight: FontWeight.w800
                 ),
-                isDateTime: true,
+                isDate: true,
                 detailText: data.orderPlacedDateTime == null || data.orderPlacedDateTime!.isEmpty ? '' : formatDateTime(data.orderPlacedDateTime.toString()),
-                detailTextStyle: bodyTextStyle().copyWith(
-                    fontSize: NORMAL_TEXT_FONT_SIZE
-                )
+                detailTextStyle: bodyTextStyle().copyWith(fontFamily: robotoRegular, fontSize: NORMAL_TEXT_FONT_SIZE)
             ),
 
           ] else if(confirmedOrders)...[
@@ -196,13 +193,12 @@ class ShowOrderData extends StatelessWidget {
                 titleText: AppLanguage.orderConfirmedOnStr(appLanguage),
                 titleTextStyle: secondaryTextStyle().copyWith(
                     color: AppColors.primaryTextColorSkin(isDark),
-                    fontSize: NORMAL_TEXT_FONT_SIZE,
+                    fontSize: isRightLang ? NORMAL_TEXT_FONT_SIZE+2 : NORMAL_TEXT_FONT_SIZE,
                     fontWeight: FontWeight.w800
                 ),
                 detailText: data.orderConfirmedDateTime == null || data.orderConfirmedDateTime!.isEmpty ? '' : formatDateTime(data.orderConfirmedDateTime.toString()),
-                detailTextStyle: bodyTextStyle().copyWith(
-                    fontSize: NORMAL_TEXT_FONT_SIZE
-                )
+                detailTextStyle: bodyTextStyle().copyWith(fontFamily: robotoRegular, fontSize: NORMAL_TEXT_FONT_SIZE)
+
             ),
 
           ] else if(completedOrders)...[
@@ -210,26 +206,24 @@ class ShowOrderData extends StatelessWidget {
                 titleText: AppLanguage.orderCompletedOnStr(appLanguage),
                 titleTextStyle: secondaryTextStyle().copyWith(
                     color: AppColors.primaryTextColorSkin(isDark),
-                    fontSize: NORMAL_TEXT_FONT_SIZE,
+                    fontSize: isRightLang ? NORMAL_TEXT_FONT_SIZE+2 : NORMAL_TEXT_FONT_SIZE,
                     fontWeight: FontWeight.w800
                 ),
                 detailText: data.orderCompletedDateTime == null || data.orderCompletedDateTime!.isEmpty ? '' : formatDateTime(data.orderCompletedDateTime.toString()),
-                detailTextStyle: bodyTextStyle().copyWith(
-                    fontSize: NORMAL_TEXT_FONT_SIZE
-                )
+                detailTextStyle: bodyTextStyle().copyWith(fontFamily: robotoRegular, fontSize: NORMAL_TEXT_FONT_SIZE)
+
             ),
           ] else if(cancelledOrders)...[
             orderDetailItemsUI(
                 titleText: AppLanguage.orderCancelledOnStr(appLanguage),
                 titleTextStyle: secondaryTextStyle().copyWith(
                     color: AppColors.primaryTextColorSkin(isDark),
-                    fontSize: NORMAL_TEXT_FONT_SIZE,
+                    fontSize: isRightLang ? NORMAL_TEXT_FONT_SIZE+2 : NORMAL_TEXT_FONT_SIZE,
                     fontWeight: FontWeight.w800
                 ),
                 detailText: data.orderCancelledDateTime == null || data.orderCancelledDateTime!.isEmpty ? '' : formatDateTime(data.orderCancelledDateTime.toString()),
-                detailTextStyle: bodyTextStyle().copyWith(
-                    fontSize: NORMAL_TEXT_FONT_SIZE
-                )
+                detailTextStyle: bodyTextStyle().copyWith(fontFamily: robotoRegular, fontSize: NORMAL_TEXT_FONT_SIZE)
+
             ),
           ],
           setHeight(4.0),
@@ -237,13 +231,12 @@ class ShowOrderData extends StatelessWidget {
               titleText: AppLanguage.orderAmountStr(appLanguage),
               titleTextStyle: secondaryTextStyle().copyWith(
                   color: AppColors.primaryTextColorSkin(isDark),
-                  fontSize: NORMAL_TEXT_FONT_SIZE,
+                  fontSize: isRightLang ? NORMAL_TEXT_FONT_SIZE+2 : NORMAL_TEXT_FONT_SIZE,
                   fontWeight: FontWeight.w800
               ),
               detailText: '$appCurrency ${data.totalSellingAmount! + data.deliveryCharges!}',
-              detailTextStyle: bodyTextStyle().copyWith(
-                  fontSize: NORMAL_TEXT_FONT_SIZE
-              )
+              detailTextStyle: bodyTextStyle().copyWith(fontFamily: robotoRegular, fontSize: NORMAL_TEXT_FONT_SIZE)
+
           ),
 
         ],
@@ -252,3 +245,105 @@ class ShowOrderData extends StatelessWidget {
   }
 }
 
+class ShowFilteredOrderData extends StatelessWidget {
+  final OrderModel data;
+  const ShowFilteredOrderData({super.key, required this.data});
+
+  @override
+  Widget build(BuildContext context) {
+    final orders = Get.find<OrdersController>();
+
+    return Obx((){
+      return Column(
+        crossAxisAlignment: isRightLang ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        children: [
+          orderDetailItemsUI(
+              titleText: AppLanguage.orderNumberHashStr(appLanguage),
+              titleTextStyle: secondaryTextStyle().copyWith(
+                  color: AppColors.primaryTextColorSkin(isDark),
+                  fontSize: isRightLang ? NORMAL_TEXT_FONT_SIZE+2 : NORMAL_TEXT_FONT_SIZE,
+                  fontWeight: FontWeight.w800
+              ),
+              detailText: data.orderNumber?.split('_').last ?? '',
+              detailTextStyle: bodyTextStyle().copyWith(fontFamily: robotoRegular, fontSize: NORMAL_TEXT_FONT_SIZE)
+          ),
+            if(data.orderPlacedDateTime != null )
+            Padding(
+              padding: const EdgeInsets.only(top: 4.0),
+              child: orderDetailItemsUI(
+                  titleText: AppLanguage.orderPlacedOnStr(appLanguage),
+                  titleTextStyle: secondaryTextStyle().copyWith(
+                      color: AppColors.primaryTextColorSkin(isDark),
+                      fontSize: isRightLang ? NORMAL_TEXT_FONT_SIZE+2 : NORMAL_TEXT_FONT_SIZE,
+                      fontWeight: FontWeight.w800
+                  ),
+                  isDate: true,
+                  detailText: formatDateTime(data.orderPlacedDateTime.toString()),
+                  detailTextStyle: bodyTextStyle().copyWith(fontFamily: robotoRegular, fontSize: NORMAL_TEXT_FONT_SIZE)
+              ),
+            ),
+
+             if(data.orderConfirmedDateTime != null)
+               Padding(
+                 padding: const EdgeInsets.only(top: 4.0),
+                 child: orderDetailItemsUI(
+                  titleText: AppLanguage.orderConfirmedOnStr(appLanguage),
+                  titleTextStyle: secondaryTextStyle().copyWith(
+                      color: AppColors.primaryTextColorSkin(isDark),
+                      fontSize: isRightLang ? NORMAL_TEXT_FONT_SIZE+2 : NORMAL_TEXT_FONT_SIZE,
+                      fontWeight: FontWeight.w800
+                  ),
+                  detailText: data.orderConfirmedDateTime == null || data.orderConfirmedDateTime!.isEmpty ? '' : formatDateTime(data.orderConfirmedDateTime.toString()),
+                  detailTextStyle: bodyTextStyle().copyWith(fontFamily: robotoRegular, fontSize: NORMAL_TEXT_FONT_SIZE)
+
+                             ),
+               ),
+
+      if(data.orderCompletedDateTime != null)
+      Padding(
+        padding: const EdgeInsets.only(top: 4.0),
+        child: orderDetailItemsUI(
+                  titleText: AppLanguage.orderCompletedOnStr(appLanguage),
+                  titleTextStyle: secondaryTextStyle().copyWith(
+                      color: AppColors.primaryTextColorSkin(isDark),
+                      fontSize: isRightLang ? NORMAL_TEXT_FONT_SIZE+2 : NORMAL_TEXT_FONT_SIZE,
+                      fontWeight: FontWeight.w800
+                  ),
+                  detailText: data.orderCompletedDateTime == null || data.orderCompletedDateTime!.isEmpty ? '' : formatDateTime(data.orderCompletedDateTime.toString()),
+                  detailTextStyle: bodyTextStyle().copyWith(fontFamily: robotoRegular, fontSize: NORMAL_TEXT_FONT_SIZE)
+
+              ),
+      ),
+          if(data.orderCancelledDateTime != null )
+            Padding(
+              padding: const EdgeInsets.only(top: 4.0),
+              child: orderDetailItemsUI(
+                  titleText: AppLanguage.orderCancelledOnStr(appLanguage),
+                  titleTextStyle: secondaryTextStyle().copyWith(
+                      color: AppColors.primaryTextColorSkin(isDark),
+                      fontSize: isRightLang ? NORMAL_TEXT_FONT_SIZE+2 : NORMAL_TEXT_FONT_SIZE,
+                      fontWeight: FontWeight.w800
+                  ),
+                  detailText: data.orderCancelledDateTime == null || data.orderCancelledDateTime!.isEmpty ? '' : formatDateTime(data.orderCancelledDateTime.toString()),
+                  detailTextStyle: bodyTextStyle().copyWith(fontFamily: robotoRegular, fontSize: NORMAL_TEXT_FONT_SIZE)
+
+              ),
+            ),
+          setHeight(4.0),
+          orderDetailItemsUI(
+              titleText: AppLanguage.orderAmountStr(appLanguage),
+              titleTextStyle: secondaryTextStyle().copyWith(
+                  color: AppColors.primaryTextColorSkin(isDark),
+                  fontSize: isRightLang ? NORMAL_TEXT_FONT_SIZE+2 : NORMAL_TEXT_FONT_SIZE,
+                  fontWeight: FontWeight.w800
+              ),
+              detailText: '$appCurrency ${data.totalSellingAmount! + data.deliveryCharges!}',
+              detailTextStyle: bodyTextStyle().copyWith(fontFamily: robotoRegular, fontSize: NORMAL_TEXT_FONT_SIZE)
+
+          ),
+
+        ],
+      );
+    });
+  }
+}
