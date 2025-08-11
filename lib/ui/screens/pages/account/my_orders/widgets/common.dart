@@ -7,17 +7,32 @@ Widget orderDetailItemsUI({
   titleTextStyle,
   detailText,
   detailTextStyle,
+  isDateTime = false
 }) {
   return Text.rich(
-    TextSpan(
+    // textDirection: setTextDirection(appLanguage), textAlign: setTextAlignment(appLanguage),
+    isRightLang
+    ? TextSpan(
       children: [
         WidgetSpan(
           alignment: PlaceholderAlignment.middle,
-          child: appText(text: titleText, textStyle: titleTextStyle),
+          child: appText(text: detailText, textDirection: isDateTime ? TextDirection.ltr : setTextDirection(appLanguage), textAlign: setTextAlignment(appLanguage), textStyle: detailTextStyle),
         ),
         WidgetSpan(
           alignment: PlaceholderAlignment.middle,
-          child: appText(text: detailText, textStyle: detailTextStyle),
+          child: appText(text: titleText,  textDirection:  setTextDirection(appLanguage), textAlign: setTextAlignment(appLanguage), textStyle: titleTextStyle),
+        ),
+      ],
+    )
+    : TextSpan(
+      children: [
+        WidgetSpan(
+          alignment: PlaceholderAlignment.middle,
+          child: appText(text: titleText, textDirection: setTextDirection(appLanguage), textAlign: setTextAlignment(appLanguage), textStyle: titleTextStyle),
+        ),
+        WidgetSpan(
+          alignment: PlaceholderAlignment.middle,
+          child: appText(text: detailText, textDirection: setTextDirection(appLanguage), textAlign: setTextAlignment(appLanguage), textStyle: detailTextStyle),
         ),
       ],
     ),

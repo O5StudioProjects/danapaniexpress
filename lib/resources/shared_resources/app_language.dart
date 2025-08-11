@@ -676,5 +676,81 @@ class AppLanguage {
 
   static String? customOrderLongLine2Str(String appLanguage) =>
       allLang[appLanguage]?[CUSTOM_ORDER_LONG_LINE_2];
+  static String? allStr(String appLanguage) => allLang[appLanguage]?[ALL];
+  static String? noMoreProductsStr(String appLanguage) => allLang[appLanguage]?[NO_MORE_PRODUCTS];
+  static String? noInternetConnectionStr(String appLanguage) => allLang[appLanguage]?[NO_INTERNET_CONNECTION];
+  static String? productCodeStr(String appLanguage) => allLang[appLanguage]?[PRODUCT_CODE];
+  static String? ordersFeedbackStr(String appLanguage) => allLang[appLanguage]?[ORDERS_FEEDBACK];
+  static String? noPendingOrderFeedbackStr(String appLanguage) => allLang[appLanguage]?[NO_PENDING_ORDER_FEEDBACK];
+  static String? customerServiceMarqueeNotificationStr(String appLanguage) => allLang[appLanguage]?[CUSTOMER_SERVICE_MARQUEE_TEXT];
+
+  static String? privacyMainHeadingStr(String appLanguage) => allLang[appLanguage]?[PRIVACY_MAIN_HEADING];
+  static String? privacyMainDetailStr(String appLanguage) => allLang[appLanguage]?[PRIVACY_MAIN_DETAIL];
+  static String? privacySection1HeadingStr(String appLanguage) => allLang[appLanguage]?[PRIVACY_SECTION1_HEADING];
+  static String? privacySection1DetailStr(String appLanguage) => allLang[appLanguage]?[PRIVACY_SECTION1_DETAIL];
+  static String? privacySection2HeadingStr(String appLanguage) => allLang[appLanguage]?[PRIVACY_SECTION2_HEADING];
+  static String? privacySection2DetailStr(String appLanguage) => allLang[appLanguage]?[PRIVACY_SECTION2_DETAIL];
+  static String? privacySection3HeadingStr(String appLanguage) => allLang[appLanguage]?[PRIVACY_SECTION3_HEADING];
+  static String? privacySection3DetailStr(String appLanguage) => allLang[appLanguage]?[PRIVACY_SECTION3_DETAIL];
+  static String? privacySection4HeadingStr(String appLanguage) => allLang[appLanguage]?[PRIVACY_SECTION4_HEADING];
+  static String? privacySection4DetailStr(String appLanguage) => allLang[appLanguage]?[PRIVACY_SECTION4_DETAIL];
+  static String? privacySection5HeadingStr(String appLanguage) => allLang[appLanguage]?[PRIVACY_SECTION5_HEADING];
+  static String? privacySection5DetailStr(String appLanguage) => allLang[appLanguage]?[PRIVACY_SECTION5_DETAIL];
+  static String? privacySection6HeadingStr(String appLanguage) => allLang[appLanguage]?[PRIVACY_SECTION6_HEADING];
+  static String? privacySection6DetailStr(String appLanguage) => allLang[appLanguage]?[PRIVACY_SECTION6_DETAIL];
+  static String? privacySection7HeadingStr(String appLanguage) => allLang[appLanguage]?[PRIVACY_SECTION7_HEADING];
+  static String? privacySection7DetailStr(String appLanguage) => allLang[appLanguage]?[PRIVACY_SECTION7_DETAIL];
+  static String? privacySection8HeadingStr(String appLanguage) => allLang[appLanguage]?[PRIVACY_SECTION8_HEADING];
+  static String? privacySection8DetailStr(String appLanguage) => allLang[appLanguage]?[PRIVACY_SECTION8_DETAIL];
+
+  static String? returnsRefundsMainHeadingStr(String appLanguage) => allLang[appLanguage]?[RETURNS_REFUNDS_MAIN_HEADING];
+  static String? returnsRefundsSection1HeadingStr(String appLanguage) => allLang[appLanguage]?[RETURNS_REFUNDS_SECTION1_HEADING];
+  static String? returnsRefundsSection1DetailStr(String appLanguage) => allLang[appLanguage]?[RETURNS_REFUNDS_SECTION1_DETAIL];
+  static String? returnsRefundsSection2HeadingStr(String appLanguage) => allLang[appLanguage]?[RETURNS_REFUNDS_SECTION2_HEADING];
+  static String? returnsRefundsSection2DetailStr(String appLanguage) => allLang[appLanguage]?[RETURNS_REFUNDS_SECTION2_DETAIL];
+  static String? returnsRefundsSection3HeadingStr(String appLanguage) => allLang[appLanguage]?[RETURNS_REFUNDS_SECTION3_HEADING];
+  static String? returnsRefundsSection3DetailStr(String appLanguage) => allLang[appLanguage]?[RETURNS_REFUNDS_SECTION3_DETAIL];
+  static String? returnsRefundsSection4HeadingStr(String appLanguage) => allLang[appLanguage]?[RETURNS_REFUNDS_SECTION4_HEADING];
+  static String? returnsRefundsSection4DetailStr(String appLanguage) => allLang[appLanguage]?[RETURNS_REFUNDS_SECTION4_DETAIL];
+  static String? returnsRefundsSection5HeadingStr(String appLanguage) => allLang[appLanguage]?[RETURNS_REFUNDS_SECTION5_HEADING];
+  static String? returnsRefundsSection5DetailStr(String appLanguage) => allLang[appLanguage]?[RETURNS_REFUNDS_SECTION5_DETAIL];
+  static String? returnsRefundsSection6HeadingStr(String appLanguage) => allLang[appLanguage]?[RETURNS_REFUNDS_SECTION6_HEADING];
+  static String? returnsRefundsSection6DetailStr(String appLanguage) => allLang[appLanguage]?[RETURNS_REFUNDS_SECTION6_DETAIL];
+
+  static String? termsConditionsMainHeadingStr(String appLanguage) => allLang[appLanguage]?[TERMS_CONDITIONS_MAIN_HEADING];
+  static String? termsConditionsMainDetailStr(String appLanguage) => allLang[appLanguage]?[TERMS_CONDITIONS_MAIN_DETAIL];
+  static String? termsConditionsSection1HeadingStr(String appLanguage) => allLang[appLanguage]?[TERMS_CONDITIONS_SECTION1_HEADING];
+  static String? termsConditionsSection1DetailStr(String appLanguage) => allLang[appLanguage]?[TERMS_CONDITIONS_SECTION1_DETAIL];
+  static String? termsConditionsSection2HeadingStr(String appLanguage) => allLang[appLanguage]?[TERMS_CONDITIONS_SECTION2_HEADING];
+  static String? termsConditionsSection2DetailStr(String appLanguage) => allLang[appLanguage]?[TERMS_CONDITIONS_SECTION2_DETAIL];
+  static String? termsConditionsSection3HeadingStr(String appLanguage) => allLang[appLanguage]?[TERMS_CONDITIONS_SECTION3_HEADING];
+  static String? termsConditionsSection3DetailStr(String appLanguage) => allLang[appLanguage]?[TERMS_CONDITIONS_SECTION3_DETAIL];
+  static String? termsConditionsSection4HeadingStr(String appLanguage) => allLang[appLanguage]?[TERMS_CONDITIONS_SECTION4_HEADING];
+  static String? termsConditionsSection4DetailStr(String appLanguage) => allLang[appLanguage]?[TERMS_CONDITIONS_SECTION4_DETAIL];
+  static String? termsConditionsSection5HeadingStr(String appLanguage) => allLang[appLanguage]?[TERMS_CONDITIONS_SECTION5_HEADING];
+  static String? termsConditionsSection5DetailStr(String appLanguage) => allLang[appLanguage]?[TERMS_CONDITIONS_SECTION5_DETAIL];
+  static String? termsConditionsSection6HeadingStr(String appLanguage) => allLang[appLanguage]?[TERMS_CONDITIONS_SECTION6_HEADING];
+  static String? termsConditionsSection6DetailStr(String appLanguage) => allLang[appLanguage]?[TERMS_CONDITIONS_SECTION6_DETAIL];
+  static String? termsConditionsSection7HeadingStr(String appLanguage) => allLang[appLanguage]?[TERMS_CONDITIONS_SECTION7_HEADING];
+  static String? termsConditionsSection7DetailStr(String appLanguage) => allLang[appLanguage]?[TERMS_CONDITIONS_SECTION7_DETAIL];
+  static String? termsConditionsSection8HeadingStr(String appLanguage) => allLang[appLanguage]?[TERMS_CONDITIONS_SECTION8_HEADING];
+  static String? termsConditionsSection8DetailStr(String appLanguage) => allLang[appLanguage]?[TERMS_CONDITIONS_SECTION8_DETAIL];
+  static String? termsConditionsSection9HeadingStr(String appLanguage) => allLang[appLanguage]?[TERMS_CONDITIONS_SECTION9_HEADING];
+  static String? termsConditionsSection9DetailStr(String appLanguage) => allLang[appLanguage]?[TERMS_CONDITIONS_SECTION9_DETAIL];
+  static String? termsConditionsSection10HeadingStr(String appLanguage) => allLang[appLanguage]?[TERMS_CONDITIONS_SECTION10_HEADING];
+  static String? termsConditionsSection10DetailStr(String appLanguage) => allLang[appLanguage]?[TERMS_CONDITIONS_SECTION10_DETAIL];
+  static String? termsConditionsSection11HeadingStr(String appLanguage) => allLang[appLanguage]?[TERMS_CONDITIONS_SECTION11_HEADING];
+  static String? termsConditionsSection11DetailStr(String appLanguage) => allLang[appLanguage]?[TERMS_CONDITIONS_SECTION11_DETAIL];
+
+  static String? termsConditionsSection12HeadingStr(String appLanguage) => allLang[appLanguage]?[TERMS_CONDITIONS_SECTION12_HEADING];
+  static String? termsConditionsSection12DetailStr(String appLanguage) => allLang[appLanguage]?[TERMS_CONDITIONS_SECTION12_DETAIL];
+
+
+  static String? iHaveReadAndAcceptTermsOfServicesStr(String appLanguage) => allLang[appLanguage]?[I_HAVE_READ_AND_ACCEPT_TERMS_OF_SERVICES];
+  static String? declineStr(String appLanguage) => allLang[appLanguage]?[DECLINE];
+  static String? continueStr(String appLanguage) => allLang[appLanguage]?[CONTINUE];
+
+  static String? noOrdersStr(String appLanguage) => allLang[appLanguage]?[NO_ORDERS];
+  static String? noMoreOrdersStr(String appLanguage) => allLang[appLanguage]?[NO_MORE_ORDERS];
 
 }

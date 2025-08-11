@@ -80,64 +80,7 @@ class ProductDetailScreenMobile extends StatelessWidget {
     });
   }
 
-  Widget cartSectionUI({required ProductModel data}) {
-    var productDetail = Get.find<ProductDetailController>();
-    var cart = Get.find<CartController>();
-    var auth = Get.find<AuthController>();
-    var nav = Get.find<NavigationController>();
-    return Obx(() {
-      final productInCart = cart.cartProducts.firstWhereOrNull(
-            (item) => item.productId == data.productId,
-      );
-      var isAddToCartQtyLoading = cart.addToCartWithQtyStatus.value == Status.LOADING ? true : false;
-      var isAddToCartLoading = cart.addToCartWithQtyStatus.value == Status.LOADING ? true : false;
-      return Container(
-        color: AppColors.backgroundColorSkin(isDark),
-        width: size.width,
-        height: 80.0,
-        child: Padding(
-          padding: const EdgeInsets.all(MAIN_HORIZONTAL_PADDING),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  appText(
-                    text:
-                        'Rs. ${calculateTotalAmount(productPrice: data.productSellingPrice!, quantity: productDetail.quantity.value).toStringAsFixed(1)}/-',
-                    textStyle: sellingPriceDetailTextStyle(),
-                  ),
-                  setHeight(4.0),
-                  appText(
-                    text: AppLanguage.totalAmountStr(appLanguage),
-                    textStyle: itemTextStyle(),
-                  ),
-                ],
-              ),
-              isAddToCartLoading || isAddToCartQtyLoading
-              ? SizedBox(
-                width: 100.0,
-                child: loadingIndicator(),
-              )
-              : appMaterialButton(
-                text: productInCart != null ? AppLanguage.updateCartStr(appLanguage) : AppLanguage.addToCartStr(appLanguage),
-                onTap: () {
-                  if(auth.currentUser.value == null){
-                    nav.gotoSignInScreen();
-                  }
-                   else {
-                    cart.addToCartWithQuantity(productId: data.productId!, userId: auth.currentUser.value!.userId!, productQty: productDetail.quantity.value);
-                  }
-                },
-              ),
-            ],
-          ),
-        ),
-      );
-    });
-  }
+
 
   Widget productDetailPartUI({required ProductModel data}) {
     return SizedBox(
@@ -165,19 +108,36 @@ class ProductDetailScreenMobile extends StatelessWidget {
             ? CrossAxisAlignment.end
             : CrossAxisAlignment.start,
         children: [
+
           ///CATEGORY AND SUBCATEGORY - FAVORITE BUTTON
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              if(data.productCategory != null && data.productSubCategory != null)
-              appText(
-                text: '${data.productCategory} > ${data.productSubCategory}',
-                textStyle: secondaryTextStyle().copyWith(
-                  color: AppColors.secondaryTextColorSkin(
-                    isDark,
-                  ).withValues(alpha: 0.7),
-                ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if(data.productCategory != null && data.productSubCategory != null)
+                    appText(
+                      text: '${data.productCategory} > ${data.productSubCategory}',
+                      textStyle: secondaryTextStyle().copyWith(
+                        color: AppColors.secondaryTextColorSkin(
+                          isDark,
+                        ).withValues(alpha: 0.7),
+                      ),
+                    ),
+                  ///PRODUCT CODE
+                  appText(
+                    text: '${AppLanguage.productCodeStr(appLanguage)}${data.productCode?.split('_').last}',
+                    textDirection: setTextDirection(appLanguage),
+                    textStyle: secondaryTextStyle().copyWith(
+                      color: AppColors.secondaryTextColorSkin(
+                        isDark,
+                      ).withValues(alpha: 0.7),
+                    ),
+                  ),
+
+                ],
               ),
 
               GestureDetector(
@@ -210,6 +170,8 @@ class ProductDetailScreenMobile extends StatelessWidget {
             ],
           ),
           setHeight(MAIN_HORIZONTAL_PADDING),
+
+
 
           /// PRODUCT NAME
           appText(
@@ -577,5 +539,69 @@ class ProductDetailScreenMobile extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget cartSectionUI({required ProductModel data}) {
+    var productDetail = Get.find<ProductDetailController>();
+    var cart = Get.find<CartController>();
+    var auth = Get.find<AuthController>();
+    var nav = Get.find<NavigationController>();
+    return Obx(() {
+      final productInCart = cart.cartProducts.firstWhereOrNull(
+            (item) => item.productId == data.productId,
+      );
+      var isAddToCartQtyLoading = cart.addToCartWithQtyStatus.value == Status.LOADING ? true : false;
+      var isAddToCartLoading = cart.addToCartWithQtyStatus.value == Status.LOADING ? true : false;
+      return Container(
+        color: AppColors.backgroundColorSkin(isDark),
+        width: size.width,
+        height: 80.0,
+        child: Padding(
+          padding: const EdgeInsets.all(MAIN_HORIZONTAL_PADDING),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  appText(
+                    text:
+                    '$appCurrency ${calculateTotalAmount(productPrice: data.productSellingPrice!, quantity: productDetail.quantity.value).toStringAsFixed(1)}/-',
+                    textStyle: sellingPriceDetailTextStyle(),
+                  ),
+                  setHeight(4.0),
+                  appText(
+                    text: AppLanguage.totalAmountStr(appLanguage),
+                    textStyle: itemTextStyle(),
+                  ),
+                ],
+              ),
+              isAddToCartLoading || isAddToCartQtyLoading
+                  ? SizedBox(
+                width: 100.0,
+                child: loadingIndicator(),
+              )
+                  : appMaterialButton(
+                isDisable: data.productAvailability == false ,
+                text: data.productAvailability == false ? AppLanguage.outOfStockStr(appLanguage) : productInCart != null ? AppLanguage.updateCartStr(appLanguage) : AppLanguage.addToCartStr(appLanguage),
+                onTap: () {
+                  if(auth.currentUser.value == null){
+                    nav.gotoSignInScreen();
+                  }
+                  else {
+                    if(data.productAvailability == true){
+                      cart.addToCartWithQuantity(productId: data.productId!, userId: auth.currentUser.value!.userId!, productQty: productDetail.quantity.value);
+                    } else {
+                      showToast(AppLanguage.outOfStockStr(appLanguage).toString());
+                    }
+                  }
+                },
+              ),
+            ],
+          ),
+        ),
+      );
+    });
   }
 }

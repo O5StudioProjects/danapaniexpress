@@ -193,7 +193,8 @@ class CheckoutController extends GetxController {
         // You can optionally clear cart or navigate
         nav.gotoOrderedPlacedScreen(orderData: null);
         await cart.fetchCartProducts();
-        await auth.fetchUserProfile();
+       // await auth.fetchUserProfile();
+        await order.getActiveOrdersCount();
       } else {
         checkOutStatus.value = Status.FAILURE;
         showSnackbar(

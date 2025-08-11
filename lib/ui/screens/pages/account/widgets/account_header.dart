@@ -1,5 +1,6 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
+import 'package:danapaniexpress/domain/controllers/orders_controller/orders_controller.dart';
 import 'package:danapaniexpress/ui/app_common/components/profile_image.dart';
 
 class AccountHeader extends StatelessWidget {
@@ -9,6 +10,9 @@ class AccountHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     var navigation = Get.find<NavigationController>();
     var auth = Get.find<AuthController>();
+    var favorites = Get.find<FavoritesController>();
+    var cart = Get.find<CartController>();
+    var orders = Get.find<OrdersController>();
     return Obx((){
       var data = auth.currentUser.value;
       return Container(
@@ -76,19 +80,19 @@ class AccountHeader extends StatelessWidget {
                               data != null
                               ? Row(
                                 children: [
-                                  appText(text: '${data.userFavoritesCount} ', textStyle: itemTextStyle()),
+                                  appText(text: '${favorites.favoritesList.length} ', textStyle: itemTextStyle()),
                                   appText(text: AppLanguage.wishlistStr(appLanguage), textStyle: accountSecondaryTextStyle()),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 6),
                                     child: appText(text: '-', textStyle: bodyTextStyle().copyWith(color: AppColors.secondaryTextColorSkin(isDark))),
                                   ),
-                                  appText(text: '${data.userCartCount} ', textStyle: itemTextStyle()),
+                                  appText(text: '${cart.cartProducts.length} ', textStyle: itemTextStyle()),
                                   appText(text: AppLanguage.cartStr(appLanguage), textStyle: accountSecondaryTextStyle()),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(horizontal: 6),
                                     child: appText(text: '-', textStyle: bodyTextStyle().copyWith(color: AppColors.secondaryTextColorSkin(isDark))),
                                   ),
-                                  appText(text: '${data.userOrdersCount} ', textStyle: itemTextStyle()),
+                                  appText(text: '${orders.activeOrdersCount} ', textStyle: itemTextStyle()),
                                   appText(text: AppLanguage.ordersStr(appLanguage), textStyle: accountSecondaryTextStyle()),
                                 ],
                               )
@@ -117,6 +121,8 @@ class AccountHeaderSmall extends StatelessWidget {
   Widget build(BuildContext context) {
     var navigation = Get.find<NavigationController>();
     var auth = Get.find<AuthController>();
+    var favorites = Get.find<FavoritesController>();
+    var cart = Get.find<CartController>();
     return Obx((){
       var data = auth.currentUser.value;
       return Container(
@@ -172,13 +178,13 @@ class AccountHeaderSmall extends StatelessWidget {
                       data != null
                           ? Row(
                         children: [
-                          appText(text: '${data.userFavoritesCount} ', textStyle: itemTextStyle()),
+                          appText(text: '${favorites.favoritesList.length} ', textStyle: itemTextStyle()),
                           appText(text: AppLanguage.wishlistStr(appLanguage), textStyle: accountSecondaryTextStyle()),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 6),
                             child: appText(text: '-', textStyle: bodyTextStyle().copyWith(color: AppColors.secondaryTextColorSkin(isDark))),
                           ),
-                          appText(text: '${data.userCartCount} ', textStyle: itemTextStyle()),
+                          appText(text: '${cart.cartProducts.length} ', textStyle: itemTextStyle()),
                           appText(text: AppLanguage.cartStr(appLanguage), textStyle: accountSecondaryTextStyle()),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 6),

@@ -131,26 +131,6 @@ class FavoriteProductItem extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        isLoading ? SizedBox(
-                          height: 35.0,
-                          width: 100.0,
-                          child: loadingIndicator(),
-                        ) : SizedBox(
-                          height: 35.0,
-                          child: appMaterialButton(
-                              text: product.productAvailability == false ? AppLanguage.outOfStockStr(appLanguage) :AppLanguage.addToCartStr(appLanguage),
-                              fontSize: SUB_HEADING_TEXT_BUTTON_FONT_SIZE,
-                              isDisable: product.productAvailability == false,
-                              onTap: () async {
-                                if(product.productAvailability == true){
-                                  await cart.addToCart(product.productId!);
-                                } else {
-                                  showToast(AppLanguage.outOfStockStr(appLanguage).toString());
-                                }
-                              }
-                          ),
-                        ),
-                        Spacer(),
                         if (product.productBrand!.isNotEmpty)
                           Padding(
                             padding: const EdgeInsets.only(left: 5.0),
@@ -162,7 +142,7 @@ class FavoriteProductItem extends StatelessWidget {
                               decoration: BoxDecoration(
                                 color: EnvColors.specialFestiveColorDark,
                                 borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(4.0),
+                                  topRight: Radius.circular(4.0),
                                   bottomRight: Radius.circular(0.0),
                                 ),
                               ),
@@ -184,7 +164,7 @@ class FavoriteProductItem extends StatelessWidget {
                               decoration: BoxDecoration(
                                 color: EnvColors.primaryColorLight,
                                 borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(4.0),
+                                  topRight: Radius.circular(4.0),
                                   bottomRight: Radius.circular(0.0),
                                 ),
                               ),
@@ -194,6 +174,27 @@ class FavoriteProductItem extends StatelessWidget {
                               ),
                             ),
                           ),
+                        Spacer(),
+                        isLoading ? SizedBox(
+                          height: 35.0,
+                          width: 100.0,
+                          child: loadingIndicator(),
+                        ) : SizedBox(
+                          height: 35.0,
+                          child: appMaterialButton(
+                              text: product.productAvailability == false ? AppLanguage.outOfStockStr(appLanguage) :AppLanguage.addToCartStr(appLanguage),
+                              fontSize: SUB_HEADING_TEXT_BUTTON_FONT_SIZE,
+                              isDisable: product.productAvailability == false,
+                              onTap: () async {
+                                if(product.productAvailability == true){
+                                  await cart.addToCart(product.productId!);
+                                } else {
+                                  showToast(AppLanguage.outOfStockStr(appLanguage).toString());
+                                }
+                              }
+                          ),
+                        ),
+
 
                         // appFloatingButton(
                         //   icon: icCart,

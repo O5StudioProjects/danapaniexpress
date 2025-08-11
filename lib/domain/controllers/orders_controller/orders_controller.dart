@@ -15,6 +15,7 @@ class OrdersController extends GetxController {
   final nav = Get.find<NavigationController>();
 
   RxInt screenIndex = 0.obs;
+  RxInt activeOrdersCount = 0.obs;
   // RxInt ordersCount = 0.obs;
   var updateOrderStatus = Status.IDLE.obs;
   var getOrderByNumberStatus = Status.IDLE.obs;
@@ -210,6 +211,28 @@ class OrdersController extends GetxController {
     }
   }
 
+
+
+  // Method to get total count of Active orders for a user
+  Future<void> getActiveOrdersCount() async {
+    if(auth.currentUser.value!.userId == null){
+      activeOrdersCount.value = 0;
+    }else{
+      try {
+        // Fetch all active orders, without pagination (you can omit page/limit or pass null)
+        final orders = await ordersRepo.getTotalOrdersCountByUserIdAndStatus(
+          userId,
+          OrderStatus.ACTIVE,
+        );
+        activeOrdersCount.value = orders;
+        print('======================== ACTIVE ORDERS = ${activeOrdersCount.value}');
+      } catch (e) {
+        // Handle error, maybe log or return 0 if failed
+        debugPrint('Failed to get active orders: $e');
+        activeOrdersCount.value = 0;
+      }
+    }
+  }
 
 
   /// ===== GENERIC METHOD FOR INITIAL FETCH =====
@@ -459,7 +482,7 @@ class OrdersController extends GetxController {
           await fetchOrderByNumber(orderNumber);
         }
         await fetchInitialActiveOrders();
-        await auth.fetchUserProfile();
+        await getActiveOrdersCount();
         updateOrderStatus.value = Status.SUCCESS;
         showSnackbar(
           isError: false,

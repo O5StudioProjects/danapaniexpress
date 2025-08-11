@@ -153,49 +153,99 @@ Widget appIcon({
         );
 }
 
+// Widget appMaterialButton({
+//   text,
+//   onTap,
+//   isCustomColor = false,
+//   textColor,
+//   buttonColor,
+//   appLanguage,
+//   isDisable = false,
+//   fontSize = NORMAL_TEXT_FONT_SIZE,
+//   customWidget
+// }) {
+//   return GestureDetector(
+//     onTap: onTap,
+//     child: Container(
+//       padding: const EdgeInsets.symmetric(horizontal: 16.0),
+//       height: BUTTON_HEIGHT,
+//       decoration: BoxDecoration(
+//         borderRadius: BorderRadius.circular(8.0),
+//         color: isCustomColor
+//             ? buttonColor
+//             : isDisable
+//             ? AppColors.disableMaterialButtonSkin(isDark)
+//             : AppColors.materialButtonSkin(isDark),
+//       ),
+//       child: Center(
+//         child:
+//         customWidget ?? appText(
+//           text: text,
+//           textDirection: setTextDirection(appLanguage),
+//
+//           textStyle:
+//               buttonTextStyle(
+//                 color: isCustomColor
+//                     ? textColor
+//                     : AppColors.materialButtonTextSkin(isDark),
+//               ).copyWith(
+//                 fontSize: isRightLang
+//                     ? fontSize + 2
+//                     : fontSize,
+//               ),
+//         ),
+//       ),
+//     ),
+//   );
+// }
+
 Widget appMaterialButton({
   text,
   onTap,
-  isCustomColor = false,
-  textColor,
-  buttonColor,
-  appLanguage,
-  isDisable = false,
-  fontSize = NORMAL_TEXT_FONT_SIZE,
-  customWidget
+  bool isCustomColor = false,
+  Color? textColor,
+  Color? buttonColor,
+  String? appLanguage,
+  bool isDisable = false,
+  double fontSize = NORMAL_TEXT_FONT_SIZE,
+  Widget? customWidget,
+  double? buttonHeight,
+  bool isFullWidth = true, // 👈 add this flag
 }) {
-  return GestureDetector(
-    onTap: onTap,
-    child: Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      height: BUTTON_HEIGHT,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8.0),
-        color: isCustomColor
-            ? buttonColor
-            : isDisable
-            ? AppColors.disableMaterialButtonSkin(isDark)
-            : AppColors.materialButtonSkin(isDark),
-      ),
-      child: Center(
-        child:
-        customWidget ?? appText(
-          text: text,
-          textDirection: setTextDirection(appLanguage),
-
-          textStyle:
-              buttonTextStyle(
-                color: isCustomColor
-                    ? textColor
-                    : AppColors.materialButtonTextSkin(isDark),
-              ).copyWith(
-                fontSize: isRightLang
-                    ? fontSize + 2
-                    : fontSize,
-              ),
-        ),
-      ),
+  Widget buttonContent = Container(
+    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+    height: buttonHeight ?? BUTTON_HEIGHT,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(8.0),
+      color: isCustomColor
+          ? buttonColor
+          : isDisable
+          ? AppColors.disableMaterialButtonSkin(isDark)
+          : AppColors.materialButtonSkin(isDark),
     ),
+    child: Center(
+      child: customWidget ??
+          appText(
+            text: text,
+            textDirection: setTextDirection(appLanguage),
+            textStyle: buttonTextStyle(
+              color: isCustomColor
+                  ? textColor
+                  : AppColors.materialButtonTextSkin(isDark),
+            ).copyWith(
+              fontSize: appLanguage == URDU_LANGUAGE
+                  ? fontSize + 2
+                  : fontSize,
+            ),
+          ),
+    ),
+  );
+
+  return GestureDetector(
+    onTap:  onTap,
+    child: isFullWidth
+        ? buttonContent // Full width by default if parent allows it
+        : IntrinsicWidth(child: buttonContent), // Shrink to fit content
   );
 }
 

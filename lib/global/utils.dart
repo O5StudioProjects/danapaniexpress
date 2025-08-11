@@ -30,6 +30,11 @@ Size get size {
   return getSize;
 }
 
+String get appCurrency {
+  var currency = EnvStrings.appCurrency;
+  return currency;
+}
+
 String formatDateTime(String rawDateTime) {
   try {
     final parsedDate = DateTime.parse(rawDateTime);

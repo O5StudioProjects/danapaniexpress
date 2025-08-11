@@ -12,12 +12,23 @@ class OrdersRepository extends OrdersDatasource {
     return await getOrdersByUserIdApi(userId, page: page, limit: limit);
   }
 
+  /// GET TOTAL NUMBER OF ORDERS BY USER ID AND STATUS (without pagination)
+  Future<int> getTotalOrdersCountByUserIdAndStatus(
+      String userId,
+      String orderStatus,
+      ) {
+    return getTotalOrdersCountByUserIdAndStatusApi(
+      userId,
+      orderStatus,
+    );
+  }
+
   /// GET ORDERS BY USER ID AND STATUS (with pagination)
   Future<List<OrderModel>> getOrdersByUserIdAndStatus(
       String userId,
       String orderStatus, {
-        int page = 1,
-        int limit = 10,
+        int? page = 1,
+        int? limit = 10,
       }) {
     return getOrdersByUserIdAndStatusApi(
       userId,

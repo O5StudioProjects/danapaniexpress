@@ -48,9 +48,9 @@ class CustomerServiceMobile extends StatelessWidget {
                       children: [
 
                         if(auth.currentUser.value?.userId != null)
-                        Expanded(child: appMaterialButton(text: AppLanguage.customOrdersStr(appLanguage), onTap: () async => nav.launchWhatsApp(phone: ContactUs.CustomOrders))),
+                        Expanded(child: appMaterialButton(text: AppLanguage.customOrdersStr(appLanguage), onTap: () async => nav.launchWhatsApp(phone: EnvStrings.contactUsCustomOrders))),
                         if(auth.currentUser.value?.userId != null) setWidth(8.0),
-                        Expanded(child: appMaterialButton(text: AppLanguage.customerServiceStr(appLanguage), onTap: () async => nav.launchWhatsApp(phone: ContactUs.CustomerService))),
+                        Expanded(child: appMaterialButton(text: AppLanguage.customerServiceStr(appLanguage), onTap: () async => nav.launchWhatsApp(phone: EnvStrings.contactUsCustomerService))),
 
                       ],
                     ),
@@ -94,11 +94,11 @@ Widget bodyItemSection({heading, detail}) {
     child: SizedBox(
       width: size.width,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: isRightLang ? CrossAxisAlignment.end :  CrossAxisAlignment.start,
         children: [
-          appText(text: heading, textStyle: headingTextStyle()),
+          appText(text: heading, textDirection: setTextDirection(appLanguage), textAlign: setTextAlignment(appLanguage), textStyle: headingTextStyle()),
           setHeight(MAIN_HORIZONTAL_PADDING),
-          appText(text: detail, textStyle: bodyTextStyle()),
+          appText(text: detail, textDirection: setTextDirection(appLanguage), textAlign: setTextAlignment(appLanguage), textStyle: bodyTextStyle()),
           setHeight(MAIN_HORIZONTAL_PADDING),
         ],
       ),
@@ -110,7 +110,7 @@ Widget marqueeSection(){
   return Padding(
     padding: const EdgeInsets.only(bottom: MAIN_HORIZONTAL_PADDING, top: MAIN_HORIZONTAL_PADDING),
     child: GestureDetector(
-      onTap: ()=> Get.find<NavigationController>().launchWhatsApp(phone: ContactUs.CustomerService),
+      onTap: ()=> Get.find<NavigationController>().launchWhatsApp(phone: EnvStrings.contactUsCustomerService),
       child: SizedBox(
         width: size.width,
         child: isRightLang
@@ -123,8 +123,8 @@ Widget marqueeSection(){
             ),
             detail: setMultiLanguageText(
               language: appLanguage,
-              urdu: ' ہم صبح 7:00 بجے سے رات 9:00 بجے تک آپ کی مدد کے لیے دستیاب ہیں۔ ',
-              english: ' We are available to assist you from 7:00 AM to 9:00 PM. ',
+              urdu: AppLanguage.customerServiceMarqueeNotificationStr(appLanguage),
+              english: AppLanguage.customerServiceMarqueeNotificationStr(appLanguage),
             ),
         )
             : _buildMarqueeRow(
@@ -136,16 +136,14 @@ Widget marqueeSection(){
             ),
             detail: setMultiLanguageText(
               language: appLanguage,
-              urdu: ' ہم صبح 7:00 بجے سے رات 9:00 بجے تک آپ کی مدد کے لیے دستیاب ہیں۔ ',
-              english: ' We are available to assist you from 7:00 AM to 9:00 PM. ',
+              urdu: AppLanguage.customerServiceMarqueeNotificationStr(appLanguage),
+              english: AppLanguage.customerServiceMarqueeNotificationStr(appLanguage),
             ),
         ),
       ),
     ),
   );
 }
-
-
 
 Widget _buildMarqueeRow({
   required bool isUrdu,

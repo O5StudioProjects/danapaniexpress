@@ -3,6 +3,7 @@ import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/core/data_model_imports.dart';
 import 'package:danapaniexpress/data/repositories/home_repository/home_repository.dart';
+import 'package:danapaniexpress/domain/controllers/orders_controller/orders_controller.dart';
 import 'package:danapaniexpress/ui/app_common/dialogs/events_popup.dart';
 
 
@@ -12,6 +13,7 @@ class HomeController extends GetxController {
   final products = Get.put(ProductsController(), permanent: true);
   final cart = Get.put(CartController(), permanent: true);
   final favorites = Get.put(FavoritesController(), permanent: true);
+  final orders = Get.put(OrdersController(), permanent: true);
   final navigation = Get.find<NavigationController>();
   final pendingFeedback = Get.find<PendingFeedbackController>();
   //final cart = Get.find<CartController>();
@@ -64,8 +66,9 @@ class HomeController extends GetxController {
     fetchInitialFlashSaleProducts();
     fetchInitialFavoriteProducts();
     fetchInitialCartProducts();
-    fetchEventsPopup();
     fetchPendingFeedbackOrders();
+    fetchOrdersCount();
+    fetchEventsPopup();
   }
 
   ///HOME SCREEN Methods
@@ -244,6 +247,9 @@ class HomeController extends GetxController {
 
   Future<void> fetchPendingFeedbackOrders() async {
     pendingFeedback.fetchCompletedOrdersWithoutFeedback();
+  }
+  Future<void> fetchOrdersCount() async {
+    orders.getActiveOrdersCount();
   }
 
   /// ON TAP METHODS ON HOME SCREEN

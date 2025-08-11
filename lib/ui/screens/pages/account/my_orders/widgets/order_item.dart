@@ -11,13 +11,8 @@ class OrderItemUI extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final orders = Get.find<OrdersController>();
     final nav = Get.find<NavigationController>();
     return Obx((){
-      var activeOrders = orders.screenIndex.value == 0;
-      var confirmedOrders = orders.screenIndex.value == 1;
-      var completedOrders = orders.screenIndex.value == 2;
-      var cancelledOrders = orders.screenIndex.value == 3;
       final statusTextColor = _getStatusTextColor(data.orderStatus!);
       final statusBgColor = _getStatusBgColor(data.orderStatus!);
       return GestureDetector(
@@ -43,115 +38,24 @@ class OrderItemUI extends StatelessWidget {
                       ),
                     ],
                   ),
-                  child: Row(
+                  child: isRightLang
+                      ? Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(
-                        width: 30,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Container(
-                                padding: EdgeInsets.symmetric(horizontal: 2.0,vertical: 2.0),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(100),
-                                 //   color: AppColors.materialButtonSkin(isDark)
-                                ),
-                                child: Center(child: appText(text: index.toString(), textStyle: itemTextStyle().copyWith(
-                                    fontSize: NORMAL_TEXT_FONT_SIZE-2
-                                ))))
-                          ],
-                        ),
+                      Expanded(
+                        child: ShowOrderData(data: data),
                       ),
                       setWidth(8.0),
+                      ShowIndexNumber(index: index),
+                    ],
+                  )
+                      : Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      ShowIndexNumber(index: index),
+                      setWidth(8.0),
                       Expanded(
-                        child: Column(
-                          crossAxisAlignment: isRightLang ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-                          children: [
-                            orderDetailItemsUI(
-                              titleText: '${AppLanguage.orderNumberStr(appLanguage)} ',
-                              titleTextStyle: secondaryTextStyle().copyWith(
-                                color: AppColors.primaryTextColorSkin(isDark),
-                                fontSize: NORMAL_TEXT_FONT_SIZE,
-                                fontWeight: FontWeight.w800
-                              ),
-                              detailText: data.orderNumber?.split('_').last ?? '',
-                              detailTextStyle: bodyTextStyle().copyWith(
-                                fontSize: NORMAL_TEXT_FONT_SIZE
-                              )
-                            ),
-                            setHeight(4.0),
-                            if(activeOrders)...[
-                              orderDetailItemsUI(
-                                  titleText: AppLanguage.orderPlacedOnStr(appLanguage),
-                                  titleTextStyle: secondaryTextStyle().copyWith(
-                                      color: AppColors.primaryTextColorSkin(isDark),
-                                      fontSize: NORMAL_TEXT_FONT_SIZE,
-                                      fontWeight: FontWeight.w800
-                                  ),
-                                  detailText: data.orderPlacedDateTime == null || data.orderPlacedDateTime!.isEmpty ? '' : formatDateTime(data.orderPlacedDateTime.toString()),
-                                  detailTextStyle: bodyTextStyle().copyWith(
-                                      fontSize: NORMAL_TEXT_FONT_SIZE
-                                  )
-                              ),
-
-                            ] else if(confirmedOrders)...[
-                              orderDetailItemsUI(
-                                  titleText: AppLanguage.orderConfirmedOnStr(appLanguage),
-                                  titleTextStyle: secondaryTextStyle().copyWith(
-                                      color: AppColors.primaryTextColorSkin(isDark),
-                                      fontSize: NORMAL_TEXT_FONT_SIZE,
-                                      fontWeight: FontWeight.w800
-                                  ),
-                                  detailText: data.orderConfirmedDateTime == null || data.orderConfirmedDateTime!.isEmpty ? '' : formatDateTime(data.orderConfirmedDateTime.toString()),
-                                  detailTextStyle: bodyTextStyle().copyWith(
-                                      fontSize: NORMAL_TEXT_FONT_SIZE
-                                  )
-                              ),
-
-                            ] else if(completedOrders)...[
-                              orderDetailItemsUI(
-                                  titleText: AppLanguage.orderCompletedOnStr(appLanguage),
-                                  titleTextStyle: secondaryTextStyle().copyWith(
-                                      color: AppColors.primaryTextColorSkin(isDark),
-                                      fontSize: NORMAL_TEXT_FONT_SIZE,
-                                      fontWeight: FontWeight.w800
-                                  ),
-                                  detailText: data.orderCompletedDateTime == null || data.orderCompletedDateTime!.isEmpty ? '' : formatDateTime(data.orderCompletedDateTime.toString()),
-                                  detailTextStyle: bodyTextStyle().copyWith(
-                                      fontSize: NORMAL_TEXT_FONT_SIZE
-                                  )
-                              ),
-                            ] else if(cancelledOrders)...[
-                              orderDetailItemsUI(
-                                  titleText: AppLanguage.orderCancelledOnStr(appLanguage),
-                                  titleTextStyle: secondaryTextStyle().copyWith(
-                                      color: AppColors.primaryTextColorSkin(isDark),
-                                      fontSize: NORMAL_TEXT_FONT_SIZE,
-                                      fontWeight: FontWeight.w800
-                                  ),
-                                  detailText: data.orderCancelledDateTime == null || data.orderCancelledDateTime!.isEmpty ? '' : formatDateTime(data.orderCancelledDateTime.toString()),
-                                  detailTextStyle: bodyTextStyle().copyWith(
-                                      fontSize: NORMAL_TEXT_FONT_SIZE
-                                  )
-                              ),
-                            ],
-                            setHeight(4.0),
-                            orderDetailItemsUI(
-                                titleText: AppLanguage.orderAmountStr(appLanguage),
-                                titleTextStyle: secondaryTextStyle().copyWith(
-                                    color: AppColors.primaryTextColorSkin(isDark),
-                                    fontSize: NORMAL_TEXT_FONT_SIZE,
-                                    fontWeight: FontWeight.w800
-                                ),
-                                detailText: 'Rs. ${data.totalSellingAmount! + data.deliveryCharges!}',
-                                detailTextStyle: bodyTextStyle().copyWith(
-                                    fontSize: NORMAL_TEXT_FONT_SIZE
-                                )
-                            ),
-
-                          ],
-                        ),
+                        child: ShowOrderData(data: data),
                       )
                     ],
                   ),
@@ -214,3 +118,137 @@ Color _getStatusBgColor(String status) {
       return EnvColors.primaryColorLight;
   }
 }
+
+class ShowIndexNumber extends StatelessWidget {
+  final int index;
+  const ShowIndexNumber({super.key, required this.index});
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx((){
+      return SizedBox(
+        width: 30,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+                padding: EdgeInsets.symmetric(horizontal: 2.0,vertical: 2.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  //   color: AppColors.materialButtonSkin(isDark)
+                ),
+                child: Center(child: appText(text: index.toString(), textStyle: itemTextStyle().copyWith(
+                    fontSize: NORMAL_TEXT_FONT_SIZE-2
+                ))))
+          ],
+        ),
+      );
+    });
+  }
+}
+
+class ShowOrderData extends StatelessWidget {
+  final OrderModel data;
+  const ShowOrderData({super.key, required this.data});
+
+  @override
+  Widget build(BuildContext context) {
+    final orders = Get.find<OrdersController>();
+
+    return Obx((){
+      var activeOrders = orders.screenIndex.value == 0;
+      var confirmedOrders = orders.screenIndex.value == 1;
+      var completedOrders = orders.screenIndex.value == 2;
+      var cancelledOrders = orders.screenIndex.value == 3;
+      return Column(
+        crossAxisAlignment: isRightLang ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        children: [
+          orderDetailItemsUI(
+              titleText: '${AppLanguage.orderNumberStr(appLanguage)} ',
+              titleTextStyle: secondaryTextStyle().copyWith(
+                  color: AppColors.primaryTextColorSkin(isDark),
+                  fontSize: NORMAL_TEXT_FONT_SIZE,
+                  fontWeight: FontWeight.w800
+              ),
+              detailText: data.orderNumber?.split('_').last ?? '',
+              detailTextStyle: bodyTextStyle().copyWith(
+                  fontSize: NORMAL_TEXT_FONT_SIZE
+              )
+          ),
+          setHeight(4.0),
+          if(activeOrders)...[
+            orderDetailItemsUI(
+                titleText: AppLanguage.orderPlacedOnStr(appLanguage),
+                titleTextStyle: secondaryTextStyle().copyWith(
+                    color: AppColors.primaryTextColorSkin(isDark),
+                    fontSize: NORMAL_TEXT_FONT_SIZE,
+                    fontWeight: FontWeight.w800
+                ),
+                isDateTime: true,
+                detailText: data.orderPlacedDateTime == null || data.orderPlacedDateTime!.isEmpty ? '' : formatDateTime(data.orderPlacedDateTime.toString()),
+                detailTextStyle: bodyTextStyle().copyWith(
+                    fontSize: NORMAL_TEXT_FONT_SIZE
+                )
+            ),
+
+          ] else if(confirmedOrders)...[
+            orderDetailItemsUI(
+                titleText: AppLanguage.orderConfirmedOnStr(appLanguage),
+                titleTextStyle: secondaryTextStyle().copyWith(
+                    color: AppColors.primaryTextColorSkin(isDark),
+                    fontSize: NORMAL_TEXT_FONT_SIZE,
+                    fontWeight: FontWeight.w800
+                ),
+                detailText: data.orderConfirmedDateTime == null || data.orderConfirmedDateTime!.isEmpty ? '' : formatDateTime(data.orderConfirmedDateTime.toString()),
+                detailTextStyle: bodyTextStyle().copyWith(
+                    fontSize: NORMAL_TEXT_FONT_SIZE
+                )
+            ),
+
+          ] else if(completedOrders)...[
+            orderDetailItemsUI(
+                titleText: AppLanguage.orderCompletedOnStr(appLanguage),
+                titleTextStyle: secondaryTextStyle().copyWith(
+                    color: AppColors.primaryTextColorSkin(isDark),
+                    fontSize: NORMAL_TEXT_FONT_SIZE,
+                    fontWeight: FontWeight.w800
+                ),
+                detailText: data.orderCompletedDateTime == null || data.orderCompletedDateTime!.isEmpty ? '' : formatDateTime(data.orderCompletedDateTime.toString()),
+                detailTextStyle: bodyTextStyle().copyWith(
+                    fontSize: NORMAL_TEXT_FONT_SIZE
+                )
+            ),
+          ] else if(cancelledOrders)...[
+            orderDetailItemsUI(
+                titleText: AppLanguage.orderCancelledOnStr(appLanguage),
+                titleTextStyle: secondaryTextStyle().copyWith(
+                    color: AppColors.primaryTextColorSkin(isDark),
+                    fontSize: NORMAL_TEXT_FONT_SIZE,
+                    fontWeight: FontWeight.w800
+                ),
+                detailText: data.orderCancelledDateTime == null || data.orderCancelledDateTime!.isEmpty ? '' : formatDateTime(data.orderCancelledDateTime.toString()),
+                detailTextStyle: bodyTextStyle().copyWith(
+                    fontSize: NORMAL_TEXT_FONT_SIZE
+                )
+            ),
+          ],
+          setHeight(4.0),
+          orderDetailItemsUI(
+              titleText: AppLanguage.orderAmountStr(appLanguage),
+              titleTextStyle: secondaryTextStyle().copyWith(
+                  color: AppColors.primaryTextColorSkin(isDark),
+                  fontSize: NORMAL_TEXT_FONT_SIZE,
+                  fontWeight: FontWeight.w800
+              ),
+              detailText: '$appCurrency ${data.totalSellingAmount! + data.deliveryCharges!}',
+              detailTextStyle: bodyTextStyle().copyWith(
+                  fontSize: NORMAL_TEXT_FONT_SIZE
+              )
+          ),
+
+        ],
+      );
+    });
+  }
+}
+

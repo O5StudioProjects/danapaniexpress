@@ -25,12 +25,36 @@ class OrdersDatasource extends BaseRepository{
     return ordersList.map((e) => OrderModel.fromJson(e)).toList();
   }
 
+  /// GET TOTAL NUMBER OF ORDERS BY USER ID AND STATUS (without pagination)
+  Future<int> getTotalOrdersCountByUserIdAndStatusApi(
+      String userId,
+      String orderStatus,
+      ) async {
+    final uri = Uri.parse(
+      '${APiEndpoints.getOrdersByUserIdAndStatus}'
+          '?user_id=$userId'
+          '&order_status=$orderStatus'
+          '&limit=all', // no pagination, get all orders
+    );
+
+    final response = await http.get(
+      uri,
+      headers: apiHeaders,
+    );
+
+    final decoded = handleApiResponseAsMap(response); // Map<String, dynamic>
+
+    // Return the total_orders count or 0 if missing
+    return decoded['total_orders'] ?? 0;
+  }
+
+
   /// GET ORDERS BY USER ID AND STATUS (with pagination)
   Future<List<OrderModel>> getOrdersByUserIdAndStatusApi(
       String userId,
       String orderStatus, {
-        int page = 1,
-        int limit = 10,
+        int? page = 1,
+        int? limit = 10,
       }) async {
     final uri = Uri.parse(
       '${APiEndpoints.getOrdersByUserIdAndStatus}'
