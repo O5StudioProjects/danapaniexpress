@@ -33,11 +33,29 @@ Widget listItemIcon({
             ),
           ),
           setWidth(8.0),
-          setIcon(
-            iconType: iconType,
-            iconName: leadingIcon,
-            isPngColor: isPngColor,
-            color: AppColors.backgroundColorInverseSkin(isDark),
+          SizedBox(
+            width: 30.0,
+            height: 30.0,
+            child: Stack(
+              children: [
+                Positioned(
+                  top:0,
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: setIcon(
+                    iconType: iconType,
+                    iconName: leadingIcon,
+                    isPngColor: isPngColor,
+                    color: AppColors.backgroundColorInverseSkin(isDark),
+                  ),
+                ),
+                if(isActiveNotification)
+                  Positioned(
+                      top: 0,
+                      child: appActiveNotification())
+              ],
+            ),
           ),
           // appSvgIcon(icon: leadingIcon, width: 24.0, color: AppColors.blackInLightWhiteInDarkSkin(isDark)),
         ],
@@ -106,7 +124,7 @@ Widget listItemInfoIcon({
       height: LIST_ITEM_HEIGHT,
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       decoration: BoxDecoration(color: AppColors.cardColorSkin(isDark)),
-      child: appLanguage == ENGLISH_LANGUAGE
+      child: appLanguage == !isRightLang
           ? Row(
         children: [
           setIcon(
@@ -270,7 +288,7 @@ Widget listItemInfo({
       height: LIST_ITEM_HEIGHT,
       padding: const EdgeInsets.symmetric(horizontal: MAIN_HORIZONTAL_PADDING),
       decoration: BoxDecoration(color: AppColors.cardColorSkin(isDark)),
-      child: appLanguage == ENGLISH_LANGUAGE
+      child: appLanguage == !isRightLang
           ? Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [

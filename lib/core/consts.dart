@@ -19,7 +19,7 @@ const countryCode = 'countryCode';
 const FIRST_TIME_SCREEN_OPENED = 'Opened';
 const FIRST_TIME_SCREEN_NOT_OPENED = 'Not Opened';
 
-
+const ALL_ID = 'All';
 
 
 
@@ -86,7 +86,6 @@ class OrdersFilter {
 
 class ServiceAreas {
   static const String PUNJAB = 'Punjab';
-
   static const String SAHIWAL = 'Sahiwal';
   static const String OKARA = 'Okara';
   static const String GUJRAT = 'Gujrat';
@@ -94,25 +93,16 @@ class ServiceAreas {
 }
 class PaymentMethods {
   static const String COD = 'Cash on delivery';
+}
+
+class Currencies {
+  static const String PKR = 'Rs.';
+  static const String SAR = 'SAR';
+  static const String AED = 'AED';
+  static const String USD = 'USD';
 
 }
 
-class ContactUs {
-  static const String Email = 'support@danapaniexpress.com';
-  static const String Phone = '+923425956300';
-  static const String Whatsapp = '+923425956300';
-  static const String CustomerService = '+923425956300';
-  static const String CustomOrders = '+923425956300';
-}
-
-class FollowUs {
-
-  static const Instagram = 'https://instagram.com/zainshakeelofficial';
-  static const Website = 'https://twitter.com/zainshakeel300';
-  static const Facebook = 'zainshakeelofficial';
-  static const Whatsapp = '+923425956300';
-
-}
 
 class EmailSubject{
   static String emailSubject = 'From ${EnvStrings.appNameEng} App';

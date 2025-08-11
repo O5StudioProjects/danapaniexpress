@@ -69,7 +69,7 @@ class MyOrdersMobile extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 0),
                   child: Center(
                     child: appText(
-                      text: 'No more orders',
+                      text: AppLanguage.noMoreOrdersStr(appLanguage),
                       textStyle: itemTextStyle(),
                     ),
                   ),
@@ -216,9 +216,7 @@ class _OrdersListForTabState extends State<OrdersListForTab> {
         return EmptyScreen(
           icon: tabModel.icon,
           iconType: IconType.PNG,
-          text: isRightLang
-              ? '${tabModel.titleUrdu} لسٹ خالی ہے'
-              : '${tabModel.titleEng} list is empty',
+          text: AppLanguage.noOrdersStr(appLanguage).toString(),
           color: AppColors.materialButtonSkin(isDark),
         );
       }

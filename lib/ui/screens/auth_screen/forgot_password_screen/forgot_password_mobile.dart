@@ -34,12 +34,14 @@ class ForgotPasswordMobile extends StatelessWidget {
                 setHeight(20.0),
 
                 AppTextFormField(
+                  textEditingController: TextEditingController(),
                   prefixIcon: Icons.person,
                   hintText: AppLanguage.emailPhoneStr(appLanguage),
                 ),
                 setHeight(20.0),
 
                 AppTextFormField(
+                  textEditingController: TextEditingController(),
                   prefixIcon: Icons.lock_outline,
                   hintText: AppLanguage.newPasswordStr(appLanguage),
                   isPassword: true,
@@ -47,6 +49,7 @@ class ForgotPasswordMobile extends StatelessWidget {
                 setHeight(20.0),
 
                 AppTextFormField(
+                  textEditingController: TextEditingController(),
                   prefixIcon: Icons.lock_outline,
                   hintText: AppLanguage.reEnterPasswordStr(appLanguage),
                   isPassword: true,

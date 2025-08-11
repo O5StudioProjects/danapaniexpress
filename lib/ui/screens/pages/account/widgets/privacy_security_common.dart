@@ -24,9 +24,11 @@ Widget sectionTitle(String text) {
 
 Widget sectionBody(String text) {
   return Directionality(
-    textDirection: isRightLang ? TextDirection.rtl : TextDirection.ltr,
+    textDirection: setTextDirection(appLanguage),
     child: Text(
       text,
+      textDirection: setTextDirection(appLanguage),
+      textAlign: setTextAlignment(appLanguage),
       style: bodyTextStyle(),
     ),
   );

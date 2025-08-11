@@ -20,37 +20,47 @@ class MainDashboardScreenMobile extends StatelessWidget {
         CategoriesScreen(),
         FavoritesScreen(),
         CartScreen(),
-        AccountScreen()
+        AccountScreen(),
       ];
 
       return Scaffold(
         backgroundColor: AppColors.backgroundColorSkin(isDark),
         body: SafeArea(
-            top: false,
-            child: Obx(
-              ()=> Column(
-                children: [
-                  Expanded(child:
-                  Stack(
-                  children: [
-                    screenList.elementAt(dashboardController.navIndex.value),
-                    if(dashboardController.floatingIcon.value)
-                    AppFloatingIcon()
-                ],
-              )
+          top: false,
+          child: Obx(
+            () => Column(
+              children: [
+                Expanded(
+                  child: Stack(
+                    children: [
+                      screenList.elementAt(dashboardController.navIndex.value),
+                      if (dashboardController.floatingIcon.value)
+                        AppFloatingIcon(),
+                    ],
                   ),
-
-                  Container(
-                    width: size.width,
-                    height: BOTTOM_NAV_BAR_SIZE,
-                    decoration: BoxDecoration(
-                      color: AppColors.backgroundColorSkin(isDark),
-                    ),
-                    child: appBottomNavBar(),
+                ),
+                if(!internet)
+                Container(
+                  width: size.width,
+                  height: BOTTOM_NAV_BAR_SIZE/2,
+                  decoration: BoxDecoration(
+                    color: EnvColors.specialFestiveColorDark,
                   ),
-                ],
-              ),
-            )
+                  child: Center(
+                    child: appText(text: AppLanguage.noInternetConnectionStr(appLanguage), textStyle: itemTextStyle().copyWith(color: whiteColor)),
+                  ),
+                ),
+                Container(
+                  width: size.width,
+                  height: BOTTOM_NAV_BAR_SIZE,
+                  decoration: BoxDecoration(
+                    color: AppColors.backgroundColorSkin(isDark),
+                  ),
+                  child: appBottomNavBar(),
+                ),
+              ],
+            ),
+          ),
         ),
       );
     });

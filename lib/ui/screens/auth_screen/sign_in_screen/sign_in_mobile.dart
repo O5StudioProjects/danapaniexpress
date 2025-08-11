@@ -5,12 +5,11 @@ import 'package:danapaniexpress/core/controllers_import.dart';
 class SignInMobile extends StatelessWidget {
   SignInMobile({super.key});
 
-  final _formKey = GlobalKey<FormState>(); // 🔑 Form key
+  final _formKey = GlobalKey<FormState>(); //  Form key
 
   @override
   Widget build(BuildContext context) {
     var navigation = Get.find<NavigationController>();
-    // var textController = Get.find<TextControllers>();
     var auth = Get.find<AuthController>();
 
     return Container(
@@ -93,7 +92,7 @@ class SignInMobile extends StatelessWidget {
 
                           setHeight(10.0),
                           Align(
-                            alignment: appLanguage == ENGLISH_LANGUAGE
+                            alignment: appLanguage == !isRightLang
                                 ? Alignment.centerRight
                                 : Alignment.centerLeft,
                             child: GestureDetector(

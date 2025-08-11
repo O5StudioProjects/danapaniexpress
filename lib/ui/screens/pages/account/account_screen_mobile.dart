@@ -70,7 +70,7 @@ class AccountScreenMobile extends StatelessWidget {
                               : CrossAxisAlignment.start,
                           children: [
                             HomeHeadings(
-                              mainHeadingText: 'Orders Feedback',
+                              mainHeadingText: AppLanguage.ordersFeedbackStr(appLanguage).toString(),
                               isSeeAll: false,
                               isTrailingText: false,
                             ),
@@ -84,7 +84,7 @@ class AccountScreenMobile extends StatelessWidget {
                               child: listItemIcon(
                                 iconType: IconType.ICON,
                                 leadingIcon: Icons.feedback_rounded,
-                                itemTitle: 'Orders Feedback',
+                                itemTitle: AppLanguage.ordersFeedbackStr(appLanguage).toString(),
                                 trailingIcon: icArrow,
                                 isActiveNotification: pendingFeedback.completedOrdersWithoutFeedback.isNotEmpty ? true : false,
                                 onItemClick: ()=> navigate.gotoPendingFeedbackScreen(),
@@ -239,7 +239,7 @@ class AccountScreenMobile extends StatelessWidget {
                           leadingIcon: icWhatsapp,
                           itemTitle: AppLanguage.whatsappStr(appLanguage).toString(),
                           trailingIcon: icArrow,
-                          onItemClick: () async => await navigate.launchWhatsApp(phone: ContactUs.Whatsapp),
+                          onItemClick: () async => await navigate.launchWhatsApp(phone: EnvStrings.contactUsWhatsapp),
                         ),
                       ),
 
@@ -253,7 +253,7 @@ class AccountScreenMobile extends StatelessWidget {
                           leadingIcon: Icons.email_rounded,
                           itemTitle: AppLanguage.emailStr(appLanguage).toString(),
                           trailingIcon: icArrow,
-                          onItemClick: () async => await navigate.launchEmail(email: ContactUs.Email),
+                          onItemClick: () async => await navigate.launchEmail(email: EnvStrings.contactUsEmail),
                         ),
                       ),
 
@@ -280,7 +280,7 @@ class AccountScreenMobile extends StatelessWidget {
                           leadingIcon: icInstagram,
                           itemTitle: AppLanguage.instagramStr(appLanguage).toString(),
                           trailingIcon: icArrow,
-                          onItemClick: ()=> navigate.launchInstagram(url: FollowUs.Instagram),
+                          onItemClick: ()=> navigate.launchInstagram(url: EnvStrings.followUsInstagram),
                         ),
                       ),
 
@@ -294,7 +294,7 @@ class AccountScreenMobile extends StatelessWidget {
                           leadingIcon: icFacebook,
                           itemTitle: AppLanguage.facebookStr(appLanguage).toString(),
                           trailingIcon: icArrow,
-                          onItemClick: () async => await navigate.launchFacebook(pageUserName: FollowUs.Facebook),
+                          onItemClick: () async => await navigate.launchFacebook(pageUserName: EnvStrings.followUsFacebook),
                         ),
                       ),
 

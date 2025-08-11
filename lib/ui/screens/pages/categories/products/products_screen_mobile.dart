@@ -22,9 +22,9 @@ class ProductsScreenMobile extends StatelessWidget {
       final List<SubCategoriesModel> subCategoriesList = [
         SubCategoriesModel(
           // Dummy "All" item
-          subCategoryId: 'All',
-          subCategoryNameEnglish: 'All',
-          subCategoryNameUrdu: 'تمام',
+          subCategoryId: ALL_ID,
+          subCategoryNameEnglish: AppLanguage.allStr(appLanguage),
+          subCategoryNameUrdu: AppLanguage.allStr(appLanguage),
         ),
         ...?categoriesData.subCategories, // Spread real items
       ];
@@ -164,7 +164,7 @@ class ProductsScreenMobile extends StatelessWidget {
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 0),
                   child: appText(
-                    text: 'No more products',
+                    text: AppLanguage.noMoreProductsStr(appLanguage),
                     textStyle: itemTextStyle(),
                   ),
                 );

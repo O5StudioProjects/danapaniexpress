@@ -13,7 +13,7 @@ class SearchScreenMobile extends StatelessWidget {
     final search = Get.find<SearchProductsController>();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-     search.clearSearch();
+    search.clearSearch();
     });
     return Obx(() {
       return Container(

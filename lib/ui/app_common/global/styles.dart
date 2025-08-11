@@ -352,7 +352,7 @@ String setAutoFont(text, {englishFont = robotoRegular, urdu = urduRegular}){
 
 
 TextDirection setTextDirection(appLanguage){
-  if(appLanguage == ENGLISH_LANGUAGE){
+  if(appLanguage == !isRightLang){
     return TextDirection.ltr;
   } else {
     return TextDirection.rtl;
@@ -361,7 +361,7 @@ TextDirection setTextDirection(appLanguage){
 }
 
 TextAlign setTextAlignment(appLanguage){
-  if(appLanguage == ENGLISH_LANGUAGE){
+  if(appLanguage == !isRightLang){
     return TextAlign.left;
   } else {
     return TextAlign.right;

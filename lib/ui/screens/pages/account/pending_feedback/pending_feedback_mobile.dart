@@ -18,7 +18,7 @@ class PendingFeedbackMobile extends StatelessWidget {
       color: AppColors.backgroundColorSkin(isDark),
       child: Column(
         children: [
-          appBarCommon(title: 'Pending Feedback', isBackNavigation: true),
+          appBarCommon(title: AppLanguage.ordersFeedbackStr(appLanguage), isBackNavigation: true),
           Expanded(child: PendingFeedbackListSection()),
           ShowBottomMessagesSection()
         ],
@@ -42,7 +42,7 @@ class PendingFeedbackListSection extends StatelessWidget {
         return ErrorScreen();
       }
       if(pendingFeedback.completedOrdersWithoutFeedback.isEmpty){
-        return EmptyScreen(icon: Icons.feedback_rounded, text: 'No Pending Feedback', iconType: IconType.ICON, color: AppColors.materialButtonSkin(isDark),);
+        return EmptyScreen(icon: Icons.feedback_rounded, text: AppLanguage.noPendingOrderFeedbackStr(appLanguage).toString(), iconType: IconType.ICON, color: AppColors.materialButtonSkin(isDark),);
       }
       return ListView.builder(
           padding: EdgeInsets.only(top: MAIN_VERTICAL_PADDING),

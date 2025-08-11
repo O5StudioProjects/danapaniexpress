@@ -58,6 +58,7 @@ class _AppFloatingIconState extends State<AppFloatingIcon> {
           // context.read<HomeBloc>().add(UpdateAvtPosition(newPosition, screenWidth, screenHeight-100.0, avtSize));
         },
         onTap: ()=> Get.find<NavigationController>().gotoCustomerServiceScreen(),
+        onLongPress: ()=> Get.find<NavigationController>().gotoSettingsScreen(),
         child: SizedBox(
             width: avtSize,
             height: avtSize,

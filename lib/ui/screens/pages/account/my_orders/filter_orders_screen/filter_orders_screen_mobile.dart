@@ -169,7 +169,7 @@ class OrdersListSection extends StatelessWidget {
         controller: filter.scrollController,
         itemCount: orderList.length,
         shrinkWrap: true,
-        padding: const EdgeInsets.only(bottom: MAIN_HORIZONTAL_PADDING),
+        padding: const EdgeInsets.only(bottom: MAIN_HORIZONTAL_PADDING, left: MAIN_HORIZONTAL_PADDING, right: MAIN_HORIZONTAL_PADDING),
         physics: const BouncingScrollPhysics(),
         itemBuilder: (context, i) {
           final data = orderList[i];
