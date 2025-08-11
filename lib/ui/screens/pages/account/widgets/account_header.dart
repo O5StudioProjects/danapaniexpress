@@ -123,6 +123,8 @@ class AccountHeaderSmall extends StatelessWidget {
     var auth = Get.find<AuthController>();
     var favorites = Get.find<FavoritesController>();
     var cart = Get.find<CartController>();
+    var orders = Get.find<OrdersController>();
+
     return Obx((){
       var data = auth.currentUser.value;
       return Container(
@@ -190,7 +192,7 @@ class AccountHeaderSmall extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 6),
                             child: appText(text: '-', textStyle: bodyTextStyle().copyWith(color: AppColors.secondaryTextColorSkin(isDark))),
                           ),
-                          appText(text: '${data.userOrdersCount} ', textStyle: itemTextStyle()),
+                          appText(text: '${orders.activeOrdersCount} ', textStyle: itemTextStyle()),
                           appText(text: AppLanguage.ordersStr(appLanguage), textStyle: accountSecondaryTextStyle()),
                         ],
                       )
