@@ -53,6 +53,7 @@ Widget listItemIcon({
                 if(isActiveNotification)
                   Positioned(
                       top: 0,
+                      right: 0,
                       child: appActiveNotification())
               ],
             ),
@@ -82,6 +83,7 @@ Widget listItemIcon({
                 if(isActiveNotification)
                 Positioned(
                     top: 0,
+                    left: 0,
                     child: appActiveNotification())
               ],
             ),
@@ -124,7 +126,7 @@ Widget listItemInfoIcon({
       height: LIST_ITEM_HEIGHT,
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
       decoration: BoxDecoration(color: AppColors.cardColorSkin(isDark)),
-      child: appLanguage == !isRightLang
+      child: !isRightLang
           ? Row(
         children: [
           setIcon(
@@ -288,7 +290,7 @@ Widget listItemInfo({
       height: LIST_ITEM_HEIGHT,
       padding: const EdgeInsets.symmetric(horizontal: MAIN_HORIZONTAL_PADDING),
       decoration: BoxDecoration(color: AppColors.cardColorSkin(isDark)),
-      child: appLanguage == !isRightLang
+      child: !isRightLang
           ? Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [

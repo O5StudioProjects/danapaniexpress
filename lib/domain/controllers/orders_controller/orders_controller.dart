@@ -129,7 +129,7 @@ class OrdersController extends GetxController {
 
 
   // ===== ORDER STATUS LISTS =====
-  final String userId = Get.find<AuthController>().currentUser.value!.userId!;
+  // final String? userId = Get.find<AuthController>().currentUser.value!.userId;
 // Active Orders
   RxList<OrderModel> activeOrders = <OrderModel>[].obs;
   Rx<Status> activeOrdersStatus = Status.IDLE.obs;
@@ -221,7 +221,7 @@ class OrdersController extends GetxController {
       try {
         // Fetch all active orders, without pagination (you can omit page/limit or pass null)
         final orders = await ordersRepo.getTotalOrdersCountByUserIdAndStatus(
-          userId,
+          auth.currentUser.value!.userId!,
           OrderStatus.ACTIVE,
         );
         activeOrdersCount.value = orders;
@@ -249,7 +249,7 @@ class OrdersController extends GetxController {
       setCurrentPage(1);
 
       final fetchedOrders = await ordersRepo.getOrdersByUserIdAndStatus(
-        userId,
+        auth.currentUser.value!.userId!,
         status,
         page: 1,
         limit: orderLimit,
@@ -282,7 +282,7 @@ class OrdersController extends GetxController {
       setCurrentPage(nextPage);
 
       final moreOrders = await ordersRepo.getOrdersByUserIdAndStatus(
-        userId,
+        auth.currentUser.value!.userId!,
         status,
         page: nextPage,
         limit: orderLimit,

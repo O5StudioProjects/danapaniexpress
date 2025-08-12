@@ -8,7 +8,7 @@ String get appLanguage {
 }
 
 bool get isRightLang {
-  if(appLanguage == URDU_LANGUAGE){
+  if(appLanguage == URDU_LANGUAGE || appLanguage == ARABIC_LANGUAGE){
     return true;
   } else {
     return false;

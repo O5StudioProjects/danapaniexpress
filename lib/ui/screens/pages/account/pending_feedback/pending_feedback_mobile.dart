@@ -79,40 +79,62 @@ class PendingFeedbackItem extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Row(
+            isRightLang
+            ? Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _contentText(
+                    orderNumberText: '${AppLanguage.orderNumberStr(appLanguage)} ',
+                    orderNumber: '${data.orderNumber?.split('_').last} ',
+                    contentText: AppLanguage.isCompletedFeedbackPendingStr(appLanguage)
+                ),
+                setWidth(8.0),
+                appText(text: '$index', textStyle: itemTextStyle()),
+              ],
+            )
+            : Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 appText(text: '$index', textStyle: itemTextStyle()),
                 setWidth(8.0),
-                Expanded(
-                    child: Text.rich(
-                        TextSpan(
-                      children: [
-                        TextSpan(
-                          text: 'Order number ',
-                          style: bodyTextStyle()
-                        ),
-                        TextSpan(
-                            text: '${data.orderNumber?.split('_').last} ',
-                          style: itemTextStyle()
-                        ),
-                        TextSpan(
-                            text: 'is completed. feedback is pending please give your valuable feedback.',
-                            style: bodyTextStyle()
-                        ),
-                      ]
-                    ))
+                _contentText(
+                  orderNumberText: '${AppLanguage.orderNumberStr(appLanguage)} ',
+                  orderNumber: '${data.orderNumber?.split('_').last} ',
+                  contentText: AppLanguage.isCompletedFeedbackPendingStr(appLanguage)
                 ),
               ],
             ),
             setHeight(MAIN_HORIZONTAL_PADDING),
-            appMaterialButton(text: 'Give your feedback', onTap: ()=> nav.gotoOrdersFeedbackScreen(orderModel: data))
+            appMaterialButton(text: AppLanguage.giveYourFeedbackStr(appLanguage), onTap: ()=> nav.gotoOrdersFeedbackScreen(orderModel: data))
           ],
         ),
       ),
     );
   }
 }
+
+ _contentText({orderNumberText, orderNumber, contentText }){
+  return Expanded(
+    child: Text.rich(
+        textDirection: setTextDirection(appLanguage),
+        TextSpan(
+            children: [
+              TextSpan(
+                  text: orderNumberText,
+                  style: bodyTextStyle()
+              ),
+              TextSpan(
+                  text: orderNumber,
+                  style: itemTextStyle()
+              ),
+              TextSpan(
+                  text: contentText,
+                  style: bodyTextStyle()
+              ),
+            ]
+        )),
+  );
+ }
 
 class ShowBottomMessagesSection extends StatelessWidget {
   const ShowBottomMessagesSection({super.key});
@@ -131,7 +153,7 @@ class ShowBottomMessagesSection extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.only(bottom: 0),
           child: Center(
-            child: appText(text: 'No more Products', textStyle: itemTextStyle()),
+            child: appText(text: AppLanguage.noMorePendingFeedbacksStr(appLanguage), textStyle: itemTextStyle()),
           ),
         );
       }

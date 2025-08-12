@@ -32,28 +32,55 @@ class OrderFeedbackCompleteMobile extends StatelessWidget {
                     color: AppColors.materialButtonSkin(isDark)
                   ),
                   setHeight(LIST_ITEM_HEIGHT),
-                  appText(
-                    text: 'Thank you for the feedback for',
-                    textStyle: headingTextStyle().copyWith(
-                      color: AppColors.materialButtonSkin(isDark),
-                      fontSize: SECONDARY_HEADING_FONT_SIZE,
-                    ),
+
+                  isRightLang
+                  ? Column(
+                    children: [
+                      appText(
+                          text: '${AppLanguage.orderNumberStr(appLanguage)} ${orderData?.orderNumber?.split('_').last ?? ''}',
+                          textStyle: headingTextStyle().copyWith(
+                            color: AppColors.materialButtonSkin(isDark),
+                            fontSize: HEADING_FONT_SIZE,
+                          ),
+                          textDirection: setTextDirection(appLanguage),
+                          textAlign: setTextAlignment(appLanguage)
+                      ),
+                      appText(
+                        text: AppLanguage.thankYouForTheFeedbackForStr(appLanguage),
+                        textStyle: headingTextStyle().copyWith(
+                          color: AppColors.materialButtonSkin(isDark),
+                          fontSize: SECONDARY_HEADING_FONT_SIZE,
+                        ),
+                      ),
+                    ],
+                  )
+                  : Column(
+                    children: [
+                      appText(
+                        text: AppLanguage.thankYouForTheFeedbackForStr(appLanguage),
+                        textStyle: headingTextStyle().copyWith(
+                          color: AppColors.materialButtonSkin(isDark),
+                          fontSize: SECONDARY_HEADING_FONT_SIZE,
+                        ),
+                      ),
+                      appText(
+                          text: '${AppLanguage.orderNumberStr(appLanguage)} ${orderData?.orderNumber?.split('_').last ?? ''}',
+                          textStyle: headingTextStyle().copyWith(
+                            color: AppColors.materialButtonSkin(isDark),
+                            fontSize: HEADING_FONT_SIZE,
+                          ),
+                          textDirection: setTextDirection(appLanguage),
+                          textAlign: setTextAlignment(appLanguage)
+                      ),
+                    ],
                   ),
-                  appText(
-                    text: '${AppLanguage.orderNumberStr(appLanguage)} ${orderData?.orderNumber?.split('_').last ?? ''}',
-                    textStyle: headingTextStyle().copyWith(
-                      color: AppColors.materialButtonSkin(isDark),
-                      fontSize: HEADING_FONT_SIZE,
-                    ),
-                    textDirection: setTextDirection(appLanguage),
-                    textAlign: setTextAlignment(appLanguage)
-                  ),
+
                   setHeight(MAIN_VERTICAL_PADDING),
                   Text.rich(
                     textAlign: TextAlign.center,
                     TextSpan(
                       text:
-                      'Thank you for sharing your valuable feedback. We truly appreciate it and will work on improving our services to serve you better.\n\n',
+                      AppLanguage.thankYouForSharingYourValuableFeedbackStr(appLanguage),
                       style: secondaryTextStyle(),
                       children: [
                         TextSpan(
@@ -120,7 +147,7 @@ class OrderFeedbackCompleteMobile extends StatelessWidget {
               horizontal: MAIN_HORIZONTAL_PADDING,
               vertical: MAIN_VERTICAL_PADDING,
             ),
-            child: appMaterialButton(text: 'Go back', onTap: () {
+            child: appMaterialButton(text: AppLanguage.goBackStr(appLanguage), onTap: () {
               Get.find<DashBoardController>().navIndex.value = 0;
               Get.back();
             }),

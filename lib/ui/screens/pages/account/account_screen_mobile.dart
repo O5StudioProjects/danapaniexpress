@@ -3,6 +3,8 @@ import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/domain/controllers/account_controller/account_controller.dart';
 import 'package:danapaniexpress/ui/app_common/dialogs/bool_dialog.dart';
 
+import '../../../../domain/controllers/orders_controller/orders_controller.dart';
+
 class AccountScreenMobile extends StatelessWidget {
   const AccountScreenMobile({super.key});
 
@@ -12,6 +14,13 @@ class AccountScreenMobile extends StatelessWidget {
     var navigate = Get.find<NavigationController>();
     var account = Get.find<AccountController>();
     var pendingFeedback = Get.find<PendingFeedbackController>();
+    var orders = Get.find<OrdersController>();
+    var favorites = Get.find<FavoritesController>();
+    var cart = Get.find<CartController>();
+
+    // WidgetsBinding.instance.addPostFrameCallback((callback){
+    //   orders.getActiveOrdersCount();
+    // });
 
     return Obx((){
       var icArrow = isRightLang ? icArrowLeftSmall : icArrowRightSmall;
@@ -76,7 +85,7 @@ class AccountScreenMobile extends StatelessWidget {
                             ),
                             setHeight(MAIN_VERTICAL_PADDING),
 
-                            ///ACCOUNT INFORMATION - (VERTICAL PADDING)
+                            ///ORDERS FEED BACK
                             Padding(
                               padding: const EdgeInsets.only(
                                 top: 0,
@@ -320,10 +329,13 @@ class AccountScreenMobile extends StatelessWidget {
                               onTapConfirm: () async {
                                   Navigator.of(context).pop();
                                 await auth.logoutUser().then((val) {
-                                  Get.find<DashBoardController>()
-                                      .navIndex
-                                      .value =
-                                  0;
+                                  Get.delete<HomeController>(force: true);
+                                  orders.activeOrders.clear();
+                                  orders.confirmedOrders.clear();
+                                  orders.completedOrders.clear();
+                                  orders.cancelledOrders.clear();
+                                  favorites.favoritesList.clear();
+                                  cart.cartProducts.clear();
                                 });
                               },
                             ));

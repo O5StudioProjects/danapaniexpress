@@ -136,6 +136,7 @@ class SharedPrefs {
     prefs.remove(USER_ID);
     await prefs.setString(AUTH_TOKEN, authToken);
     await prefs.setString(USER_ID, userId);
+    print('======================user id $userId');
   }
 
   // static Future<String?> loadUser() async {

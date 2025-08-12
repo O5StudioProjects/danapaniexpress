@@ -81,7 +81,6 @@ class OrdersFilter {
   static const String ORDER_NUMBER = 'Order Number';
   static const String SPECIFIC_DATE = 'Specific Date';
   static const String DATE_RANGE = 'Date Range';
-
 }
 
 class ServiceAreas {

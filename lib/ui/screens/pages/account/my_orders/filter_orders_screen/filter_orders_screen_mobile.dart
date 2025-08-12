@@ -18,7 +18,7 @@ class FilterOrdersScreenMobile extends StatelessWidget {
         color: AppColors.backgroundColorSkin(isDark),
         child: Column(
           children: [
-            appBarCommon(title: 'Search Orders', isBackNavigation: true),
+            appBarCommon(title: AppLanguage.searchOrdersStr(appLanguage), isBackNavigation: true),
             setHeight(MAIN_VERTICAL_PADDING),
             SelectOptionsSection(),
             setHeight(MAIN_HORIZONTAL_PADDING),
@@ -38,7 +38,7 @@ class FilterOrdersScreenMobile extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 0),
                   child: Center(
                     child: appText(
-                      text: 'No more orders',
+                      text: AppLanguage.noMoreOrdersStr(appLanguage),
                       textStyle: itemTextStyle(),
                     ),
                   ),
@@ -75,7 +75,13 @@ class SelectOptionsSection extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
 
           children: [
-            appText(text: 'Select Filter Options', textStyle: itemTextStyle()),
+            SizedBox(
+              width: size.width,
+              child: appText(text: AppLanguage.selectFilterOptionsStr(appLanguage),
+                  textDirection: setTextDirection(appLanguage),
+                  textAlign: setTextAlignment(appLanguage),
+                  textStyle: itemTextStyle()),
+            ),
             setHeight(MAIN_VERTICAL_PADDING),
             Row(
               children: [
@@ -89,7 +95,7 @@ class SelectOptionsSection extends StatelessWidget {
                     children: [
                       appIcon(iconType: IconType.SVG, icon: filterOrder.selectedFilterOption.value == OrdersFilter.SPECIFIC_DATE ? icRadioButtonSelected : icRadioButton, width: 20.0, color: AppColors.materialButtonSkin(isDark)),
                       setWidth(8.0),
-                      appText(text: OrdersFilter.SPECIFIC_DATE,textStyle: itemTextStyle())
+                      appText(text: AppLanguage.specificDateStr(appLanguage), textStyle: itemTextStyle())
                     ],
                   ),
                 ),
@@ -103,7 +109,7 @@ class SelectOptionsSection extends StatelessWidget {
                     children: [
                       appIcon(iconType: IconType.SVG, icon: filterOrder.selectedFilterOption.value == OrdersFilter.DATE_RANGE ? icRadioButtonSelected : icRadioButton, width: 20.0, color: AppColors.materialButtonSkin(isDark)),
                       setWidth(8.0),
-                      appText(text: OrdersFilter.DATE_RANGE,textStyle: itemTextStyle())
+                      appText(text: AppLanguage.dateRangeStr(appLanguage),textStyle: itemTextStyle())
                     ],
                   ),
                 )
@@ -125,7 +131,7 @@ class SelectOptionsSection extends StatelessWidget {
 
             Padding(
               padding: const EdgeInsets.only(top: MAIN_HORIZONTAL_PADDING),
-              child: filterOrder.ordersStatus.value == Status.LOADING ? loadingIndicator() : appMaterialButton(text: 'Search Orders', onTap:()=> filterOrder.onTapSearchButton()),
+              child: filterOrder.ordersStatus.value == Status.LOADING ? loadingIndicator() : appMaterialButton(text: AppLanguage.searchOrdersStr(appLanguage), onTap:()=> filterOrder.onTapSearchButton()),
             )
 
           ],
@@ -151,7 +157,9 @@ class OrdersListSection extends StatelessWidget {
         children: [
           appIcon(iconType: IconType.ANIM, icon: animSearch, width: 150.0),
           setHeight(MAIN_HORIZONTAL_PADDING),
-          appText(text: 'Searching..', textStyle: bodyTextStyle().copyWith(color: AppColors.materialButtonSkin(isDark)))
+          appText(text: AppLanguage.searchingStr(appLanguage), 
+              textDirection: setTextDirection(appLanguage),
+              textStyle: bodyTextStyle().copyWith(color: AppColors.materialButtonSkin(isDark)))
         ],
               );
       }
@@ -160,7 +168,7 @@ class OrdersListSection extends StatelessWidget {
         return EmptyScreen(
           icon: AppAnims.animEmptyBoxSkin(isDark),
           iconType: IconType.ANIM,
-          text: 'Orders Not Found',
+          text: AppLanguage.ordersNotFoundStr(appLanguage).toString(),
           color: AppColors.materialButtonSkin(isDark),
         );
       }
@@ -196,7 +204,7 @@ Widget specificDateSelection(BuildContext context){
         ),
         child: Row(
           children: [
-            Expanded(child: appText(text: filterOrder.selectedDate.value.isNotEmpty ? filterOrder.selectedDate.value : 'Select Date', textStyle: itemTextStyle())),
+            Expanded(child: appText(text: filterOrder.selectedDate.value.isNotEmpty ? filterOrder.selectedDate.value : AppLanguage.selectDateStr(appLanguage), textStyle: itemTextStyle())),
             setWidth(MAIN_HORIZONTAL_PADDING),
             appIcon(iconType: IconType.ICON, icon: Icons.calendar_month_rounded, width: 24.0, color: AppColors.materialButtonSkin(isDark))
           ],
@@ -222,7 +230,7 @@ Widget dateRangeSelection(BuildContext context){
               ),
               child: Row(
                 children: [
-                  Expanded(child: appText(text: filterOrder.startDate.value.isNotEmpty ? filterOrder.startDate.value : 'Start From', textStyle: itemTextStyle())),
+                  Expanded(child: appText(text: filterOrder.startDate.value.isNotEmpty ? filterOrder.startDate.value : AppLanguage.startFromStr(appLanguage), textStyle: itemTextStyle())),
                   setWidth(MAIN_HORIZONTAL_PADDING),
                   appIcon(iconType: IconType.ICON, icon: Icons.calendar_month_rounded, width: 24.0, color: AppColors.materialButtonSkin(isDark))
                 ],
@@ -242,7 +250,7 @@ Widget dateRangeSelection(BuildContext context){
               ),
               child: Row(
                 children: [
-                  Expanded(child: appText(text: filterOrder.endDate.value.isNotEmpty ? filterOrder.endDate.value : 'To End', textStyle: itemTextStyle())),
+                  Expanded(child: appText(text: filterOrder.endDate.value.isNotEmpty ? filterOrder.endDate.value : AppLanguage.toEndStr(appLanguage), textStyle: itemTextStyle())),
                   setWidth(MAIN_HORIZONTAL_PADDING),
                   appIcon(iconType: IconType.ICON, icon: Icons.calendar_month_rounded, width: 24.0, color: AppColors.materialButtonSkin(isDark))
                 ],

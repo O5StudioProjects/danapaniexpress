@@ -41,20 +41,25 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
     if (text.isEmpty) return;
 
     final firstChar = text.codeUnitAt(0);
-    final isUrdu = firstChar >= 0x0600 && firstChar <= 0x06FF;
 
-    if (isUrdu && _textDirection != TextDirection.rtl) {
+    // ✅ Check for Urdu/Arabic script range
+    final isArabicOrUrdu = (firstChar >= 0x0600 && firstChar <= 0x06FF) ||
+        (firstChar >= 0x0750 && firstChar <= 0x077F) ||
+        (firstChar >= 0x08A0 && firstChar <= 0x08FF);
+
+    if (isArabicOrUrdu && _textDirection != TextDirection.rtl) {
       setState(() {
         _textDirection = TextDirection.rtl;
         _textAlign = TextAlign.right;
       });
-    } else if (!isUrdu && _textDirection != TextDirection.ltr) {
+    } else if (!isArabicOrUrdu && _textDirection != TextDirection.ltr) {
       setState(() {
         _textDirection = TextDirection.ltr;
         _textAlign = TextAlign.left;
       });
     }
   }
+
 
   @override
   void initState() {

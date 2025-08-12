@@ -143,20 +143,34 @@ class FilterOrdersController extends GetxController {
 
     if(selectedFilterOption.value == OrdersFilter.SPECIFIC_DATE){
       if(selectedDate.value.isEmpty){
-        showSnackbar(title: 'Select Date', message: 'Select Specific date from calendar.');
+        showSnackbar(
+          isError: true,
+            title: AppLanguage.selectDateStr(appLanguage).toString(),
+            message: AppLanguage.selectSpecificDateFromCalendarStr(appLanguage).toString());
         return;
       }
       fetchInitialOrders(startDate: selectedDate.value, endDate: null, orderNumber: null);
     }
     else if(selectedFilterOption.value == OrdersFilter.DATE_RANGE){
-      if(startDate.value.isEmpty && endDate.value.isEmpty){
-        showSnackbar(title: 'Select Date Range', message: 'Select start date and End date from calendar.');
-        return;
-      }
-      fetchInitialOrders(startDate: startDate.value, endDate: endDate.value, orderNumber: null);
-    } else {
-      showSnackbar(title: 'Select Filter Option', message: 'Select filter option to search orders.');
+      if(startDate.value.isEmpty){
+        showSnackbar(
+            isError: true,
+            title: AppLanguage.selectStartDateStr(appLanguage).toString(),
+            message: AppLanguage.selectStartDateFromCalendarStr(appLanguage).toString());
+      } else if(endDate.value.isEmpty){
+        showSnackbar(
+            isError: true,
+            title: AppLanguage.selectEndDateStr(appLanguage).toString(),
+            message: AppLanguage.selectEndDateFromCalendarStr(appLanguage).toString());
+      } else {
+        fetchInitialOrders(startDate: startDate.value, endDate: endDate.value, orderNumber: null);
 
+      }
+    } else {
+      showSnackbar(
+          isError: true,
+          title: AppLanguage.selectFilterOptionStr(appLanguage).toString(),
+          message: AppLanguage.selectFilterOptionToSearchOrdersStr(appLanguage).toString());
     }
   }
 
