@@ -114,7 +114,10 @@ Widget appCartCount(cartCount){
         color: AppColors.materialButtonSkin(isDark),
         borderRadius: BorderRadius.circular(100.0)
     ),
-    child: Center(child: appText(text: cartCount.toString(), textStyle: itemTextStyle().copyWith(color: AppColors.materialButtonTextSkin(isDark), fontSize: TAGS_FONT_SIZE))),
+    child: Center(child: appText(text: cartCount.toString(), textStyle: itemTextStyle().copyWith(
+        color: AppColors.materialButtonTextSkin(isDark),
+        fontFamily: nunitoSemibold,
+        fontSize: TAGS_FONT_SIZE))),
   );
 }
 

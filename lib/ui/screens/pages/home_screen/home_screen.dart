@@ -6,7 +6,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var homeController = Get.put(HomeController());
     return Scaffold(
       body: SafeArea(
         top: false,

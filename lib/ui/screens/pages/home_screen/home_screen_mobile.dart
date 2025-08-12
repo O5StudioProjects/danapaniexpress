@@ -9,7 +9,6 @@ class HomeScreenMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var home = Get.find<HomeController>();
     // WidgetsBinding.instance.addPostFrameCallback((_) {
     //   if(home.eventsPopupData.value != null){
     //     showCustomDialog(context, AppEventsDialog(data: home.eventsPopupData.value));

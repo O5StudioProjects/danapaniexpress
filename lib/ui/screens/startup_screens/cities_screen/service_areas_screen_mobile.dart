@@ -26,7 +26,7 @@ class ServiceAreasScreenMobile extends StatelessWidget {
                 child: SizedBox(
                   width: size.width,
                   child: Column(
-                    crossAxisAlignment: appLanguage == !isRightLang ? CrossAxisAlignment.start : CrossAxisAlignment.end,
+                    crossAxisAlignment: !isRightLang ? CrossAxisAlignment.start : CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       setHeight(24.0),

@@ -13,7 +13,7 @@ class MainDashboardScreenMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var dashboardController = Get.put(DashBoardController(), permanent: true);
+    var dashboardController = Get.find<DashBoardController>();
     return Obx(() {
       var screenList = [
         HomeScreen(),

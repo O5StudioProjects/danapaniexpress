@@ -23,7 +23,7 @@ class StartupScreenLayoutMobile extends StatelessWidget {
               itemBuilder: (context, i) {
                 final data = startUpData[i];
                 return Column(
-                  crossAxisAlignment: appLanguage == !isRightLang
+                  crossAxisAlignment: !isRightLang
                       ? CrossAxisAlignment.start
                       : CrossAxisAlignment.end,
                   children: [
@@ -54,7 +54,7 @@ class StartupScreenLayoutMobile extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         child: Column(
-                          crossAxisAlignment: appLanguage == !isRightLang
+                          crossAxisAlignment: !isRightLang
                               ? CrossAxisAlignment.start
                               : CrossAxisAlignment.end,
                           children: [

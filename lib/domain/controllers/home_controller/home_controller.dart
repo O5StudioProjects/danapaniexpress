@@ -16,6 +16,7 @@ class HomeController extends GetxController {
   final orders = Get.put(OrdersController(), permanent: true);
   final navigation = Get.find<NavigationController>();
   final pendingFeedback = Get.find<PendingFeedbackController>();
+  final dashboard = Get.find<DashBoardController>();
   //final cart = Get.find<CartController>();
 
   ///HOME SCREEN
@@ -55,6 +56,7 @@ class HomeController extends GetxController {
   }
 
   Future<void> fetchInitialMethods() async {
+    dashboard.navIndex.value = 0;
     fetchCategories();
     fetchAppbarPagerImages();
     fetchMarquee();

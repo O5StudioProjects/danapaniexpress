@@ -22,7 +22,7 @@ class SearchScreenMobile extends StatelessWidget {
         color: AppColors.backgroundColorSkin(isDark),
         child: Column(
           children: [
-            appBarCommon(title: 'Search', isBackNavigation: true),
+            appBarCommon(title: AppLanguage.searchStr(appLanguage), isBackNavigation: true),
             SearchBarSection(),
             Expanded(
               child: ShowListSection(),
@@ -52,7 +52,7 @@ class SearchBarSection extends StatelessWidget {
         child: AppTextFormField(
           textEditingController: search.searchTextController.value,
           prefixIcon: Icons.search,
-          hintText: 'Search products...',
+          hintText: AppLanguage.searchProductsDotsStr(appLanguage),
           onChanged: (value) {
             search.searchQuery.value = value;
             if (value.trim().isEmpty) {
@@ -83,7 +83,7 @@ class ShowListSection extends StatelessWidget {
         return EmptyScreen(
           icon: animSearch,
           iconType: IconType.ANIM,
-          text: 'Search Products',
+          text: AppLanguage.searchProductsStr(appLanguage).toString(),
         );
       }
 
@@ -102,7 +102,7 @@ class ShowListSection extends StatelessWidget {
         return EmptyScreen(
           icon: animSearch,
           iconType: IconType.ANIM,
-          text: 'No such product found',
+          text: AppLanguage.noSuchProductFoundStr(appLanguage).toString(),
         );
       }
 
@@ -145,7 +145,7 @@ class ShowBottomMessagesSection extends StatelessWidget {
         return Padding(
           padding: const EdgeInsets.only(bottom: 0),
           child: Center(
-            child: appText(text: 'No more Products', textStyle: itemTextStyle()),
+            child: appText(text: AppLanguage.noMoreProductsStr(appLanguage), textStyle: itemTextStyle()),
           ),
         );
       }

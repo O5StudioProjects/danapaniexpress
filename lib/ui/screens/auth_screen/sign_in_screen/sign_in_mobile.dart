@@ -92,7 +92,7 @@ class SignInMobile extends StatelessWidget {
 
                           setHeight(10.0),
                           Align(
-                            alignment: appLanguage == !isRightLang
+                            alignment: !isRightLang
                                 ? Alignment.centerRight
                                 : Alignment.centerLeft,
                             child: GestureDetector(

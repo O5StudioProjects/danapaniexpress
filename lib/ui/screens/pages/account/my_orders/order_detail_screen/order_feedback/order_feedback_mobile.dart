@@ -22,7 +22,7 @@ class OrderFeedbackMobile extends StatelessWidget {
         color: AppColors.backgroundColorSkin(isDark),
         child: Column(
           children: [
-            appBarCommon(title: 'Order Feedback', isBackNavigation: true),
+            appBarCommon(title: AppLanguage.orderFeedbackStr(appLanguage), isBackNavigation: true),
             setHeight(MAIN_VERTICAL_PADDING),
             Expanded(
                 child: Padding(
@@ -31,7 +31,7 @@ class OrderFeedbackMobile extends StatelessWidget {
                     physics: BouncingScrollPhysics(),
                     child: Column(
                       children: [
-                        appText(text: 'Tell us about our service?', textStyle: bigBoldHeadingTextStyle().copyWith(fontSize: SECONDARY_HEADING_FONT_SIZE)),
+                        appText(text: AppLanguage.tellUsAboutOurServiceStr(appLanguage), textStyle: bigBoldHeadingTextStyle().copyWith(fontSize: SECONDARY_HEADING_FONT_SIZE)),
                         setHeight(MAIN_VERTICAL_PADDING),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 60),
@@ -60,7 +60,9 @@ class OrderFeedbackMobile extends StatelessWidget {
                         ),
                         setHeight(MAIN_VERTICAL_PADDING),
 
-                        appText(text: 'Rate our rider!', textStyle: bigBoldHeadingTextStyle().copyWith(fontSize: SECONDARY_HEADING_FONT_SIZE)),
+                        appText(text: AppLanguage.rateOurRiderStr(appLanguage), 
+                            textDirection: setTextDirection(appLanguage),
+                            textStyle: bigBoldHeadingTextStyle().copyWith(fontSize: SECONDARY_HEADING_FONT_SIZE)),
                         setHeight(MAIN_HORIZONTAL_PADDING),
                         RatingBar.builder(
                       initialRating: 0,
@@ -80,7 +82,7 @@ class OrderFeedbackMobile extends StatelessWidget {
                     ),
                         setHeight(MAIN_VERTICAL_PADDING),
 
-                        appText(text: 'Overall Experience', textStyle: bigBoldHeadingTextStyle().copyWith(fontSize: SECONDARY_HEADING_FONT_SIZE)),
+                        appText(text: AppLanguage.overallExperienceStr(appLanguage), textStyle: bigBoldHeadingTextStyle().copyWith(fontSize: SECONDARY_HEADING_FONT_SIZE)),
                         setHeight(MAIN_HORIZONTAL_PADDING),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 50),
@@ -120,7 +122,7 @@ class OrderFeedbackMobile extends StatelessWidget {
                         setHeight(MAIN_VERTICAL_PADDING),
                         appDivider(),
                         setHeight(MAIN_VERTICAL_PADDING),
-                        appText(text: 'Please share your valuable feedback about our service, product quality, app experience, rider behavior, or any concerns. Your input helps us improve. Thank you!',
+                        appText(text: AppLanguage.pleaseShareYourValuableFeedbackStr(appLanguage),
                         maxLines: 100,
                             textDirection: setTextDirection(appLanguage),
                             textAlign: setTextAlignment(appLanguage),
@@ -129,15 +131,15 @@ class OrderFeedbackMobile extends StatelessWidget {
                         setHeight(MAIN_HORIZONTAL_PADDING),
                         AppTextFormField(
                           textEditingController: orders.feedbackTextController.value,
-                          hintText: 'Write your valuable feedback here...',
+                          hintText: AppLanguage.writeYourValuableFeedbackHereStr(appLanguage),
                           isDetail: true,
-                          label: 'Feedback',
+                          label: AppLanguage.feedbackStr(appLanguage),
 
                         ),
                         setHeight(MAIN_VERTICAL_PADDING),
                         orders.insertFeedbackStatus.value == Status.LOADING
                         ? loadingIndicator()
-                        : appMaterialButton(text: 'Submit', onTap: () async => orders.onSubmitFeedback()),
+                        : appMaterialButton(text: AppLanguage.submitStr(appLanguage), onTap: () async => orders.onSubmitFeedback()),
                         setHeight(MAIN_VERTICAL_PADDING),
 
                       ],

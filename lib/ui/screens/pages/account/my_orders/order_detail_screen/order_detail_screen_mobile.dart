@@ -20,7 +20,7 @@ class OrderDetailScreenMobile extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            appBarCommon(title: 'Order Detail', isBackNavigation: true),
+            appBarCommon(title: AppLanguage.orderDetailStr(appLanguage), isBackNavigation: true),
             orderData == null || orders.getOrderByNumberStatus.value == Status.LOADING
             ? Expanded(child: loadingIndicator())
             : Expanded(
@@ -36,7 +36,6 @@ class OrderDetailScreenMobile extends StatelessWidget {
                       orderDetailItemsUI(
                         titleText: AppLanguage.orderNumberHashStr(appLanguage),
                         titleTextStyle: headingTextStyle().copyWith(
-                          fontSize: HEADING_FONT_SIZE,
                         ),
                         detailText:
                             orderData.orderNumber?.split('_').last ?? '',
@@ -85,12 +84,12 @@ Widget orderStatusSection(OrderModel orderData) {
     final statusBgColor = _getStatusBgColor(orderData.orderStatus!);
 
     return orderDetailSectionsUI(
-      titleText: 'Order Status',
+      titleText: AppLanguage.orderStatusStr(appLanguage),
       column: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           orderDetailItemsFixedUI(
-            titleText: 'Current Status',
+            titleText: AppLanguage.currentStatusStr(appLanguage),
             detailText: orderData.orderStatus,
             detailColor: statusTextColor,
             detailBgColor: statusBgColor,
@@ -100,21 +99,21 @@ Widget orderStatusSection(OrderModel orderData) {
           setHeight(8.0),
           _statusRow(
             dateTime: orderData.orderPlacedDateTime,
-            label: 'Order Placed',
+            label: AppLanguage.orderPlacedStr(appLanguage).toString(),
             status: orderData.orderStatus!,
             dotColor: EnvColors.offerHighlightColorDark,
           ),
           setHeight(8.0),
           _statusRow(
             dateTime: orderData.orderConfirmedDateTime,
-            label: 'Confirmed',
+            label: AppLanguage.confirmedStr(appLanguage).toString(),
             status: orderData.orderStatus!,
             dotColor: EnvColors.accentCTAColorLight,
           ),
           setHeight(8.0),
           _statusRow(
             dateTime: orderData.orderCompletedDateTime,
-            label: 'Completed',
+            label:  AppLanguage.completedStr(appLanguage).toString(),
             status: orderData.orderStatus!,
             dotColor: EnvColors.primaryColorLight,
           ),
@@ -123,7 +122,7 @@ Widget orderStatusSection(OrderModel orderData) {
           if(orderData.orderCancelledDateTime != null)
             _statusRow(
             dateTime: orderData.orderCancelledDateTime,
-            label: 'Cancelled',
+            label:  AppLanguage.cancelledStr(appLanguage).toString(),
             status: orderData.orderStatus!,
             dotColor: EnvColors.specialFestiveColorLight,
           ),
@@ -141,12 +140,35 @@ Widget _statusRow({
 }) {
   final isPending = dateTime == null || dateTime.isEmpty;
   final isCancel = (dateTime == null || dateTime.isEmpty) && status == OrderStatus.CANCELLED;
-  final title = isCancel ? 'Order Cancelled' : isPending ? 'Pending' :  formatDateTime(dateTime);
+  final title = isCancel ? AppLanguage.orderCancelledStr(appLanguage) : isPending ? AppLanguage.pendingStr(appLanguage) :  formatDateTime(dateTime);
   final titleColor = AppColors.primaryTextColorSkin(isDark).withValues(alpha: isPending ? 0.6 : 1.0);
   final detailColor = AppColors.primaryTextColorSkin(isDark).withValues(alpha: isPending ? 0.4 : 1.0);
   final indicatorColor = isPending ? AppColors.cardColorSkin(isDark) : dotColor;
 
-  return Row(
+  return isRightLang
+      ? Row(
+    children: [
+      Container(
+        width: 20.0,
+        height: 20.0,
+        decoration: BoxDecoration(
+          color: indicatorColor,
+          borderRadius: BorderRadius.circular(100),
+        ),
+      ),
+      setWidth(8.0),
+      Expanded(
+        child: orderDetailItemsFixedUI(
+          titleText: title,
+          detailText: label,
+          titleColor: titleColor,
+          detailColor: detailColor,
+          isDate: true
+        ),
+      ),
+    ],
+  )
+      : Row(
     children: [
       Expanded(
         child: orderDetailItemsFixedUI(
@@ -197,42 +219,42 @@ Color _getStatusBgColor(String status) {
 /// PAYMENT DETAIL SECTION STARTED HERE
 Widget paymentSection(OrderModel orderData){
   return orderDetailSectionsUI(
-    titleText: 'Payment',
+    titleText: AppLanguage.paymentStr(appLanguage),
     column: Column(
       children: [
         orderDetailItemsFixedUI(
-            titleText: 'Payment Method',
+            titleText: AppLanguage.paymentMethodStr(appLanguage),
             detailText: orderData.paymentMethod!
         ),
         setHeight(8.0),
         orderDetailItemsFixedUI(
-            titleText: 'Total Amount',
-            detailText: 'Rs. ${orderData.totalCutPriceAmount!}'
+            titleText: AppLanguage.totalAmountStr(appLanguage),
+            detailText: '$appCurrency ${orderData.totalCutPriceAmount!}'
         ),
         setHeight(8.0),
         orderDetailItemsFixedUI(
-            titleText: 'Discount',
-            detailText: '- Rs. ${orderData.totalDiscount!}'
+            titleText: AppLanguage.discountStr(appLanguage),
+            detailText: '- $appCurrency ${orderData.totalDiscount!}'
         ),
         setHeight(8.0),
         orderDetailItemsFixedUI(
-            titleText: 'Discounted Amount',
-            detailText: 'Rs. ${orderData.totalSellingAmount!}'
+            titleText: AppLanguage.discountedAmountStr(appLanguage),
+            detailText: '$appCurrency ${orderData.totalSellingAmount!}'
         ),
         setHeight(8.0),
         orderDetailItemsFixedUI(
-            titleText: 'Delivery Charges',
-            detailText: 'Rs. ${orderData.deliveryCharges!}'
+            titleText: AppLanguage.deliveryChargesStr(appLanguage),
+            detailText: '$appCurrency ${orderData.deliveryCharges!}'
         ),
         setHeight(8.0),
         orderDetailItemsFixedUI(
-            titleText: 'GST',
-            detailText: 'Rs. ${orderData.salesTax!}'
+            titleText: AppLanguage.gstStr(appLanguage),
+            detailText: '$appCurrency ${orderData.salesTax!}'
         ),
         appDivider(),
         orderDetailItemsFixedUI(
-          titleText: 'Payable Amount',
-          detailText: 'Rs. ${(orderData.totalSellingAmount! + orderData.deliveryCharges! + orderData.salesTax!).toString()}'
+          titleText: AppLanguage.payableAmountStr(appLanguage),
+          detailText: '$appCurrency ${(orderData.totalSellingAmount! + orderData.deliveryCharges! + orderData.salesTax!).toString()}'
         ),
 
       ],
@@ -244,7 +266,7 @@ Widget paymentSection(OrderModel orderData){
 Widget addressSection(OrderModel orderData){
   var userData = orderData.user!.shippingAddress!;
   return orderDetailSectionsUI(
-      titleText: 'Shipping Address',
+      titleText: AppLanguage.shippingAddressStr(appLanguage),
       column: Column(
         children: [
           appText(text: '${userData.name!}, ${userData.phone}, ${userData.address}, ${userData.nearestPlace}, ${userData.city}, ${userData.postalCode}', maxLines: 50,
@@ -252,7 +274,7 @@ Widget addressSection(OrderModel orderData){
           ),
           setHeight(8.0),
           orderDetailItemsFixedUI(
-              titleText: 'Shipping',
+              titleText: AppLanguage.shippingStr(appLanguage),
               detailText: orderData.shippingMethod!
           ),
         ],
@@ -264,7 +286,7 @@ Widget addressSection(OrderModel orderData){
 Widget productsSection(OrderModel orderData){
   var products = orderData.orderedProducts!;
   return orderDetailSectionsUI(
-      titleText: 'Ordered Products',
+      titleText: AppLanguage.orderedProductsStr(appLanguage),
       column: Column(
         children: [
           Column(
@@ -332,7 +354,7 @@ Widget productsSection(OrderModel orderData){
 
                             if (product.productCutPrice != null)
                               appText(
-                                text: 'Rs. ${product.productCutPrice}',
+                                text: '$appCurrency ${product.productCutPrice}',
                                 maxLines: 1,
                                 textStyle:
                                 cutPriceTextStyle(
@@ -344,7 +366,7 @@ Widget productsSection(OrderModel orderData){
                               ),
                             setWidth(8.0),
                             appText(
-                              text: 'Rs. ${product.productSellingPrice}',
+                              text: '$appCurrency ${product.productSellingPrice}',
                               textStyle: sellingPriceTextStyle().copyWith(
                                 fontSize: TAGS_FONT_SIZE,
                               ),
@@ -359,7 +381,7 @@ Widget productsSection(OrderModel orderData){
                         children: [
                           appText(
                             text:
-                            '${product.productQty} x ${product.productSellingPrice!.toStringAsFixed(0)} = Rs. ${(product.productQty!.toInt() * product.productSellingPrice!.toDouble()).toStringAsFixed(0)}',
+                            '${product.productQty} x ${product.productSellingPrice!.toStringAsFixed(0)} = $appCurrency ${(product.productQty!.toInt() * product.productSellingPrice!.toDouble()).toStringAsFixed(0)}',
                             textStyle: secondaryTextStyle().copyWith(
                               color: AppColors.sellingPriceDetailTextSkin(
                                 isDark,
@@ -385,25 +407,25 @@ Widget productsSection(OrderModel orderData){
 /// DELIVERY TYPE DETAIL SECTION STARTED HERE
 Widget deliveryTypeSection(OrderModel orderData){
   return orderDetailSectionsUI(
-      titleText: 'Delivery',
+      titleText: AppLanguage.deliveryStr(appLanguage),
       column: Column(
         children: [
           orderDetailItemsFixedUI(
-            titleText: 'Delivery Type',
+            titleText: AppLanguage.deliveryTypeStr(appLanguage),
             detailText: orderData.isFlashDelivery == true ? AppLanguage.flashDeliveryStr(appLanguage) : AppLanguage.slotDeliveryStr(appLanguage)
           ),
           if(orderData.isSlotDelivery == true)
           setHeight(8.0),
           if(orderData.isSlotDelivery == true)
             orderDetailItemsFixedUI(
-              titleText: 'Delivery Date',
+              titleText: AppLanguage.deliveryDateStr(appLanguage),
               detailText: orderData.slotDate.toString()
             ),
           if(orderData.isSlotDelivery == true)
             setHeight(8.0),
           if(orderData.isSlotDelivery == true)
             orderDetailItemsFixedUI(
-                titleText: 'Ordered Slot',
+                titleText: AppLanguage.orderedSlotStr(appLanguage),
                 detailText: orderData.slotLabel
             ),
         ],
@@ -416,7 +438,7 @@ Widget riderSection(OrderModel orderData){
   return orderData.rider == null
       ? SizedBox.shrink()
       : orderDetailSectionsUI(
-      titleText: 'Rider Detail',
+      titleText: AppLanguage.riderDetailStr(appLanguage),
       column:
        Column(
         children: [
@@ -432,7 +454,7 @@ Widget riderSection(OrderModel orderData){
               setWidth(8.0),
               Expanded(
                 child: orderDetailItemsFixedUI(
-                    titleText: 'Rider Name',
+                    titleText: AppLanguage.riderNameStr(appLanguage),
                     detailText: orderData.rider!.riderName
                 ),
               ),
@@ -452,18 +474,18 @@ Widget userFeedback(OrderModel orderData){
       : GestureDetector(
     onTap: ()=> Get.find<NavigationController>().gotoOrdersFeedbackScreen(orderModel: orderData),
         child: orderDetailSectionsUI(
-        titleText: 'My Feedback',
+        titleText: AppLanguage.myFeedbackStr(appLanguage),
         column:
         Column(
           children: [
             orderDetailItemsFixedUI(
-                titleText: 'About our service',
+                titleText: AppLanguage.aboutOurServiceStr(appLanguage),
                 detailText: orderData.orderFeedback!.feedbackType
             ),
             setHeight(8.0),
             orderDetailItemsFixedUI(
-                titleText: 'App experience',
-                detailText: orderData.orderFeedback!.isPositive == true ? 'Positive' : 'Negative'
+                titleText: AppLanguage.appExperienceStr(appLanguage),
+                detailText: orderData.orderFeedback!.isPositive == true ? AppLanguage.positiveStr(appLanguage) : AppLanguage.negativeStr(appLanguage)
             ),
             if(orderData.orderFeedback!.feedbackDetail!.isNotEmpty)
               Column(
@@ -473,7 +495,7 @@ Widget userFeedback(OrderModel orderData){
                 appDivider(),
                 setHeight(8.0),
                 appText(
-                  text: 'Feedback comments',
+                  text: AppLanguage.feedbackCommentsStr(appLanguage),
                   textStyle: itemTextStyle().copyWith(fontWeight: FontWeight.w800,
                     color: AppColors.primaryTextColorSkin(isDark),
                   ),
@@ -498,7 +520,7 @@ Widget buttonSection(OrderModel orderData){
       orders.updateOrderStatus.value == Status.LOADING
       ? loadingIndicator()
       : appMaterialButton(
-        text: orderData.orderStatus == OrderStatus.COMPLETED && orderData.orderFeedback == null ? 'Give your feedback' : 'Cancel Order',
+        text: orderData.orderStatus == OrderStatus.COMPLETED && orderData.orderFeedback == null ? AppLanguage.giveYourFeedbackStr(appLanguage) : AppLanguage.cancelOrderStr(appLanguage),
         isDisable: orderData.orderStatus == OrderStatus.CONFIRMED,
         onTap: ()=> orders.onTapButtonSectionsOrderTap()
     );
@@ -518,7 +540,7 @@ Widget orderDetailSectionsUI({titleText, column}) {
             color: AppColors.backgroundColorSkin(isDark),
             borderRadius: BorderRadius.circular(12.0),
             border: Border.all(
-              color: AppColors.primaryTextColorSkin(isDark),
+              color: AppColors.materialButtonSkin(isDark),
               width: 1.0,
             ),
           ),
@@ -526,7 +548,25 @@ Widget orderDetailSectionsUI({titleText, column}) {
           child: column,
         ),
       ),
-      Padding(
+      isRightLang
+          ? Positioned(
+        right: 0,
+            child: Padding(
+                    padding: const EdgeInsets.only(right: MAIN_VERTICAL_PADDING),
+                    child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 6.0),
+            color: AppColors.backgroundColorSkin(isDark),
+            child: appText(
+              text: titleText,
+              textStyle: itemTextStyle().copyWith(
+                  color: AppColors.materialButtonSkin(isDark),
+                  fontSize: NORMAL_TEXT_FONT_SIZE
+              ),
+            ),
+                    ),
+                  ),
+          )
+      : Padding(
         padding: const EdgeInsets.only(left: MAIN_VERTICAL_PADDING),
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 6.0),

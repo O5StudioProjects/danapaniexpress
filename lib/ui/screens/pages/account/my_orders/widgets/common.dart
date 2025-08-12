@@ -47,8 +47,39 @@ Widget orderDetailItemsFixedUI({
   detailText,
   detailColor,
   detailBgColor,
+  isDate = false
 }) {
-  return Row(
+  return isRightLang
+      ? Row(
+    children: [
+      Container(
+        padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 2.0),
+        decoration: BoxDecoration(
+          color: detailBgColor ?? Colors.transparent,
+          borderRadius: BorderRadius.circular(4.0),
+        ),
+        child: appText(
+          text: detailText,
+          textStyle: bodyTextStyle().copyWith(
+            fontSize: NORMAL_TEXT_FONT_SIZE,
+            color: detailColor ?? AppColors.primaryTextColorSkin(isDark),
+          ),
+        ),
+      ),
+      Expanded(
+        child: appText(
+          text: titleText,
+          textDirection: isDate ? TextDirection.ltr : setTextDirection(appLanguage),
+          textAlign: isDate ? TextAlign.end : TextAlign.start,
+          textStyle: itemTextStyle().copyWith(fontWeight: FontWeight.w800,
+            color: titleColor ??  AppColors.primaryTextColorSkin(isDark),
+          ),
+        ),
+      ),
+
+    ],
+  )
+      : Row(
     children: [
       Expanded(
         child: appText(

@@ -51,7 +51,7 @@ Widget buildMobileUI({
               child: SizedBox(
                 width: size.width,
                 child: Column(
-                  crossAxisAlignment: appLanguage == !isRightLang ? CrossAxisAlignment.start : CrossAxisAlignment.end,
+                  crossAxisAlignment: !isRightLang ? CrossAxisAlignment.start : CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     setHeight(24.0),
@@ -67,7 +67,7 @@ Widget buildMobileUI({
                     setHeight(24.0),
                     isStart
                         ? Column(
-                      crossAxisAlignment: appLanguage == !isRightLang ? CrossAxisAlignment.start : CrossAxisAlignment.end,
+                      crossAxisAlignment: !isRightLang ? CrossAxisAlignment.start : CrossAxisAlignment.end,
                       children: [
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: MAIN_HORIZONTAL_PADDING),

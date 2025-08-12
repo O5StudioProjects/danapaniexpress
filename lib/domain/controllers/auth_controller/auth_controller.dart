@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/core/data_model_imports.dart';
+import 'package:danapaniexpress/domain/controllers/orders_controller/orders_controller.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../core/packages_import.dart';
@@ -168,8 +169,9 @@ class AuthController extends GetxController {
       currentUser.value = res['user'];
       authToken.value = res['token'];
       userId.value = res['user']?.userId; // ✅ Set userId here
-      await saveSession(res['user']?.userId, res['token']);
       await fetchUserProfile();
+      await saveSession(res['user']?.userId, res['token']);
+
       authStatus.value = AuthStatus.SUCCESS;
       showSnackbar(
           isError: false,
@@ -222,7 +224,10 @@ class AuthController extends GetxController {
 
       if (kDebugMode) {
         print("===== Profile Fetched =====");
-        print("User Data:::::: ${currentUser.value!.userDefaultAddress?.address}");
+        print("User Address:::::: ${currentUser.value!.userDefaultAddress?.address}");
+        print("User Name:::::: ${currentUser.value!.userFullName}");
+        print("User EMAIL:::::: ${currentUser.value!.userEmail}");
+        print("User phone:::::: ${currentUser.value!.userPhone}");
       }
     } else {
       getProfileStatus.value = AuthStatus.FAILURE;

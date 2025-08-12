@@ -47,7 +47,10 @@ class ThemeController extends GetxController {
     else if(language == URDU_LANGUAGE){
       appLanguage.value = URDU_LANGUAGE;
       await SharedPrefs.setLanguage(URDU_LANGUAGE);
-
+    }
+    else if(language == ARABIC_LANGUAGE){
+      appLanguage.value = ARABIC_LANGUAGE;
+      await SharedPrefs.setLanguage(ARABIC_LANGUAGE);
     }
      else {
       appLanguage.value = ENGLISH_LANGUAGE;
