@@ -1,5 +1,4 @@
 import 'package:danapaniexpress/core/common_imports.dart';
-import 'package:danapaniexpress/ui/screens/other_screens/no_internet_screen/no_internet_mobile.dart';
 
 class NoInternetScreen extends StatelessWidget {
   const NoInternetScreen({super.key});

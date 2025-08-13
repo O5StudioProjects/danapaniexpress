@@ -8,8 +8,10 @@ class MarqueeFields {
     dialogImage,
     marqueeTitleEnglish,
     marqueeTitleUrdu,
+    marqueeTitleArabic,
     marqueeDetailEnglish,
     marqueeDetailUrdu,
+    marqueeDetailArabic,
     dateTime,
   ];
 
@@ -19,8 +21,10 @@ class MarqueeFields {
   static const String dialogImage = 'dialog_image';
   static const String marqueeTitleEnglish = 'marquee_title_english';
   static const String marqueeTitleUrdu = 'marquee_title_urdu';
+  static const String marqueeTitleArabic = 'marquee_title_arabic';
   static const String marqueeDetailEnglish = 'marquee_detail_english';
   static const String marqueeDetailUrdu = 'marquee_detail_urdu';
+  static const String marqueeDetailArabic = 'marquee_detail_arabic';
   static const String dateTime = 'date_time';
 }
 
@@ -31,8 +35,10 @@ class MarqueeModel {
   final String dialogImage;
   final String marqueeTitleEnglish;
   final String marqueeTitleUrdu;
+  final String marqueeTitleArabic;
   final String marqueeDetailEnglish;
   final String marqueeDetailUrdu;
+  final String marqueeDetailArabic;
   final String dateTime;
 
   const MarqueeModel({
@@ -42,8 +48,10 @@ class MarqueeModel {
     required this.dialogImage,
     required this.marqueeTitleEnglish,
     required this.marqueeTitleUrdu,
+    required this.marqueeTitleArabic,
     required this.marqueeDetailEnglish,
     required this.marqueeDetailUrdu,
+    required this.marqueeDetailArabic,
     required this.dateTime,
   });
 
@@ -55,8 +63,10 @@ class MarqueeModel {
     dialogImage: json[MarqueeFields.dialogImage]?.toString() ?? '',
     marqueeTitleEnglish: json[MarqueeFields.marqueeTitleEnglish]?.toString() ?? '',
     marqueeTitleUrdu: json[MarqueeFields.marqueeTitleUrdu]?.toString() ?? '',
+    marqueeTitleArabic: json[MarqueeFields.marqueeTitleArabic]?.toString() ?? '',
     marqueeDetailEnglish: json[MarqueeFields.marqueeDetailEnglish]?.toString() ?? '',
     marqueeDetailUrdu: json[MarqueeFields.marqueeDetailUrdu]?.toString() ?? '',
+    marqueeDetailArabic: json[MarqueeFields.marqueeDetailArabic]?.toString() ?? '',
     dateTime: json[MarqueeFields.dateTime]?.toString() ?? '',
   );
 
@@ -68,8 +78,10 @@ class MarqueeModel {
     MarqueeFields.dialogImage: dialogImage,
     MarqueeFields.marqueeTitleEnglish: marqueeTitleEnglish,
     MarqueeFields.marqueeTitleUrdu: marqueeTitleUrdu,
+    MarqueeFields.marqueeTitleArabic: marqueeTitleArabic,
     MarqueeFields.marqueeDetailEnglish: marqueeDetailEnglish,
     MarqueeFields.marqueeDetailUrdu: marqueeDetailUrdu,
+    MarqueeFields.marqueeDetailArabic: marqueeDetailArabic,
     MarqueeFields.dateTime: dateTime,
   };
 
@@ -80,8 +92,10 @@ class MarqueeModel {
     MarqueeFields.dialogImage: dialogImage,
     MarqueeFields.marqueeTitleEnglish: marqueeTitleEnglish,
     MarqueeFields.marqueeTitleUrdu: marqueeTitleUrdu,
+    MarqueeFields.marqueeTitleArabic: marqueeTitleArabic,
     MarqueeFields.marqueeDetailEnglish: marqueeDetailEnglish,
     MarqueeFields.marqueeDetailUrdu: marqueeDetailUrdu,
+    MarqueeFields.marqueeDetailArabic: marqueeDetailArabic,
     MarqueeFields.dateTime: dateTime,
   };
 
@@ -93,8 +107,10 @@ class MarqueeModel {
     String? dialogImage,
     String? marqueeTitleEnglish,
     String? marqueeTitleUrdu,
+    String? marqueeTitleArabic,
     String? marqueeDetailEnglish,
     String? marqueeDetailUrdu,
+    String? marqueeDetailArabic,
     String? dateTime,
   }) =>
       MarqueeModel(
@@ -104,8 +120,10 @@ class MarqueeModel {
         dialogImage: dialogImage ?? this.dialogImage,
         marqueeTitleEnglish: marqueeTitleEnglish ?? this.marqueeTitleEnglish,
         marqueeTitleUrdu: marqueeTitleUrdu ?? this.marqueeTitleUrdu,
+        marqueeTitleArabic: marqueeTitleArabic ?? this.marqueeTitleArabic,
         marqueeDetailEnglish: marqueeDetailEnglish ?? this.marqueeDetailEnglish,
         marqueeDetailUrdu: marqueeDetailUrdu ?? this.marqueeDetailUrdu,
+        marqueeDetailArabic: marqueeDetailArabic ?? this.marqueeDetailArabic,
         dateTime: dateTime ?? this.dateTime,
       );
 }

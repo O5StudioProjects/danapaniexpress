@@ -21,201 +21,189 @@ class FavoriteProductItem extends StatelessWidget {
             final isLoading = cart.addCartStatus[product.productId] == Status.LOADING;
             return GestureDetector(
               onTap: ()=> nav.gotoProductDetailScreen(data: product),
-              child: Container(
-                //  height: imageSize * 1.4, // fixes container height based on image size + padding
-                padding: const EdgeInsets.all(12.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12.0),
-                  color: AppColors.cardColorSkin(isDark),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withAlpha(30),
-                      blurRadius: 1,
-                      spreadRadius: 0,
-                      offset: const Offset(1, 2),
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(12.0),
-                          child: Container(
-                            color: whiteColor,
-                            width: imageSize,
-                            height: imageSize,
-                            child: appAsyncImage(
-                              product.productImage,
-                              boxFit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: MAIN_HORIZONTAL_PADDING),
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              appText(
-                                text: isRightLang ? product.productNameUrdu : product.productNameEng,
-                                textStyle: itemTextStyle().copyWith(fontSize: NORMAL_TEXT_FONT_SIZE),
-                                textDirection: setTextDirection(appLanguage),
-                                maxLines: 1,
-                              ),
-                              Row(
-                                children: [
-                                  appText(
-                                    text: '${product.productWeightGrams} gm',
-                                    textStyle: textFormHintTextStyle().copyWith(fontSize: TAGS_FONT_SIZE),
-                                    maxLines: 1,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 6.0),
-                                    child: appText(
-                                      text: product.productSize,
-                                      textStyle: itemTextStyle().copyWith(fontSize: TAGS_FONT_SIZE),
-                                      maxLines: 1,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  appText(
-                                    text: 'Rs. ${product.productSellingPrice}',
-                                    textStyle: sellingPriceTextStyle(),
-                                    maxLines: 1,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 6.0),
-                                    child: appText(
-                                      text: 'Rs. ${product.productCutPrice}',
-                                      maxLines: 1,
-                                      textStyle: cutPriceTextStyle(isDetail: false),
-                                    ),
-                                  ),
-                                ],
-                              ),
-
-                            ],
-                          ),
-                        ),
-                        setHeight(8.0),
-                        Obx((){
-                          final isLoading = favorites.favoriteLoadingStatus[product.productId] == Status.LOADING;
-                          return GestureDetector(
-                            onTap: (){
-                              favorites.toggleFavorite(product.productId!);
-                            },
-                            child: isLoading
-                                ? SizedBox(
-                              width: 24.0,
-                              height: 24.0,
-                              child: loadingIndicator(),
-                            )
-                                :appIcon(
-                              iconType: IconType.PNG,
-                              icon: icHeartFill,
-                              width: 24.0,
-                              color: AppColors.materialButtonSkin(isDark),
-                            ),
-                          );
-                        })
-                      ],
-                    ),
-                    setHeight(8.0),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        if (product.productBrand!.isNotEmpty)
-                          Padding(
-                            padding: const EdgeInsets.only(left: 5.0),
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 8.0,
-                                vertical: 4.0,
-                              ),
-                              decoration: BoxDecoration(
-                                color: EnvColors.specialFestiveColorDark,
-                                borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(4.0),
-                                  bottomRight: Radius.circular(0.0),
-                                ),
-                              ),
-                              child: appText(
-                                text: product.productBrand,
-                                textStyle: itemTextStyle().copyWith(color: whiteColor),
-                              ),
-                            ),
-                          ),
-
-                        if (product.productIsFlashsale == true)
-                          Padding(
-                            padding: const EdgeInsets.only(left: 5.0),
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 8.0,
-                                vertical: 4.0,
-                              ),
-                              decoration: BoxDecoration(
-                                color: EnvColors.primaryColorLight,
-                                borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(4.0),
-                                  bottomRight: Radius.circular(0.0),
-                                ),
-                              ),
-                              child: appText(
-                                text: AppLanguage.flashSaleStr(appLanguage),
-                                textStyle: itemTextStyle().copyWith(color: whiteColor),
-                              ),
-                            ),
-                          ),
-                        Spacer(),
-                        isLoading ? SizedBox(
-                          height: 35.0,
-                          width: 100.0,
-                          child: loadingIndicator(),
-                        ) : SizedBox(
-                          height: 35.0,
-                          child: appMaterialButton(
-                              text: product.productAvailability == false ? AppLanguage.outOfStockStr(appLanguage) :AppLanguage.addToCartStr(appLanguage),
-                              fontSize: SUB_HEADING_TEXT_BUTTON_FONT_SIZE,
-                              isDisable: product.productAvailability == false,
-                              onTap: () async {
-                                if(product.productAvailability == true){
-                                  await cart.addToCart(product.productId!);
-                                } else {
-                                  showToast(AppLanguage.outOfStockStr(appLanguage).toString());
-                                }
-                              }
-                          ),
-                        ),
-
-
-                        // appFloatingButton(
-                        //   icon: icCart,
-                        //   iconType: IconType.PNG,
-                        //   iconWidth: 14.0,
-                        //   circlePadding: 8.0,
-                        //   onTap: () {},
-                        // ),
-
-
-                        //  const SizedBox(height: 12),
-
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+              child: _buildUI(favorites, cart, nav, imageSize, isLoading),
             );
           });
         },
       ),
     );
   }
+
+
+  Widget _buildUI(favorites, cart, nav, imageSize, isLoading){
+    return Container(
+      padding: const EdgeInsets.all(12.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12.0),
+        color: AppColors.cardColorSkin(isDark),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withAlpha(30),
+            blurRadius: 1,
+            spreadRadius: 0,
+            offset: const Offset(1, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          _upperRow(imageSize,favorites),
+          _lowerRow(isLoading, cart),
+        ],
+      ),
+    );
+  }
+
+  Widget _upperRow(imageSize,favorites){
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _productImage(imageSize),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _productName(),
+                _productWeightAndSize(),
+                _productPriceSection(),
+
+              ],
+            ),
+          ),
+          setHeight(8.0),
+          _favoriteButtonSection(favorites)
+        ],
+      ),
+    );
+  }
+
+  Widget _productImage(imageSize){
+    return Padding(
+      padding: const EdgeInsets.only(right: MAIN_HORIZONTAL_PADDING),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(12.0),
+        child: Container(
+          color: whiteColor,
+          width: imageSize,
+          height: imageSize,
+          child: appAsyncImage(
+            product.productImage,
+            boxFit: BoxFit.cover,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _productName(){
+    return appText(
+      text: productNameMultiLangText(product),
+      textStyle: itemTextStyle().copyWith(fontSize: NORMAL_TEXT_FONT_SIZE),
+      textDirection: setTextDirection(appLanguage),
+      maxLines: 1,
+    );
+  }
+
+  Widget _productWeightAndSize(){
+    return Row(
+      children: [
+        appText(
+          text: '${product.productWeightGrams} gm',
+          textStyle: textFormHintTextStyle().copyWith(fontSize: TAGS_FONT_SIZE),
+          maxLines: 1,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 6.0),
+          child: appText(
+            text: product.productSize,
+            textStyle: itemTextStyle().copyWith(fontSize: TAGS_FONT_SIZE),
+            maxLines: 1,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _productPriceSection(){
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        appText(
+          text: 'Rs. ${product.productSellingPrice}',
+          textStyle: sellingPriceTextStyle(),
+          maxLines: 1,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 6.0),
+          child: appText(
+            text: 'Rs. ${product.productCutPrice}',
+            maxLines: 1,
+            textStyle: cutPriceTextStyle(isDetail: false),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _favoriteButtonSection(favorites){
+    return Obx((){
+      final isLoading = favorites.favoriteLoadingStatus[product.productId] == Status.LOADING;
+      return GestureDetector(
+        onTap: (){
+          favorites.toggleFavorite(product.productId!);
+        },
+        child: isLoading
+            ? SizedBox(
+          width: 24.0,
+          height: 24.0,
+          child: loadingIndicator(),
+        )
+            :appIcon(
+          iconType: IconType.PNG,
+          icon: icHeartFill,
+          width: 24.0,
+          color: AppColors.materialButtonSkin(isDark),
+        ),
+      );
+    });
+  }
+
+  Widget _lowerRow(isLoading, cart){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        if (product.productBrand!.isNotEmpty)
+          ProductTags(color: EnvColors.specialFestiveColorDark, tagText: product.productBrand.toString(), isLeftPadding: true,),
+
+        if (product.productIsFlashsale == true)
+          ProductTags(color: EnvColors.primaryColorLight, tagText: AppLanguage.flashSaleStr(appLanguage).toString(), isLeftPadding: true,),
+
+        Spacer(),
+        isLoading ? SizedBox(
+          height: 35.0,
+          width: 100.0,
+          child: loadingIndicator(),
+        ) : SizedBox(
+          height: 35.0,
+          child: appMaterialButton(
+              text: product.productAvailability == false ? AppLanguage.outOfStockStr(appLanguage) :AppLanguage.addToCartStr(appLanguage),
+              fontSize: SUB_HEADING_TEXT_BUTTON_FONT_SIZE,
+              isDisable: product.productAvailability == false,
+              onTap: () async {
+                if(product.productAvailability == true){
+                  await cart.addToCart(product.productId!);
+                } else {
+                  showToast(AppLanguage.outOfStockStr(appLanguage).toString());
+                }
+              }
+          ),
+        ),
+
+      ],
+    );
+  }
+
 }

@@ -18,9 +18,9 @@ class AccountScreenMobile extends StatelessWidget {
     var favorites = Get.find<FavoritesController>();
     var cart = Get.find<CartController>();
 
-    // WidgetsBinding.instance.addPostFrameCallback((callback){
-    //   orders.getActiveOrdersCount();
-    // });
+    WidgetsBinding.instance.addPostFrameCallback((callback){
+      orders.getActiveOrdersCount();
+    });
 
     return Obx((){
       var icArrow = isRightLang ? icArrowLeftSmall : icArrowRightSmall;

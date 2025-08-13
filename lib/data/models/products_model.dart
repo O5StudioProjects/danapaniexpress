@@ -9,8 +9,10 @@ class ProductFields {
     productImage,
     productNameEng,
     productNameUrdu,
+    productNameArabic,
     productDetailEng,
     productDetailUrdu,
+    productDetailArabic,
     productCategory,
     productSubCategory,
     productCutPrice,
@@ -39,8 +41,10 @@ class ProductFields {
   static const String productImage = 'product_image';
   static const String productNameEng = 'product_name_eng';
   static const String productNameUrdu = 'product_name_urdu';
+  static const String productNameArabic = 'product_name_arabic';
   static const String productDetailEng = 'product_detail_eng';
   static const String productDetailUrdu = 'product_detail_urdu';
+  static const String productDetailArabic = 'product_detail_arabic';
   static const String productCategory = 'product_category';
   static const String productSubCategory = 'product_sub_category';
   static const String productCutPrice = 'product_cut_price';
@@ -70,8 +74,10 @@ class ProductModel {
   final String? productImage;
   final String? productNameEng;
   final String? productNameUrdu;
+  final String? productNameArabic;
   final String? productDetailEng;
   final String? productDetailUrdu;
+  final String? productDetailArabic;
   final String? productCategory;
   final String? productSubCategory;
   final double? productCutPrice;
@@ -100,8 +106,10 @@ class ProductModel {
     this.productImage,
     this.productNameEng,
     this.productNameUrdu,
+    this.productNameArabic,
     this.productDetailEng,
     this.productDetailUrdu,
+    this.productDetailArabic,
     this.productCategory,
     this.productSubCategory,
     this.productCutPrice,
@@ -136,8 +144,10 @@ class ProductModel {
     productImage: json[ProductFields.productImage]?.toString(),
     productNameEng: json[ProductFields.productNameEng]?.toString(),
     productNameUrdu: json[ProductFields.productNameUrdu]?.toString(),
+    productNameArabic: json[ProductFields.productNameArabic]?.toString(),
     productDetailEng: json[ProductFields.productDetailEng]?.toString(),
     productDetailUrdu: json[ProductFields.productDetailUrdu]?.toString(),
+    productDetailArabic: json[ProductFields.productDetailArabic]?.toString(),
     productCategory: json[ProductFields.productCategory]?.toString(),
     productSubCategory: json[ProductFields.productSubCategory]?.toString(),
     productCutPrice: double.tryParse(json[ProductFields.productCutPrice]?.toString() ?? ''),
@@ -170,8 +180,10 @@ class ProductModel {
         ProductFields.productImage: productImage,
         ProductFields.productNameEng: productNameEng,
         ProductFields.productNameUrdu: productNameUrdu,
+        ProductFields.productNameArabic: productNameArabic,
         ProductFields.productDetailEng: productDetailEng,
         ProductFields.productDetailUrdu: productDetailUrdu,
+        ProductFields.productDetailArabic: productDetailArabic,
         ProductFields.productCategory: productCategory,
         ProductFields.productSubCategory: productSubCategory,
         ProductFields.productCutPrice: productCutPrice,
@@ -204,8 +216,10 @@ class ProductModel {
     String? productImage,
     String? productNameEng,
     String? productNameUrdu,
+    String? productNameArabic,
     String? productDetailEng,
     String? productDetailUrdu,
+    String? productDetailArabic,
     String? productCategory,
     String? productSubCategory,
     double? productCutPrice,
@@ -234,8 +248,10 @@ class ProductModel {
         productImage: productImage ?? this.productImage,
         productNameEng: productNameEng ?? this.productNameEng,
         productNameUrdu: productNameUrdu ?? this.productNameUrdu,
+        productNameArabic: productNameArabic ?? this.productNameArabic,
         productDetailEng: productDetailEng ?? this.productDetailEng,
         productDetailUrdu: productDetailUrdu ?? this.productDetailUrdu,
+        productDetailArabic: productDetailArabic ?? this.productDetailArabic,
         productCategory: productCategory ?? this.productCategory,
         productSubCategory: productSubCategory ?? this.productSubCategory,
         productCutPrice: productCutPrice ?? this.productCutPrice,
