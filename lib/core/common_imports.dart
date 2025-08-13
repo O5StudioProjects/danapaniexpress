@@ -55,10 +55,8 @@ export 'package:danapaniexpress/ui/screens/pages/home_screen/home_screen_mobile.
 
 export 'package:danapaniexpress/ui/screens/pages/home_screen/home_utils.dart';
 export 'package:danapaniexpress/ui/screens/pages/home_screen/home_screen_widgets/product_categories.dart';
-export 'package:danapaniexpress/ui/screens/pages/home_screen/home_screen_widgets/notification_bar.dart';
 export 'package:danapaniexpress/ui/screens/pages/home_screen/home_screen_widgets/body_image_pager.dart';
-
-export 'package:danapaniexpress/ui/screens/pages/home_screen/home_screen_widgets/common_widgets.dart';
+export 'package:danapaniexpress/ui/screens/pages/home_screen/home_screen_widgets/main_headings.dart';
 
 export 'package:danapaniexpress/ui/app_common/components/empty_screen.dart';
 export 'package:danapaniexpress/ui/screens/pages/categories/product_detail/product_detail_screen_mobile.dart';
@@ -110,4 +108,15 @@ export 'package:danapaniexpress/data/repositories/products_repository/products_d
 export 'package:danapaniexpress/ui/screens/pages/cart/checkout_screen/checkout_screen_mobile.dart';
 
 export 'package:danapaniexpress/ui/screens/pages/account/my_orders/widgets/common.dart';
-
+export 'package:danapaniexpress/ui/app_common/components/floating_icon.dart';
+export 'package:danapaniexpress/ui/screens/other_screens/no_internet_screen/no_internet_mobile.dart';
+export 'package:danapaniexpress/ui/screens/pages/home_screen/home_screen_widgets/custom_orders.dart';
+export 'package:danapaniexpress/ui/screens/pages/categories/widgets/category_item.dart';
+export 'package:danapaniexpress/ui/screens/pages/categories/widgets/sub_category_item.dart';
+export 'package:danapaniexpress/ui/app_common/components/main_headings.dart';
+export 'package:danapaniexpress/ui/screens/pages/categories/widgets/products_row_ui.dart';
+export 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+export 'package:danapaniexpress/ui/app_common/multi_language_widgets/multi_language_widgets.dart';
+export 'package:danapaniexpress/ui/app_common/components/list_bottom_message.dart';
+export 'package:danapaniexpress/ui/app_common/components/product_tags.dart';
+export 'package:danapaniexpress/ui/app_common/dialogs/bool_dialog.dart';

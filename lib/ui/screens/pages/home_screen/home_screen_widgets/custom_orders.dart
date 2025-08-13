@@ -20,11 +20,7 @@ class CustomOrdersBanner extends StatelessWidget {
       return Padding(
         padding: const EdgeInsets.only(bottom: MAIN_VERTICAL_PADDING),
         child: GestureDetector(
-          onTap: () {
-            nav.gotoCustomerServiceScreen();
-            // Your notification dialog code here
-           // showCustomDialog(context, AppNotificationDialog(data: data));
-          },
+          onTap: ()=> nav.gotoCustomerServiceScreen(),
           child: SizedBox(
             width: size.width,
             height: size.height * 0.14,
@@ -48,6 +44,7 @@ class CustomOrdersBanner extends StatelessWidget {
 }
 
 Widget clickHere(){
+  final nav = Get.find<NavigationController>();
   return Obx(
     ()=> Padding(
       padding: const EdgeInsets.only(top: MAIN_HORIZONTAL_PADDING),
@@ -64,7 +61,7 @@ Widget clickHere(){
               RotateAnimatedText(AppLanguage.clickHereStr(appLanguage).toString(), duration: Duration(seconds: 3)),
             ],
             onTap: () {
-              print("Tap Event");
+              nav.gotoCustomerServiceScreen();
             },
           ),
         ),
@@ -74,6 +71,7 @@ Widget clickHere(){
 }
 
 Widget customOrderDetail(){
+  final nav = Get.find<NavigationController>();
   return Expanded(
     child: Obx(
       ()=> Padding(
@@ -91,7 +89,7 @@ Widget customOrderDetail(){
                   TyperAnimatedText(AppLanguage.customOrderLongLine2Str(appLanguage).toString(), speed: Duration(milliseconds: 100), textAlign: TextAlign.center),
                 ],
                 onTap: () {
-                  print("Tap Event");
+                  nav.gotoCustomerServiceScreen();
                 },
               ),
             ),

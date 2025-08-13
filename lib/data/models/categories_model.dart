@@ -7,6 +7,7 @@ class CategoryFields {
     categoryId,
     categoryNameEnglish,
     categoryNameUrdu,
+    categoryNameArabic,
     categoryImage,
     categoryCoverImage,
     categoryIsFeatured,
@@ -16,6 +17,7 @@ class CategoryFields {
   static const String categoryId = 'category_id';
   static const String categoryNameEnglish = 'category_name_english';
   static const String categoryNameUrdu = 'category_name_urdu';
+  static const String categoryNameArabic = 'category_name_arabic';
   static const String categoryImage = 'category_image';
   static const String categoryCoverImage = 'category_cover_image';
   static const String categoryIsFeatured = 'category_is_featured';
@@ -26,6 +28,7 @@ class CategoryModel {
   final String? categoryId;
   final String? categoryNameEnglish;
   final String? categoryNameUrdu;
+  final String? categoryNameArabic;
   final String? categoryImage;
   final String? categoryCoverImage;
   final bool? categoryIsFeatured;
@@ -35,6 +38,7 @@ class CategoryModel {
     this.categoryId,
     this.categoryNameEnglish,
     this.categoryNameUrdu,
+    this.categoryNameArabic,
     this.categoryImage,
     this.categoryCoverImage,
     this.categoryIsFeatured,
@@ -45,6 +49,7 @@ class CategoryModel {
     CategoryFields.categoryId: categoryId,
     CategoryFields.categoryNameEnglish: categoryNameEnglish,
     CategoryFields.categoryNameUrdu: categoryNameUrdu,
+    CategoryFields.categoryNameArabic: categoryNameArabic,
     CategoryFields.categoryImage: categoryImage,
     CategoryFields.categoryCoverImage: categoryCoverImage,
     CategoryFields.categoryIsFeatured: categoryIsFeatured,
@@ -55,6 +60,7 @@ class CategoryModel {
     categoryId: json[CategoryFields.categoryId]?.toString(),
     categoryNameEnglish: json[CategoryFields.categoryNameEnglish]?.toString(),
     categoryNameUrdu: json[CategoryFields.categoryNameUrdu]?.toString(),
+    categoryNameArabic: json[CategoryFields.categoryNameArabic]?.toString(),
     categoryImage: json[CategoryFields.categoryImage]?.toString(),
     categoryCoverImage: json[CategoryFields.categoryCoverImage]?.toString(),
     categoryIsFeatured: json[CategoryFields.categoryIsFeatured] is bool
@@ -69,6 +75,7 @@ class CategoryModel {
     String? categoryId,
     String? categoryNameEnglish,
     String? categoryNameUrdu,
+    String? categoryNameArabic,
     String? categoryImage,
     String? categoryCoverImage,
     bool? categoryIsFeatured,
@@ -78,6 +85,7 @@ class CategoryModel {
         categoryId: categoryId ?? this.categoryId,
         categoryNameEnglish: categoryNameEnglish ?? this.categoryNameEnglish,
         categoryNameUrdu: categoryNameUrdu ?? this.categoryNameUrdu,
+        categoryNameArabic: categoryNameArabic ?? this.categoryNameArabic,
         categoryImage: categoryImage ?? this.categoryImage,
         categoryCoverImage: categoryCoverImage ?? this.categoryCoverImage,
         categoryIsFeatured: categoryIsFeatured ?? this.categoryIsFeatured,

@@ -16,8 +16,12 @@ class ProductsRowUi extends StatelessWidget {
     super.key,
     required this.products,
     this.headingTitle,
-    required this.screenType, this.isTrailingText = false, this.isSeeAll = true, this.isDetailScreen= false, this.horizontalPadding = MAIN_HORIZONTAL_PADDING, this.firstIndexLeftPadding = MAIN_HORIZONTAL_PADDING,
-
+    required this.screenType,
+    this.isTrailingText = false,
+    this.isSeeAll = true,
+    this.isDetailScreen = false,
+    this.horizontalPadding = MAIN_HORIZONTAL_PADDING,
+    this.firstIndexLeftPadding = MAIN_HORIZONTAL_PADDING,
   });
 
   @override
@@ -25,71 +29,77 @@ class ProductsRowUi extends StatelessWidget {
     var navigation = Get.find<NavigationController>();
     return Obx(() {
       if (products.isNotEmpty) {
-        return Column(
-          children: [
-            HomeHeadings(
-              isTrailingText: isTrailingText!,
-              isSeeAll: isSeeAll!,
-              isLeadingIcon: screenType == ProductsScreenType.FLASHSALE ? true : false,
-              leadingIcon: icFlashSale,
-              horizontalPadding: horizontalPadding,
-              mainHeadingText: screenType == ProductsScreenType.FEATURED
-                  ? AppLanguage.featuredProductStr(appLanguage).toString()
-                  : screenType == ProductsScreenType.FLASHSALE
-                  ? AppLanguage.flashSaleStr(appLanguage).toString()
-                  : headingTitle.toString(),
-              onTapSeeAllText: () => screenType == ProductsScreenType.CATEGORIES
-                  ? Get.back()
-                  : navigation.gotoOtherProductsScreen(
-                      screenType: screenType,
-                    )
-            ),
-
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              physics: BouncingScrollPhysics(),
-              child: ConstrainedBox(
-                constraints: BoxConstraints(minWidth: size.width),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: List.generate(
-                    products.length > 10 ? 10 : products.length,
-                    (index) {
-                      var data = products[index];
-                      return Padding(
-                        padding: EdgeInsets.only(
-                          left: index == 0 ? firstIndexLeftPadding! : 0.0,
-                          top: MAIN_VERTICAL_PADDING,
-                          bottom: MAIN_VERTICAL_PADDING,
-                          right: MAIN_HORIZONTAL_PADDING,
-                        ),
-                        child: GestureDetector(
-                          onTap: (){
-                            if(isDetailScreen!){
-                             Get.back();
-                             navigation.gotoProductDetailScreen(data: data);
-                              print('OnTap Working');
-                            } else {
-                              navigation.gotoProductDetailScreen(data: data);
-                              print('OnTap Working');
-                            }
-                          },
-                          child: SizedBox(
-                            width: size.width * 0.4,
-                            child: ProductItem(data: data),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
-            ),
-          ],
-        );
+        return _buildUI(navigation);
       } else {
         return SizedBox();
       }
     });
+  }
+
+  Widget _buildUI(navigation) {
+    return Column(
+      children: [
+        _homeHeadings(navigation),
+        _horizontalScrollableList(navigation),
+      ],
+    );
+  }
+
+  Widget _homeHeadings(navigation) {
+    return HomeHeadings(
+      isTrailingText: isTrailingText!,
+      isSeeAll: isSeeAll!,
+      isLeadingIcon: screenType == ProductsScreenType.FLASHSALE ? true : false,
+      leadingIcon: icFlashSale,
+      horizontalPadding: horizontalPadding,
+      mainHeadingText: screenType == ProductsScreenType.FEATURED
+          ? AppLanguage.featuredProductStr(appLanguage).toString()
+          : screenType == ProductsScreenType.FLASHSALE
+          ? AppLanguage.flashSaleStr(appLanguage).toString()
+          : headingTitle.toString(),
+      onTapSeeAllText: () => screenType == ProductsScreenType.CATEGORIES
+          ? Get.back()
+          : navigation.gotoOtherProductsScreen(screenType: screenType),
+    );
+  }
+
+  Widget _horizontalScrollableList(navigation) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      physics: BouncingScrollPhysics(),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(minWidth: size.width),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: List.generate(products.length > 10 ? 10 : products.length, (
+            index,
+          ) {
+            var data = products[index];
+            return Padding(
+              padding: EdgeInsets.only(
+                left: index == 0 ? firstIndexLeftPadding! : 0.0,
+                top: MAIN_VERTICAL_PADDING,
+                bottom: MAIN_VERTICAL_PADDING,
+                right: MAIN_HORIZONTAL_PADDING,
+              ),
+              child: GestureDetector(
+                onTap: () {
+                  if (isDetailScreen!) {
+                    Get.back();
+                    navigation.gotoProductDetailScreen(data: data);
+                  } else {
+                    navigation.gotoProductDetailScreen(data: data);
+                  }
+                },
+                child: SizedBox(
+                  width: size.width * 0.4,
+                  child: ProductItem(data: data),
+                ),
+              ),
+            );
+          }),
+        ),
+      ),
+    );
   }
 }

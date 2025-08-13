@@ -1,9 +1,6 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
-import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/core/packages_import.dart';
-
-
 
 class NotificationBar extends StatelessWidget {
   const NotificationBar({super.key});
@@ -15,9 +12,7 @@ class NotificationBar extends StatelessWidget {
     return Obx(() {
       final data = home.marqueeData.value;
 
-      if (data == null ||
-          (data.marqueeDetailEnglish.isEmpty &&
-              data.marqueeDetailUrdu.isEmpty)) {
+      if (data == null || (data.marqueeDetailEnglish.isEmpty && data.marqueeDetailUrdu.isEmpty)) {
         return const SizedBox();
       }
 
@@ -32,32 +27,14 @@ class NotificationBar extends StatelessWidget {
             width: size.width,
             child: isRightLang
                 ? _buildMarqueeRow(
-              isUrdu: true,
-              title: setMultiLanguageText(
-                language: appLanguage,
-                urdu: data.marqueeTitleUrdu,
-                english: data.marqueeTitleEnglish,
-              ),
-              detail: setMultiLanguageText(
-                language: appLanguage,
-                urdu: data.marqueeDetailUrdu,
-                english: data.marqueeDetailEnglish,
-              ),
-              data: data
+                title: marqueeTitleMultiLangText(data),
+                detail: marqueeDetailMultiLangText(data),
+                data: data
             )
                 : _buildMarqueeRow(
-              isUrdu: false,
-              title: setMultiLanguageText(
-                language: appLanguage,
-                urdu: data.marqueeTitleUrdu,
-                english: data.marqueeTitleEnglish,
-              ),
-              detail: setMultiLanguageText(
-                language: appLanguage,
-                urdu: data.marqueeDetailUrdu,
-                english: data.marqueeDetailEnglish,
-              ),
-              data: data
+                title: marqueeTitleMultiLangText(data),
+                detail: marqueeDetailMultiLangText(data),
+                data: data
             ),
           ),
         ),
@@ -66,7 +43,6 @@ class NotificationBar extends StatelessWidget {
   }
 
   Widget _buildMarqueeRow({
-    required bool isUrdu,
     required String title,
     required String detail,
     required MarqueeModel data,
@@ -75,23 +51,23 @@ class NotificationBar extends StatelessWidget {
 
     return Padding(
       padding: EdgeInsets.only(
-        left: isUrdu ? 0 : MAIN_HORIZONTAL_PADDING,
-        right: isUrdu ? MAIN_HORIZONTAL_PADDING : 0,
+        left: isRightLang ? 0 : MAIN_HORIZONTAL_PADDING,
+        right: isRightLang ? MAIN_HORIZONTAL_PADDING : 0,
         top: 8.0,
         bottom: 8.0,
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment:
-        isUrdu ? MainAxisAlignment.center : MainAxisAlignment.start,
+        isRightLang ? MainAxisAlignment.center : MainAxisAlignment.start,
         children: [
-          if (!isUrdu)
+          if (!isRightLang)
             appIcon(
               iconType: IconType.ANIM,
               icon: AppAnims.animNotificationSkin(isDark),
               width: 24.0,
             ),
-          if (!isUrdu) setWidth(8.0),
+          if (!isRightLang) setWidth(8.0),
           Expanded(
             child: SizedBox(
               height: 24.0,
@@ -112,8 +88,8 @@ class NotificationBar extends StatelessWidget {
               ),
             ),
           ),
-          if (isUrdu) setWidth(8.0),
-          if (isUrdu)
+          if (isRightLang) setWidth(8.0),
+          if (isRightLang)
             appIcon(
               iconType: IconType.ANIM,
               icon: AppAnims.animNotificationSkin(isDark),
@@ -124,4 +100,3 @@ class NotificationBar extends StatelessWidget {
     );
   }
 }
-

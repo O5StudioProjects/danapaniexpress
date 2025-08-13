@@ -1,7 +1,5 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
-import 'package:danapaniexpress/resources/shared_resources/app_images.dart';
-import 'package:danapaniexpress/ui/app_common/dialogs/bool_dialog.dart';
 
 class CartScreenMobile extends StatelessWidget {
   const CartScreenMobile({super.key});

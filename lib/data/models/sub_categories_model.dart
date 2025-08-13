@@ -6,6 +6,7 @@ class SubCategoryFields {
     subCategoryId,
     subCategoryNameEnglish,
     subCategoryNameUrdu,
+    subCategoryNameArabic,
     subCategoryImage,
     subCategoryIsFeatured,
   ];
@@ -14,6 +15,7 @@ class SubCategoryFields {
   static const String subCategoryId = 'sub_category_id';
   static const String subCategoryNameEnglish = 'sub_category_name_english';
   static const String subCategoryNameUrdu = 'sub_category_name_urdu';
+  static const String subCategoryNameArabic = 'sub_category_name_arabic';
   static const String subCategoryImage = 'sub_category_image';
   static const String subCategoryIsFeatured = 'sub_category_is_featured';
 }
@@ -23,6 +25,7 @@ class SubCategoriesModel {
   final String? subCategoryId;
   final String? subCategoryNameEnglish;
   final String? subCategoryNameUrdu;
+  final String? subCategoryNameArabic;
   final String? subCategoryImage;
   final bool? subCategoryIsFeatured;
 
@@ -31,6 +34,7 @@ class SubCategoriesModel {
     this.subCategoryId,
     this.subCategoryNameEnglish,
     this.subCategoryNameUrdu,
+    this.subCategoryNameArabic,
     this.subCategoryImage,
     this.subCategoryIsFeatured,
   });
@@ -40,6 +44,7 @@ class SubCategoriesModel {
     SubCategoryFields.subCategoryId: subCategoryId,
     SubCategoryFields.subCategoryNameEnglish: subCategoryNameEnglish,
     SubCategoryFields.subCategoryNameUrdu: subCategoryNameUrdu,
+    SubCategoryFields.subCategoryNameArabic: subCategoryNameArabic,
     SubCategoryFields.subCategoryImage: subCategoryImage,
     SubCategoryFields.subCategoryIsFeatured: subCategoryIsFeatured,
   };
@@ -49,6 +54,7 @@ class SubCategoriesModel {
     subCategoryId: json[SubCategoryFields.subCategoryId] as String?,
     subCategoryNameEnglish: json[SubCategoryFields.subCategoryNameEnglish] as String?,
     subCategoryNameUrdu: json[SubCategoryFields.subCategoryNameUrdu] as String?,
+    subCategoryNameArabic: json[SubCategoryFields.subCategoryNameArabic] as String?,
     subCategoryImage: json[SubCategoryFields.subCategoryImage] as String?,
     subCategoryIsFeatured: json[SubCategoryFields.subCategoryIsFeatured] as bool?,
   );
@@ -58,6 +64,7 @@ class SubCategoriesModel {
     String? subCategoryId,
     String? subCategoryNameEnglish,
     String? subCategoryNameUrdu,
+    String? subCategoryNameArabic,
     String? subCategoryImage,
     bool? subCategoryIsFeatured,
   }) =>
@@ -66,6 +73,7 @@ class SubCategoriesModel {
         subCategoryId: subCategoryId ?? this.subCategoryId,
         subCategoryNameEnglish: subCategoryNameEnglish ?? this.subCategoryNameEnglish,
         subCategoryNameUrdu: subCategoryNameUrdu ?? this.subCategoryNameUrdu,
+        subCategoryNameArabic: subCategoryNameArabic ?? this.subCategoryNameArabic,
         subCategoryImage: subCategoryImage ?? this.subCategoryImage,
         subCategoryIsFeatured: subCategoryIsFeatured ?? this.subCategoryIsFeatured,
       );
