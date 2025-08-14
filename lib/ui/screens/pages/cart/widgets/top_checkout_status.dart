@@ -14,8 +14,8 @@ class TopCheckoutStatus extends StatelessWidget {
       ),
       child: Row(
         children: [
-          checkoutDetailStatus(
-            title: AppLanguage.shippingStr(appLanguage),
+          CheckoutDetailStatus(
+            title: AppLanguage.shippingStr(appLanguage).toString(),
             isDone: isShipping,
           ),
           Expanded(
@@ -24,8 +24,8 @@ class TopCheckoutStatus extends StatelessWidget {
               child: appDivider(),
             ),
           ),
-          checkoutDetailStatus(
-            title: AppLanguage.paymentStr(appLanguage),
+          CheckoutDetailStatus(
+            title: AppLanguage.paymentStr(appLanguage).toString(),
             isDone: isPayment,
           ),
           Expanded(
@@ -34,8 +34,8 @@ class TopCheckoutStatus extends StatelessWidget {
               child: appDivider(),
             ),
           ),
-          checkoutDetailStatus(
-            title: AppLanguage.reviewStr(appLanguage),
+          CheckoutDetailStatus(
+            title: AppLanguage.reviewStr(appLanguage).toString(),
             isDone: isReview,
           ),
         ],

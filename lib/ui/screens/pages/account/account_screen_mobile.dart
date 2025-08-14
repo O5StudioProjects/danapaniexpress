@@ -1,29 +1,19 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
-import 'package:danapaniexpress/domain/controllers/account_controller/account_controller.dart';
-import 'package:danapaniexpress/ui/app_common/dialogs/bool_dialog.dart';
-
-import '../../../../domain/controllers/orders_controller/orders_controller.dart';
 
 class AccountScreenMobile extends StatelessWidget {
   const AccountScreenMobile({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var auth = Get.find<AuthController>();
-    var navigate = Get.find<NavigationController>();
     var account = Get.find<AccountController>();
-    var pendingFeedback = Get.find<PendingFeedbackController>();
     var orders = Get.find<OrdersController>();
-    var favorites = Get.find<FavoritesController>();
-    var cart = Get.find<CartController>();
 
     WidgetsBinding.instance.addPostFrameCallback((callback){
       orders.getActiveOrdersCount();
     });
 
     return Obx((){
-      var icArrow = isRightLang ? icArrowLeftSmall : icArrowRightSmall;
       return Container(
           width: size.width,
           height: size.height,
@@ -31,17 +21,7 @@ class AccountScreenMobile extends StatelessWidget {
           child: Column(
             children: [
               /// TOP HEADER
-              Obx(() {
-                return AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 250),
-                  child: account.showTopHeader.value
-                      ?  AccountHeader()
-                      : AccountHeaderSmall()
-                );
-              }),
-
-            //  AccountHeader(),
-
+              TopHeaders(),
               Expanded(
                 child: SingleChildScrollView(
                   physics: BouncingScrollPhysics(),
@@ -50,313 +30,27 @@ class AccountScreenMobile extends StatelessWidget {
                     crossAxisAlignment: isRightLang
                         ? CrossAxisAlignment.end
                         : CrossAxisAlignment.start,
-
                     children: [
                       setHeight(MAIN_VERTICAL_PADDING),
-
-                      if(auth.currentUser.value != null)
-                        Column(
-
-                          children: [
-                            HomeHeadings(
-                              mainHeadingText: AppLanguage.myOrdersStr(appLanguage).toString(),
-                              isSeeAll: true,
-                              isTrailingText: true,
-                              trailingText: AppLanguage.viewAllOrdersStr(appLanguage).toString(),
-                              onTapSeeAllText: ()=> navigate.gotoOrdersScreen(),
-                            ),
-                            setHeight(MAIN_VERTICAL_PADDING),
-                            MyOrders(ordersScreen: false,),
-                          ],
-                        ),
-
+                      MyOrdersSection(),
 
                       /// PENDING FEEDBACK SECTION
-                      if(auth.currentUser.value != null)
-                        Column(
-                          crossAxisAlignment: isRightLang
-                              ? CrossAxisAlignment.end
-                              : CrossAxisAlignment.start,
-                          children: [
-                            HomeHeadings(
-                              mainHeadingText: AppLanguage.ordersFeedbackStr(appLanguage).toString(),
-                              isSeeAll: false,
-                              isTrailingText: false,
-                            ),
-                            setHeight(MAIN_VERTICAL_PADDING),
-
-                            ///ORDERS FEED BACK
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                top: 0,
-                              ),
-                              child: listItemIcon(
-                                iconType: IconType.ICON,
-                                leadingIcon: Icons.feedback_rounded,
-                                itemTitle: AppLanguage.ordersFeedbackStr(appLanguage).toString(),
-                                trailingIcon: icArrow,
-                                isActiveNotification: pendingFeedback.completedOrdersWithoutFeedback.isNotEmpty ? true : false,
-                                onItemClick: ()=> navigate.gotoPendingFeedbackScreen(),
-                              ),
-                            ),
-
-                            setHeight(MAIN_VERTICAL_PADDING),
-                          ],
-                        ),
-
-
+                      OrdersFeedbackSection(),
 
                       /// MY PROFILE SECTION
-                      if(auth.currentUser.value != null)
-                        Column(
-                          crossAxisAlignment: isRightLang
-                              ? CrossAxisAlignment.end
-                              : CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: MAIN_HORIZONTAL_PADDING,
-                              ),
-                              child: appText(
-                                text: AppLanguage.myProfileStr(appLanguage),
-                                textStyle: secondaryTextStyle(),
-                              ),
-                            ),
-
-                            ///ACCOUNT INFORMATION - (VERTICAL PADDING)
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                top: MAIN_HORIZONTAL_PADDING,
-                              ),
-                              child: listItemIcon(
-                                iconType: IconType.ICON,
-                                leadingIcon: Icons.account_circle_rounded,
-                                itemTitle: AppLanguage.accountInformationStr(appLanguage).toString(),
-                                trailingIcon: icArrow,
-                                onItemClick: ()=> navigate.gotoAccountInformationScreen(),
-                              ),
-                            ),
-
-                            ///ADDRESS BOOK
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                top: MAIN_HORIZONTAL_PADDING,
-                              ),
-                              child: listItemIcon(
-                                iconType: IconType.ICON,
-                                leadingIcon: Icons.location_on_rounded,
-                                itemTitle: AppLanguage.addressBookStr(appLanguage).toString(),
-                                trailingIcon: icArrow,
-                                onItemClick: ()=> navigate.gotoAddressBookScreen(),
-                              ),
-                            ),
-
-                            setHeight(MAIN_VERTICAL_PADDING),
-                          ],
-                        ),
-
-
-
+                      MyProfileSection(),
 
                       /// LEGAL SECTION
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: MAIN_HORIZONTAL_PADDING,
-                        ),
-                        child: appText(
-                          text: AppLanguage.privacySecurityStr(appLanguage).toString(),
-                          textStyle: secondaryTextStyle(),
-                        ),
-                      ),
-
-                      ///PRIVACY POLICY
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: MAIN_HORIZONTAL_PADDING,
-                        ),
-                        child: listItemIcon(
-                          iconType: IconType.ICON,
-                          leadingIcon: Icons.privacy_tip_rounded,
-                          itemTitle: AppLanguage.privacyPolicyStr(appLanguage).toString(),
-                          trailingIcon: icArrow,
-                          onItemClick: ()=> navigate.gotoPrivacyPolicyScreen(),
-                        ),
-                      ),
-
-                      ///TERMS & CONDITIONS
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: MAIN_HORIZONTAL_PADDING,
-                        ),
-                        child: listItemIcon(
-                          iconType: IconType.ICON,
-                          leadingIcon: Icons.receipt_long_rounded,
-                          itemTitle: AppLanguage.termsConditionsStr(appLanguage).toString(),
-                          trailingIcon: icArrow,
-                          onItemClick: ()=> navigate.gotoTermsConditionsScreen(isStart: false),
-                        ),
-                      ),
-
-                      ///RETURNS & REFUNDS
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: MAIN_HORIZONTAL_PADDING,
-                        ),
-                        child: listItemIcon(
-                          iconType: IconType.ICON,
-                          leadingIcon: Icons.keyboard_return_rounded,
-                          itemTitle: AppLanguage.returnsRefundsStr(appLanguage).toString(),
-                          trailingIcon: icArrow,
-                          onItemClick: ()=> navigate.gotoReturnsRefundsScreen(),
-                        ),
-                      ),
-
-                      setHeight(MAIN_VERTICAL_PADDING),
+                      PrivacySecuritySection(),
 
                       /// SUPPORT SECTION
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: MAIN_HORIZONTAL_PADDING,
-                        ),
-                        child: appText(
-                          text: AppLanguage.supportStr(appLanguage).toString(),
-                          textStyle: secondaryTextStyle(),
-                        ),
-                      ),
-
-                      ///Customer Support Service
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: MAIN_HORIZONTAL_PADDING,
-                        ),
-                        child: listItemIcon(
-                          iconType: IconType.PNG,
-                          leadingIcon: icAdmins,
-                          itemTitle: AppLanguage.customerServiceStr(appLanguage).toString(),
-                          trailingIcon: icArrow,
-                          onItemClick: () async => await navigate.gotoCustomerServiceScreen(),
-                        ),
-                      ),
-
-                      /// CONTACT US ON WHATSAPP
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: MAIN_HORIZONTAL_PADDING,
-                        ),
-                        child: listItemIcon(
-                          iconType: IconType.SVG,
-                          leadingIcon: icWhatsapp,
-                          itemTitle: AppLanguage.whatsappStr(appLanguage).toString(),
-                          trailingIcon: icArrow,
-                          onItemClick: () async => await navigate.launchWhatsApp(phone: EnvStrings.contactUsWhatsapp),
-                        ),
-                      ),
-
-                      /// CONTACT US ON EMAIL
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: MAIN_HORIZONTAL_PADDING,
-                        ),
-                        child: listItemIcon(
-                          iconType: IconType.ICON,
-                          leadingIcon: Icons.email_rounded,
-                          itemTitle: AppLanguage.emailStr(appLanguage).toString(),
-                          trailingIcon: icArrow,
-                          onItemClick: () async => await navigate.launchEmail(email: EnvStrings.contactUsEmail),
-                        ),
-                      ),
-
-                      setHeight(MAIN_VERTICAL_PADDING),
+                     SupportSection(),
 
                       /// SOCIAL MEDIA SECTION
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: MAIN_HORIZONTAL_PADDING,
-                        ),
-                        child: appText(
-                          text: AppLanguage.followUsStr(appLanguage).toString(),
-                          textStyle: secondaryTextStyle(),
-                        ),
-                      ),
-
-                      /// INSTAGRAM
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: MAIN_HORIZONTAL_PADDING,
-                        ),
-                        child: listItemIcon(
-                          iconType: IconType.SVG,
-                          leadingIcon: icInstagram,
-                          itemTitle: AppLanguage.instagramStr(appLanguage).toString(),
-                          trailingIcon: icArrow,
-                          onItemClick: ()=> navigate.launchInstagram(url: EnvStrings.followUsInstagram),
-                        ),
-                      ),
-
-                      /// FACEBOOK
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: MAIN_HORIZONTAL_PADDING,
-                        ),
-                        child: listItemIcon(
-                          iconType: IconType.SVG,
-                          leadingIcon: icFacebook,
-                          itemTitle: AppLanguage.facebookStr(appLanguage).toString(),
-                          trailingIcon: icArrow,
-                          onItemClick: () async => await navigate.launchFacebook(pageUserName: EnvStrings.followUsFacebook),
-                        ),
-                      ),
+                      SocialMediaSection(),
 
                       /// LOGIN/LOGOUT
-                      auth.currentUser.value != null
-                          ? Padding(
-                        padding: const EdgeInsets.only(
-                          top: MAIN_HORIZONTAL_PADDING,
-                        ),
-                        child: auth.authStatus.value == AuthStatus.LOADING
-                            ? loadingIndicator()
-                            : listItemIcon(
-                          iconType: IconType.ICON,
-                          leadingIcon: Icons.logout_rounded,
-                          itemTitle: AppLanguage.signOutStr(appLanguage).toString(),
-                          trailingIcon: icArrow,
-                          onItemClick: () async {
-                            showCustomDialog(context, AppBoolDialog(
-                                title: AppLanguage.signOutStr(appLanguage).toString(),
-                                detail: AppLanguage.doYouWantToSignOutStr(appLanguage).toString(),
-                                iconType: IconType.ICON,
-                              icon: Icons.logout_rounded,
-                              onTapConfirm: () async {
-                                  Navigator.of(context).pop();
-                                await auth.logoutUser().then((val) {
-                                  Get.delete<HomeController>(force: true);
-                                  orders.activeOrders.clear();
-                                  orders.confirmedOrders.clear();
-                                  orders.completedOrders.clear();
-                                  orders.cancelledOrders.clear();
-                                  favorites.favoritesList.clear();
-                                  cart.cartProducts.clear();
-                                });
-                              },
-                            ));
-                          },
-                        ),
-                      )
-                          : Padding(
-                        padding: const EdgeInsets.only(
-                          top: MAIN_HORIZONTAL_PADDING,
-                        ),
-                        child: listItemIcon(
-                          iconType: IconType.ICON,
-                          leadingIcon: Icons.login_rounded,
-                          itemTitle: AppLanguage.signInStr(appLanguage).toString(),
-                          trailingIcon: icArrow,
-                          onItemClick: (){
-                            navigate.gotoSignInScreen();
-                          },
-                        ),
-                      ),
-                      setHeight(MAIN_VERTICAL_PADDING),
+                      LoginLogoutSection()
                     ],
                   ),
                 ),

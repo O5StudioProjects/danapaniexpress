@@ -1,5 +1,4 @@
 import 'package:danapaniexpress/core/common_imports.dart';
-import 'package:danapaniexpress/ui/screens/pages/account/customer_service/customer_service_mobile.dart';
 
 class CustomerService extends StatelessWidget {
   const CustomerService({super.key});

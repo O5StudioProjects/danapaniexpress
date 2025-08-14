@@ -36,6 +36,7 @@ Map<String, Map<String, String>> allLang = {
     RETURNS_REFUNDS_SECTION5_HEADING: EnvStrings.returnsRefundsSection5HeadingEng,
     RETURNS_REFUNDS_SECTION5_DETAIL: EnvStrings.returnsRefundsSection5DetailEng,
     RETURNS_REFUNDS_SECTION6_HEADING: EnvStrings.returnsRefundsSection6HeadingEng,
+    RETURNS_REFUNDS_SECTION6_DETAIL: EnvStrings.returnsRefundsSection6DetailEng,
 
     TERMS_CONDITIONS_MAIN_HEADING: EnvStrings.termsConditionsMainHeadingEng,
     TERMS_CONDITIONS_MAIN_DETAIL: EnvStrings.termsConditionsMainDetailEng,
