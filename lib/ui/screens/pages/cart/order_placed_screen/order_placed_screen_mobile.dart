@@ -1,7 +1,5 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
-import 'package:danapaniexpress/core/data_model_imports.dart';
-import 'package:danapaniexpress/ui/screens/pages/cart/widgets/top_checkout_status.dart';
 
 class OrderPlacedScreenMobile extends StatelessWidget {
   const OrderPlacedScreenMobile({super.key});
