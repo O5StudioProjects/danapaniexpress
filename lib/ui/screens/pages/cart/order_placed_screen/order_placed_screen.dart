@@ -1,7 +1,5 @@
 import 'package:danapaniexpress/core/common_imports.dart';
-import 'package:danapaniexpress/ui/screens/pages/cart/order_placed_screen/order_placed_screen_mobile.dart';
-
-import '../../../../../domain/controllers/dashboard_controller/dashboard_controller.dart';
+import 'package:danapaniexpress/core/controllers_import.dart';
 
 class OrderPlacedScreen extends StatelessWidget {
   const OrderPlacedScreen({super.key});

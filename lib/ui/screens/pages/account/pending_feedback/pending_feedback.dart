@@ -1,5 +1,4 @@
 import 'package:danapaniexpress/core/common_imports.dart';
-import 'package:danapaniexpress/ui/screens/pages/account/pending_feedback/pending_feedback_mobile.dart';
 
 class PendingFeedback extends StatelessWidget {
   const PendingFeedback({super.key});

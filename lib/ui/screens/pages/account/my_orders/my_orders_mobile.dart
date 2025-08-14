@@ -1,9 +1,6 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
-import 'package:danapaniexpress/domain/controllers/orders_controller/orders_controller.dart';
-import 'package:danapaniexpress/ui/screens/pages/account/my_orders/widgets/order_item.dart';
-
-import '../../../../../data/models/order_model.dart';
+import 'package:danapaniexpress/core/data_model_imports.dart';
 
 class MyOrdersMobile extends StatelessWidget {
   const MyOrdersMobile({super.key});

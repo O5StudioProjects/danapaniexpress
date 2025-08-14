@@ -1,5 +1,4 @@
 import 'package:danapaniexpress/core/common_imports.dart';
-import 'package:danapaniexpress/ui/screens/pages/account/my_orders/my_orders_mobile.dart';
 
 class MyOrdersScreen extends StatelessWidget {
   const MyOrdersScreen({super.key});

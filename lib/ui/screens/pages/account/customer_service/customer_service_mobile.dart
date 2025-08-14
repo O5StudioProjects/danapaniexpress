@@ -1,6 +1,6 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
-import 'package:marquee/marquee.dart';
+import 'package:danapaniexpress/core/packages_import.dart';
 
 class CustomerServiceMobile extends StatelessWidget {
   const CustomerServiceMobile({super.key});
@@ -10,111 +10,101 @@ class CustomerServiceMobile extends StatelessWidget {
     var auth = Get.find<AuthController>();
     var nav = Get.find<NavigationController>();
     return Obx((){
-      return Container(
-        width: size.width,
-        height: size.height,
-        color: AppColors.backgroundColorSkin(isDark),
-        child: Column(
-          children: [
-            appBarCommon(
-              title: AppLanguage.customerServiceStr(appLanguage),
-              isBackNavigation: true,
-            ),
-            Expanded(child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
-              child: Column(
-                children: [
-                  welcomePart(),
-                  marqueeSection(),
-
-                  /// CUSTOM ORDER SECTION
-                  auth.currentUser.value?.userId != null
-                  ? bodyItemSection(
-                    heading: AppLanguage.customOrdersStr(appLanguage),
-                    detail: AppLanguage.customOrderInfoStr(appLanguage),
-                  )
-                  : SizedBox.shrink(),
-
-                  /// COMPLAINTS AND QUERIES SECTION
-                  bodyItemSection(
-                      heading: AppLanguage.complaintsQueriesStr(appLanguage),
-                      detail: AppLanguage.complaintsDescriptionStr(appLanguage),
-                  ),
-                  setHeight(MAIN_VERTICAL_PADDING),
-
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: MAIN_HORIZONTAL_PADDING),
-                    child: Row(
-                      children: [
-
-                        if(auth.currentUser.value?.userId != null)
-                        Expanded(child: appMaterialButton(text: AppLanguage.customOrdersStr(appLanguage), onTap: () async => nav.launchWhatsApp(phone: EnvStrings.contactUsCustomOrders))),
-                        if(auth.currentUser.value?.userId != null) setWidth(8.0),
-                        Expanded(child: appMaterialButton(text: AppLanguage.customerServiceStr(appLanguage), onTap: () async => nav.launchWhatsApp(phone: EnvStrings.contactUsCustomerService))),
-
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ))
-
-          ],
-        ),
-      );
+      return _buildUI(auth, nav);
     });
   }
-}
 
-Widget welcomePart() {
-  return Padding(
-    padding: const EdgeInsets.only(
-      top: MAIN_VERTICAL_PADDING,
-      left: MAIN_HORIZONTAL_PADDING,
-      right: MAIN_HORIZONTAL_PADDING,
-    ),
-    child: appText(
-      text:
-          '${AppLanguage.welcomeToAppNameStr(appLanguage)} ${AppLanguage.customerServiceStr(appLanguage)}',
-      textAlign: TextAlign.center,
-      textStyle: bigBoldHeadingTextStyle().copyWith(
-        fontSize: SECONDARY_HEADING_FONT_SIZE,
-      ),
-    ),
-  );
-}
-
-Widget bodyItemSection({heading, detail}) {
-  return Padding(
-    padding: const EdgeInsets.only(
-      top: MAIN_VERTICAL_PADDING,
-      left: MAIN_HORIZONTAL_PADDING,
-      right: MAIN_HORIZONTAL_PADDING,
-    ),
-    child: SizedBox(
+  Widget _buildUI(auth, nav){
+    return Container(
       width: size.width,
+      height: size.height,
+      color: AppColors.backgroundColorSkin(isDark),
       child: Column(
-        crossAxisAlignment: isRightLang ? CrossAxisAlignment.end :  CrossAxisAlignment.start,
         children: [
-          appText(text: heading, textDirection: setTextDirection(appLanguage), textAlign: setTextAlignment(appLanguage), textStyle: headingTextStyle()),
-          setHeight(MAIN_HORIZONTAL_PADDING),
-          appText(text: detail, textDirection: setTextDirection(appLanguage), textAlign: setTextAlignment(appLanguage), textStyle: bodyTextStyle()),
-          setHeight(MAIN_HORIZONTAL_PADDING),
+          appBarCommon(
+            title: AppLanguage.customerServiceStr(appLanguage),
+            isBackNavigation: true,
+          ),
+          Expanded(child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Column(
+              children: [
+                _welcomePart(),
+                _marqueeSection(),
+
+                /// CUSTOM ORDER SECTION
+                auth.currentUser.value?.userId != null
+                    ? _bodyItemSection(
+                  heading: AppLanguage.customOrdersStr(appLanguage),
+                  detail: AppLanguage.customOrderInfoStr(appLanguage),
+                )
+                    : SizedBox.shrink(),
+
+                /// COMPLAINTS AND QUERIES SECTION
+                _bodyItemSection(
+                  heading: AppLanguage.complaintsQueriesStr(appLanguage),
+                  detail: AppLanguage.complaintsDescriptionStr(appLanguage),
+                ),
+
+                _buttonsSection(auth, nav)
+              ],
+            ),
+          ))
+
         ],
       ),
-    ),
-  );
-}
+    );
+  }
 
-Widget marqueeSection(){
-  return Padding(
-    padding: const EdgeInsets.only(bottom: MAIN_HORIZONTAL_PADDING, top: MAIN_HORIZONTAL_PADDING),
-    child: GestureDetector(
-      onTap: ()=> Get.find<NavigationController>().launchWhatsApp(phone: EnvStrings.contactUsCustomerService),
+  Widget _welcomePart() {
+    return Padding(
+      padding: const EdgeInsets.only(
+        top: MAIN_VERTICAL_PADDING,
+        left: MAIN_HORIZONTAL_PADDING,
+        right: MAIN_HORIZONTAL_PADDING,
+      ),
+      child: appText(
+        text:
+        '${AppLanguage.welcomeToAppNameStr(appLanguage)} ${AppLanguage.customerServiceStr(appLanguage)}',
+        textAlign: TextAlign.center,
+        textStyle: bigBoldHeadingTextStyle().copyWith(
+          fontSize: SECONDARY_HEADING_FONT_SIZE,
+        ),
+      ),
+    );
+  }
+
+  Widget _bodyItemSection({heading, detail}) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        top: MAIN_VERTICAL_PADDING,
+        left: MAIN_HORIZONTAL_PADDING,
+        right: MAIN_HORIZONTAL_PADDING,
+      ),
       child: SizedBox(
         width: size.width,
-        child: isRightLang
-            ? _buildMarqueeRow(
+        child: Column(
+          crossAxisAlignment: isRightLang ? CrossAxisAlignment.end :  CrossAxisAlignment.start,
+          children: [
+            appText(text: heading, textDirection: setTextDirection(appLanguage), textAlign: setTextAlignment(appLanguage), textStyle: headingTextStyle()),
+            setHeight(MAIN_HORIZONTAL_PADDING),
+            appText(text: detail, textDirection: setTextDirection(appLanguage), textAlign: setTextAlignment(appLanguage), textStyle: bodyTextStyle()),
+            setHeight(MAIN_HORIZONTAL_PADDING),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _marqueeSection(){
+    return Padding(
+      padding: const EdgeInsets.only(bottom: MAIN_HORIZONTAL_PADDING, top: MAIN_HORIZONTAL_PADDING),
+      child: GestureDetector(
+        onTap: ()=> Get.find<NavigationController>().launchWhatsApp(phone: EnvStrings.contactUsCustomerService),
+        child: SizedBox(
+          width: size.width,
+          child: isRightLang
+              ? _buildMarqueeRow(
             isUrdu: true,
             title: setMultiLanguageText(
               language: appLanguage,
@@ -126,8 +116,8 @@ Widget marqueeSection(){
               urdu: AppLanguage.customerServiceMarqueeNotificationStr(appLanguage),
               english: AppLanguage.customerServiceMarqueeNotificationStr(appLanguage),
             ),
-        )
-            : _buildMarqueeRow(
+          )
+              : _buildMarqueeRow(
             isUrdu: false,
             title: setMultiLanguageText(
               language: appLanguage,
@@ -139,66 +129,85 @@ Widget marqueeSection(){
               urdu: AppLanguage.customerServiceMarqueeNotificationStr(appLanguage),
               english: AppLanguage.customerServiceMarqueeNotificationStr(appLanguage),
             ),
+          ),
         ),
       ),
-    ),
-  );
-}
+    );
+  }
 
-Widget _buildMarqueeRow({
-  required bool isUrdu,
-  required String title,
-  required String detail,
-}) {
-  final content = '$title : $detail';
-
-  return Padding(
-    padding: EdgeInsets.only(
-      left: isUrdu ? 0 : MAIN_HORIZONTAL_PADDING,
-      right: isUrdu ? MAIN_HORIZONTAL_PADDING : 0,
-      top: 8.0,
-      bottom: 8.0,
-    ),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment:
-      isUrdu ? MainAxisAlignment.center : MainAxisAlignment.start,
-      children: [
-        if (!isUrdu)
-          appIcon(
-            iconType: IconType.PNG,
-            icon: icAdmins,
-            width: 24.0,
-          ),
-        if (!isUrdu) setWidth(8.0),
-        Expanded(
-          child: SizedBox(
-            height: 24.0,
-            child: Center(
-              child: Marquee(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                text: content,
-                style: marqueeTextStyle(),
-                scrollAxis: Axis.horizontal,
-                velocity: 50.0,
-                blankSpace: 20.0,
-                startPadding: 50.0,
-                showFadingOnlyWhenScrolling: true,
-                fadingEdgeStartFraction: 0.1,
-                fadingEdgeEndFraction: 0.1,
-                textDirection: setTextDirection(appLanguage),
+  Widget _buildMarqueeRow({
+    required bool isUrdu,
+    required String title,
+    required String detail,
+  }) {
+    final content = '$title : $detail';
+    return Padding(
+      padding: EdgeInsets.only(
+        left: isUrdu ? 0 : MAIN_HORIZONTAL_PADDING,
+        right: isUrdu ? MAIN_HORIZONTAL_PADDING : 0,
+        top: 8.0,
+        bottom: 8.0,
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment:
+        isUrdu ? MainAxisAlignment.center : MainAxisAlignment.start,
+        children: [
+          if (!isUrdu)
+            appIcon(
+              iconType: IconType.PNG,
+              icon: icAdmins,
+              width: 24.0,
+            ),
+          if (!isUrdu) setWidth(8.0),
+          Expanded(
+            child: SizedBox(
+              height: 24.0,
+              child: Center(
+                child: Marquee(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  text: content,
+                  style: marqueeTextStyle(),
+                  scrollAxis: Axis.horizontal,
+                  velocity: 50.0,
+                  blankSpace: 20.0,
+                  startPadding: 50.0,
+                  showFadingOnlyWhenScrolling: true,
+                  fadingEdgeStartFraction: 0.1,
+                  fadingEdgeEndFraction: 0.1,
+                  textDirection: setTextDirection(appLanguage),
+                ),
               ),
             ),
           ),
-        ),
-        if (isUrdu) setWidth(8.0),
-        if (isUrdu)
-          appIcon(
-            iconType: IconType.PNG,
-            icon: icAdmins,
-            width: 24.0,
-          ),
-      ],
-    ),
-  );
+          if (isUrdu) setWidth(8.0),
+          if (isUrdu)
+            appIcon(
+              iconType: IconType.PNG,
+              icon: icAdmins,
+              width: 24.0,
+            ),
+        ],
+      ),
+    );
+  }
+  Widget _buttonsSection(auth, nav){
+    return Padding(
+      padding: const EdgeInsets.only(left: MAIN_HORIZONTAL_PADDING, right: MAIN_HORIZONTAL_PADDING, top: MAIN_VERTICAL_PADDING),
+      child: Row(
+        children: [
+          if(auth.currentUser.value?.userId != null)
+            Expanded(child: appMaterialButton(text: AppLanguage.customOrdersStr(appLanguage), onTap: () async => nav.launchWhatsApp(phone: EnvStrings.contactUsCustomOrders))),
+          if(auth.currentUser.value?.userId != null) setWidth(8.0),
+          Expanded(child: appMaterialButton(text: AppLanguage.customerServiceStr(appLanguage), onTap: () async => nav.launchWhatsApp(phone: EnvStrings.contactUsCustomerService))),
+
+        ],
+      ),
+    );
+  }
 }
+
+
+
+
+
