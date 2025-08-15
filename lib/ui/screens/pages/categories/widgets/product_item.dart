@@ -97,25 +97,25 @@ class ProductItem extends StatelessWidget {
           ),
         )
             : SizedBox(),
-        data.productAvailability == false
-            ? Positioned(
-          bottom: 0,
-          right: 0,
-          child: Container(
-            padding: EdgeInsets.symmetric(
-                horizontal: 8.0, vertical: 4.0),
-            decoration: BoxDecoration(
-                color: EnvColors.secondaryTextColorLight,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(4.0),
-                    bottomRight: Radius.circular(0.0))
-            ),
-            child: appText(text: AppLanguage.outOfStockStr(appLanguage),
-                textStyle: itemTextStyle().copyWith(
-                    color: whiteColor)),
-          ),
-        )
-            : SizedBox()
+        // data.productAvailability == false
+        //     ? Positioned(
+        //   bottom: 0,
+        //   right: 0,
+        //   child: Container(
+        //     padding: EdgeInsets.symmetric(
+        //         horizontal: 8.0, vertical: 4.0),
+        //     decoration: BoxDecoration(
+        //         color: EnvColors.secondaryTextColorLight,
+        //         borderRadius: BorderRadius.only(
+        //             topLeft: Radius.circular(4.0),
+        //             bottomRight: Radius.circular(0.0))
+        //     ),
+        //     child: appText(text: AppLanguage.outOfStockStr(appLanguage),
+        //         textStyle: itemTextStyle().copyWith(
+        //             color: whiteColor)),
+        //   ),
+        // )
+        //     : SizedBox()
       ],
     );
   }
@@ -204,7 +204,7 @@ class ProductItem extends StatelessWidget {
             ),
             child: Center(
                 child: appText(
-                    text: AppLanguage.addToCartStr(appLanguage),
+                    text: data.productAvailability == false ? AppLanguage.outOfStockStr(appLanguage) : AppLanguage.addToCartStr(appLanguage),
                     textStyle: buttonTextStyle(color: data.productAvailability == false ? AppColors.materialButtonTextSkin(isDark).withValues(alpha: 0.5) : AppColors.materialButtonTextSkin(isDark)))),
           ),
         ),

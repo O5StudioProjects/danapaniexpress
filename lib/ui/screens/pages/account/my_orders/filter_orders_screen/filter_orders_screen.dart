@@ -1,5 +1,4 @@
 import 'package:danapaniexpress/core/common_imports.dart';
-import 'package:danapaniexpress/ui/screens/pages/account/my_orders/filter_orders_screen/filter_orders_screen_mobile.dart';
 
 class FilterOrdersScreen extends StatelessWidget {
   const FilterOrdersScreen({super.key});

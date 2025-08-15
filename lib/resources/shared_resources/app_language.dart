@@ -810,6 +810,11 @@ class AppLanguage {
   static String? searchProductsDotsStr(String appLanguage) => allLang[appLanguage]?[SEARCH_PRODUCTS_DOTS];
   static String? searchProductsStr(String appLanguage) => allLang[appLanguage]?[SEARCH_PRODUCTS];
   static String? noSuchProductFoundStr(String appLanguage) => allLang[appLanguage]?[NO_SUCH_PRODUCT_FOUND];
+  static String? excellentStr(String appLanguage) => allLang[appLanguage]?[EXCELLENT];
+  static String? veryGoodStr(String appLanguage) => allLang[appLanguage]?[VERY_GOOD];
+  static String? neutralStr(String appLanguage) => allLang[appLanguage]?[NEUTRAL];
+  static String? poorStr(String appLanguage) => allLang[appLanguage]?[POOR];
+  static String? veryPoorStr(String appLanguage) => allLang[appLanguage]?[VERY_POOR];
 
 
 }

@@ -380,6 +380,11 @@ Map<String, Map<String, String>> allLang = {
     SEARCH_PRODUCTS_DOTS: 'Search products...',
     SEARCH_PRODUCTS: 'Search Products',
     NO_SUCH_PRODUCT_FOUND: 'No such product found',
+    EXCELLENT: 'Excellent',
+    VERY_GOOD: 'Very Good',
+    NEUTRAL: 'Neutral',
+    POOR: 'Poor',
+    VERY_POOR: 'Very Poor',
 
   },
 
@@ -762,6 +767,11 @@ Map<String, Map<String, String>> allLang = {
     SEARCH_PRODUCTS_DOTS: 'مصنوعات تلاش کریں...',
     SEARCH_PRODUCTS: 'مصنوعات تلاش کریں',
     NO_SUCH_PRODUCT_FOUND: 'ایسی کوئی مصنوعات نہیں ملی',
+    EXCELLENT: 'شاندار',
+    VERY_GOOD: 'بہت اچھا',
+    NEUTRAL: 'درمیانہ',
+    POOR: 'خراب',
+    VERY_POOR: 'انتہائی خراب',
 
   },
 
@@ -1142,6 +1152,11 @@ Map<String, Map<String, String>> allLang = {
     SEARCH_PRODUCTS_DOTS: 'ابحث عن المنتجات…',
     SEARCH_PRODUCTS: 'ابحث عن منتجات',
     NO_SUCH_PRODUCT_FOUND: 'لم يتم العثور على منتج كهذا',
+    EXCELLENT: 'ممتاز',
+    VERY_GOOD: 'جيد جدًا',
+    NEUTRAL: 'محايد',
+    POOR: 'ضعيف',
+    VERY_POOR: 'ضعيف جدًا',
 
   }
 };

@@ -2,8 +2,8 @@ import 'dart:io';
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/core/packages_import.dart';
-import 'package:danapaniexpress/data/repositories/account_information_repository/account_information_repository.dart';
 import 'package:danapaniexpress/data/repositories/account_repository/account_repository.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class AccountInfoController extends GetxController {
   final accountRepo = AccountRepository();
@@ -25,6 +25,9 @@ class AccountInfoController extends GetxController {
   final Rx<File?> selectedImage = Rx<File?>(null);
   final ImagePicker picker = ImagePicker();
   final RxString uploadedImageUrl = ''.obs;
+
+  Rx<Uint8List?> selectedImageBytes = Rx<Uint8List?>(null);
+  RxString selectedImageName = ''.obs;
 
   Rx<AuthStatus> uploadImageStatus = AuthStatus.IDLE.obs;
   Rx<AuthStatus> deleteImageStatus = AuthStatus.IDLE.obs;
@@ -56,57 +59,128 @@ class AccountInfoController extends GetxController {
 
 
   /// IMAGE PICKER FROM GALLERY
+
   Future<void> pickImage() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      selectedImage.value = File(pickedFile.path);
+      if (kIsWeb) {
+        // On web, store bytes instead of a File
+        selectedImageBytes.value = await pickedFile.readAsBytes();
+        selectedImageName.value = pickedFile.name; // Store original file name
+      } else {
+        // On mobile, use File
+        selectedImage.value = File(pickedFile.path);
+      }
     }
   }
 
-  /// UPLOAD IMAGE API CALL
+  // /// UPLOAD IMAGE API CALL
+  // Future<void> uploadUserImage() async {
+  //   uploadImageStatus.value = AuthStatus.LOADING;
+  //
+  //   if (auth.userId.value == null) {
+  //     uploadImageStatus.value = AuthStatus.FAILURE;
+  //     showSnackbar(
+  //         isError: true,
+  //         title: AppLanguage.errorStr(appLanguage).toString(),
+  //         message: AppLanguage.userNotLoggedInStr(appLanguage).toString()
+  //     );
+  //     return;
+  //   }
+  //
+  //   if(selectedImage.value == null){
+  //     uploadImageStatus.value = AuthStatus.FAILURE;
+  //     showSnackbar(title: AppLanguage.imageNotSelectedStr(appLanguage).toString(), message: AppLanguage.imageNotSelectedDetailStr(appLanguage).toString());
+  //     return;
+  //   }
+  //
+  //   final result = await accountInfoRepo.uploadUserImage(
+  //     file: selectedImage.value!,
+  //     userId: auth.userId.value!,
+  //   );
+  //
+  //   if (result['success'] == true || result['status'] == 'success') {
+  //     await auth.fetchUserProfile(); // Refresh image in currentUser
+  //     selectedImage.value = null;
+  //     uploadImageStatus.value = AuthStatus.SUCCESS;
+  //     showSnackbar(
+  //         isError: false,
+  //         title: 'Success',
+  //         message: result['message'] ?? 'Image uploaded',
+  //     );
+  //
+  //   } else {
+  //     uploadImageStatus.value = AuthStatus.FAILURE;
+  //     showSnackbar(
+  //         isError: true,
+  //         title: 'Failed',
+  //         message: result['message'] ?? result['error'] ?? 'Upload failed',
+  //     );
+  //   }
+  // }
+
+  /// UPLOAD IMAGE (Web + Mobile)
   Future<void> uploadUserImage() async {
     uploadImageStatus.value = AuthStatus.LOADING;
 
-    if (auth.userId.value == null) {
+    // 1️⃣ Check if user is logged in
+    if (auth.currentUser.value == null) {
       uploadImageStatus.value = AuthStatus.FAILURE;
       showSnackbar(
-          isError: true,
-          title: AppLanguage.errorStr(appLanguage).toString(),
-          message: AppLanguage.userNotLoggedInStr(appLanguage).toString()
+        isError: true,
+        title: AppLanguage.errorStr(appLanguage).toString(),
+        message: AppLanguage.userNotLoggedInStr(appLanguage).toString(),
       );
       return;
     }
 
-    if(selectedImage.value == null){
+    // 2️⃣ Validate image selection
+    if ((!kIsWeb && selectedImage.value == null) ||
+        (kIsWeb && (selectedImageBytes.value == null || selectedImageName.value == ''))) {
       uploadImageStatus.value = AuthStatus.FAILURE;
-      showSnackbar(title: AppLanguage.imageNotSelectedStr(appLanguage).toString(), message: AppLanguage.imageNotSelectedDetailStr(appLanguage).toString());
+      showSnackbar(
+        title: AppLanguage.imageNotSelectedStr(appLanguage).toString(),
+        message: AppLanguage.imageNotSelectedDetailStr(appLanguage).toString(),
+      );
       return;
     }
 
+    // 3️⃣ Call repository with platform-specific parameters
     final result = await accountInfoRepo.uploadUserImage(
-      file: selectedImage.value!,
-      userId: auth.userId.value!,
+      userId: auth.currentUser.value!.userId!,
+      file: !kIsWeb ? selectedImage.value : null,
+      imageBytes: kIsWeb ? selectedImageBytes.value : null,
+      imageName: kIsWeb ? selectedImageName.value : null,
     );
 
+    // 4️⃣ Handle API response
     if (result['success'] == true || result['status'] == 'success') {
-      await auth.fetchUserProfile(); // Refresh image in currentUser
-      selectedImage.value = null;
+      await auth.fetchUserProfile(); // Refresh profile image
+
+      // Reset selection
+      if (kIsWeb) {
+        selectedImageBytes.value = null;
+        selectedImageName.value = '';
+      } else {
+        selectedImage.value = null;
+      }
+
       uploadImageStatus.value = AuthStatus.SUCCESS;
       showSnackbar(
-          isError: false,
-          title: 'Success',
-          message: result['message'] ?? 'Image uploaded',
+        isError: false,
+        title: 'Success',
+        message: result['message'] ?? 'Image uploaded',
       );
-
     } else {
       uploadImageStatus.value = AuthStatus.FAILURE;
       showSnackbar(
-          isError: true,
-          title: 'Failed',
-          message: result['message'] ?? result['error'] ?? 'Upload failed',
+        isError: true,
+        title: 'Failed',
+        message: result['message'] ?? result['error'] ?? 'Upload failed',
       );
     }
   }
+
 
   /// UPDATE USER
   Future<void> updateUser({

@@ -48,7 +48,13 @@ class AccountHeader extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         GestureDetector(
-                            onTap: ()=> navigation.gotoAccountInformationScreen(),
+                            onTap: (){
+                              if(data == null){
+                                navigation.gotoSignInScreen();
+                              } else{
+                                navigation.gotoAccountInformationScreen();
+                              }
+                            },
                             child: ProfileImage(profileImage: data?.userImage)),
                         setWidth(MAIN_HORIZONTAL_PADDING),
                         Expanded(

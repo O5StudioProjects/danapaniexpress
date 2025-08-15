@@ -1,5 +1,4 @@
 import 'package:danapaniexpress/core/common_imports.dart';
-import 'package:danapaniexpress/ui/screens/pages/account/my_orders/order_detail_screen/order_feedback/order_feedback_mobile.dart';
 
 class OrderFeedback extends StatelessWidget {
   const OrderFeedback({super.key});

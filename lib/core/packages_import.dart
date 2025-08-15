@@ -9,6 +9,7 @@ export 'package:marquee/marquee.dart';
 export 'package:smooth_page_indicator/smooth_page_indicator.dart';
 export 'package:readmore/readmore.dart';
 export 'package:image_picker/image_picker.dart';
+export 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 
 
