@@ -40,7 +40,7 @@ Widget accountScreenOrdersList(OrderTabsModel orderData, index) {
     child: GestureDetector(
       onTap: () => nav.gotoOrdersScreen(screenIndex: index),
       child: Container(
-        width: size.width * 0.25,
+        //width: size.width * 0.25,
         padding: EdgeInsets.all(MAIN_HORIZONTAL_PADDING),
         decoration: BoxDecoration(
           color: AppColors.cardColorSkin(isDark),

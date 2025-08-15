@@ -64,7 +64,7 @@ class PendingFeedbackController extends GetxController {
 
   /// INITIAL FETCH
   Future<void> fetchCompletedOrdersWithoutFeedback() async {
-    if(auth.currentUser.value?.userId != null){
+    if(auth.currentUser.value!.userId != null){
       ordersWithoutFeedbackStatus.value = Status.LOADING;
       ordersWithoutFeedbackCurrentPage.value = 1;
       hasMoreOrdersWithoutFeedback.value = true;

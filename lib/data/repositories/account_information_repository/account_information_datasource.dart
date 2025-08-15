@@ -8,9 +8,36 @@ import 'account_info_utils.dart';
 class AccountInfoDatasource extends BaseRepository{
 
   /// UPLOAD IMAGE IN USER INFO -API
+  // Future<Map<String, dynamic>> uploadUserImageApi({
+  //   required String userId,
+  //   required File imageFile,
+  // }) async {
+  //   try {
+  //     final uri = Uri.parse(APiEndpoints.updateUserImage);
+  //     final request = http.MultipartRequest('POST', uri)
+  //       ..fields['user_id'] = userId
+  //       ..headers.addAll({
+  //         AppConfig.apiKeyHeader: AppConfig.apiKey,
+  //       })
+  //       ..files.add(await http.MultipartFile.fromPath(
+  //         'user_image',
+  //         imageFile.path,
+  //         contentType: AccountUtils.getMediaType(imageFile.path), // or image/png
+  //       ));
+  //
+  //     final streamedResponse = await request.send();
+  //     final response = await http.Response.fromStream(streamedResponse);
+  //
+  //     return handleApiResponseAsMap(response);
+  //   } catch (e) {
+  //     return handleException(e as Exception);
+  //   }
+  // }
   Future<Map<String, dynamic>> uploadUserImageApi({
     required String userId,
-    required File imageFile,
+    File? imageFile,               // For mobile
+    Uint8List? imageBytes,         // For web
+    String? imageName,             // For web
   }) async {
     try {
       final uri = Uri.parse(APiEndpoints.updateUserImage);
@@ -18,12 +45,22 @@ class AccountInfoDatasource extends BaseRepository{
         ..fields['user_id'] = userId
         ..headers.addAll({
           AppConfig.apiKeyHeader: AppConfig.apiKey,
-        })
-        ..files.add(await http.MultipartFile.fromPath(
+        });
+
+      if (kIsWeb && imageBytes != null && imageName != null) {
+        request.files.add(http.MultipartFile.fromBytes(
+          'user_image',
+          imageBytes,
+          filename: imageName,
+          contentType: AccountUtils.getMediaType(imageName),
+        ));
+      } else if (imageFile != null) {
+        request.files.add(await http.MultipartFile.fromPath(
           'user_image',
           imageFile.path,
-          contentType: AccountUtils.getMediaType(imageFile.path), // or image/png
+          contentType: AccountUtils.getMediaType(imageFile.path),
         ));
+      }
 
       final streamedResponse = await request.send();
       final response = await http.Response.fromStream(streamedResponse);
@@ -33,6 +70,7 @@ class AccountInfoDatasource extends BaseRepository{
       return handleException(e as Exception);
     }
   }
+
 
 
   /// UPDATE USER DATA AS REQUIRED - API

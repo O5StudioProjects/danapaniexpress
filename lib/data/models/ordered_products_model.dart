@@ -10,8 +10,10 @@ class OrderedProductFields {
   static const String productId = 'product_id';
   static const String productNameEng = 'product_name_eng';
   static const String productNameUrdu = 'product_name_urdu';
+  static const String productNameArabic = 'product_name_arabic';
   static const String productDetailEng = 'product_detail_eng';
   static const String productDetailUrdu = 'product_detail_urdu';
+  static const String productDetailArabic = 'product_detail_arabic';
   static const String productImage = 'product_image';
   static const String productSellingPrice = 'product_selling_price';
   static const String productCutPrice = 'product_cut_price';
@@ -28,8 +30,10 @@ class OrderedProductFields {
     productId,
     productNameEng,
     productNameUrdu,
+    productNameArabic,
     productDetailEng,
     productDetailUrdu,
+    productDetailArabic,
     productImage,
     productSellingPrice,
     productCutPrice,
@@ -48,8 +52,10 @@ class OrderedProductModel {
   final String? productId;
   final String? productNameEng;
   final String? productNameUrdu;
+  final String? productNameArabic;
   final String? productDetailEng;
   final String? productDetailUrdu;
+  final String? productDetailArabic;
   final String? productImage;
   final double? productSellingPrice;
   final double? productCutPrice;
@@ -66,8 +72,10 @@ class OrderedProductModel {
     this.productId,
     this.productNameEng,
     this.productNameUrdu,
+    this.productNameArabic,
     this.productDetailEng,
     this.productDetailUrdu,
+    this.productDetailArabic,
     this.productImage,
     this.productSellingPrice,
     this.productCutPrice,
@@ -86,8 +94,10 @@ class OrderedProductModel {
       productId: json['product_id'],
       productNameEng: json['product_name_eng'],
       productNameUrdu: json['product_name_urdu'],
+      productNameArabic: json['product_name_arabic'],
       productDetailEng: json['product_detail_eng'],
       productDetailUrdu: json['product_detail_urdu'],
+      productDetailArabic: json['product_detail_arabic'],
       productImage: json['product_image'],
       productSellingPrice: (json['product_selling_price'] as num?)?.toDouble(),
       productCutPrice: (json['product_cut_price'] as num?)?.toDouble(),
@@ -107,8 +117,10 @@ class OrderedProductModel {
       'product_id': productId,
       'product_name_eng': productNameEng,
       'product_name_urdu': productNameUrdu,
+      'product_name_arabic': productNameArabic,
       'product_detail_eng': productDetailEng,
       'product_detail_urdu': productDetailUrdu,
+      'product_detail_arabic': productDetailArabic,
       'product_image': productImage,
       'product_selling_price': productSellingPrice,
       'product_cut_price': productCutPrice,

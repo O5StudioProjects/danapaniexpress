@@ -44,6 +44,13 @@ String productNameMultiLangText(ProductModel? data){
     english: data.productNameEng,
   );
 }
+String orderedProductNameMultiLangText(OrderedProductModel? data){
+  return setMultiLanguageText(language: appLanguage,
+    urdu: data!.productNameUrdu,
+    arabic: data.productNameArabic,
+    english: data.productNameEng,
+  );
+}
 
 String productDetailMultiLangText(ProductModel? data){
   return setMultiLanguageText(language: appLanguage,
