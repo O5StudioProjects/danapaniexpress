@@ -22,5 +22,6 @@ export 'package:danapaniexpress/domain/controllers/account_controller/account_co
 export 'package:danapaniexpress/domain/controllers/terms_conditions_controller/terms_conditions_controller.dart';
 export 'package:danapaniexpress/domain/controllers/service_area_controller/service_area_controller.dart';
 export 'package:danapaniexpress/domain/controllers/orders_controller/orders_controller.dart';
+export 'package:danapaniexpress/domain/controllers/search_controller/search_controller.dart';
 
 export 'package:danapaniexpress/domain/controllers/product_controller/products_controller.dart';

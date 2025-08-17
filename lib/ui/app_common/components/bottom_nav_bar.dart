@@ -51,9 +51,10 @@ Widget appBottomNavBar() {
 Widget navBarItem(bool isSelected, icon, iconFilled, label,
     {bool isCart = false, bool isAccount = false}) {
   final auth = Get.find<AuthController>();
+  final cart = Get.find<CartController>();
   final pendingFeedback = Get.find<PendingFeedbackController>();
   return Obx((){
-    var cartCount = auth.currentUser.value == null ? 0 : auth.currentUser.value?.userCartCount ?? 0;
+    var cartCount = auth.currentUser.value == null ? 0 : cart.cartProducts.length ?? 0;
     return isSelected
         ? Stack(
       children: [

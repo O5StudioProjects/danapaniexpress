@@ -9,7 +9,13 @@ class StartupScreenLayoutMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     final startupController = Get.find<StartupController>();
 
-    return Obx(() => Container(
+    return Obx((){
+      return _buildUI(startupController);
+    });
+  }
+
+  Widget _buildUI(startupController){
+    return Container(
       width: size.width,
       height: size.height,
       color: AppColors.backgroundColorSkin(isDark),
@@ -32,48 +38,12 @@ class StartupScreenLayoutMobile extends StatelessWidget {
                       height: size.height * 0.5,
                       child: Stack(
                         children: [
-                          appAssetImage(
-                            image: data.image,
-                            width: size.width,
-                            height: size.height,
-                            fit: BoxFit.cover,
-                          ),
-                          Align(
-                            alignment: Alignment.bottomCenter,
-                            child: appSvgIcon(
-                              icon: EnvImages.imgWave,
-                              width: size.width,
-                              color: AppColors.backgroundColorSkin(isDark),
-                            ),
-                          ),
+                          _imageSection(data),
+                          _waveSection(),
                         ],
                       ),
                     ),
-                    Expanded(
-                      flex: 3,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Column(
-                          crossAxisAlignment: !isRightLang
-                              ? CrossAxisAlignment.start
-                              : CrossAxisAlignment.end,
-                          children: [
-                            setHeight(30.0),
-                            appText(
-                              text: data.headingText,
-                              textStyle: startupHeadingTextStyle(),
-                            ),
-                            setHeight(20.0),
-                            appText(
-                              text: data.subText,
-                              overFlow: null,
-                              textDirection: setTextDirection(appLanguage),
-                              textStyle: bodyTextStyle(),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    _descriptionSection(data),
                   ],
                 );
               },
@@ -92,30 +62,81 @@ class StartupScreenLayoutMobile extends StatelessWidget {
             ),
           ),
 
-          setHeight(30.0),
-
           /// Button
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: appMaterialButton(
-              text: startUpData[startupController.index.value].buttonText,
-              onTap: startupController.onTapNext,
-            ),
-          ),
+          _buttonSection(startupController),
 
-          /// Skip Button
-          setHeight(10.0),
-          // startupController.index.value == startUpData.length -1
-          // ? SizedBox()
-          // : Center(
-          //   child: appTextButton(
-          //     text: AppLanguage.skipStr(appLanguage),
-          //     onTap: startupController.onSkip,
-          //   ),
-          // ),
-          setHeight(40.0),
         ],
       ),
-    ));
+    );
   }
+
+  Widget _imageSection(data){
+    return SizedBox(
+      height: size.height * 0.49,
+      child: appAssetImage(
+        image: data.image,
+        width: size.width,
+        fit: BoxFit.cover,
+      ),
+    );
+  }
+
+  Widget _waveSection(){
+    return Align(
+      alignment: Alignment.bottomCenter,
+      child: appSvgIcon(
+        icon: EnvImages.imgWave,
+        width: size.width,
+        color: AppColors.backgroundColorSkin(isDark),
+      ),
+    );
+  }
+
+  Widget _descriptionSection(data){
+    return Expanded(
+      flex: 3,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          crossAxisAlignment: !isRightLang
+              ? CrossAxisAlignment.start
+              : CrossAxisAlignment.end,
+          children: [
+            _heading(data),
+            _subText(data),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _heading(data){
+    return Padding(
+      padding: const EdgeInsets.only(top: 30.0, bottom: 20.0),
+      child: appText(
+        text: data.headingText,
+        textStyle: startupHeadingTextStyle(),
+      ),
+    );
+  }
+
+  Widget _subText(data){
+    return appText(
+      text: data.subText,
+      overFlow: null,
+      textDirection: setTextDirection(appLanguage),
+      textStyle: bodyTextStyle(),
+    );
+  }
+
+  Widget _buttonSection(startupController){
+    return Padding(
+      padding: const EdgeInsets.only(left: MAIN_HORIZONTAL_PADDING, right: MAIN_HORIZONTAL_PADDING, bottom: 50.0, top: 30.0),
+      child: appMaterialButton(
+        text: startUpData[startupController.index.value].buttonText,
+        onTap: startupController.onTapNext,
+      ),
+    );
+  }
+
 }

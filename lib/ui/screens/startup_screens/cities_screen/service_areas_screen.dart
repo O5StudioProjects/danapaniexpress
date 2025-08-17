@@ -1,5 +1,4 @@
 import 'package:danapaniexpress/core/common_imports.dart';
-import 'package:danapaniexpress/ui/screens/startup_screens/cities_screen/service_areas_screen_mobile.dart';
 
 class ServiceAreasScreen extends StatelessWidget {
   const ServiceAreasScreen({super.key});

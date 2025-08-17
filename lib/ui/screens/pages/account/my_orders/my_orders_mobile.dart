@@ -17,11 +17,33 @@ class MyOrdersMobile extends StatelessWidget {
     });
 
     return Obx(() {
-      return _buildUI(orders, nav);
+      var orderTabsModelList = [
+        OrderTabsModel(
+          icon: icOrderActive,
+          title: AppLanguage.activeStr(appLanguage).toString(),
+          statusKey: 'Active', // ← Add this
+        ),
+        OrderTabsModel(
+          icon: icOrderConfirmed,
+          title: AppLanguage.confirmedStr(appLanguage).toString(),
+          statusKey: 'Confirmed',
+        ),
+        OrderTabsModel(
+          icon: icOrderCompleted,
+          title: AppLanguage.completedStr(appLanguage).toString(),
+          statusKey: 'Completed',
+        ),
+        OrderTabsModel(
+          icon: icOrderCancel,
+          title: AppLanguage.cancelledStr(appLanguage).toString(),
+          statusKey: 'Cancelled',
+        ),
+      ];
+      return _buildUI(orders, nav, orderTabsModelList);
     });
   }
 
-  Widget _buildUI(orders, nav) {
+  Widget _buildUI(orders, nav, orderTabsModelList) {
     return Container(
       width: size.width,
       height: size.height,
@@ -30,7 +52,7 @@ class MyOrdersMobile extends StatelessWidget {
         children: [
           _appBar(nav),
           MyOrders(ordersScreen: true),
-          _pageViewBuilder(orders),
+          _pageViewBuilder(orders,orderTabsModelList),
           /// SHOW BOTTOM MESSAGE / LOADING INDICATOR
           _bottomMessages(orders),
         ],
@@ -52,7 +74,7 @@ class MyOrdersMobile extends StatelessWidget {
     );
   }
 
-  Widget _pageViewBuilder(orders) {
+  Widget _pageViewBuilder(orders, orderTabsModelList) {
     return Expanded(
       child: PageView.builder(
         controller: orders.pageController,

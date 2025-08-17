@@ -1,6 +1,5 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
-import 'package:danapaniexpress/ui/screens/pages/account/account_information/main_screen_widgets/profile_picture_section.dart';
 
 class AccountInformationMobile extends StatelessWidget {
   const AccountInformationMobile({super.key});
