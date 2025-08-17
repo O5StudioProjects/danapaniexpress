@@ -1,5 +1,4 @@
 import 'package:danapaniexpress/core/common_imports.dart';
-import 'package:danapaniexpress/ui/screens/search_screen/search_screen_mobile.dart';
 
 class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key});

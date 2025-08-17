@@ -14,6 +14,10 @@ class AddressItemUI extends StatelessWidget {
     var navigation = Get.find<NavigationController>();
     var checkout = Get.find<CheckoutController>();
 
+    return _buildUI(logoSpaceSize, navigation, checkout);
+  }
+
+  Widget _buildUI(logoSpaceSize, navigation, checkout){
     return Obx((){
       return GestureDetector(
         onTap: (){
@@ -48,60 +52,74 @@ class AddressItemUI extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    SizedBox(
-                      width: logoSpaceSize,
-                      height: logoSpaceSize,
-                      child: appIcon(
-                        iconType: IconType.ICON,
-                        icon: Icons.location_on_rounded,
-                        width: 34.0,
-                        color: AppColors.materialButtonSkin(isDark),
-                      ),
-                    ),
+                    _icon(logoSpaceSize),
                     setWidth(8.0),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          appText(text: data.name, textStyle: addressItemTextStyle(text: data.name)),
-                          setHeight(2.0),
-                          appText(text: data.phone, textStyle: addressItemTextStyle(height: 1.5,text: data.phone)),
-                          setHeight(4.0),
-                          appText(
-                            text:
-                            '${data.address}, ${data.nearestPlace}, ${data.city}, ${data.province}, ${data.postalCode}',
-                            maxLines: 5,
-                            textStyle: secondaryAutoTextStyle(height: 1.5,text: '${data.address}, ${data.nearestPlace}, ${data.city}, ${data.province}, ${data.postalCode}'),
-                          ),
-                        ],
-                      ),
-                    ),
+                    _detailSection(),
                   ],
                 ),
               ),
               if(isDefault)
-                Positioned(
-                  right: 0,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: AppColors.materialButtonSkin(isDark),
-                      borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(12.0),
-                          bottomLeft: Radius.circular(12.0)
-
-                      ),
-                    ),
-                    padding: EdgeInsets.symmetric(
-                      horizontal: MAIN_HORIZONTAL_PADDING,
-                      vertical: 2.0,
-                    ),
-                    child: appText(text: AppLanguage.defaultStr(appLanguage), textStyle: itemTextStyle().copyWith(color: AppColors.materialButtonTextSkin(isDark))),
-                  ),
-                ),
+                _defaultAddressIndicator(),
             ],
           ),
         ),
       );
     });
   }
+
+  Widget _icon(logoSpaceSize){
+    return SizedBox(
+      width: logoSpaceSize,
+      height: logoSpaceSize,
+      child: appIcon(
+        iconType: IconType.ICON,
+        icon: Icons.location_on_rounded,
+        width: 34.0,
+        color: AppColors.materialButtonSkin(isDark),
+      ),
+    );
+  }
+  
+  Widget _detailSection(){
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          appText(text: data.name, textStyle: addressItemTextStyle(text: data.name)),
+          setHeight(2.0),
+          appText(text: data.phone, textStyle: addressItemTextStyle(height: 1.5,text: data.phone)),
+          setHeight(4.0),
+          appText(
+            text:
+            '${data.address}, ${data.nearestPlace}, ${data.city}, ${data.province}, ${data.postalCode}',
+            maxLines: 5,
+            textStyle: secondaryAutoTextStyle(height: 1.5,text: '${data.address}, ${data.nearestPlace}, ${data.city}, ${data.province}, ${data.postalCode}'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _defaultAddressIndicator(){
+    return Positioned(
+      right: 0,
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColors.materialButtonSkin(isDark),
+          borderRadius: BorderRadius.only(
+              topRight: Radius.circular(12.0),
+              bottomLeft: Radius.circular(12.0)
+
+          ),
+        ),
+        padding: EdgeInsets.symmetric(
+          horizontal: MAIN_HORIZONTAL_PADDING,
+          vertical: 2.0,
+        ),
+        child: appText(text: AppLanguage.defaultStr(appLanguage), textStyle: itemTextStyle().copyWith(color: AppColors.materialButtonTextSkin(isDark))),
+      ),
+    );
+  }
+
+
 }

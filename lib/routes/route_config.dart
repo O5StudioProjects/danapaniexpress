@@ -31,7 +31,7 @@ import 'package:danapaniexpress/ui/screens/pages/categories/products/products_sc
 import 'package:danapaniexpress/ui/screens/search_screen/search_screen.dart';
 import 'package:danapaniexpress/ui/screens/splash_screen/splash_screen.dart';
 import 'package:danapaniexpress/ui/screens/startup_screens/cities_screen/service_areas_screen.dart';
-import 'package:danapaniexpress/ui/screens/startup_screens/language_theme_screen.dart';
+import 'package:danapaniexpress/ui/screens/startup_screens/language_theme_screen/language_theme_screen.dart';
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/ui/screens/startup_screens/startup_main_screen/startup_main_screen.dart';
 

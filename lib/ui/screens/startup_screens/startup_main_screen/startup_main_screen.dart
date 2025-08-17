@@ -32,16 +32,7 @@ class StartupMainScreen extends StatelessWidget {
 }
 
 Widget buildMobileUI() {
-  return StartupScreenLayoutMobile(
-    // image: EnvImages.imgWelcomeStartup,
-    // headingText: AppLanguage.startupWelcomeHeadingStr(appLanguage).toString(),
-    // subText: AppLanguage.startupWelcomeSubtextStr(appLanguage).toString(),
-    // buttonText: AppLanguage.getStartedStr(appLanguage).toString(),
-    // onTap: (){
-    //   print('onTap working');
-    //   JumpTo.gotoFastDeliveryStartupScreen();
-    // },
-  );
+  return StartupScreenLayoutMobile();
 }
 
 Widget buildTabletUI() {

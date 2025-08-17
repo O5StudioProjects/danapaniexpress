@@ -101,14 +101,6 @@ flutter:
       fonts:
         - asset: fonts/Inter-Regular.ttf
 
-    - family: noto_nastaliq_regular
-      fonts:
-        - asset: fonts/NotoNastaliqUrdu-Regular.ttf
-
-    - family: noto_nastaliq_semibold
-      fonts:
-        - asset: fonts/NotoNastaliqUrdu-SemiBold.ttf
-
     - family: nunito_medium
       fonts:
         - asset: fonts/Nunito-Medium.ttf
@@ -141,7 +133,6 @@ flutter:
       fonts:
         - asset: fonts/Oswald-SemiBold.ttf
 
-    - family: faiz_lahore_nastaleeq
+    - family: alvi_nastaleeq
       fonts:
-        - asset: fonts/faiz-lahori-nastaleeq-regular.ttf
-
+        - asset: fonts/Alvi-Nastaleeq-Regular.ttf

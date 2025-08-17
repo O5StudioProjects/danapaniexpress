@@ -11,22 +11,51 @@ class MyOrders extends StatelessWidget {
   Widget build(BuildContext context) {
     var orders = Get.put(OrdersController());
 
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      controller: ordersScreen ? orders.scrollController : null,
-      physics: BouncingScrollPhysics(),
-      child: Padding(
-        padding: const EdgeInsets.only(left: MAIN_HORIZONTAL_PADDING),
-        child: Row(
-          children: List.generate(orderTabsModelList.length, (index) {
-            var orderData = orderTabsModelList[index];
-            return ordersScreen
-                ? ordersScreenOrdersList(orderData, index)
-                : accountScreenOrdersList(orderData, index);
-          }),
+    return Obx((){
+      var orderTabsModelList = [
+        OrderTabsModel(
+          icon: icOrderActive,
+          title: AppLanguage.activeStr(appLanguage).toString(),
+          statusKey: 'Active', // ← Add this
         ),
-      ),
-    );
+        OrderTabsModel(
+          icon: icOrderConfirmed,
+          title: AppLanguage.confirmedStr(appLanguage).toString(),
+          statusKey: 'Confirmed',
+        ),
+        OrderTabsModel(
+          icon: icOrderCompleted,
+          title: AppLanguage.completedStr(appLanguage).toString(),
+          statusKey: 'Completed',
+        ),
+        OrderTabsModel(
+          icon: icOrderCancel,
+          title: AppLanguage.cancelledStr(appLanguage).toString(),
+          statusKey: 'Cancelled',
+        ),
+      ];
+
+      return SizedBox(
+        width: size.width,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          controller: ordersScreen ? orders.scrollController : null,
+          physics: BouncingScrollPhysics(),
+          child: Padding(
+            padding: const EdgeInsets.only(left: MAIN_HORIZONTAL_PADDING),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: List.generate(orderTabsModelList.length, (index) {
+                var orderData = orderTabsModelList[index];
+                return ordersScreen
+                    ? ordersScreenOrdersList(orderData, index)
+                    : accountScreenOrdersList(orderData, index);
+              }),
+            ),
+          ),
+        ),
+      );
+    });
   }
 }
 
@@ -64,9 +93,7 @@ Widget accountScreenOrdersList(OrderTabsModel orderData, index) {
             ),
             setHeight(MAIN_HORIZONTAL_PADDING / 2),
             appText(
-              text: isRightLang
-                  ? orderData.titleUrdu
-                  : orderData.titleEng,
+              text: orderData.title,
               textStyle: itemTextStyle(),
             ),
           ],
@@ -127,7 +154,7 @@ Widget ordersScreenOrdersList(OrderTabsModel orderData, index) {
                   children: [
                     currentIndex && status != Status.LOADING
                     ? appText(
-                      text: '${orderData.titleUrdu} (${currentList.length})',
+                      text: '${orderData.title} (${currentList.length})',
                       textStyle: itemTextStyle().copyWith(
                         color: currentIndex
                             ? AppColors.materialButtonTextSkin(isDark)
@@ -135,7 +162,7 @@ Widget ordersScreenOrdersList(OrderTabsModel orderData, index) {
                       ),
                     )
                     : appText(
-                      text: orderData.titleUrdu,
+                      text: orderData.title,
                       textStyle: itemTextStyle().copyWith(
                         color: currentIndex
                             ? AppColors.materialButtonTextSkin(isDark)
@@ -166,7 +193,7 @@ Widget ordersScreenOrdersList(OrderTabsModel orderData, index) {
                     setWidth(8.0),
                     currentIndex && status != Status.LOADING
                     ? appText(
-                      text: '${orderData.titleEng} (${currentList.length})',
+                      text: '${orderData.title} (${currentList.length})',
                       textStyle: itemTextStyle().copyWith(
                         color: currentIndex
                             ? AppColors.materialButtonTextSkin(isDark)
@@ -174,7 +201,7 @@ Widget ordersScreenOrdersList(OrderTabsModel orderData, index) {
                       ),
                     )
                     : appText(
-                      text: orderData.titleEng,
+                      text: orderData.title,
                       textStyle: itemTextStyle().copyWith(
                         color: currentIndex
                             ? AppColors.materialButtonTextSkin(isDark)

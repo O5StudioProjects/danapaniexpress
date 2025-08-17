@@ -5,6 +5,10 @@ class SplashScreenMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return _buildUI();
+  }
+
+  Widget _buildUI(){
     return Container(
       width: size.width,
       height: size.height,
@@ -40,4 +44,5 @@ class SplashScreenMobile extends StatelessWidget {
       ),
     );
   }
+
 }

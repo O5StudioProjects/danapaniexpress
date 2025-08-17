@@ -56,6 +56,29 @@ class _OrdersListForTabState extends State<OrdersListForTab> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
+      var orderTabsModelList = [
+        OrderTabsModel(
+          icon: icOrderActive,
+          title: AppLanguage.activeStr(appLanguage).toString(),
+          statusKey: 'Active', // ← Add this
+        ),
+        OrderTabsModel(
+          icon: icOrderConfirmed,
+          title: AppLanguage.confirmedStr(appLanguage).toString(),
+          statusKey: 'Confirmed',
+        ),
+        OrderTabsModel(
+          icon: icOrderCompleted,
+          title: AppLanguage.completedStr(appLanguage).toString(),
+          statusKey: 'Completed',
+        ),
+        OrderTabsModel(
+          icon: icOrderCancel,
+          title: AppLanguage.cancelledStr(appLanguage).toString(),
+          statusKey: 'Cancelled',
+        ),
+      ];
+
       final tabModel = orderTabsModelList[widget.index];
       final list = orders.getOrdersForTab(widget.index);
       final sortedList = sortByDateDesc(list, tabModel.statusKey);

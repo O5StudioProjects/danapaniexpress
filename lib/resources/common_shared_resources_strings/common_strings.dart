@@ -5,10 +5,8 @@ const urduFaizLahori = 'faiz_lahore_nastaleeq';
 const interRegular = 'inter_regular';
 const arabicFont = 'poppins_regular';
 
-// const urduRegular = 'noto_nastaliq_regular';
-// const urduSemibold = 'noto_nastaliq_semibold';
-const urduRegular = 'faiz_lahore_nastaleeq';
-const urduSemibold = 'faiz_lahore_nastaleeq';
+const urduRegular = 'alvi_nastaleeq';
+
 const nunitoMedium = 'nunito_medium';
 const nunitoSemibold = 'nunito_semibold';
 const poppinsBold = 'poppins_bold';
