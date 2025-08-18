@@ -83,11 +83,9 @@ class PendingFeedbackController extends GetxController {
         ordersWithoutFeedbackStatus.value = Status.SUCCESS;
       } catch (e) {
         ordersWithoutFeedbackStatus.value = Status.FAILURE;
-        showSnackbar(
-          isError: true,
-          title: 'Error',
-          message: 'Failed to load orders: $e',
-        );
+        if (kDebugMode) {
+          print('Failed to load orders Exception: $e');
+        }
       }
     } else if (kDebugMode) {
       print('==============user is not logged in for feedback orders');
@@ -118,11 +116,9 @@ class PendingFeedbackController extends GetxController {
         }
       }
     } catch (e) {
-      showSnackbar(
-        isError: true,
-        title: 'Error',
-        message: 'Failed to load more orders: $e',
-      );
+      if (kDebugMode) {
+        print('Failed to load more orders Exception: $e');
+      }
     } finally {
       isLoadingMoreOrdersWithoutFeedback.value = false;
     }

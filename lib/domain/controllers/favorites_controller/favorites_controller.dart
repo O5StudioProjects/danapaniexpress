@@ -23,12 +23,16 @@ class FavoritesController  extends GetxController{
       favoritesStatus.value = Status.LOADING;
       final items = await favRepo.getFavorites(auth.currentUser.value!.userId!);
       favoritesList.assignAll(items);
-      print('FAVORITE Products Fetched...');
-
+      if (kDebugMode) {
+        print('FAVORITE Products Fetched...');
+      }
       favoritesStatus.value = Status.SUCCESS;
     } catch (e) {
       favoritesStatus.value = Status.FAILURE;
-      showSnackbar(isError: true, title: 'Error', message: 'Failed to fetch favorites');
+      //showToast(AppLanguage.somethingWentWrongStr(appLanguage).toString());
+      if (kDebugMode) {
+        print('FAVORITE Products Fetched...EXCEPTION : $e');
+      }
     }
   }
 
@@ -43,30 +47,23 @@ class FavoritesController  extends GetxController{
       );
       // Optional: handle success/failure message
       if (response['status'] == 'added') {
-        showSnackbar(
-          isError: false,
-          title: "Favorite Added",
-          message: response['message'] ?? '',
-        );
+        showToast(AppLanguage.favoriteAddedStr(appLanguage).toString());
+
 
       } else if (response['status'] == 'removed') {
         favoritesList.removeWhere((p) => p.productId == productId);
         favoriteLoadingStatus[productId] = Status.SUCCESS;
-        showSnackbar(
-          isError: false,
-          title: "Favorite Removed",
-          message: response['message'] ?? '',
-        );
+        showToast(AppLanguage.favoriteRemovedStr(appLanguage).toString());
       }
       await auth.fetchUserProfile();
 
     } catch (e) {
       favoriteLoadingStatus[productId] = Status.FAILURE;
-      showSnackbar(
-        isError: true,
-        title: "Error",
-        message: e.toString(),
-      );
+      showToast(AppLanguage.somethingWentWrongStr(appLanguage).toString());
+      if (kDebugMode) {
+        print('TOGGLE FAVORITE EXCEPTION : $e');
+      }
+
     }
   }
 
@@ -98,7 +95,9 @@ class FavoritesController  extends GetxController{
   }
   @override
   void onClose() {
-    print('Favorites Controller Stopped');
+    if (kDebugMode) {
+      print('Favorites Controller Stopped');
+    }
     super.onClose();
   }
 

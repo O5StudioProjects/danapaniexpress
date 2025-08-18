@@ -1,5 +1,3 @@
-
-
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/data/repositories/orders_repository/orders_filter_repository.dart';
 
@@ -95,11 +93,10 @@ class FilterOrdersController extends GetxController {
       ordersStatus.value = Status.SUCCESS;
     } catch (e) {
       ordersStatus.value = Status.FAILURE;
-      showSnackbar(
-        isError: true,
-        title: 'Error',
-        message: 'Failed to load orders.',
-      );
+      if (kDebugMode) {
+        print('FAILED TO LOAD ORDERS Exception : $e');
+      }
+
     }
   }
 
@@ -128,11 +125,9 @@ class FilterOrdersController extends GetxController {
       }
     } catch (e) {
       currentPage--; // rollback
-      showSnackbar(
-        isError: true,
-        title: 'Error',
-        message: 'Failed to load more orders.',
-      );
+      if (kDebugMode) {
+        print('FAILED TO LOAD MORE ORDERS Exception : $e');
+      }
     } finally {
       isLoadingMore.value = false;
     }

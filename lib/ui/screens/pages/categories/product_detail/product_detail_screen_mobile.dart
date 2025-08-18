@@ -51,7 +51,7 @@ class ProductDetailScreenMobile extends StatelessWidget {
       return Container(
         color: AppColors.backgroundColorSkin(isDark),
         width: size.width,
-        height: 80.0,
+        height: 90.0,
         child: Padding(
           padding: const EdgeInsets.all(MAIN_HORIZONTAL_PADDING),
           child: Row(

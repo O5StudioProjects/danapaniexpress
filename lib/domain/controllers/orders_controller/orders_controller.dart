@@ -225,10 +225,12 @@ class OrdersController extends GetxController {
           OrderStatus.ACTIVE,
         );
         activeOrdersCount.value = orders;
-        print('======================== ACTIVE ORDERS = ${activeOrdersCount.value}');
+        if (kDebugMode) {
+          print('======================== ACTIVE ORDERS = ${activeOrdersCount.value}');
+        }
       } catch (e) {
         // Handle error, maybe log or return 0 if failed
-        debugPrint('Failed to get active orders: $e');
+        debugPrint('Failed to get active orders Exception: $e');
         activeOrdersCount.value = 0;
       }
     }
@@ -260,7 +262,10 @@ class OrdersController extends GetxController {
       targetStatus.value = Status.SUCCESS;
     } catch (e) {
       targetStatus.value = Status.FAILURE;
-      showSnackbar(isError: true, title: 'Error', message: 'Failed to load $status orders.');
+      if (kDebugMode) {
+        print('Failed to load orders by status exception = $e');
+      }
+      //showSnackbar(isError: true, title: 'Error', message: 'Failed to load $status orders.');
     }
   }
 
@@ -295,7 +300,9 @@ class OrdersController extends GetxController {
       }
     } catch (e) {
       setCurrentPage(currentPage); // rollback
-      showSnackbar(isError: true, title: 'Error', message: 'Failed to load more $status orders.');
+      if (kDebugMode) {
+        print('Failed to load more orders by status exception = $e');
+      }
     } finally {
       targetLoadingMore.value = false;
     }
@@ -386,81 +393,6 @@ class OrdersController extends GetxController {
 
 
 
-
-/*  /// ORDER SECTION THIS CODE WILL BE USED IN ADMIN APP
-  RxList<OrderModel> ordersList = <OrderModel>[].obs;
-  Rx<Status> ordersStatus = Status.IDLE.obs;
-  final int ordersLimit = ORDERS_LIMIT;
-  int currentPage = 1;
-
-  RxBool hasMoreOrders = true.obs;
-  RxBool isLoadingMore = false.obs;
-  /// INITIAL FETCH
-  Future<void> fetchInitialOrders() async {
-    try {
-      ordersStatus.value = Status.LOADING;
-      currentPage = 1;
-
-      final result = await ordersRepo.getAllOrders(currentPage, ordersLimit);
-      final List<OrderModel> fetchedOrders = result['orders'];
-
-      ordersList.clear();
-      ordersList.assignAll(fetchedOrders);
-
-      hasMoreOrders.value = fetchedOrders.length == ordersLimit;
-      ordersStatus.value = Status.SUCCESS;
-    } catch (e) {
-      ordersStatus.value = Status.FAILURE;
-      showSnackbar(isError: true, title: 'Error', message: 'Failed to load orders.');
-    }
-  }
-  /// LOAD MORE
-  Future<void> loadMoreOrders() async {
-    if (isLoadingMore.value || !hasMoreOrders.value) return;
-
-    try {
-      isLoadingMore.value = true;
-      currentPage++;
-
-      final result = await ordersRepo.getAllOrders(currentPage, ordersLimit);
-      final List<OrderModel> moreOrders = result['orders'];
-
-      ordersList.addAll(moreOrders);
-
-      if (moreOrders.length < ordersLimit) {
-        hasMoreOrders.value = false;
-      }
-    } catch (e) {
-      currentPage--; // rollback on failure
-      showSnackbar(isError: true, title: 'Error', message: 'Failed to load more orders.');
-    } finally {
-      isLoadingMore.value = false;
-    }
-  }*/
-
-
-
-  // Future<void> getOrdersByUserId() async {
-  //   var userId = auth.currentUser.value!.userId!;
-  //   try {
-  //     ordersStatus.value = Status.LOADING;
-  //     final orders = await ordersRepo.getOrdersByUserId(userId);
-  //     ordersList.assignAll(orders);
-  //     ordersStatus.value = Status.SUCCESS;
-  //   } catch (e) {
-  //     ordersStatus.value = Status.FAILURE;
-  //     print("Exception : $e");
-  //     showSnackbar(
-  //       isError: true,
-  //       title: 'Failed',
-  //       message: 'Could not fetch orders: ${e.toString()}',
-  //     );
-  //   }
-  // }
-
-
-
-
   /// UPDATE ORDER
   Future<void> updateOrder({
     required String orderId,
@@ -484,26 +416,23 @@ class OrdersController extends GetxController {
         await fetchInitialActiveOrders();
         await getActiveOrdersCount();
         updateOrderStatus.value = Status.SUCCESS;
-        showSnackbar(
-          isError: false,
-          title: 'Success',
-          message: result['message'] ?? 'Order updated successfully',
-        );
+        showToast('${AppLanguage.orderCancelledSuccessfullyStr(appLanguage)}');
+
       } else {
         updateOrderStatus.value = Status.FAILURE;
-        showSnackbar(
-          isError: true,
-          title: 'Error',
-          message: result['message'] ?? 'Update failed',
-        );
+        showToast('${AppLanguage.orderCancelledFailedStr(appLanguage)}');
+
+        if (kDebugMode) {
+          print('ORDER UPDATE FAILED ERROR : ${result['message']}');
+        }
+
       }
     } catch (e) {
       updateOrderStatus.value = Status.FAILURE;
-      showSnackbar(
-        isError: true,
-        title: 'Error',
-        message: e.toString(),
-      );
+      showToast('${AppLanguage.somethingWentWrongStr(appLanguage)}');
+      if (kDebugMode) {
+        print('ORDER UPDATE FAILED Exception : $e');
+      }
     }
   }
 
@@ -518,11 +447,10 @@ class OrdersController extends GetxController {
       getOrderByNumberStatus.value = Status.SUCCESS;
     } catch (e) {
       getOrderByNumberStatus.value = Status.FAILURE;
-      showSnackbar(
-        isError: true,
-        title: 'Error',
-        message: e.toString(),
-      );
+      showToast('${AppLanguage.somethingWentWrongStr(appLanguage)}');
+      if (kDebugMode) {
+        print('Fetch order by number Exception : $e');
+      }
     }
   }
 
@@ -531,7 +459,7 @@ class OrdersController extends GetxController {
   Future<void> onTapButtonSectionsOrderTap() async {
     if(selectedOrder.value!.orderStatus == OrderStatus.CONFIRMED){
 
-      showSnackbar(title: 'Order confirmed non cancelable', message: 'Please contact our customer service to cancel confirmed order.');
+      showSnackbar(title: '${AppLanguage.orderConfirmedNonCancellableStr(appLanguage)}', message: '${AppLanguage.contactCustomerServiceToCancelStr(appLanguage)}');
 
     } else if(selectedOrder.value!.orderStatus == OrderStatus.COMPLETED){
       if(selectedOrder.value!.orderFeedback == null ){
@@ -540,8 +468,8 @@ class OrdersController extends GetxController {
 
     } else if(selectedOrder.value!.orderStatus == OrderStatus.ACTIVE){
       showCustomDialog(gContext, AppBoolDialog(
-          title: 'Cancel Order',
-          detail: 'Do you want to cancel order?',
+          title: '${AppLanguage.cancelOrderStr(appLanguage)}',
+          detail: '${AppLanguage.doYouWantToCancelOrderStr(appLanguage)}',
           iconType: IconType.ICON,
         icon: Icons.cancel_rounded,
         onTapConfirm: (){
@@ -563,17 +491,6 @@ class OrdersController extends GetxController {
     completedOrdersStatus.value = Status.IDLE;
     cancelledOrdersStatus.value = Status.IDLE;
   }
-
-  // /// Helper method to filter orders by current tab index
-  // List<OrderModel> getOrdersForTab(int index) {
-  //   final tab = orderTabsModelList[index];
-  //
-  //   if (tab.statusKey.isEmpty) return [];
-  //
-  //   return ordersList
-  //       .where((order) => order.orderStatus == tab.statusKey)
-  //       .toList();
-  // }
 
 
   /// FEEDBACK SECTION
@@ -608,30 +525,24 @@ class OrdersController extends GetxController {
         await fetchOrderByNumber(orderNumber);
         await pendingFeedback.fetchCompletedOrdersWithoutFeedback();
         insertFeedbackStatus.value = Status.SUCCESS;
-        showSnackbar(
-          isError: false,
-          title: 'Success',
-          message: result['message'] ?? 'Feedback submitted successfully',
-        );
         clearFeedbackKeys();
         nav.gotoOrdersFeedbackCompleteScreen(orderModel: selectedOrder.value!);
 
 
     } else {
         insertFeedbackStatus.value = Status.FAILURE;
-        showSnackbar(
-          isError: true,
-          title: 'Error',
-          message: result['message'] ?? 'Failed to submit feedback',
-        );
+        showToast('${AppLanguage.failedToSubmitFeedbackStr(appLanguage)}');
+        if (kDebugMode) {
+          print('Failed to submit feedback Error : ${result['message']}');
+        }
       }
     } catch (e) {
       insertFeedbackStatus.value = Status.FAILURE;
-      showSnackbar(
-        isError: true,
-        title: 'Error',
-        message: e.toString(),
-      );
+      showToast('${AppLanguage.somethingWentWrongStr(appLanguage)}');
+      if (kDebugMode) {
+        print('Failed to submit feedback Exception : $e');
+      }
+
     }
   }
 
@@ -643,17 +554,17 @@ class OrdersController extends GetxController {
   Future<void> onSubmitFeedback() async {
     if (feedbackItemText.value.isEmpty) {
       showSnackbar(
-          title: 'Service rating', message: 'Please select service rating');
+          title: '${AppLanguage.serviceRatingStr(appLanguage)}', message: '${AppLanguage.pleaseSelectServiceRatingStr(appLanguage)}');
       return;
     }
     if (riderRating.value == 0.0) {
       showSnackbar(
-          title: 'Rate rider', message: 'Please rate our rider from 1-5');
+          title: '${AppLanguage.rateRiderStr(appLanguage)}', message: '${AppLanguage.pleaseRateRiderStr(appLanguage)}');
       return;
     }
     if (isPositive.value == false && isNegative.value == false) {
-      showSnackbar(title: 'Experience',
-          message: 'Please Like or Dislike to share your experience with us.');
+      showSnackbar(title: '${AppLanguage.experienceStr(appLanguage)}',
+          message: '${AppLanguage.pleaseLikeOrDislikeStr(appLanguage)}');
       return;
     }
 
@@ -692,26 +603,20 @@ class OrdersController extends GetxController {
 
       if (result['status'] == true) {
         updateRatingStatus.value = Status.SUCCESS;
-        showSnackbar(
-          isError: false,
-          title: 'Success',
-          message: result['message'] ?? 'Rider rating updated successfully',
-        );
+        if (kDebugMode) {
+          print('Rider rating updated successfully');
+        }
       } else {
         updateRatingStatus.value = Status.FAILURE;
-        showSnackbar(
-          isError: true,
-          title: 'Error',
-          message: result['message'] ?? 'Failed to update rider rating',
-        );
+        if (kDebugMode) {
+          print('Rider rating update FAILED ERROR : ${result['message']}');
+        }
       }
     } catch (e) {
       updateRatingStatus.value = Status.FAILURE;
-      showSnackbar(
-        isError: true,
-        title: 'Error',
-        message: e.toString(),
-      );
+      if (kDebugMode) {
+        print('Rider rating update FAILED Exception : $e');
+      }
     }
   }
 

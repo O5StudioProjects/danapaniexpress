@@ -18,7 +18,7 @@ class ThemeController extends GetxController {
   RxBool internet = true.obs;
   RxString appLanguage = ENGLISH_LANGUAGE.obs;
   RxString languageScreenStatus = FIRST_TIME_SCREEN_NOT_OPENED.obs;
-  RxString StartupScreenStatus = FIRST_TIME_SCREEN_NOT_OPENED.obs;
+  RxString startupScreenStatus = FIRST_TIME_SCREEN_NOT_OPENED.obs;
 
 
   Future<void> changeTheme() async {
@@ -92,12 +92,12 @@ class ThemeController extends GetxController {
   Future<void> setStartupScreenPrefsEvent(
       {required String startupScreenStatusValue}) async {
     await SharedPrefs.setStartupScreenPrefs(startupScreenStatusValue);
-    StartupScreenStatus.value = startupScreenStatusValue;
+    startupScreenStatus.value = startupScreenStatusValue;
   }
 
   Future<void> getStartupScreenPrefsEvent() async {
     var data = await SharedPrefs.getStartupScreenPrefs();
-    StartupScreenStatus.value = data;
+    startupScreenStatus.value = data;
   }
 
 

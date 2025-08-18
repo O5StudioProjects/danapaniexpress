@@ -44,14 +44,15 @@ class CategoriesController extends GetxController {
       categoriesStatus.value = CategoriesStatus.SUCCESS;
     } catch (e) {
       categoriesStatus.value = CategoriesStatus.FAILURE;
+     // showToast('${AppLanguage.somethingWentWrongStr(appLanguage)}');
       if (kDebugMode) {
-        print("=====================Error loading categories: $e");
+        print("=====================EXCEPTION loading categories: $e");
       }
-      showSnackbar(
-        isError: true,
-        title: 'Error',
-        message: "=====================Error loading categories: $e",
-      );
+      // showSnackbar(
+      //   isError: true,
+      //   title: 'Error',
+      //   message: "=====================EXCEPTION loading categories: $e",
+      // );
     }
   }
   // Fetch Category by ID
@@ -66,13 +67,13 @@ class CategoriesController extends GetxController {
     } catch (e) {
       singleCategoryStatus.value = CategoriesStatus.FAILURE;
       if (kDebugMode) {
-        print("=====================Error loading Single Category: $e");
+        print("=====================Exception loading Single Category: $e");
       }
-      showSnackbar(
-        isError: true,
-        title: 'Error',
-        message: "=====================Error loading Single Category: $e",
-      );
+      // showSnackbar(
+      //   isError: true,
+      //   title: 'Error',
+      //   message: "=====================Error loading Single Category: $e",
+      // );
     }
 
   }

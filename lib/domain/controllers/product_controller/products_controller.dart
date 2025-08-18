@@ -3,7 +3,7 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/data_model_imports.dart';
 
-class ProductsController extends GetxController{
+class ProductsController extends GetxController {
 
   final productsRepo = ProductsRepository();
 
@@ -14,6 +14,7 @@ class ProductsController extends GetxController{
 
   /// PRODUCTS LIST IN CATEGORIES
   Rx<ProductsByCatStatus> productsStatus = ProductsByCatStatus.IDLE.obs;
+  Rx<Status> singleProductStatus = Status.IDLE.obs;
   RxList<ProductModel> productsList = <ProductModel>[].obs;
   final int productsLimit = PRODUCTS_LIMIT;
   int currentPage = 1;
@@ -35,6 +36,9 @@ class ProductsController extends GetxController{
       productsStatus.value = ProductsByCatStatus.SUCCESS;
     } catch (e) {
       productsStatus.value = ProductsByCatStatus.FAILURE;
+      if (kDebugMode) {
+        print('FETCH INITIAL products Exception : $e');
+      }
     }
   }
 
@@ -74,7 +78,8 @@ class ProductsController extends GetxController{
       currentPage = 1;
       hasMoreProducts.value = true;
 
-      final fetchedProducts = await productsRepo.getProductsByCategoryAndSubCategoryPaginated(
+      final fetchedProducts = await productsRepo
+          .getProductsByCategoryAndSubCategoryPaginated(
         category: category,
         subCategory: subCategory,
         page: currentPage,
@@ -88,8 +93,13 @@ class ProductsController extends GetxController{
       productsStatus.value = ProductsByCatStatus.SUCCESS;
     } catch (e) {
       productsStatus.value = ProductsByCatStatus.FAILURE;
+      if (kDebugMode) {
+        print(
+            'FETCH INITIAL products BY CATEGORY AND SUB CATEGORY Exception : $e');
+      }
     }
   }
+
   /// LOAD MORE PRODUCTS BY CATEGORY & SUBCATEGORY
   Future<void> loadMoreProductsByCategoryAndSubCategory({
     required String category,
@@ -101,7 +111,8 @@ class ProductsController extends GetxController{
       isLoadingMore.value = true;
       currentPage++;
 
-      final moreProducts = await productsRepo.getProductsByCategoryAndSubCategoryPaginated(
+      final moreProducts = await productsRepo
+          .getProductsByCategoryAndSubCategoryPaginated(
         category: category,
         subCategory: subCategory,
         page: currentPage,
@@ -118,7 +129,6 @@ class ProductsController extends GetxController{
       isLoadingMore.value = false;
     }
   }
-
 
 
   /// OTHER PRODUCTS - POPULAR PRODUCTS
@@ -143,12 +153,15 @@ class ProductsController extends GetxController{
       popularProducts.assignAll(products);
       hasMoreAllProducts.value = products.length == popularLimit;
       popularStatus.value = ProductsStatus.SUCCESS;
-      print('POPULAR products Fetched');
-
+      if (kDebugMode) {
+        print('POPULAR products Fetched');
+      }
     } catch (e) {
       popularStatus.value = ProductsStatus.FAILURE;
       // handle error or log
-      print('POPULAR products $e');
+      if (kDebugMode) {
+        print('POPULAR products Exception : $e');
+      }
     }
   }
 
@@ -200,12 +213,15 @@ class ProductsController extends GetxController{
       featuredProducts.assignAll(products);
       hasMoreFeaturedProducts.value = products.length == featuredLimit;
       featuredStatus.value = ProductsStatus.SUCCESS;
-      print('FEATURED products Fetched');
-
+      if (kDebugMode) {
+        print('FEATURED products Fetched');
+      }
     } catch (e) {
       featuredStatus.value = ProductsStatus.FAILURE;
       // handle error or log
-      print('POPULAR products $e');
+      if (kDebugMode) {
+        print('FEATURED products Exception : $e');
+      }
     }
   }
 
@@ -253,16 +269,18 @@ class ProductsController extends GetxController{
         limit: flashSaleLimit,
       );
 
-
       flashSaleProducts.assignAll(products);
       hasMoreFlashSaleProducts.value = products.length == flashSaleLimit;
       flashSaleStatus.value = ProductsStatus.SUCCESS;
-      print('FLASH SALE products Fetched');
-
+      if (kDebugMode) {
+        print('FLASH SALE products Fetched');
+      }
     } catch (e) {
       flashSaleStatus.value = ProductsStatus.FAILURE;
       // handle error or log
-      print('POPULAR products $e');
+      if (kDebugMode) {
+        print('FLASH SALE products Exception : $e');
+      }
     }
   }
 
@@ -293,13 +311,17 @@ class ProductsController extends GetxController{
   }
 
 
-
-
-
   Future<void> getSingleProduct(String id) async {
     singleProduct.value = await productsRepo.getSingleProduct(productId: id);
   }
-
+//
+//     singleProductStatus.value = Status.LOADING;
+//   singleProduct.value = await productsRepo.getSingleProduct(productId: id).then((value){
+//     singleProductStatus.value = Status.SUCCESS;
+//   }).catchError((onError){
+//     singleProductStatus.value = Status.FAILURE;
+//   });
+// }
 
 
 }
