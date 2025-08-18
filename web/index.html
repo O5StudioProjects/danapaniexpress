@@ -1,20 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
-
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="A new Flutter project.">
@@ -30,8 +16,49 @@
 
   <title>danapaniexpress</title>
   <link rel="manifest" href="manifest.json">
+
+  <style>
+    /* Full screen center loader */
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: white; /* or your app background */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      z-index: 9999;
+    }
+    #loader img {
+       width: 160px;
+      height: 20px;
+      margin-bottom: 20px;
+    }
+    #loader p {
+      font-family: Arial, sans-serif;
+      font-size: 18px;
+      color: #444;
+    }
+  </style>
 </head>
 <body>
-  <script src="flutter_bootstrap.js" async></script>
+<!-- Loader (will be hidden when Flutter is ready) -->
+<div id="loader">
+  <img src="./assets/loading.gif" alt="Loading...">
+  <p>Please wait it takes some time for the first time loading...</p>
+</div>
+
+<!-- Flutter app will replace body -->
+<script src="flutter_bootstrap.js" async></script>
+
+<script>
+  // Wait for Flutter to finish bootstrapping, then hide loader
+  window.addEventListener('flutter-first-frame', function () {
+    document.getElementById('loader').style.display = 'none';
+  });
+</script>
 </body>
 </html>
