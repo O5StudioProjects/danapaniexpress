@@ -815,6 +815,39 @@ class AppLanguage {
   static String? neutralStr(String appLanguage) => allLang[appLanguage]?[NEUTRAL];
   static String? poorStr(String appLanguage) => allLang[appLanguage]?[POOR];
   static String? veryPoorStr(String appLanguage) => allLang[appLanguage]?[VERY_POOR];
-
+  static String? imageUploadedStr(String appLanguage) => allLang[appLanguage]?[IMAGE_UPLOADED];
+  static String? imageUploadedSuccessStr(String appLanguage) => allLang[appLanguage]?[IMAGE_UPLOADED_SUCCESS];
+  static String? imageUploadFailedStr(String appLanguage) => allLang[appLanguage]?[IMAGE_UPLOAD_FAILED];
+  static String? profileUpdatedStr(String appLanguage) => allLang[appLanguage]?[PROFILE_UPDATED];
+  static String? profileUpdatedSuccessfullyStr(String appLanguage) => allLang[appLanguage]?[PROFILE_UPDATED_SUCCESSFULLY];
+  static String? profileUpdatedFailedStr(String appLanguage) => allLang[appLanguage]?[PROFILE_UPDATED_FAILED];
+  static String? defaultImageSelectedStr(String appLanguage) => allLang[appLanguage]?[DEFAULT_IMAGE_SELECTED];
+  static String? failedStr(String appLanguage) => allLang[appLanguage]?[FAILED];
+  static String? failedToSetDefaultImageStr(String appLanguage) => allLang[appLanguage]?[FAILED_TO_SET_DEFAULT_IMAGE];
+  static String? productAddedToCartSuccessStr(String appLanguage) => allLang[appLanguage]?[PRODUCT_ADDED_TO_CART_SUCCESS];
+  static String? productQuantityAlreadyOneStr(String appLanguage) => allLang[appLanguage]?[PRODUCT_QUANTITY_ALREADY_ONE];
+  static String? failedToRemoveItemFromCartStr(String appLanguage) => allLang[appLanguage]?[FAILED_TO_REMOVE_ITEM_FROM_CART];
+  static String? somethingWentWrongStr(String appLanguage) => allLang[appLanguage]?[SOMETHING_WENT_WRONG];
+  static String? productRemovedFromCartStr(String appLanguage) => allLang[appLanguage]?[PRODUCT_REMOVED_FROM_CART];
+  static String? failedToRemoveFromCartStr(String appLanguage) => allLang[appLanguage]?[FAILED_TO_REMOVE_FROM_CART];
+  static String? failedToLoadDeliverySlotsStr(String appLanguage) => allLang[appLanguage]?[FAILED_TO_LOAD_DELIVERY_SLOTS];
+  static String? failedToCheckoutStr(String appLanguage) => allLang[appLanguage]?[FAILED_TO_CHECKOUT];
+  static String? favoriteAddedStr(String appLanguage) => allLang[appLanguage]?[FAVORITE_ADDED];
+  static String? favoriteRemovedStr(String appLanguage) => allLang[appLanguage]?[FAVORITE_REMOVED];
+  static String? orderCancelledSuccessfullyStr(String appLanguage) => allLang[appLanguage]?[ORDER_CANCELLED_SUCCESSFULLY];
+  static String? orderCancelledFailedStr(String appLanguage) => allLang[appLanguage]?[ORDER_CANCELLED_FAILED];
+  static String? orderConfirmedNonCancellableStr(String appLanguage) => allLang[appLanguage]?[ORDER_CONFIRMED_NON_CANCELLABLE];
+  static String? contactCustomerServiceToCancelStr(String appLanguage) => allLang[appLanguage]?[CONTACT_CUSTOMER_SERVICE_TO_CANCEL];
+  static String? doYouWantToCancelOrderStr(String appLanguage) => allLang[appLanguage]?[DO_YOU_WANT_TO_CANCEL_ORDER];
+  static String? failedToSubmitFeedbackStr(String appLanguage) => allLang[appLanguage]?[FAILED_TO_SUBMIT_FEEDBACK];
+  static String? serviceRatingStr(String appLanguage) => allLang[appLanguage]?[SERVICE_RATING];
+  static String? pleaseSelectServiceRatingStr(String appLanguage) => allLang[appLanguage]?[PLEASE_SELECT_SERVICE_RATING];
+  static String? rateRiderStr(String appLanguage) => allLang[appLanguage]?[RATE_RIDER];
+  static String? pleaseRateRiderStr(String appLanguage) => allLang[appLanguage]?[PLEASE_RATE_RIDER];
+  static String? experienceStr(String appLanguage) => allLang[appLanguage]?[EXPERIENCE];
+  static String? pleaseLikeOrDislikeStr(String appLanguage) => allLang[appLanguage]?[PLEASE_LIKE_OR_DISLIKE];
+  static String? riderRatingUpdatedSuccessfullyStr(String appLanguage) => allLang[appLanguage]?[RIDER_RATING_UPDATED_SUCCESSFULLY];
+  static String? failedToUpdateRiderRatingStr(String appLanguage) => allLang[appLanguage]?[FAILED_TO_UPDATE_RIDER_RATING];
+  static String? pleaseWaitStr(String appLanguage) => allLang[appLanguage]?[PLEASE_WAIT];
 
 }

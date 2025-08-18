@@ -13,13 +13,17 @@ class SingleBanner extends StatelessWidget {
       if(banner != null){
         return Padding(
           padding: const EdgeInsets.only(bottom: MAIN_VERTICAL_PADDING),
-          child: Container(
-            width: size.width,
-            height: size.height * 0.2,
-            color: AppColors.backgroundColorSkin(isDark),
-            child: GestureDetector(
-                onTap: ()=> home.onTapSingleBanners(singleBanner: homeSingleBanner),
-                child: appAsyncImage(banner.imageUrl, boxFit: BoxFit.cover)),
+          child: Stack(
+            children: [
+              Container(
+                width: size.width,
+                height: size.height * 0.2,
+                color: AppColors.backgroundColorSkin(isDark),
+                child: GestureDetector(
+                    onTap: ()=> home.onTapSingleBanners(singleBanner: homeSingleBanner),
+                    child: appAsyncImage(banner.imageUrl, boxFit: BoxFit.cover)),
+              ),
+            ],
           ),
         );
       } else {

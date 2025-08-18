@@ -3,9 +3,7 @@ import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/core/packages_import.dart';
 
 Widget appSliverAppbarHome() {
-  final controller = Get.find<DashBoardController>();
   final home = Get.find<HomeController>();
-
   return Obx(
     () => SliverAppBar(
       systemOverlayStyle: SystemUiOverlayStyle(

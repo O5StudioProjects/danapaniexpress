@@ -3,7 +3,6 @@ import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/core/data_model_imports.dart';
 import 'package:danapaniexpress/data/repositories/home_repository/home_repository.dart';
-import 'package:danapaniexpress/domain/controllers/orders_controller/orders_controller.dart';
 import 'package:danapaniexpress/ui/app_common/dialogs/events_popup.dart';
 
 
@@ -79,8 +78,7 @@ class HomeController extends GetxController {
   Future<void> fetchEventsPopup() async {
     try {
       eventsPopupStatus.value = Status.LOADING;
-      final eventList = await homeRepo.getPagerItems(
-        ImagePagerSections.EVENTS_POPUP,
+      final eventList = await homeRepo.getPagerItems(ImagePagerSections.EVENTS_POPUP,
       );
       if (eventList.isNotEmpty) {
         eventsPopupData.value = eventList.first;
@@ -89,15 +87,13 @@ class HomeController extends GetxController {
         print("Fetched ${eventList.length} Events PopUp");
       }
       eventsPopupStatus.value = Status.SUCCESS;
-      showCustomDialog(gContext,
-          AppEventsDialog(data: eventsPopupData.value), isDismissible: false);
+      showCustomDialog(gContext, AppEventsDialog(data: eventsPopupData.value), isDismissible: false);
 
     } catch (e) {
       eventsPopupStatus.value = Status.FAILURE;
       if (kDebugMode) {
-        print(e);
+        print('EVENTS POP EXCEPTION $e');
       }
-      showSnackbar(isError: true, title: 'Error', message: e.toString());
     }
   }
 
@@ -116,9 +112,8 @@ class HomeController extends GetxController {
     } catch (e) {
       appbarPagerStatus.value = AppbarPagerImagesStatus.FAILURE;
       if (kDebugMode) {
-        print(e);
+        print('APPBAR PAGER IMAGES Exception $e');
       }
-      showSnackbar(isError: true, title: 'Error', message: e.toString());
     }
   }
 
@@ -131,11 +126,9 @@ class HomeController extends GetxController {
       marqueeStatus.value = MarqueeStatus.SUCCESS;
     } catch (e) {
       marqueeStatus.value = MarqueeStatus.FAILURE;
-      showSnackbar(
-        isError: true,
-        title: 'Marquee Error',
-        message: e.toString(),
-      );
+      if (kDebugMode) {
+        print('Marquee Exception $e');
+      }
     }
   }
 
@@ -177,17 +170,15 @@ class HomeController extends GetxController {
       final data = await homeRepo.getCoverImages();
       coverImages.value = data;
       coverImagesStatus.value = CoverImagesStatus.SUCCESS;
-
       if (kDebugMode) {
         print("Fetched Cover Images: ${data.toJson()}");
       }
+
     } catch (e) {
       coverImagesStatus.value = CoverImagesStatus.FAILURE;
-      showSnackbar(
-        isError: true,
-        title: 'Cover Images Error',
-        message: 'Failed to fetch cover images: $e',
-      );
+      if (kDebugMode) {
+        print('Failed to fetch cover images Exception : $e');
+      }
     }
   }
 
@@ -202,15 +193,11 @@ class HomeController extends GetxController {
         print("Fetched ${items.length} body pager images");
       }
     } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
+
       bodyPagerStatus.value = BodyPagerImagesStatus.FAILURE;
-      showSnackbar(
-        isError: true,
-        title: 'Body Pager Error',
-        message: e.toString(),
-      );
+      if (kDebugMode) {
+        print('Body Pager Exception : $e');
+      }
     }
   }
 
@@ -237,11 +224,9 @@ class HomeController extends GetxController {
         print("Fetched banner_two: ${singleBannerTwo.value}");
       }
     } catch (e) {
-      showSnackbar(
-        isError: true,
-        title: 'Single Banners Error',
-        message: 'Failed to fetch single banners: $e',
-      );
+      if (kDebugMode) {
+        print('Failed to fetch single banners Exception : $e');
+      }
     }
   }
 
@@ -270,30 +255,34 @@ class HomeController extends GetxController {
         screenType: ProductsScreenType.POPULAR,
       );
     } else if (appbarPagerList[index].type == ImagePagerType.CATEGORY) {
+      showToast(AppLanguage.pleaseWaitStr(appLanguage).toString());
       await categories
           .fetchCategoryById(appbarPagerList[index].typeId.toString())
           .then((value) {
-            print(
+            if (kDebugMode) {
+              print(
               ' This is Single Category Data : ${categories.singleCategory.value!.categoryNameEnglish}',
             );
+            }
             navigation.gotoProductsScreen(
               data: categories.singleCategory.value!,
             );
           })
           .onError((handleError, str) {
             if (kDebugMode) {
-              print(str);
+              print('Error : $str');
             }
             return;
           });
     } else if (appbarPagerList[index].type == ImagePagerType.PRODUCT) {
+      showToast(AppLanguage.pleaseWaitStr(appLanguage).toString());
       await products.getSingleProduct(appbarPagerList[index].typeId.toString())
           .then((value) {
             navigation.gotoProductDetailScreen(data: products.singleProduct.value!);
           })
           .onError((handleError, str) {
             if (kDebugMode) {
-              print(str);
+              print('Error : $str');
             }
             return;
           });
@@ -314,6 +303,7 @@ class HomeController extends GetxController {
         screenType: ProductsScreenType.POPULAR,
       );
     } else if (bodyPagerList[index].type == ImagePagerType.CATEGORY) {
+      showToast(AppLanguage.pleaseWaitStr(appLanguage).toString());
       await categories
           .fetchCategoryById(bodyPagerList[index].typeId.toString())
           .then((value) {
@@ -328,6 +318,7 @@ class HomeController extends GetxController {
             return;
           });
     } else if (bodyPagerList[index].type == ImagePagerType.PRODUCT) {
+      showToast(AppLanguage.pleaseWaitStr(appLanguage).toString());
       await products.getSingleProduct(bodyPagerList[index].typeId.toString())
           .then((value) {
             navigation.gotoProductDetailScreen(data: products.singleProduct.value!);
@@ -358,6 +349,7 @@ class HomeController extends GetxController {
           screenType: ProductsScreenType.POPULAR,
         );
       } else if (singleBannerOne.value!.type == ImagePagerType.CATEGORY) {
+        showToast(AppLanguage.pleaseWaitStr(appLanguage).toString());
         await categories
             .fetchCategoryById(singleBannerOne.value!.typeId.toString())
             .then((value) {
@@ -372,12 +364,13 @@ class HomeController extends GetxController {
               return;
             });
       } else if (singleBannerOne.value!.type == ImagePagerType.PRODUCT) {
+        showToast(AppLanguage.pleaseWaitStr(appLanguage).toString());
         await products.getSingleProduct(singleBannerOne.value!.typeId.toString())
             .then((value) {
-              navigation.gotoProductDetailScreen(data: products.singleProduct.value!);
+          navigation.gotoProductDetailScreen(data: products.singleProduct.value!);
             })
             .onError((handleError, str) {
-              if (kDebugMode) {
+          if (kDebugMode) {
                 print(str);
               }
               return;
@@ -397,6 +390,7 @@ class HomeController extends GetxController {
           screenType: ProductsScreenType.POPULAR,
         );
       } else if (singleBannerTwo.value!.type == ImagePagerType.CATEGORY) {
+        showToast(AppLanguage.pleaseWaitStr(appLanguage).toString());
         await categories
             .fetchCategoryById(singleBannerTwo.value!.typeId.toString())
             .then((value) {
@@ -411,12 +405,13 @@ class HomeController extends GetxController {
               return;
             });
       } else if (singleBannerTwo.value!.type == ImagePagerType.PRODUCT) {
+        showToast(AppLanguage.pleaseWaitStr(appLanguage).toString());
         await products.getSingleProduct(singleBannerTwo.value!.typeId.toString())
             .then((value) {
-              navigation.gotoProductDetailScreen(data: products.singleProduct.value!);
+          navigation.gotoProductDetailScreen(data: products.singleProduct.value!);
             })
             .onError((handleError, str) {
-              if (kDebugMode) {
+          if (kDebugMode) {
                 print(str);
               }
               return;
@@ -455,12 +450,15 @@ class HomeController extends GetxController {
         screenType: ProductsScreenType.POPULAR,
       );
     } else if (data.type == ImagePagerType.CATEGORY) {
+      showToast(AppLanguage.pleaseWaitStr(appLanguage).toString());
       await categories
           .fetchCategoryById(data.typeId.toString())
           .then((value) {
-        print(
+        if (kDebugMode) {
+          print(
           ' This is Single Category Data : ${categories.singleCategory.value!.categoryNameEnglish}',
         );
+        }
         navigation.gotoProductsScreen(
           data: categories.singleCategory.value!,
         );
@@ -472,6 +470,7 @@ class HomeController extends GetxController {
         return;
       });
     } else if (data.type == ImagePagerType.PRODUCT) {
+      showToast(AppLanguage.pleaseWaitStr(appLanguage).toString());
       await products.getSingleProduct(data.typeId.toString())
           .then((value) {
         navigation.gotoProductDetailScreen(data: products.singleProduct.value!);

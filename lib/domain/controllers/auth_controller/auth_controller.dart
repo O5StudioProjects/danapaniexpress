@@ -134,6 +134,11 @@ class AuthController extends GetxController {
         title: 'Registration Failed',
         message: result['message'] ?? result['error'] ?? 'Unknown error',
       );
+
+      if (kDebugMode) {
+        print('${result['message'] ?? result['error']}');
+      }
+
     }
 
   }
@@ -186,6 +191,9 @@ class AuthController extends GetxController {
           isError: true,
           title: 'Login Failed',
           message: res['message'] ?? res['error'] ?? res['MESSAGE'] ?? 'Unknown error');
+      if (kDebugMode) {
+        print('${res['message'] ?? res['error'] ?? res['MESSAGE']}');
+      }
     }
   }
 
@@ -204,9 +212,12 @@ class AuthController extends GetxController {
       authStatus.value = AuthStatus.FAILURE;
       showSnackbar(
         isError: true,
-        title: "Profile",
+        title: "Logout",
         message: result['message'] ?? result['error'] ?? 'Unknown error',
       );
+      if (kDebugMode) {
+        print('${result['message'] ?? result['error']}');
+      }
     }
   }
 
@@ -231,11 +242,14 @@ class AuthController extends GetxController {
       }
     } else {
       getProfileStatus.value = AuthStatus.FAILURE;
-      showSnackbar(
-        isError: true,
-        title: "Profile",
-        message: res['message'] ?? res['error'] ?? 'Error fetching profile',
-      );
+      // showSnackbar(
+      //   isError: true,
+      //   title: "Profile",
+      //   message: res['message'] ?? res['error'] ?? 'Error fetching profile',
+      // );
+
+      print('PROFILE FETCH: ${res['message'] ?? res['error']}');
+
     }
   }
 

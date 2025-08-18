@@ -3,7 +3,6 @@ import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/core/packages_import.dart';
 import 'package:danapaniexpress/data/repositories/account_repository/account_repository.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 
 class AccountInfoController extends GetxController {
   final accountRepo = AccountRepository();
@@ -168,16 +167,20 @@ class AccountInfoController extends GetxController {
       uploadImageStatus.value = AuthStatus.SUCCESS;
       showSnackbar(
         isError: false,
-        title: 'Success',
-        message: result['message'] ?? 'Image uploaded',
+        title: AppLanguage.imageUploadedStr(appLanguage).toString(),
+        message: AppLanguage.imageUploadedSuccessStr(appLanguage).toString(),
+        // message: result['message'] ?? 'Image uploaded successfully!',
       );
     } else {
       uploadImageStatus.value = AuthStatus.FAILURE;
       showSnackbar(
         isError: true,
-        title: 'Failed',
-        message: result['message'] ?? result['error'] ?? 'Upload failed',
+        title: '${AppLanguage.failedStr(appLanguage)}',
+        message: result['message'] ?? result['error'] ?? '${AppLanguage.imageUploadFailedStr(appLanguage)}',
       );
+      if (kDebugMode) {
+        print('IMAGE UPLOAD: ${result['message'] ?? result['error'] ?? 'Upload failed'}');
+      }
     }
   }
 
@@ -191,7 +194,7 @@ class AccountInfoController extends GetxController {
   }) async {
     updateProfileStatus.value = AuthStatus.LOADING;
     if (auth.userId.value == null) {
-      Get.snackbar('Error', 'User not logged in');
+      showToast('${AppLanguage.userNotLoggedInStr(appLanguage)}');
       return;
     }
 
@@ -208,19 +211,20 @@ class AccountInfoController extends GetxController {
       Navigator.pop(gContext);
       showSnackbar(
           isError: false,
-          title: 'Success',
-          message: result['message'] ?? 'Profile updated',
-         position: SnackPosition.TOP
+          title: '${AppLanguage.profileUpdatedStr(appLanguage)}',
+        message: '${AppLanguage.profileUpdatedSuccessfullyStr(appLanguage)}',
+        // message: result['message'] ?? 'Profile updated',
       );
     } else {
       updateProfileStatus.value = AuthStatus.FAILURE;
       showSnackbar(
           isError: true,
-          title: 'Failed',
-          message: result['message'] ?? result['error'] ?? 'Update failed',
-          position: SnackPosition.TOP
-
+          title: '${AppLanguage.errorStr(appLanguage)}',
+          message: result['message'] ?? result['error'] ?? '${AppLanguage.profileUpdatedFailedStr(appLanguage)}',
       );
+      if (kDebugMode) {
+        print('PROFILE UPDATED: ${result['message'] ?? result['error'] ?? 'Profile Updated Failed'}');
+      }
     }
   }
 
@@ -245,16 +249,19 @@ class AccountInfoController extends GetxController {
       deleteImageStatus.value = AuthStatus.SUCCESS;
       showSnackbar(
         isError: false,
-        title: 'Success',
-        message: result['message'] ?? 'Image deleted',
+        title: '${AppLanguage.defaultImageStr(appLanguage)}',
+        message: '${AppLanguage.defaultImageSelectedStr(appLanguage)}',
       );
     } else {
       deleteImageStatus.value = AuthStatus.FAILURE;
       showSnackbar(
         isError: true,
-        title: 'Failed',
-        message: result['message'] ?? result['error'] ?? 'Failed to delete image',
+        title: '${AppLanguage.failedStr(appLanguage)}',
+        message: result['message'] ?? result['error'] ?? '${AppLanguage.failedToSetDefaultImageStr(appLanguage)}',
       );
+      if (kDebugMode) {
+        print('DELETE IMAGE: ${result['message'] ?? result['error'] ?? 'Failed to set default image'}');
+      }
     }
   }
 

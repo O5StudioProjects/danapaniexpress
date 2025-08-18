@@ -39,11 +39,11 @@ class ShowFilteredOrderData extends StatelessWidget {
         titleText: AppLanguage.orderNumberHashStr(appLanguage),
         titleTextStyle: secondaryTextStyle().copyWith(
             color: AppColors.primaryTextColorSkin(isDark),
-            fontSize: isRightLang ? NORMAL_TEXT_FONT_SIZE+2 : NORMAL_TEXT_FONT_SIZE,
+            fontSize: isRightLang ? SUB_HEADING_TEXT_BUTTON_FONT_SIZE+2 : SUB_HEADING_TEXT_BUTTON_FONT_SIZE,
             fontWeight: FontWeight.w800
         ),
         detailText: data.orderNumber?.split('_').last ?? '',
-        detailTextStyle: bodyTextStyle().copyWith(fontFamily: robotoRegular, fontSize: NORMAL_TEXT_FONT_SIZE)
+        detailTextStyle: bodyTextStyle().copyWith(fontFamily: robotoRegular, fontSize: SUB_HEADING_TEXT_BUTTON_FONT_SIZE)
     );
   }
 
@@ -54,12 +54,12 @@ class ShowFilteredOrderData extends StatelessWidget {
           titleText: AppLanguage.orderPlacedOnStr(appLanguage),
           titleTextStyle: secondaryTextStyle().copyWith(
               color: AppColors.primaryTextColorSkin(isDark),
-              fontSize: isRightLang ? NORMAL_TEXT_FONT_SIZE+2 : NORMAL_TEXT_FONT_SIZE,
+              fontSize: isRightLang ? SUB_HEADING_TEXT_BUTTON_FONT_SIZE+2 : SUB_HEADING_TEXT_BUTTON_FONT_SIZE,
               fontWeight: FontWeight.w800
           ),
           isDate: true,
           detailText: formatDateTime(data.orderPlacedDateTime.toString()),
-          detailTextStyle: bodyTextStyle().copyWith(fontFamily: robotoRegular, fontSize: NORMAL_TEXT_FONT_SIZE)
+          detailTextStyle: bodyTextStyle().copyWith(fontFamily: robotoRegular, fontSize: SUB_HEADING_TEXT_BUTTON_FONT_SIZE)
       ),
     );
   }
@@ -71,11 +71,11 @@ class ShowFilteredOrderData extends StatelessWidget {
           titleText: AppLanguage.orderConfirmedOnStr(appLanguage),
           titleTextStyle: secondaryTextStyle().copyWith(
               color: AppColors.primaryTextColorSkin(isDark),
-              fontSize: isRightLang ? NORMAL_TEXT_FONT_SIZE+2 : NORMAL_TEXT_FONT_SIZE,
+              fontSize: isRightLang ? SUB_HEADING_TEXT_BUTTON_FONT_SIZE+2 : SUB_HEADING_TEXT_BUTTON_FONT_SIZE,
               fontWeight: FontWeight.w800
           ),
           detailText: data.orderConfirmedDateTime == null || data.orderConfirmedDateTime!.isEmpty ? '' : formatDateTime(data.orderConfirmedDateTime.toString()),
-          detailTextStyle: bodyTextStyle().copyWith(fontFamily: robotoRegular, fontSize: NORMAL_TEXT_FONT_SIZE)
+          detailTextStyle: bodyTextStyle().copyWith(fontFamily: robotoRegular, fontSize: SUB_HEADING_TEXT_BUTTON_FONT_SIZE)
 
       ),
     );
@@ -88,11 +88,11 @@ class ShowFilteredOrderData extends StatelessWidget {
           titleText: AppLanguage.orderCompletedOnStr(appLanguage),
           titleTextStyle: secondaryTextStyle().copyWith(
               color: AppColors.primaryTextColorSkin(isDark),
-              fontSize: isRightLang ? NORMAL_TEXT_FONT_SIZE+2 : NORMAL_TEXT_FONT_SIZE,
+              fontSize: isRightLang ? SUB_HEADING_TEXT_BUTTON_FONT_SIZE+2 : SUB_HEADING_TEXT_BUTTON_FONT_SIZE,
               fontWeight: FontWeight.w800
           ),
           detailText: data.orderCompletedDateTime == null || data.orderCompletedDateTime!.isEmpty ? '' : formatDateTime(data.orderCompletedDateTime.toString()),
-          detailTextStyle: bodyTextStyle().copyWith(fontFamily: robotoRegular, fontSize: NORMAL_TEXT_FONT_SIZE)
+          detailTextStyle: bodyTextStyle().copyWith(fontFamily: robotoRegular, fontSize: SUB_HEADING_TEXT_BUTTON_FONT_SIZE)
 
       ),
     );
@@ -105,11 +105,11 @@ class ShowFilteredOrderData extends StatelessWidget {
           titleText: AppLanguage.orderCancelledOnStr(appLanguage),
           titleTextStyle: secondaryTextStyle().copyWith(
               color: AppColors.primaryTextColorSkin(isDark),
-              fontSize: isRightLang ? NORMAL_TEXT_FONT_SIZE+2 : NORMAL_TEXT_FONT_SIZE,
+              fontSize: isRightLang ? SUB_HEADING_TEXT_BUTTON_FONT_SIZE+2 : SUB_HEADING_TEXT_BUTTON_FONT_SIZE,
               fontWeight: FontWeight.w800
           ),
           detailText: data.orderCancelledDateTime == null || data.orderCancelledDateTime!.isEmpty ? '' : formatDateTime(data.orderCancelledDateTime.toString()),
-          detailTextStyle: bodyTextStyle().copyWith(fontFamily: robotoRegular, fontSize: NORMAL_TEXT_FONT_SIZE)
+          detailTextStyle: bodyTextStyle().copyWith(fontFamily: robotoRegular, fontSize: SUB_HEADING_TEXT_BUTTON_FONT_SIZE)
 
       ),
     );
@@ -122,11 +122,11 @@ class ShowFilteredOrderData extends StatelessWidget {
           titleText: AppLanguage.orderAmountStr(appLanguage),
           titleTextStyle: secondaryTextStyle().copyWith(
               color: AppColors.primaryTextColorSkin(isDark),
-              fontSize: isRightLang ? NORMAL_TEXT_FONT_SIZE+2 : NORMAL_TEXT_FONT_SIZE,
+              fontSize: isRightLang ? SUB_HEADING_TEXT_BUTTON_FONT_SIZE+2 : SUB_HEADING_TEXT_BUTTON_FONT_SIZE,
               fontWeight: FontWeight.w800
           ),
           detailText: '$appCurrency ${data.totalSellingAmount! + data.deliveryCharges!}',
-          detailTextStyle: bodyTextStyle().copyWith(fontFamily: robotoRegular, fontSize: NORMAL_TEXT_FONT_SIZE)
+          detailTextStyle: bodyTextStyle().copyWith(fontFamily: robotoRegular, fontSize: SUB_HEADING_TEXT_BUTTON_FONT_SIZE)
       ),
     );
   }

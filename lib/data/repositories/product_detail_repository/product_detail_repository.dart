@@ -1,8 +1,6 @@
 import 'dart:convert';
-
 import 'package:danapaniexpress/core/data_model_imports.dart';
 import 'package:danapaniexpress/data/repositories/product_detail_repository/product_detail_datasource.dart';
-
 import '../../../core/common_imports.dart';
 
 class ProductDetailRepository extends ProductDetailDatasource{

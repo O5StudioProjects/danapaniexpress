@@ -69,6 +69,7 @@ class BodyImagePager extends StatelessWidget {
                   ),
                 )),
               ),
+
             ],
           )
 

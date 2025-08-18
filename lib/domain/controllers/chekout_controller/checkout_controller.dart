@@ -2,7 +2,6 @@ import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/core/data_model_imports.dart';
 import 'package:danapaniexpress/data/repositories/checkout_repository/checkout_repository.dart';
-import 'package:danapaniexpress/domain/controllers/orders_controller/orders_controller.dart';
 
 import '../../../data/models/delivery_slots_model.dart';
 
@@ -52,19 +51,27 @@ class CheckoutController extends GetxController {
         getDeliverySlotsStatus.value = Status.SUCCESS;
       } else {
         getDeliverySlotsStatus.value = Status.FAILURE;
-        showSnackbar(
-          isError: true,
-          title: 'Error',
-          message: response['message'] ?? 'Failed to load delivery slots.',
-        );
+        showToast('${AppLanguage.failedToLoadDeliverySlotsStr(appLanguage)}');
+        if (kDebugMode) {
+          print('FETCH DELIVERY DAYS WITH SLOTS ERROR : ${response['message']}');
+        }
+        // showSnackbar(
+        //   isError: true,
+        //   title: 'Error',
+        //   message: response['message'] ?? 'Failed to load delivery slots.',
+        // );
       }
     } catch (e) {
       getDeliverySlotsStatus.value = Status.FAILURE;
-      showSnackbar(
-        isError: true,
-        title: 'Exception',
-        message: e.toString(),
-      );
+      showToast(AppLanguage.somethingWentWrongStr(appLanguage).toString());
+      if (kDebugMode) {
+        print('FETCH DELIVERY DAYS WITH SLOTS Exception : $e');
+      }
+      // showSnackbar(
+      //   isError: true,
+      //   title: 'Exception',
+      //   message: e.toString(),
+      // );
     }
   }
 
@@ -185,11 +192,6 @@ class CheckoutController extends GetxController {
 
       if (result['success'] == true) {
         checkOutStatus.value = Status.SUCCESS;
-        showSnackbar(
-          isError: false,
-          title: 'Success',
-          message: result['message'] ?? 'Order placed successfully',
-        );
         // You can optionally clear cart or navigate
         nav.gotoOrderedPlacedScreen(orderData: null);
         await cart.fetchCartProducts();
@@ -197,20 +199,20 @@ class CheckoutController extends GetxController {
         await order.getActiveOrdersCount();
       } else {
         checkOutStatus.value = Status.FAILURE;
-        showSnackbar(
-          isError: true,
-          title: 'Error',
-          message: result['message'] ?? 'Something went wrong',
-        );
+        showToast('${AppLanguage.failedToCheckoutStr(appLanguage)}');
+        if (kDebugMode) {
+          print('CHECKOUT ERROR : ${result['message']}');
+        }
+
       }
     } catch (e) {
       checkOutStatus.value = Status.FAILURE;
-      print('Exception: $e');
-      showSnackbar(
-        isError: true,
-        title: 'Exception',
-        message: e.toString(),
-      );
+      showToast('${AppLanguage.somethingWentWrongStr(appLanguage)}');
+
+      if (kDebugMode) {
+        print('CHECKOUT Exception: $e');
+      }
+
     }
   }
 

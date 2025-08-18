@@ -117,6 +117,9 @@ class AddAddressController extends GetxController {
         title: 'Error',
         message: result['message'] ?? result['error'] ?? 'Something went wrong',
       );
+      if (kDebugMode) {
+        print('ADD ADDRESS: ${result['message'] ?? result['error']}');
+      }
     }
 
     addressStatus.value = AuthStatus.IDLE;
@@ -162,6 +165,9 @@ class AddAddressController extends GetxController {
         title: 'Failed',
         message: result['message'] ?? result['error'] ?? 'Unknown error',
       );
+      if (kDebugMode) {
+        print('DELETE ADDRESS : ${result['message'] ?? result['error']}');
+      }
     }
   }
 
@@ -216,6 +222,9 @@ class AddAddressController extends GetxController {
           isError: true,
           title: 'Failed',
           message: result['message'] ?? result['error'] ?? 'Unknown error');
+      if (kDebugMode) {
+        print('UPDATE ADDRESS : ${result['message'] ?? result['error']}');
+      }
     }
   }
 

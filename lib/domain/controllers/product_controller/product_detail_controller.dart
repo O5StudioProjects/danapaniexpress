@@ -59,28 +59,21 @@ class ProductDetailController extends GetxController {
       toggleFavoriteStatus.value = Status.SUCCESS;
       // Optional: handle success/failure message
       if (response['status'] == 'added') {
-        showSnackbar(
-          isError: false,
-          title: "Favorite Added",
-          message: response['message'] ?? '',
-        );
+        showToast(AppLanguage.favoriteAddedStr(appLanguage).toString());
+
       } else if (response['status'] == 'removed') {
-        showSnackbar(
-          isError: false,
-          title: "Favorite Removed",
-          message: response['message'] ?? '',
-        );
+        showToast(AppLanguage.favoriteRemovedStr(appLanguage).toString());
+
       }
       auth.fetchUserProfile();
       favorites.fetchFavorites();
 
     } catch (e) {
       toggleFavoriteStatus.value = Status.FAILURE;
-      showSnackbar(
-        isError: true,
-        title: "Error",
-        message: e.toString(),
-      );
+      showToast(AppLanguage.somethingWentWrongStr(appLanguage).toString());
+      if (kDebugMode) {
+        print('TOGGLE FAVORITE EXCEPTION : $e');
+      }
     }
   }
 

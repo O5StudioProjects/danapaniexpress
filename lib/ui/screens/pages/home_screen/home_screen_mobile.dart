@@ -1,4 +1,5 @@
 import 'package:danapaniexpress/core/common_imports.dart';
+import 'package:danapaniexpress/core/controllers_import.dart';
 
 class HomeScreenMobile extends StatelessWidget {
   const HomeScreenMobile({super.key});
@@ -6,14 +7,19 @@ class HomeScreenMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    final home  = Get.find<HomeController>();
+
     return Obx((){
       return Container(
         height: size.height,
         width: size.width,
         color: AppColors.backgroundColorSkin(isDark),
         child: RefreshIndicator(
+          backgroundColor: AppColors.materialButtonSkin(isDark),
+          color: AppColors.materialButtonTextSkin(isDark),
+          elevation: 0.0,
           onRefresh: () async {
-
+            home.fetchInitialMethods();
           },
           child: CustomScrollView(
             physics: BouncingScrollPhysics(),
@@ -33,7 +39,6 @@ class HomeScreenMobile extends StatelessWidget {
                     FlashSaleProducts(),
                     SingleBanner(homeSingleBanner: HomeSingleBanner.TWO),
                     PopularProducts(),
-
                   ],
                 ),
               ),

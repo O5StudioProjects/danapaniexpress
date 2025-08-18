@@ -41,7 +41,7 @@ class CartController  extends GetxController{
     if (userId.isEmpty) {
       showSnackbar(
         isError: true,
-        title: 'Error',
+        title: '${AppLanguage.errorStr(appLanguage)}',
         message: AppLanguage.userNotLoggedInStr(appLanguage).toString(),
       );
       return;
@@ -57,24 +57,30 @@ class CartController  extends GetxController{
 
       if (result['status'] == 'success') {
         addToCartWithQtyStatus.value = Status.SUCCESS;
-        showSnackbar(
-          isError: false,
-          title: 'Success',
-          message: result['message'] ?? 'Product added to cart',
-        );
+        showToast('${AppLanguage.productAddedToCartSuccessStr(appLanguage)}');
+        // showSnackbar(
+        //   isError: false,
+        //   title: 'Added To Cart',
+        //   message: result['message'] ?? 'Product added to cart successfully',
+        // );
         await fetchCartProducts();
         auth.fetchUserProfile();
       } else {
         addToCartWithQtyStatus.value = Status.FAILURE;
         showSnackbar(
           isError: true,
-          title: 'Error',
-          message: result['message'] ?? 'Failed to add to cart',
+          title: '${AppLanguage.errorStr(appLanguage)}',
+          message: result['message'] ?? '${AppLanguage.failedToAddToCartStr(appLanguage)}',
         );
+
+        if (kDebugMode) {
+          print('ADD TO CART ERROR: ${result['message']}');
+        }
+
       }
     } catch (e) {
       if (kDebugMode) {
-        print('Exception: $e');
+        print('ADD TO CART Exception: $e');
       }
     }
   }
@@ -100,11 +106,13 @@ class CartController  extends GetxController{
 
       if (response['status'] == 'success') {
         addCartStatus[productId] = Status.SUCCESS;
-        showSnackbar(
-          isError: false,
-          title: 'Success',
-          message: response['message'] ?? AppLanguage.productAddedToCartStr(appLanguage),
-        );
+        showToast('${AppLanguage.productAddedToCartSuccessStr(appLanguage)}');
+
+        // showSnackbar(
+        //   isError: false,
+        //   title: 'Success',
+        //   message: response['message'] ?? AppLanguage.productAddedToCartStr(appLanguage),
+        // );
 
         await fetchCartProducts(); // Optional: Refresh cart after adding
         auth.fetchUserProfile();
@@ -113,14 +121,17 @@ class CartController  extends GetxController{
         addCartStatus[productId] = Status.FAILURE;
         showSnackbar(
           isError: true,
-          title: 'Error',
+          title: '${AppLanguage.errorStr(appLanguage)}',
           message: response['message'] ?? AppLanguage.failedToAddToCartStr(appLanguage),
         );
+        if (kDebugMode) {
+          print('ADD TO CART ERROR: ${response['message']}');
+        }
       }
     } catch (e) {
       addCartStatus[productId] = Status.FAILURE;
       if (kDebugMode) {
-        print('Exception: $e');
+        print('ADD TO CART Exception: $e');
       }
     }
   }
@@ -132,7 +143,7 @@ class CartController  extends GetxController{
       if (userId.isEmpty) {
         showSnackbar(
           isError: true,
-          title: 'Error',
+          title: '${AppLanguage.errorStr(appLanguage)}',
           message: AppLanguage.userNotLoggedInStr(appLanguage).toString(),
         );
         return;
@@ -150,14 +161,14 @@ class CartController  extends GetxController{
       } else {
         addQuantityCartStatus[productId] = Status.FAILURE;
         if (kDebugMode) {
-          print('Error : ${response['message']}');
+          print('ADD QUANTITY TO CART Error : ${response['message']}');
         }
 
       }
     } catch (e) {
       addQuantityCartStatus[productId] = Status.FAILURE;
       if (kDebugMode) {
-        print('Exception: $e');
+        print('ADD QUANTITY TO CART Exception: $e');
       }
     }
   }
@@ -181,26 +192,35 @@ class CartController  extends GetxController{
         // Optionally update cart or trigger a refresh here
       } else if (status == 'info') {
         removeQuantityCartStatus[productId] = Status.SUCCESS;
-        showSnackbar(
-          isError: false,
-          title: 'Note',
-          message: message ?? 'Product quantity is already 1.',
-        );
+        showToast('${AppLanguage.productQuantityAlreadyOneStr(appLanguage)}');
+        // showSnackbar(
+        //   isError: true,
+        //   title: 'Note',
+        //   message: message ?? 'Product quantity is already 1.',
+        // );
       } else {
         removeQuantityCartStatus[productId] = Status.FAILURE;
-        showSnackbar(
-          isError: true,
-          title: 'Error',
-          message: message ?? 'Failed to remove item from cart.',
-        );
+        showToast('${AppLanguage.failedToRemoveItemFromCartStr(appLanguage)}');
+        if (kDebugMode) {
+          print('REMOVE QUANTITY FROM CART ERROR: $message');
+        }
+        // showSnackbar(
+        //   isError: true,
+        //   title: '${AppLanguage.errorStr(appLanguage)}',
+        //   message: message ?? '${AppLanguage.failedToRemoveItemFromCartStr(appLanguage)}',
+        // );
       }
     } catch (e) {
       removeQuantityCartStatus[productId] = Status.FAILURE;
-      showSnackbar(
-        isError: true,
-        title: 'Error',
-        message: 'Something went wrong. Please try again.',
-      );
+      showToast('${AppLanguage.somethingWentWrongStr(appLanguage)}');
+      if (kDebugMode) {
+        print('REMOVE QUANTITY FROM CART Exception: $e');
+      }
+      // showSnackbar(
+      //   isError: true,
+      //   title: '${AppLanguage.errorStr(appLanguage)}',
+      //   message: '${AppLanguage.somethingWentWrongStr(appLanguage)}',
+      // );
     }
   }
 
@@ -231,7 +251,10 @@ class CartController  extends GetxController{
       getCartStatus.value = Status.SUCCESS;
     } catch (e) {
       getCartStatus.value = Status.FAILURE;
-      showSnackbar(isError: true, title: 'Error', message: e.toString());
+      //showToast('${AppLanguage.somethingWentWrongStr(appLanguage)}');
+      if (kDebugMode) {
+        print('FETCH CART PRODUCTS Exception: $e');
+      }
     }
   }
 
@@ -253,14 +276,21 @@ class CartController  extends GetxController{
         deleteCartItemStatus[productId] = Status.SUCCESS;
         cartProducts.removeWhere((p) => p.productId == productId);
         auth.fetchUserProfile();
-        showSnackbar(isError: false, title: 'Success', message: result['message']);
+        showToast('${AppLanguage.productRemovedFromCartStr(appLanguage)}');
+        //showSnackbar(isError: false, title: 'Success', message: result['message']);
       } else {
         deleteCartItemStatus[productId] = Status.FAILURE;
-        showSnackbar(isError: true, title: 'Failed', message: result['message']);
+        showToast('${AppLanguage.failedToRemoveFromCartStr(appLanguage)}');
+        if (kDebugMode) {
+          print('FAILED TO REMOVE CART Error: ${result['message']}');
+        }
       }
     } catch (e) {
       deleteCartItemStatus[productId] = Status.FAILURE;
-      showSnackbar(isError: true, title: 'Error', message: 'Something went wrong');
+      showToast(AppLanguage.somethingWentWrongStr(appLanguage).toString());
+      if (kDebugMode) {
+        print('FAILED TO REMOVE CART Exception: $e');
+      }
     }
   }
 
@@ -278,25 +308,28 @@ class CartController  extends GetxController{
         emptyCartStatus.value = Status.SUCCESS;
         showSnackbar(
           isError: false,
-          title: 'Success',
-          message: result['message'] ?? AppLanguage.cartIsEmptyNowStr(appLanguage),
+          title: '${AppLanguage.successStr(appLanguage)}',
+          message: '${AppLanguage.cartIsEmptyNowStr(appLanguage)}',
         );
         auth.fetchUserProfile();
       } else {
         emptyCartStatus.value = Status.FAILURE;
-        showSnackbar(
-          isError: true,
-          title: 'Error',
-          message: result['message'] ?? AppLanguage.failedToEmptyCartStr(appLanguage),
-        );
+        showToast('${AppLanguage.failedToEmptyCartStr(appLanguage)}');
+        if (kDebugMode) {
+          print('EMPTY CART Error : ${ result['message']}');
+        }
+        // showSnackbar(
+        //   isError: true,
+        //   title: 'Error',
+        //   message: result['message'] ?? AppLanguage.failedToEmptyCartStr(appLanguage),
+        // );
       }
     } catch (e) {
       emptyCartStatus.value = Status.FAILURE;
-      showSnackbar(
-        isError: true,
-        title: 'Exception',
-        message: e.toString(),
-      );
+      showToast('${AppLanguage.somethingWentWrongStr(appLanguage)}');
+      if (kDebugMode) {
+        print('EMPTY CART Exception : $e');
+      }
     }
   }
 
