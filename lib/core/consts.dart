@@ -109,6 +109,7 @@ class EmailSubject{
 
 var citiesList = [
   ServiceAreas.SAHIWAL,
+  ServiceAreas.OKARA,
   //ServiceAreas.OKARA, ServiceAreas.GUJRAT
 ];
 var provinceList = [

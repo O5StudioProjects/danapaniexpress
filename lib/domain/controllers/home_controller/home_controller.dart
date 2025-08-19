@@ -80,14 +80,15 @@ class HomeController extends GetxController {
       eventsPopupStatus.value = Status.LOADING;
       final eventList = await homeRepo.getPagerItems(ImagePagerSections.EVENTS_POPUP,
       );
+      eventsPopupStatus.value = Status.SUCCESS;
       if (eventList.isNotEmpty) {
         eventsPopupData.value = eventList.first;
+        showCustomDialog(gContext, AppEventsDialog(data: eventsPopupData.value), isDismissible: false);
       }
       if (kDebugMode) {
         print("Fetched ${eventList.length} Events PopUp");
       }
-      eventsPopupStatus.value = Status.SUCCESS;
-      showCustomDialog(gContext, AppEventsDialog(data: eventsPopupData.value), isDismissible: false);
+
 
     } catch (e) {
       eventsPopupStatus.value = Status.FAILURE;

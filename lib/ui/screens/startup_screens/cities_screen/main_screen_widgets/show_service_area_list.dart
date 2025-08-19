@@ -17,7 +17,7 @@ class ShowServiceAreaList extends StatelessWidget {
           var data = citiesList[index];
           return Padding(padding: const EdgeInsets.only(bottom: 12.0),
             child: listItemIcon(iconType: IconType.ICON ,leadingIcon: Icons.location_on_rounded,
-                trailingIcon: serviceArea.serviceArea.value.isNotEmpty ? icRadioButtonSelected : icRadioButton,
+                trailingIcon: serviceArea.serviceArea.value == data ? icRadioButtonSelected : icRadioButton,
                 itemTitle: data, onItemClick: (){
                   serviceArea.serviceArea.value = data;
 
