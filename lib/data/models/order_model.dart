@@ -5,6 +5,9 @@ class OrderModel {
   final String? orderId;
   final String? orderNumber;
   final String? riderId;
+  final String? riderName;
+  final String? riderPhone;
+  final String? riderImage;
   final String? orderFeedbackId;
 
   final String? orderPlacedDateTime;
@@ -15,6 +18,7 @@ class OrderModel {
   final String? orderStatus;
   final String? paymentMethod;
   final String? shippingMethod;
+  final String? shippingAddress;
 
   final double? totalSellingAmount;
   final double? totalCutPriceAmount;
@@ -31,6 +35,9 @@ class OrderModel {
   final String? slotLabel;
   final String? specialNoteForRider;
 
+  final bool? cancelByAdmin;
+  final String? reasonForCancel;
+
   final RiderModel? rider;
   final OrderFeedbackModel? orderFeedback;
   final OrderUserModel? user;
@@ -41,6 +48,9 @@ class OrderModel {
     this.orderId,
     this.orderNumber,
     this.riderId,
+    this.riderName,
+    this.riderPhone,
+    this.riderImage,
     this.orderFeedbackId,
     this.orderPlacedDateTime,
     this.orderConfirmedDateTime,
@@ -49,6 +59,7 @@ class OrderModel {
     this.orderStatus,
     this.paymentMethod,
     this.shippingMethod,
+    this.shippingAddress,
     this.totalSellingAmount,
     this.totalCutPriceAmount,
     this.totalDiscount,
@@ -61,6 +72,8 @@ class OrderModel {
     this.slotId,
     this.slotLabel,
     this.specialNoteForRider,
+    this.cancelByAdmin,
+    this.reasonForCancel,
     this.rider,
     this.orderFeedback,
     this.user,
@@ -73,6 +86,9 @@ class OrderModel {
       orderId: json['order_id'],
       orderNumber: json['order_number'],
       riderId: json['rider_id'],
+      riderName: json['rider_name'],
+      riderPhone: json['rider_phone'],
+      riderImage: json['rider_image'],
       orderFeedbackId: json['order_feedback_id'],
       orderPlacedDateTime: json['order_placed_date_time'],
       orderConfirmedDateTime: json['order_confirmed_date_time'],
@@ -81,6 +97,7 @@ class OrderModel {
       orderStatus: json['order_status'],
       paymentMethod: json['payment_method'],
       shippingMethod: json['shipping_method'],
+      shippingAddress: json['shipping_address'],
       totalSellingAmount: (json['total_selling_amount'] as num?)?.toDouble(),
       totalCutPriceAmount: (json['total_cut_price_amount'] as num?)?.toDouble(),
       totalDiscount: (json['total_discount'] as num?)?.toDouble(),
@@ -93,6 +110,8 @@ class OrderModel {
       slotId: json['slot_id'],
       slotLabel: json['slot_label'],
       specialNoteForRider: json['special_note_for_rider'],
+      cancelByAdmin: json['cancel_by_admin'],
+      reasonForCancel: json['reason_for_cancel'],
       rider: json['rider'] != null ? RiderModel.fromJson(json['rider']) : null,
       orderFeedback: json['order_feedback'] != null
           ? OrderFeedbackModel.fromJson(json['order_feedback'])
@@ -110,6 +129,9 @@ class OrderModel {
       'order_id': orderId,
       'order_number': orderNumber,
       'rider_id': riderId,
+      'rider_name': riderName,
+      'rider_phone': riderPhone,
+      'rider_image': riderImage,
       'order_feedback_id': orderFeedbackId,
       'order_placed_date_time': orderPlacedDateTime,
       'order_confirmed_date_time': orderConfirmedDateTime,
@@ -118,6 +140,7 @@ class OrderModel {
       'order_status': orderStatus,
       'payment_method': paymentMethod,
       'shipping_method': shippingMethod,
+      'shipping_address': shippingAddress,
       'total_selling_amount': totalSellingAmount,
       'total_cut_price_amount': totalCutPriceAmount,
       'total_discount': totalDiscount,
@@ -130,6 +153,8 @@ class OrderModel {
       'slot_id': slotId,
       'slot_label': slotLabel,
       'special_note_for_rider': specialNoteForRider,
+      'cancel_by_admin': cancelByAdmin,
+      'reason_for_cancel': reasonForCancel,
       'rider': rider?.toJson(),
       'order_feedback': orderFeedback?.toJson(),
       'user': user?.toJson(), // ✅ fixed
