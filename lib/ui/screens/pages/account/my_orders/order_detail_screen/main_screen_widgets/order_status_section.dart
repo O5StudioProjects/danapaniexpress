@@ -10,7 +10,7 @@ class OrderStatusSection extends StatelessWidget {
     return _buildUI(orderData);
   }
 
-  _buildUI(orderData){
+  _buildUI(OrderModel orderData){
     return Obx(() {
       final statusTextColor = getStatusTextColor(orderData.orderStatus!);
       final statusBgColor = getStatusBgColor(orderData.orderStatus!);
@@ -65,7 +65,7 @@ class OrderStatusSection extends StatelessWidget {
                   appDivider(),
                   orderDetailItemsFixedUI(
                       titleText: 'Cancelled By',
-                      detailText: orderData.cancelByAdmin == null ? 'Self' : orderData.cancelByAdmin == true ? 'Vendor' : 'Rider'
+                      detailText: orderData.reasonForCancel!.contains('Self Cancelled') ? 'Self' : orderData.cancelByAdmin == true ? 'Vendor' : 'Rider'
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

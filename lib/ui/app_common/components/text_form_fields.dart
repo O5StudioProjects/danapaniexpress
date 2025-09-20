@@ -8,6 +8,7 @@ class AppTextFormField extends StatefulWidget {
   final bool readOnly;
   final bool isConstant;
   final bool isDetail;
+  final int? maxLines;
   final String? label;
   final TextInputType textInputType;
   final String? initialValue;
@@ -23,7 +24,7 @@ class AppTextFormField extends StatefulWidget {
     this.isPassword = false,
     this.textEditingController,
     this.textInputType = TextInputType.text,
-    this.validator, this.initialValue, this.readOnly = false, this.isConstant =false,  this.isDetail = false, this.label, this.onChanged, this.onSubmit
+    this.validator, this.initialValue, this.readOnly = false, this.isConstant =false,  this.isDetail = false, this.label, this.onChanged, this.onSubmit, this.maxLines
   });
 
   @override
@@ -87,7 +88,7 @@ class _AppTextFormFieldState extends State<AppTextFormField> {
       readOnly: widget.readOnly,
       initialValue: widget.initialValue,
       cursorHeight: 16.0,
-      maxLines: widget.isDetail ? null : 1 ,
+      maxLines: widget.isDetail ? widget.maxLines : 1 ,
       keyboardType: widget.textInputType,
       obscureText: widget.isPassword ? _obscure : false,
       onChanged: widget.onChanged,

@@ -141,6 +141,32 @@ class OrdersDatasource extends BaseRepository{
     return handleApiResponseAsMap(response); // returns Map<String, dynamic>
   }
 
+  Future<Map<String, dynamic>> updateOrderNewApi({
+    required String orderId,
+    String? riderId,
+    String? orderStatus,
+    bool? cancelByAdmin, // true / false
+    String? reasonForCancel,
+  }) async {
+    final uri = Uri.parse(APiEndpoints.updateOrderNew);
+
+    final body = {
+      'order_id': orderId,
+      if (riderId != null && riderId.isNotEmpty) 'rider_id': riderId,
+      if (orderStatus != null && orderStatus.isNotEmpty) 'order_status': orderStatus,
+      if (cancelByAdmin != null) 'cancel_by_admin': cancelByAdmin,
+      if (reasonForCancel != null && reasonForCancel.isNotEmpty) 'reason_for_cancel': reasonForCancel,
+    };
+
+    final response = await http.post(
+      uri,
+      headers: apiHeaders,
+      body: jsonEncode(body),
+    );
+
+    return handleApiResponseAsMap(response); // returns Map<String, dynamic>
+  }
+
 
 
   /// INSERT ORDER FEEDBACK
