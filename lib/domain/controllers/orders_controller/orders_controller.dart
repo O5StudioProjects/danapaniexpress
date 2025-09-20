@@ -2,6 +2,7 @@ import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/data/repositories/orders_repository/orders_repository.dart';
 import 'package:danapaniexpress/ui/app_common/dialogs/bool_dialog.dart';
+import 'package:danapaniexpress/ui/app_common/dialogs/cancel_order_dialog.dart';
 
 import '../../../data/models/order_model.dart';
 
@@ -66,66 +67,6 @@ class OrdersController extends GetxController {
    screenIndex.value = index;
     scrollToIndex(); // keep horizontal tab bar in sync
   }
-
-/*
-
-  /// ORDER SECTION
-  RxList<OrderModel> ordersList = <OrderModel>[].obs;
-  Rx<Status> ordersStatus = Status.IDLE.obs;
-  final int ordersLimit = ORDERS_LIMIT;
-  int currentPage = 1;
-
-  RxBool hasMoreOrders = true.obs;
-  RxBool isLoadingMore = false.obs;
-  RxBool showBottomMessage = true.obs;
-  RxBool reachedEndOfScroll = false.obs;
-  final String userId = Get.find<AuthController>().currentUser.value!.userId!;
-
-  /// INITIAL FETCH
-  Future<void> fetchInitialOrders() async {
-    try {
-      ordersStatus.value = Status.LOADING;
-      currentPage = 1;
-
-      final List<OrderModel> fetchedOrders =
-      await ordersRepo.getOrdersByUserId(userId, page: currentPage, limit: ordersLimit);
-
-      ordersList.clear();
-      ordersList.assignAll(fetchedOrders);
-
-      hasMoreOrders.value = fetchedOrders.length == ordersLimit;
-      ordersStatus.value = Status.SUCCESS;
-    } catch (e) {
-      ordersStatus.value = Status.FAILURE;
-      showSnackbar(isError: true, title: 'Error', message: 'Failed to load orders.');
-    }
-  }
-
-  /// LOAD MORE
-  Future<void> loadMoreOrders() async {
-    if (isLoadingMore.value || !hasMoreOrders.value) return;
-
-    try {
-      isLoadingMore.value = true;
-      currentPage++;
-
-      final List<OrderModel> moreOrders =
-      await ordersRepo.getOrdersByUserId(userId, page: currentPage, limit: ordersLimit);
-
-      ordersList.addAll(moreOrders);
-
-      if (moreOrders.length < ordersLimit) {
-        hasMoreOrders.value = false;
-      }
-    } catch (e) {
-      currentPage--; // rollback on failure
-      showSnackbar(isError: true, title: 'Error', message: 'Failed to load more orders.');
-    } finally {
-      isLoadingMore.value = false;
-    }
-  }
-*/
-
 
 
   // ===== ORDER STATUS LISTS =====
@@ -436,6 +377,92 @@ class OrdersController extends GetxController {
     }
   }
 
+  Future<void> updateOrderNew({
+    required String orderId,
+    String? riderId,
+    String? orderStatus,
+    String? orderNumber,
+    bool? cancelByAdmin,       // ✅ new param
+    String? reasonForCancel,   // ✅ new param
+  }) async {
+    try {
+      updateOrderStatus.value = Status.LOADING;
+
+
+      final result = await ordersRepo.updateOrderNew(
+        orderId: orderId,
+        riderId: riderId,
+        orderStatus: orderStatus,
+        cancelByAdmin: cancelByAdmin,
+        reasonForCancel: reasonForCancel,
+      );
+
+      if (result['status'] == 'success') {
+        if (orderNumber != null && orderNumber.isNotEmpty) {
+          await fetchOrderByNumber(orderNumber);
+        }
+
+        await fetchInitialActiveOrders();
+        await getActiveOrdersCount();
+
+        updateOrderStatus.value = Status.SUCCESS;
+        // showToast('Order Updated Successfully');
+        reasonForCancelOrderController.value.clear();
+        showToast('${AppLanguage.orderCancelledSuccessfullyStr(appLanguage)}');
+
+      } else {
+        updateOrderStatus.value = Status.FAILURE;
+        // showToast('Order Update Failed');
+        showToast('${AppLanguage.orderCancelledFailedStr(appLanguage)}');
+
+        if (kDebugMode) {
+          print('ORDER UPDATE FAILED ERROR : ${result['message']}');
+        }
+      }
+    } catch (e) {
+      updateOrderStatus.value = Status.FAILURE;
+      //showToast('${AppLanguage.somethingWentWrongStr(appLanguage)}');
+      showSnackbar(title: 'Error', message: '${AppLanguage.somethingWentWrongStr(appLanguage)}', isError: true);
+
+      if (kDebugMode) {
+        print('ORDER UPDATE FAILED Exception : $e');
+      }
+    }
+  }
+  var reasonForCancelOrderController = TextEditingController().obs;
+  var reasonForCancelTag = ''.obs;
+  Future<void> handleCancelOrder({context,
+    orderId,
+    orderNumber,
+  }) async{
+    showCustomDialog(
+      context,
+      CancelOrderDialog(
+        status: updateOrderStatus,
+        textEditingControl: reasonForCancelOrderController.value,
+        onTapConfirm: () async {
+          if(reasonForCancelOrderController.value.text.isEmpty && reasonForCancelTag.value.isEmpty){
+            showSnackbar(title: 'Empty Reason', message: 'Please Enter Reason for cancel order', isError: true);
+          } else{
+            await updateOrderNew(
+                orderId: orderId,
+                orderNumber: orderNumber,
+                orderStatus: OrderStatus.CANCELLED,
+                cancelByAdmin: null,
+                reasonForCancel: 'Self Cancelled :\n${reasonForCancelTag.value}\n${reasonForCancelOrderController.value.text.trim()}'
+            );
+
+            if(updateOrderStatus.value == Status.SUCCESS){
+              Navigator.of(context).pop();
+            }
+
+          }
+
+        },
+      ),
+    );
+  }
+
   /// GET ORDER BY ORDER NUMBER
   Future<void> fetchOrderByNumber(String orderNumber) async {
     try {
@@ -467,17 +494,11 @@ class OrdersController extends GetxController {
       }
 
     } else if(selectedOrder.value!.orderStatus == OrderStatus.ACTIVE){
-      showCustomDialog(gContext, AppBoolDialog(
-          title: '${AppLanguage.cancelOrderStr(appLanguage)}',
-          detail: '${AppLanguage.doYouWantToCancelOrderStr(appLanguage)}',
-          iconType: IconType.ICON,
-        icon: Icons.cancel_rounded,
-        onTapConfirm: (){
-            Navigator.of(gContext).pop();
-            updateOrder(orderId: selectedOrder.value!.orderId!, riderId: selectedOrder.value!.riderId, orderNumber: selectedOrder.value!.orderNumber, orderStatus: OrderStatus.CANCELLED);
-        },
-      ));
-
+      handleCancelOrder(
+        context: gContext,
+        orderId: selectedOrder.value!.orderId!,
+        orderNumber: selectedOrder.value!.orderNumber,
+      );
     }
   }
 

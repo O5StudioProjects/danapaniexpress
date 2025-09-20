@@ -200,3 +200,4 @@ export 'package:danapaniexpress/ui/screens/startup_screens/language_theme_screen
 export 'package:danapaniexpress/ui/screens/startup_screens/language_theme_screen/main_screen_widgets/show_language_list.dart';
 export 'package:danapaniexpress/ui/screens/startup_screens/cities_screen/service_areas_screen_mobile.dart';
 export 'package:danapaniexpress/ui/screens/startup_screens/cities_screen/main_screen_widgets/show_service_area_list.dart';
+export 'package:danapaniexpress/ui/screens/pages/account/my_orders/order_detail_screen/main_screen_widgets/special_note_for_rider.dart';

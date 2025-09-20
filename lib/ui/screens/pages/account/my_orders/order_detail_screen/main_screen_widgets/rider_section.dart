@@ -28,7 +28,7 @@ class RiderSection extends StatelessWidget {
                     child: SizedBox(
                         width: 30.0,
                         height: 30.0,
-                        child: appAsyncImage(orderData.rider!.riderImage, width: 24.0)),
+                        child: (orderData.rider!.riderImage == null || orderData.rider!.riderImage!.isEmpty) ? appAssetImage(image: EnvImages.imgMainLogo) : appAsyncImage(orderData.rider!.riderImage, width: 24.0)),
                   ),
                   setWidth(8.0),
                   Expanded(
@@ -39,7 +39,6 @@ class RiderSection extends StatelessWidget {
                   ),
                 ],
               )
-
 
             ],
           )

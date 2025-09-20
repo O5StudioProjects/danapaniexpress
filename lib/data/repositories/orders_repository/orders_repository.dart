@@ -62,6 +62,23 @@ class OrdersRepository extends OrdersDatasource {
     );
   }
 
+  /// UPDATE ORDER (New Version)
+  Future<Map<String, dynamic>> updateOrderNew({
+    required String orderId,
+    String? riderId,
+    String? orderStatus,
+    bool? cancelByAdmin,
+    String? reasonForCancel,
+  }) async {
+    return await updateOrderNewApi(
+      orderId: orderId,
+      riderId: riderId,
+      orderStatus: orderStatus,
+      cancelByAdmin: cancelByAdmin,
+      reasonForCancel: reasonForCancel,
+    );
+  }
+
 
   /// INSERT ORDER FEEDBACK
   Future<Map<String, dynamic>> insertOrderFeedback({

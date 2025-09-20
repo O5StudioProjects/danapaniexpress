@@ -69,6 +69,8 @@ class OrderDetailScreenMobile extends StatelessWidget {
               PaymentSection(orderData: orderData),
               /// ADDRESS DETAIL SECTION STARTED HERE
               AddressSection(orderData: orderData),
+              /// RIDER NOTE SECTION STARTED HERE
+              SpecialNoteForRider(orderData: orderData),
               /// RIDER DETAIL SECTION STARTED HERE
               RiderSection(orderData: orderData),
               /// USER FEEDBACK SECTION STARTED HERE
