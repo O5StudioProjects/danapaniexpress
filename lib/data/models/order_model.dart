@@ -103,14 +103,20 @@ class OrderModel {
       totalDiscount: (json['total_discount'] as num?)?.toDouble(),
       deliveryCharges: (json['delivery_charges'] as num?)?.toDouble(),
       salesTax: (json['sales_tax'] as num?)?.toDouble(),
-      isFlashDelivery: json['is_flash_delivery'],
+      isFlashDelivery: json['is_flash_delivery'] is bool
+          ? json['is_flash_delivery']
+          : (json['is_flash_delivery'] == '1' || json['is_flash_delivery'] == 1 || json['is_flash_delivery'] == true),
       flashDeliveryDateTime: json['flash_delivery_date_time'],
-      isSlotDelivery: json['is_slot_delivery'],
+      isSlotDelivery: json['is_slot_delivery'] is bool
+          ? json['is_slot_delivery']
+          : (json['is_slot_delivery'] == '1' || json['is_slot_delivery'] == 1 || json['is_slot_delivery'] == true),
       slotDate: json['slot_date'],
       slotId: json['slot_id'],
       slotLabel: json['slot_label'],
       specialNoteForRider: json['special_note_for_rider'],
-      cancelByAdmin: json['cancel_by_admin'],
+      cancelByAdmin: json['cancel_by_admin'] is bool
+          ? json['cancel_by_admin']
+          : (json['cancel_by_admin'] == '1' || json['cancel_by_admin'] == 1 || json['cancel_by_admin'] == true),
       reasonForCancel: json['reason_for_cancel'],
       rider: json['rider'] != null ? RiderModel.fromJson(json['rider']) : null,
       orderFeedback: json['order_feedback'] != null
@@ -170,7 +176,7 @@ class OrderUserModel {
   final String? email;
   final String? phone;
   final String? image;
-  final AddressModel? shippingAddress;
+  final String? shippingAddress; // <-- FIXED (was AddressModel)
 
   OrderUserModel({
     this.fullName,
@@ -186,11 +192,8 @@ class OrderUserModel {
       email: json['user_email'] as String?,
       phone: json['user_phone'] as String?,
       image: json['user_image'] as String?,
-      shippingAddress: json['user_shipping_address'] != null
-          ? AddressModel.fromJson(
-        json['user_shipping_address'] as Map<String, dynamic>,
-      )
-          : null,
+      shippingAddress: json['user_shipping_address'] as String?, // ✅ FIX
+
     );
   }
 
@@ -200,8 +203,10 @@ class OrderUserModel {
       'user_email': email,
       'user_phone': phone,
       'user_image': image,
-      'user_shipping_address': shippingAddress?.toJson(),
+      'user_shipping_address': shippingAddress, // ✅ FIX
     };
   }
 }
+
+
 

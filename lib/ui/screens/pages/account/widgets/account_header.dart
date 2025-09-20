@@ -67,7 +67,7 @@ class AccountHeader extends StatelessWidget {
                                   textStyle: accountHeaderNameTextStyle(text: data?.userFullName ?? AppLanguage.signInNowStr(appLanguage))),
                               // setHeight(4.0),
                               if(data != null)
-                              GestureDetector(
+                               GestureDetector(
                                 onTap: (){
                                   if(data.userDefaultAddress == null){
                                     navigation.gotoAddressBookScreen();

@@ -47,29 +47,32 @@ class OrdersDatasource extends BaseRepository{
 
 
   /// GET ORDERS BY USER ID AND STATUS (with pagination)
-  Future<List<OrderModel>> getOrdersByUserIdAndStatusApi(
-      String userId,
-      String orderStatus, {
-        int? page = 1,
-        int? limit = 10,
-      }) async {
-    final uri = Uri.parse(
-      '${APiEndpoints.getOrdersByUserIdAndStatus}'
-          '?user_id=$userId'
-          '&order_status=$orderStatus'
-          '&page=$page'
-          '&limit=$limit',
-    );
+  Future<List<OrderModel>> getOrdersByUserIdAndStatusApi({
+    required String userId,
+    required String orderStatus,
+    int? page,
+    int? limit,
+  }) async {
+    final queryParams = {
+      'user_id': userId,
+      'order_status': orderStatus,
+      if (page != null) 'page': page.toString(),
+      if (limit != null) 'limit': limit.toString(),
+    };
 
-    final response = await http.get(
-      uri,
-      headers: apiHeaders,
-    );
+    final uri = Uri.parse(APiEndpoints.getOrdersByUserIdAndStatus)
+        .replace(queryParameters: queryParams);
 
-    final decoded = handleApiResponseAsMap(response); // Map<String, dynamic>
-    final List<dynamic> ordersList = decoded['orders'];
+    final response = await http.get(uri, headers: apiHeaders);
+    final decoded = handleApiResponseAsMap(response);
 
-    return ordersList.map((e) => OrderModel.fromJson(e)).toList();
+    if (decoded['orders'] != null && decoded['orders'] is List) {
+      return (decoded['orders'] as List)
+          .map((e) => OrderModel.fromJson(e))
+          .toList();
+    }
+
+    return [];
   }
 
 

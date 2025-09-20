@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:danapaniexpress/core/common_imports.dart';
+import 'package:danapaniexpress/core/data_model_imports.dart';
 import 'package:http/http.dart' as http;
 
 class CartDatasource extends BaseRepository {
@@ -69,15 +70,16 @@ class CartDatasource extends BaseRepository {
   }
 
   /// GET CART PRODUCTS LIST BY CURRENT USER
-  Future<Map<String, dynamic>> getCartApi(String userId) async {
+  Future<CartModel?> getCartApi(String userId) async {
     final uri = Uri.parse('${APiEndpoints.getCart}?user_id=$userId');
 
-    final response = await http.get(
-      uri,
-      headers: apiHeaders,
-    );
+    final response = await http.get(uri, headers: apiHeaders);
+    final decoded = handleApiResponseAsMap(response);
 
-    return handleApiResponseAsMap(response);
+    if (decoded['cart'] != null && decoded['cart'] is List && decoded['cart'].isNotEmpty) {
+      return CartModel.fromJson(decoded['cart'][0]);
+    }
+    return null;
   }
 
   ///ITEM DELETE FROM CART LIST

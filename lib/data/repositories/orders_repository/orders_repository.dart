@@ -21,19 +21,21 @@ class OrdersRepository extends OrdersDatasource {
   }
 
   /// GET ORDERS BY USER ID AND STATUS (with pagination)
-  Future<List<OrderModel>> getOrdersByUserIdAndStatus(
-      String userId,
-      String orderStatus, {
-        int? page = 1,
-        int? limit = 10,
-      }) {
-    return getOrdersByUserIdAndStatusApi(
-      userId,
-      orderStatus,
+  /// REPOSITORY - GET USER ORDERS BY STATUS
+  Future<List<OrderModel>> getOrdersByUserIdAndStatus({
+    required String userId,
+    required String orderStatus,
+    int? page,
+    int? limit,
+  }) async {
+    return await getOrdersByUserIdAndStatusApi(
+      userId: userId,
+      orderStatus: orderStatus,
       page: page,
       limit: limit,
     );
   }
+
 
 /*  /// GET ALL ORDERS (with pagination) /// THIS CODE WILL BE USED IN ADMIN APP
   Future<Map<String, dynamic>> getAllOrders(int page, int limit) async {

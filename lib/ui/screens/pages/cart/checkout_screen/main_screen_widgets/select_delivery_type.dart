@@ -6,11 +6,12 @@ class SelectDeliveryType extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var checkout = Get.find<CheckoutController>();
-    return buildUI(checkout);
+    return buildUI();
   }
 
-  Widget buildUI(checkout){
+  Widget buildUI(){
+    var checkout = Get.find<CheckoutController>();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -37,7 +38,7 @@ class SelectDeliveryType extends StatelessWidget {
     );
   }
 
-  Widget _deliveryButtonsUI(checkout){
+  Widget _deliveryButtonsUI(CheckoutController checkout){
     return Padding(
       padding: const EdgeInsets.only(left: MAIN_HORIZONTAL_PADDING, right: MAIN_HORIZONTAL_PADDING, bottom: MAIN_HORIZONTAL_PADDING),
       child: Row(
@@ -50,7 +51,7 @@ class SelectDeliveryType extends StatelessWidget {
     );
   }
 
-  Widget _flashDeliveryButton(checkout){
+  Widget _flashDeliveryButton(CheckoutController checkout){
     return Expanded(
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8.0),
@@ -70,7 +71,7 @@ class SelectDeliveryType extends StatelessWidget {
     );
   }
 
-  Widget _slotDeliveryButton(checkout){
+  Widget _slotDeliveryButton(CheckoutController checkout){
     return Expanded(
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8.0),
@@ -91,12 +92,15 @@ class SelectDeliveryType extends StatelessWidget {
     );
   }
 
-  Widget _slitDeliveryListSection(checkout){
-    return checkout.slotDelivery.value == true
-        ? checkout.getDeliverySlotsStatus.value == Status.LOADING
-        ? loadingIndicator()
-        : DeliverySlotsWidget()
-        : SizedBox.shrink();
+  Widget _slitDeliveryListSection(CheckoutController checkout){
+    return Obx((){
+      return checkout.slotDelivery.value == true
+          ? checkout.getDeliverySlotsStatus.value == Status.LOADING
+          ? loadingIndicator()
+          : DeliverySlotsWidget()
+          : SizedBox.shrink();
+    });
+
   }
 
 }
