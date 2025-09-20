@@ -251,8 +251,8 @@ class OrdersController extends GetxController {
       setCurrentPage(1);
 
       final fetchedOrders = await ordersRepo.getOrdersByUserIdAndStatus(
-        auth.currentUser.value!.userId!,
-        status,
+        userId: auth.currentUser.value!.userId!,
+        orderStatus:  status,
         page: 1,
         limit: orderLimit,
       );
@@ -287,8 +287,8 @@ class OrdersController extends GetxController {
       setCurrentPage(nextPage);
 
       final moreOrders = await ordersRepo.getOrdersByUserIdAndStatus(
-        auth.currentUser.value!.userId!,
-        status,
+        userId: auth.currentUser.value!.userId!,
+        orderStatus:  status,
         page: nextPage,
         limit: orderLimit,
       );

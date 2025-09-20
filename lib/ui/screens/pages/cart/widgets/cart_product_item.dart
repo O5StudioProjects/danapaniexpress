@@ -199,19 +199,26 @@ class CartProductItem extends StatelessWidget {
       ],
     );
   }
-  Widget _lowerRowQuantityAndPrice(){
+  Widget _lowerRowQuantityAndPrice() {
+    final quantity = product.productQuantity ?? 0;
+    final price = product.productSellingPrice ?? 0.0;
+
     return Expanded(
       child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 0.0, vertical: 2.0),
-          decoration: BoxDecoration(
-            // color: AppColors.materialButtonSkin(isDark),
-              borderRadius: BorderRadius.circular(4.0)
+        padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 2.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(4.0),
+        ),
+        child: appText(
+          text: '$quantity x ${price.toStringAsFixed(0)} = $appCurrency ${(quantity * price).toStringAsFixed(0)}',
+          textStyle: secondaryTextStyle().copyWith(
+            color: AppColors.sellingPriceDetailTextSkin(isDark),
           ),
-          child: appText(text: '${product.productQuantity} x ${product.productSellingPrice!.toStringAsFixed(0)} = $appCurrency ${(product.productQuantity!.toInt() * product.productSellingPrice!.toDouble()).toStringAsFixed(0)}',
-              textStyle: secondaryTextStyle().copyWith(color: AppColors.sellingPriceDetailTextSkin(isDark))
-          )),
+        ),
+      ),
     );
   }
+
   Widget _lowerRowCounterButtonsAndQuantity(cart, isRemoveQuantityLoading, isAddQuantityLoading){
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
@@ -223,41 +230,57 @@ class CartProductItem extends StatelessWidget {
           height: 20.0,
           child: isRemoveQuantityLoading
               ? loadingIndicator()
-              : counterButton(icon: icMinus, iconType: IconType.PNG,
-              isLimitExceed: product.productQuantity! == 1 ? true : false,
-              onTap: () async{
-                if(product.productQuantity! == 1 ){
-                  showToast(AppLanguage.selectAtLeastOneProductStr(appLanguage).toString());
-                } else {
-                  await cart.removeQuantityFromCart(product.productId!);
-                }
-              }),
+              : counterButton(
+            icon: icMinus,
+            iconType: IconType.PNG,
+            isLimitExceed: (product.productQuantity ?? 0) <= 1,
+            onTap: () async {
+              final quantity = product.productQuantity ?? 0;
+              if (quantity <= 1) {
+                showToast(AppLanguage.selectAtLeastOneProductStr(appLanguage).toString());
+              } else {
+                await cart.removeQuantityFromCart(product.productId ?? '');
+              }
+            },
+          ),
         ),
+
         /// QUANTITY
         SizedBox(
           width: 40.0,
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.0),
-            child: Center(child: appText(text: '${product.productQuantity}', textStyle: bodyTextStyle(). copyWith(fontSize: 20.0))),
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: Center(
+              child: appText(
+                text: '${product.productQuantity ?? 0}',
+                textStyle: bodyTextStyle().copyWith(fontSize: 20.0),
+              ),
+            ),
           ),
         ),
+
         /// PLUS BUTTON
         SizedBox(
           width: 20.0,
           height: 20.0,
           child: isAddQuantityLoading
               ? loadingIndicator()
-              : counterButton(icon: icPlus, iconType: IconType.PNG,
-              isLimitExceed: product.productQuantityLimit == product.productQuantity ? true : false,
-              onTap: () async{
-                if(product.productQuantityLimit == product.productQuantity){
-                  showToast(AppLanguage.quantityLimitExceededStr(appLanguage).toString());
-                } else {
-                  await cart.addQuantityToCart(product.productId!);
-                }
+              : counterButton(
+            icon: icPlus,
+            iconType: IconType.PNG,
+            isLimitExceed: (product.productQuantityLimit ?? 0) <= (product.productQuantity ?? 0),
+            onTap: () async {
+              final quantity = product.productQuantity ?? 0;
+              final limit = product.productQuantityLimit ?? 999999; // fallback large number
+              if (quantity >= limit) {
+                showToast(AppLanguage.quantityLimitExceededStr(appLanguage).toString());
+              } else {
+                await cart.addQuantityToCart(product.productId ?? '');
+              }
+            },
+          ),
+        ),
 
-              }),
-        )
 
 
       ],

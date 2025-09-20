@@ -58,6 +58,35 @@ class OrderStatusSection extends StatelessWidget {
                 status: orderData.orderStatus!,
                 dotColor: EnvColors.specialFestiveColorLight,
               ),
+            if(orderData.orderStatus == OrderStatus.CANCELLED)
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  appDivider(),
+                  orderDetailItemsFixedUI(
+                      titleText: 'Cancelled By',
+                      detailText: orderData.cancelByAdmin == null ? 'Self' : orderData.cancelByAdmin == true ? 'Vendor' : 'Rider'
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      setHeight(8.0),
+                      appText(
+                        text: 'Reason For Cancel',
+                        textStyle: itemTextStyle().copyWith(fontWeight: FontWeight.w800,
+                          color: AppColors.primaryTextColorSkin(isDark),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: appText(text: orderData.reasonForCancel ?? '', maxLines: 100,
+                            textStyle: bodyTextStyle().copyWith(fontSize: NORMAL_TEXT_FONT_SIZE-2)
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              )
           ],
         ),
       );

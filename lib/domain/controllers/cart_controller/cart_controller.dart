@@ -225,35 +225,38 @@ class CartController  extends GetxController{
   }
 
   Future<void> fetchCartProducts() async {
-    if(auth.currentUser.value == null){
+    if (auth.currentUser.value == null) {
       return;
     }
+
     try {
       getCartStatus.value = Status.LOADING;
-      final products = await cartRepo.getCartProducts(auth.currentUser.value!.userId!);
-      cartProducts.assignAll(products);
 
-      // Reset totals before calculation
-      totalSellingPrice.value = 0.0;
-      totalCutPrice.value = 0.0;
-      totalProductsQuantity.value = 0;
+      final cart = await cartRepo.getCart(auth.currentUser.value!.userId!);
 
-      for (final product in products) {
-        final quantity = product.productQuantity ?? 1;
-        final sellingPrice = product.productSellingPrice ?? 0.0;
-        final cutPrice = product.productCutPrice ?? 0.0;
+      if (cart != null) {
+        cartProducts.assignAll(cart.products);
 
-        totalSellingPrice.value += sellingPrice * quantity;
-        totalCutPrice.value += cutPrice * quantity;
-        totalProductsQuantity.value += quantity;
+        totalSellingPrice.value = cart.totalSellingPrice;
+        totalCutPrice.value = cart.totalCutPrice;
+
+        totalProductsQuantity.value = 0;
+        for (final product in cart.products) {
+          totalProductsQuantity.value += product.productQuantity ?? 0;
+        }
+
+        getCartStatus.value = Status.SUCCESS;
+      } else {
+        cartProducts.clear();
+        totalSellingPrice.value = 0.0;
+        totalCutPrice.value = 0.0;
+        totalProductsQuantity.value = 0;
+        getCartStatus.value = Status.SUCCESS;
       }
-
-      getCartStatus.value = Status.SUCCESS;
     } catch (e) {
       getCartStatus.value = Status.FAILURE;
-      //showToast('${AppLanguage.somethingWentWrongStr(appLanguage)}');
       if (kDebugMode) {
-        print('FETCH CART PRODUCTS Exception: $e');
+        print('FETCH CART Exception: $e');
       }
     }
   }

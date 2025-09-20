@@ -36,7 +36,7 @@ class APiEndpoints {
   static String deleteCartItem = "$path/dpe_cart.php/delete_from_cart";
   static String emptyCart = "$path/dpe_cart.php/emptyCart";
 
-  static String getDeliveryDaysAndSlots = "https://danapaniexpress.com/rest_api/get_delivery_days.php";
+  static String getDeliveryDaysAndSlots = "$path/get_delivery_days.php";
   static String checkoutOrder = "$path/dpe_checkout.php/checkout";
   static String getOrdersByUserId = "$path/dpe_checkout.php/get_all_orders_by_user_id";
   static String updateOrder = "$path/dpe_checkout.php/update_order";

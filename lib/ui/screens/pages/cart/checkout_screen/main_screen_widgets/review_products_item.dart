@@ -137,18 +137,20 @@ class ReviewProductsItem extends StatelessWidget {
     );
   }
 
-  Widget _productQuantityAndPrice(){
+  Widget _productQuantityAndPrice() {
+    final quantity = product.productQuantity ?? 0;
+    final price = product.productSellingPrice ?? 0.0;
+
     return appText(
       text:
-      '${product.productQuantity} x ${product.productSellingPrice!.toStringAsFixed(0)} = $appCurrency ${(product.productQuantity!.toInt() * product.productSellingPrice!.toDouble()).toStringAsFixed(0)}',
+      '$quantity x ${price.toStringAsFixed(0)} = $appCurrency ${(quantity * price).toStringAsFixed(0)}',
       textStyle: secondaryTextStyle().copyWith(
-        color: AppColors.sellingPriceDetailTextSkin(
-          isDark,
-        ),
+        color: AppColors.sellingPriceDetailTextSkin(isDark),
         fontSize: TAGS_FONT_SIZE,
       ),
     );
   }
+
 
 
 

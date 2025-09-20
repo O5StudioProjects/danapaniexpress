@@ -39,20 +39,11 @@ class CartRepository extends CartDatasource{
   }
 
   /// GET CART PRODUCTS LIST BY CURRENT USER
-  Future<List<ProductModel>> getCartProducts(String userId) async {
-    try {
-      final response = await getCartApi(userId);
-
-      if (response.containsKey('cart') && response['cart'] is List && response['cart'].isNotEmpty) {
-        final productsJson = response['cart'][0]['products'] as List;
-        return productsJson.map((json) => ProductModel.fromJson(json)).toList();
-      } else {
-        return [];
-      }
-    } catch (e) {
-      rethrow;
-    }
+  /// GET CART DATA - API
+  Future<CartModel?> getCart(String userId) async {
+    return await getCartApi(userId);
   }
+
 
   /// DELETE CART ITEM
   Future<Map<String, dynamic>> deleteCartItem({

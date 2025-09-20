@@ -63,8 +63,8 @@ class ProductFields {
   static const String productAvailability = 'product_availability';
   static const String vendor = 'Vendor';
   static const String isSelected = 'is_selected';
-  static const String productQuantityLimit = 'product_quantity_limit'; // API typo preserved
-  static const String productQuantity = 'product_qty'; // API typo preserved
+  static const String productQuantityLimit = 'product_quantity_limit';
+  static const String productQuantity = 'product_stock_qty';
   static const String dateTime = 'date_time';
 }
 
@@ -275,3 +275,4 @@ class ProductModel {
         dateTime: dateTime ?? this.dateTime,
       );
 }
+
