@@ -23,6 +23,22 @@ class AuthDatasource extends BaseRepository{
     );
   }
 
+  /// FORGOT PASSWORD - API
+  Future<Map<String, dynamic>> forgotPasswordApi({
+    required String phone,
+    required String newPassword,
+  }) async {
+    return await postRequest(
+      Uri.parse(APiEndpoints.forgotPassword),
+      headers: apiHeaders,
+      body: {
+        "user_phone": phone,
+        "new_password": newPassword,
+      },
+    );
+  }
+
+
   /// LOGIN USER -API
   Future<Map<String, dynamic>> loginUserApi({
     required String identifier,

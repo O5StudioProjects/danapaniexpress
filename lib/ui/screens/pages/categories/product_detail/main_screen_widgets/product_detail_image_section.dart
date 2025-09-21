@@ -20,7 +20,7 @@ class ProductDetailImageSection extends StatelessWidget {
               height: size.height * 0.44,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(imgProductBackground),
+                  image: AssetImage(EnvImages.imgProductBackground),
                   fit: BoxFit.cover,
                 ),
               ),

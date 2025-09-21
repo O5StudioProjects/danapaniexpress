@@ -11,7 +11,7 @@ class ProductDescriptionSection extends StatelessWidget {
     var productDetail = Get.find<ProductDetailController>();
     var products = Get.find<ProductsController>();
     var cart = Get.find<CartController>();
-    return Obx((){
+    return Obx(() {
       final data = productDetail.productData.value!;
       return Column(
         crossAxisAlignment: isRightLang
@@ -23,18 +23,18 @@ class ProductDescriptionSection extends StatelessWidget {
           _productWeightAndSize(data),
           _productTags(data),
           _productQuantity(data, cart, productDetail),
+          _vendorSection(data),
           if (data.productDetailEng != null && data.productNameUrdu != null)
-            _productDescriptionAndRow(data, products)
+            _productDescriptionAndRow(data, products),
         ],
       );
     });
   }
+
   /// PRODUCT NAME
-  Widget _productName(ProductModel data){
+  Widget _productName(ProductModel data) {
     return appText(
-      text: isRightLang
-          ? data.productNameUrdu
-          : data.productNameEng,
+      text: isRightLang ? data.productNameUrdu : data.productNameEng,
       textAlign: setTextAlignment(appLanguage),
       textDirection: setTextDirection(appLanguage),
       textStyle: bigBoldHeadingTextStyle(),
@@ -42,7 +42,7 @@ class ProductDescriptionSection extends StatelessWidget {
   }
 
   /// PRODUCT PRICE
-  Widget _productPrice(ProductModel data){
+  Widget _productPrice(ProductModel data) {
     return Padding(
       padding: const EdgeInsets.only(top: 6.0),
       child: Row(
@@ -66,7 +66,7 @@ class ProductDescriptionSection extends StatelessWidget {
   }
 
   /// WEIGHT AND SIZE
-  Widget _productWeightAndSize(ProductModel data){
+  Widget _productWeightAndSize(ProductModel data) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
@@ -85,38 +85,58 @@ class ProductDescriptionSection extends StatelessWidget {
   }
 
   /// FEATURED / SALE / AVAILABILITY
-  Widget _productTags(ProductModel data){
+  Widget _productTags(ProductModel data) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6.0),
       child: Row(
         children: [
           if (data.productBrand!.isNotEmpty)
-            ProductTags(tagText: data.productBrand.toString(), color: EnvColors.specialFestiveColorDark, isLeftPadding: false,),
+            ProductTags(
+              tagText: data.productBrand.toString(),
+              color: EnvColors.specialFestiveColorDark,
+              isLeftPadding: false,
+            ),
 
           if (data.productIsFeatured == true)
-            ProductTags(tagText: AppLanguage.featureStr(appLanguage).toString(), color: EnvColors.primaryColorLight, isLeftPadding: false,),
-
+            ProductTags(
+              tagText: AppLanguage.featureStr(appLanguage).toString(),
+              color: EnvColors.primaryColorLight,
+              isLeftPadding: false,
+            ),
 
           if (data.productIsFlashsale == true)
-            ProductTags(tagText: AppLanguage.flashSaleStr(appLanguage).toString(), color: EnvColors.specialFestiveColorDark, isLeftPadding: false,),
+            ProductTags(
+              tagText: AppLanguage.flashSaleStr(appLanguage).toString(),
+              color: EnvColors.specialFestiveColorDark,
+              isLeftPadding: false,
+            ),
 
           if (data.productAvailability == false)
-            ProductTags(tagText: AppLanguage.outOfStockStr(appLanguage).toString(), color: EnvColors.secondaryTextColorLight, isLeftPadding: false,),
-
+            ProductTags(
+              tagText: AppLanguage.outOfStockStr(appLanguage).toString(),
+              color: EnvColors.secondaryTextColorLight,
+              isLeftPadding: false,
+            ),
         ],
       ),
     );
   }
 
   /// QUANTITY ADD DELETE
-  Widget _productQuantity(ProductModel data, cart, productDetail){
+  Widget _productQuantity(ProductModel data, cart, productDetail) {
     return Column(
       children: [
         appDivider(),
-        Obx((){
-          var isAddQuantityLoading = cart.addQuantityCartStatus[data.productId] == Status.LOADING ? true : false;
-          var isRemoveQuantityLoading = cart.removeQuantityCartStatus[data.productId] == Status.LOADING ? true : false;
-          return  Row(
+        Obx(() {
+          var isAddQuantityLoading =
+              cart.addQuantityCartStatus[data.productId] == Status.LOADING
+              ? true
+              : false;
+          var isRemoveQuantityLoading =
+              cart.removeQuantityCartStatus[data.productId] == Status.LOADING
+              ? true
+              : false;
+          return Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
@@ -124,42 +144,42 @@ class ProductDescriptionSection extends StatelessWidget {
                 height: 26.0,
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 0.0),
-                  child:
-                  isRemoveQuantityLoading
+                  child: isRemoveQuantityLoading
                       ? loadingIndicator()
                       : counterButton(
-                    icon: icMinus,
-                    iconType: IconType.PNG,
-                    isLimitExceed:
-                    // productInCart != null ? productInCart.productQuantity == 1 ? true : false
-                    // :
-                    productDetail.quantity.value == 1 ? true : false,
-                    onTap: (){
+                          icon: icMinus,
+                          iconType: IconType.PNG,
+                          isLimitExceed:
+                              // productInCart != null ? productInCart.productQuantity == 1 ? true : false
+                              // :
+                              productDetail.quantity.value == 1 ? true : false,
+                          onTap: () {
+                            if (productDetail.quantity.value == 1) {
+                              showToast(
+                                AppLanguage.selectAtLeastOneProductStr(
+                                  appLanguage,
+                                ).toString(),
+                              );
+                            } else {
+                              productDetail.onTapMinus();
+                            }
 
-                      if(productDetail.quantity.value == 1 ){
-                        showToast(AppLanguage.selectAtLeastOneProductStr(appLanguage).toString());
-                      } else {
-                        productDetail.onTapMinus();
-                      }
-
-
-                      // if(productInCart != null){
-                      //   if( productInCart.productQuantity == 1){
-                      //     showToast(AppLanguage.selectAtLeastOneProductStr(appLanguage).toString());
-                      //   } else {
-                      //     cart.removeQuantityFromCart(data.productId!);
-                      //   }
-                      //
-                      // } else {
-                      //   if(productDetail.quantity.value == 1 ){
-                      //     showToast(AppLanguage.selectAtLeastOneProductStr(appLanguage).toString());
-                      //   } else {
-                      //     productDetail.onTapMinus();
-                      //   }
-                      // }
-
-                    },
-                  ),
+                            // if(productInCart != null){
+                            //   if( productInCart.productQuantity == 1){
+                            //     showToast(AppLanguage.selectAtLeastOneProductStr(appLanguage).toString());
+                            //   } else {
+                            //     cart.removeQuantityFromCart(data.productId!);
+                            //   }
+                            //
+                            // } else {
+                            //   if(productDetail.quantity.value == 1 ){
+                            //     showToast(AppLanguage.selectAtLeastOneProductStr(appLanguage).toString());
+                            //   } else {
+                            //     productDetail.onTapMinus();
+                            //   }
+                            // }
+                          },
+                        ),
                 ),
               ),
 
@@ -170,7 +190,7 @@ class ProductDescriptionSection extends StatelessWidget {
                   child: Center(
                     child: appText(
                       //  text: productInCart != null ? productInCart.productQuantity.toString() :  productDetail.quantity.string,
-                      text:  productDetail.quantity.string,
+                      text: productDetail.quantity.string,
                       textStyle: headingTextStyle().copyWith(
                         fontSize: 22.0,
                         fontFamily: oswaldRegular,
@@ -185,44 +205,51 @@ class ProductDescriptionSection extends StatelessWidget {
                 height: 26.0,
                 child: Padding(
                   padding: EdgeInsets.symmetric(vertical: 0.0),
-                  child: isAddQuantityLoading ? loadingIndicator()
+                  child: isAddQuantityLoading
+                      ? loadingIndicator()
                       : counterButton(
-                      icon: icPlus,
-                      iconType: IconType.PNG,
-                      isLimitExceed:
-                      //     productInCart != null ? productInCart.productQuantity == data.productQuantityLimit ? true : false
-                      // :
-                      data.productQuantityLimit == productDetail.quantity.value
-                          ? true
-                          : false,
-                      onTap: (){
+                          icon: icPlus,
+                          iconType: IconType.PNG,
+                          isLimitExceed:
+                              //     productInCart != null ? productInCart.productQuantity == data.productQuantityLimit ? true : false
+                              // :
+                              data.productQuantityLimit ==
+                                  productDetail.quantity.value
+                              ? true
+                              : false,
+                          onTap: () {
+                            if (data.productQuantityLimit ==
+                                productDetail.quantity.value) {
+                              showToast(
+                                AppLanguage.quantityLimitExceededStr(
+                                  appLanguage,
+                                ).toString(),
+                              );
+                            } else {
+                              productDetail.onTapPlus(
+                                productLimit:
+                                    data.productQuantityLimit ??
+                                    productDetail.quantity.value,
+                              );
+                            }
 
-                        if(data.productQuantityLimit == productDetail.quantity.value){
-                          showToast(AppLanguage.quantityLimitExceededStr(appLanguage).toString());
-                        } else {
-                          productDetail.onTapPlus(
-                            productLimit: data.productQuantityLimit ?? productDetail.quantity.value,
-                          );
-                        }
-
-                        // if(productInCart != null){
-                        //   if(productInCart.productQuantity == data.productQuantityLimit){
-                        //     showToast(AppLanguage.quantityLimitExceededStr(appLanguage).toString());
-                        //   } else {
-                        //     cart.addQuantityToCart(data.productId!);
-                        //   }
-                        // } else{
-                        //   if(data.productQuantityLimit == productDetail.quantity.value){
-                        //     showToast(AppLanguage.quantityLimitExceededStr(appLanguage).toString());
-                        //   } else {
-                        //     productDetail.onTapPlus(
-                        //       productLimit: data.productQuantityLimit ?? productDetail.quantity.value,
-                        //     );
-                        //   }
-                        // }
-
-                      }
-                  ),
+                            // if(productInCart != null){
+                            //   if(productInCart.productQuantity == data.productQuantityLimit){
+                            //     showToast(AppLanguage.quantityLimitExceededStr(appLanguage).toString());
+                            //   } else {
+                            //     cart.addQuantityToCart(data.productId!);
+                            //   }
+                            // } else{
+                            //   if(data.productQuantityLimit == productDetail.quantity.value){
+                            //     showToast(AppLanguage.quantityLimitExceededStr(appLanguage).toString());
+                            //   } else {
+                            //     productDetail.onTapPlus(
+                            //       productLimit: data.productQuantityLimit ?? productDetail.quantity.value,
+                            //     );
+                            //   }
+                            // }
+                          },
+                        ),
                 ),
               ),
               //  setWidth(MAIN_HORIZONTAL_PADDING),
@@ -234,18 +261,77 @@ class ProductDescriptionSection extends StatelessWidget {
     );
   }
 
+  _vendorSection(ProductModel data) {
+    if (data.vendor == null) {
+      return SizedBox.shrink();
+    } else {
+      var vendor = data.vendor!;
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: size.width,
+            child: appText(
+              text: 'Vendor',
+              textStyle: headingTextStyle(),
+              textDirection: setTextDirection(appLanguage),
+              textAlign: setTextAlignment(appLanguage),
+            ),
+          ),
+          setHeight(MAIN_HORIZONTAL_PADDING),
+          Container(
+            padding: EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+              color: AppColors.cardColorSkin(isDark)
+            ),
+            child: Row(
+              children: [
+                ///VendorImage
+                ClipOval(
+                  child: SizedBox(
+                    width: 28.0,
+                    height: 28.0,
+                    child:
+                    vendor.vendorLogo != null || vendor.vendorLogo!.isNotEmpty
+                        ? appAsyncImage(vendor.vendorLogo, boxFit: BoxFit.cover)
+                        : appAssetImage(
+                      image: EnvImages.imgMainLogo,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                setWidth(MAIN_HORIZONTAL_PADDING),
+
+                /// Vendor Name
+                Expanded(
+                  child: appText(
+                    text: vendor.vendorName,
+                    textStyle: addressItemTextStyle(text: vendor.vendorName).copyWith(fontSize: SUB_HEADING_TEXT_BUTTON_FONT_SIZE),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          
+          setHeight(MAIN_VERTICAL_PADDING),
+
+        ],
+      );
+    }
+  }
+
   /// DESCRIPTION AND FEATURED ROW
-  Widget _productDescriptionAndRow(ProductModel data, products){
+  Widget _productDescriptionAndRow(ProductModel data, products) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
           width: size.width,
           child: appText(
-              text: AppLanguage.descriptionStr(appLanguage),
-              textStyle: headingTextStyle(),
-              textDirection: setTextDirection(appLanguage),
-              textAlign: setTextAlignment(appLanguage)
+            text: AppLanguage.descriptionStr(appLanguage),
+            textStyle: headingTextStyle(),
+            textDirection: setTextDirection(appLanguage),
+            textAlign: setTextAlignment(appLanguage),
           ),
         ),
         setHeight(MAIN_HORIZONTAL_PADDING),
@@ -280,5 +366,4 @@ class ProductDescriptionSection extends StatelessWidget {
       ],
     );
   }
-
 }

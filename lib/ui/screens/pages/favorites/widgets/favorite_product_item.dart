@@ -189,11 +189,11 @@ class FavoriteProductItem extends StatelessWidget {
         ) : SizedBox(
           height: 35.0,
           child: appMaterialButton(
-              text: product.productAvailability == false ? AppLanguage.outOfStockStr(appLanguage) :AppLanguage.addToCartStr(appLanguage),
+              text: product.productAvailability == false || product.productQuantity == 0 ? AppLanguage.outOfStockStr(appLanguage) :AppLanguage.addToCartStr(appLanguage),
               fontSize: SUB_HEADING_TEXT_BUTTON_FONT_SIZE,
-              isDisable: product.productAvailability == false,
+              isDisable: product.productAvailability == false || product.productQuantity == 0,
               onTap: () async {
-                if(product.productAvailability == true){
+                if(product.productAvailability == true && product.productQuantity! > 0){
                   await cart.addToCart(product.productId!);
                 } else {
                   showToast(AppLanguage.outOfStockStr(appLanguage).toString());

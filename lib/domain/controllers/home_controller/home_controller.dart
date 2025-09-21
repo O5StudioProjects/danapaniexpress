@@ -52,6 +52,7 @@ class HomeController extends GetxController {
   void onInit() {
     super.onInit();
     fetchInitialMethods();
+    fetchEventsPopup();
   }
 
   Future<void> fetchInitialMethods() async {
@@ -69,7 +70,6 @@ class HomeController extends GetxController {
     fetchInitialCartProducts();
     fetchPendingFeedbackOrders();
     fetchOrdersCount();
-    fetchEventsPopup();
   }
 
   ///HOME SCREEN Methods

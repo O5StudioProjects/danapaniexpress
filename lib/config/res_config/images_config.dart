@@ -8,6 +8,7 @@ abstract class EnvImages {
   static late String imgFreshProductsStartup;
   static late String imgTrustedByFamiliesStartup;
   static late String imgLoginScreen;
+  static late String imgProductBackground;
 
   static late Flavor _environment;
   static Flavor get environment => _environment;
@@ -23,6 +24,7 @@ abstract class EnvImages {
         imgFreshProductsStartup = AppImagesPath.imgFreshProductsStartup_Dev;
         imgTrustedByFamiliesStartup = AppImagesPath.imgTrustedByFamiliesStartup_Dev;
         imgLoginScreen = AppImagesPath.imgLoginScreen_Dev;
+        imgProductBackground = AppImagesPath.imgProductBackground_Dev;
 
         break;
 
@@ -33,7 +35,8 @@ abstract class EnvImages {
         imgFastDeliveryStartup = AppImagesPath.imgFastDeliveryStartup_Prod;
         imgFreshProductsStartup = AppImagesPath.imgFreshProductsStartup_Prod;
         imgTrustedByFamiliesStartup = AppImagesPath.imgTrustedByFamiliesStartup_Prod;
-        imgLoginScreen = AppImagesPath.imgLoginScreen_Dev_Prod;
+        imgLoginScreen = AppImagesPath.imgLoginScreen_Prod;
+        imgProductBackground = AppImagesPath.imgProductBackground_Prod;
 
         break;
 
@@ -44,7 +47,8 @@ abstract class EnvImages {
         imgFastDeliveryStartup = AppImagesPath.imgFastDeliveryStartup_Rider;
         imgFreshProductsStartup = AppImagesPath.imgFreshProductsStartup_Rider;
         imgTrustedByFamiliesStartup = AppImagesPath.imgTrustedByFamiliesStartup_Rider;
-        imgLoginScreen = AppImagesPath.imgLoginScreen_Dev_Rider;
+        imgLoginScreen = AppImagesPath.imgLoginScreen_Rider;
+        imgProductBackground = AppImagesPath.imgProductBackground_Rider;
 
         break;
 

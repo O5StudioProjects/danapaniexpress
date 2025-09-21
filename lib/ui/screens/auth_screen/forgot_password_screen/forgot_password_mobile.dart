@@ -6,104 +6,136 @@ class ForgotPasswordMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var navigation = Get.find<NavigationController>();
+
+    return _buildUI(context);
+  }
+  
+  Widget _buildUI(BuildContext context){
     return Container(
       width: size.width,
       height: size.height,
       color: AppColors.backgroundColorSkin(isDark),
-      child: SingleChildScrollView(
-        child: ConstrainedBox(
-          constraints: BoxConstraints(minHeight: size.height),
-          child: Padding(
-            padding: const EdgeInsets.all(MAIN_VERTICAL_PADDING),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                setHeight(60.0),
-                appText(
-                  text: AppLanguage.forgotPasswordStr(appLanguage),
-                  textDirection: setTextDirection(appLanguage),
-                  textStyle: bigBoldHeadingTextStyle(),
-                ),
-                setHeight(10.0),
-                appText(
-                  text: AppLanguage.recoverYourAccountStr(appLanguage),
-                  textDirection: setTextDirection(appLanguage),
-                  textStyle: secondaryTextStyle(),
-                ),
-                setHeight(20.0),
+      child: _mainContent(),
+    );
+  }
+  
+  _mainContent(){
+    var auth = Get.find<AuthController>();
+    return SingleChildScrollView(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(minHeight: size.height),
+        child: Padding(
+          padding: const EdgeInsets.all(MAIN_VERTICAL_PADDING),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
 
-                AppTextFormField(
-                  textEditingController: TextEditingController(),
-                  prefixIcon: Icons.person,
-                  hintText: AppLanguage.emailPhoneStr(appLanguage),
-                ),
-                setHeight(20.0),
+              _titleSection(),
+              
+              _tagTitle(),
+              
+              _phone(auth),
+              
+              _newPassword(auth),
+              
+              _confirmPassword(auth),
+              
+              _button(auth),
 
-                AppTextFormField(
-                  textEditingController: TextEditingController(),
-                  prefixIcon: Icons.lock_outline,
-                  hintText: AppLanguage.newPasswordStr(appLanguage),
-                  isPassword: true,
-                ),
-                setHeight(20.0),
+              _loginButton(),
 
-                AppTextFormField(
-                  textEditingController: TextEditingController(),
-                  prefixIcon: Icons.lock_outline,
-                  hintText: AppLanguage.reEnterPasswordStr(appLanguage),
-                  isPassword: true,
-                ),
-                setHeight(40.0),
-
-                appMaterialButton(
-                  text: AppLanguage.confirmStr(appLanguage),
-                  onTap: () {
-                    /// Handle register
-                  },
-                ),
-
-                setHeight(20.0),
-
-                // Row(
-                //   children: [
-                //     Expanded(child: appDivider()),
-                //     setWidth(10.0),
-                //     appText(
-                //       text: AppLanguage.continueWithStr(appLanguage),
-                //       textDirection: setTextDirection(appLanguage),
-                //       textStyle: secondaryTextStyle(),
-                //     ),
-                //     setWidth(10.0),
-                //     Expanded(child: appDivider()),
-                //   ],
-                // ),
-                //
-                // setHeight(20.0),
-                //
-                // SizedBox(
-                //   width: size.width,
-                //   child: appLogoTextButton(
-                //     iconType: IconType.PNG,
-                //     icon: icGoogle,
-                //     text: AppLanguage.signInWithGoogleStr(appLanguage)
-                //   )
-                // ),
-
-                setHeight(50.0),
-
-                appDetailTextButton(
-                  detailText: AppLanguage.alreadyHaveAccountStr(appLanguage),
-                  buttonText: AppLanguage.loginStr(appLanguage),
-                  onTapButton: () => navigation.gotoSignInScreen(),
-                ),
-
-                setHeight(50.0),
-              ],
-            ),
+              setHeight(50.0),
+            ],
           ),
         ),
       ),
     );
   }
+  
+  _titleSection(){
+    return Padding(
+      padding: const EdgeInsets.only(top: 60.0),
+      child: appText(
+        text: AppLanguage.forgotPasswordStr(appLanguage),
+        textDirection: setTextDirection(appLanguage),
+        textStyle: bigBoldHeadingTextStyle(),
+      ),
+    );
+  }
+  
+  _tagTitle(){
+    return Padding(
+      padding: const EdgeInsets.only(top: 10.0),
+      child: appText(
+        text: AppLanguage.recoverYourAccountStr(appLanguage),
+        textDirection: setTextDirection(appLanguage),
+        textStyle: secondaryTextStyle(),
+      ),
+    );
+  }
+
+  _phone(AuthController auth){
+    return Padding(
+      padding: const EdgeInsets.only(top: 20.0),
+      child: AppTextFormField(
+        textEditingController: auth.forgotPhoneController.value,
+        prefixIcon: Icons.person,
+        hintText: AppLanguage.phoneStr(appLanguage),
+      ),
+    );
+  }
+  
+  _newPassword(AuthController auth){
+    return Padding(
+      padding: const EdgeInsets.only(top: 20.0),
+      child: AppTextFormField(
+        textEditingController: auth.forgotNewPasswordController.value,
+        prefixIcon: Icons.lock_outline,
+        hintText: AppLanguage.newPasswordStr(appLanguage),
+        isPassword: true,
+      ),
+    );
+  }
+  
+  _confirmPassword(AuthController auth){
+    return Padding(
+      padding: const EdgeInsets.only(top: 20.0),
+      child: AppTextFormField(
+        textEditingController: auth.forgotConfirmNewPasswordController.value,
+        prefixIcon: Icons.lock_outline,
+        hintText: AppLanguage.reEnterPasswordStr(appLanguage),
+        isPassword: true,
+      ),
+    );
+  }
+  
+  _button(AuthController auth){
+    return Obx((){
+      return Padding(
+          padding: const EdgeInsets.only(top: 40.0),
+          child:
+          auth.forgotPasswordStatus.value == Status.LOADING
+              ? loadingIndicator()
+              : appMaterialButton(
+            text: AppLanguage.confirmStr(appLanguage),
+            onTap: () async {
+              await auth.forgotPassword();
+            },
+          )
+      );
+    });
+  }
+  
+  _loginButton(){
+    var nav = Get.find<NavigationController>();
+    return Padding(
+      padding: const EdgeInsets.only(top: 70.0),
+      child: appDetailTextButton(
+        detailText: AppLanguage.alreadyHaveAccountStr(appLanguage),
+        buttonText: AppLanguage.loginStr(appLanguage),
+        onTapButton: () => nav.gotoSignInScreen(),
+      ),
+    );
+  }
+  
 }

@@ -79,14 +79,14 @@ class ProductDetailScreenMobile extends StatelessWidget {
                 child: loadingIndicator(),
               )
                   : appMaterialButton(
-                isDisable: data.productAvailability == false ,
-                text: data.productAvailability == false ? AppLanguage.outOfStockStr(appLanguage) : productInCart != null ? AppLanguage.updateCartStr(appLanguage) : AppLanguage.addToCartStr(appLanguage),
+                isDisable: data.productAvailability == false || data.productQuantity == 0,
+                text: data.productAvailability == false || data.productQuantity == 0 ? AppLanguage.outOfStockStr(appLanguage) : productInCart != null ? AppLanguage.updateCartStr(appLanguage) : AppLanguage.addToCartStr(appLanguage),
                 onTap: () {
                   if(auth.currentUser.value == null){
                     nav.gotoSignInScreen();
                   }
                   else {
-                    if(data.productAvailability == true){
+                    if(data.productAvailability == true && data.productQuantity! > 0){
                       cart.addToCartWithQuantity(productId: data.productId!, userId: auth.currentUser.value!.userId!, productQty: productDetail.quantity.value);
                     } else {
                       showToast(AppLanguage.outOfStockStr(appLanguage).toString());
