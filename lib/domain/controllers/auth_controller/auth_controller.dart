@@ -1,13 +1,8 @@
-import 'dart:convert';
-
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/core/data_model_imports.dart';
-import 'package:danapaniexpress/domain/controllers/orders_controller/orders_controller.dart';
-import 'package:http/http.dart' as http;
 
 import '../../../core/packages_import.dart';
-import '../../../data/models/address_model.dart';
 
 class AuthController extends GetxController {
   final AuthRepository authRepo;

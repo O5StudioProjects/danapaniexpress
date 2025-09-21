@@ -47,7 +47,7 @@ class AuthRepository extends AuthDatasource{
   Future<Map<String, dynamic>> logoutUser({
     required RxString authToken,
 }) async {
-    final result = await logoutUserApi(authToken.value ?? '');
+    final result = await logoutUserApi(authToken.value);
     return result;
   }
 
