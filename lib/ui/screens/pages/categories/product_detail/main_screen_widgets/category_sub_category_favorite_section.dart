@@ -40,24 +40,50 @@ class CategorySubcategoryFavoriteSection extends StatelessWidget {
     );
   }
 
-  Widget _buildTextSection(ProductModel data) => Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      if (data.productCategory != null && data.productSubCategory != null)
+  Widget _buildTextSection(ProductModel data) => Expanded(
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (data.productCategory != null && data.productSubCategory != null)
+          appText(
+            text: '${data.productCategory} > ${data.productSubCategory}',
+            textStyle: secondaryTextStyle().copyWith(
+              color: AppColors.secondaryTextColorSkin(isDark).withValues(alpha: 0.7),
+            ),
+          ),
         appText(
-          text: '${data.productCategory} > ${data.productSubCategory}',
+          text: '${AppLanguage.productCodeStr(appLanguage)}${data.productCode?.split('_').last}',
+          textDirection: setTextDirection(appLanguage),
           textStyle: secondaryTextStyle().copyWith(
             color: AppColors.secondaryTextColorSkin(isDark).withValues(alpha: 0.7),
           ),
         ),
-      appText(
-        text: '${AppLanguage.productCodeStr(appLanguage)}${data.productCode?.split('_').last}',
-        textDirection: setTextDirection(appLanguage),
-        textStyle: secondaryTextStyle().copyWith(
-          color: AppColors.secondaryTextColorSkin(isDark).withValues(alpha: 0.7),
-        ),
-      ),
-    ],
+        if(data.productFavoriteList!.isNotEmpty)
+        Row(
+          children: [
+
+            appText(
+              text: 'In ${data.productFavoriteList?.length.toString()} People\'s ',
+              textDirection: setTextDirection(appLanguage),
+              textStyle: secondaryTextStyle().copyWith(
+                color: AppColors.secondaryTextColorSkin(isDark).withValues(alpha: 0.7),
+              ),
+            ),
+            SizedBox(
+              width: 14.0,
+              height: 14.0,
+              child: appIcon(iconType: IconType.PNG, icon: icHeartFill, color: AppColors.materialButtonSkin(isDark)),
+            ),
+            appText(text: ' list', textStyle: secondaryTextStyle().copyWith(
+            color: AppColors.secondaryTextColorSkin(isDark).withValues(alpha: 0.7),)),
+
+          ],
+        )
+
+
+
+      ],
+    ),
   );
 
   Widget _buildFavoriteButton(
@@ -66,23 +92,32 @@ class CategorySubcategoryFavoriteSection extends StatelessWidget {
       NavigationController nav,
       ProductDetailController productDetail,
       ) =>
-      GestureDetector(
-        onTap: () async {
-          if (auth.currentUser.value == null) {
-            nav.gotoSignInScreen();
-          } else {
-            await productDetail.toggleFavorite(data.productId!);
-          }
-        },
-        child: productDetail.toggleFavoriteStatus.value == Status.LOADING
-            ? SizedBox(width: 20.0, height: 20.0, child: loadingIndicator())
-            : appIcon(
-          iconType: IconType.PNG,
-          icon: data.isFavoriteBy(auth.userId.value ?? '') ? icHeartFill : icHeart,
-          width: 20.0,
-          color: data.isFavoriteBy(auth.userId.value ?? '')
-              ? AppColors.materialButtonSkin(isDark)
-              : AppColors.backgroundColorInverseSkin(isDark),
-        ),
+      Row(
+        children: [
+          if(data.productFavoriteList!.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: appText(text: data.productFavoriteList?.length.toString() ?? '', textStyle: itemTextStyle()),
+            ),
+          GestureDetector(
+            onTap: () async {
+              if (auth.currentUser.value == null) {
+                nav.gotoSignInScreen();
+              } else {
+                await productDetail.toggleFavorite(data.productId!);
+              }
+            },
+            child: productDetail.toggleFavoriteStatus.value == Status.LOADING
+                ? SizedBox(width: 20.0, height: 20.0, child: loadingIndicator())
+                : appIcon(
+              iconType: IconType.PNG,
+              icon: data.isFavoriteBy(auth.userId.value ?? '') ? icHeartFill : icHeart,
+              width: 20.0,
+              color: data.isFavoriteBy(auth.userId.value ?? '')
+                  ? AppColors.materialButtonSkin(isDark)
+                  : AppColors.backgroundColorInverseSkin(isDark),
+            ),
+          )
+        ],
       );
 }

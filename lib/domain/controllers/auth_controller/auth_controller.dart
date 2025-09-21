@@ -59,6 +59,95 @@ class AuthController extends GetxController {
     );
   }
 
+  /// Controllers for Forgot Password Screen
+  final forgotPhoneController = TextEditingController().obs;
+  final forgotNewPasswordController = TextEditingController().obs;
+  final forgotConfirmNewPasswordController = TextEditingController().obs;
+
+  /// Status (LOADING, SUCCESS, FAILURE, IDLE)
+  final forgotPasswordStatus = Status.IDLE.obs;
+
+  /// Forgot Password Method
+  Future<void> forgotPassword() async {
+    forgotPasswordStatus.value = Status.LOADING;
+
+    final phone = forgotPhoneController.value.text.trim();
+    final newPassword = forgotNewPasswordController.value.text.trim();
+    final confirmNewPassword = forgotConfirmNewPasswordController.value.text.trim();
+
+    // ✅ Validate required fields
+    if (phone.isEmpty) {
+      showSnackbar(title: 'Missing Mobile', message: 'Enter your mobile number.', isError: true);
+      forgotPasswordStatus.value = Status.FAILURE;
+      return;
+    }
+    if (newPassword.isEmpty) {
+      showSnackbar(title: 'Missing Password', message: 'Enter a new password.', isError: true);
+      forgotPasswordStatus.value = Status.FAILURE;
+      return;
+    }
+
+    if (confirmNewPassword.isEmpty) {
+      showSnackbar(title: 'Missing Password', message: 'Enter confirm new password.', isError: true);
+      forgotPasswordStatus.value = Status.FAILURE;
+      return;
+    }
+
+    if (newPassword != confirmNewPassword) {
+      forgotPasswordStatus.value = Status.FAILURE;
+      showSnackbar(
+        isError: true,
+        title: AppLanguage.passwordMismatchStr(appLanguage).toString(),
+        message: AppLanguage.passwordMismatchDetailStr(appLanguage).toString(),
+      );
+      return;
+    }
+
+    final formattedPhone = PhoneUtils.normalizePhone(phone);
+    if (formattedPhone == null) {
+      forgotPasswordStatus.value = Status.FAILURE;
+      showSnackbar(
+        isError: true,
+        title: AppLanguage.invalidPhoneStr(appLanguage).toString(),
+        message: AppLanguage.invalidPhoneDetailStr(appLanguage).toString(),
+      );
+      return;
+    }
+
+    print(formattedPhone);
+    print(newPassword);
+
+    try {
+      final result = await authRepo.forgotPassword(
+        phone: formattedPhone,
+        newPassword: newPassword,
+      );
+
+      if (result['success'] == true) {
+        showSnackbar(
+          title: 'Success',
+          message: result['message'] ?? 'Password reset successfully',
+          isError: false,
+        );
+        forgotPasswordStatus.value = Status.SUCCESS;
+
+        // ✅ Optional: clear inputs after success
+        forgotPhoneController.value.clear();
+        forgotNewPasswordController.value.clear();
+        forgotConfirmNewPasswordController.value.clear();
+      } else {
+        showSnackbar(
+          title: 'Forgot Password Failed',
+          message: result['error'] ?? 'Unknown error occurred',
+          isError: true,
+        );
+        forgotPasswordStatus.value = Status.FAILURE;
+      }
+    } catch (e) {
+      showSnackbar(title: 'Forgot Password Failed', message: e.toString(), isError: true);
+      forgotPasswordStatus.value = Status.FAILURE;
+    }
+  }
 
   /// REGISTER NEW USER
   Future<void> registerUser() async {
@@ -318,6 +407,10 @@ class AuthController extends GetxController {
     registerPhoneTextController.value.dispose();
     registerPasswordTextController.value.dispose();
     registerReEnterPasswordTextController.value.dispose();
+
+    forgotPhoneController.value.dispose();
+    forgotNewPasswordController.value.dispose();
+    forgotConfirmNewPasswordController.value.dispose();
 
     super.onClose();
   }

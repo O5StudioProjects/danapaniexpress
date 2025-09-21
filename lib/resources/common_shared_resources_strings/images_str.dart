@@ -31,9 +31,12 @@ class AppImagesPath {
   static const String imgTrustedByFamiliesStartup_Rider = '${RIDER_IMG_PATH}img_trusted_by_families_startup.jpeg';
 
   static const String imgLoginScreen_Dev = '${DEV_IMG_PATH}img_login_screen.png';
-  static const String imgLoginScreen_Dev_Prod = '${PROD_IMG_PATH}img_login_screen.png';
-  static const String imgLoginScreen_Dev_Rider = '${RIDER_IMG_PATH}img_login_screen.png';
+  static const String imgLoginScreen_Prod = '${PROD_IMG_PATH}img_login_screen.png';
+  static const String imgLoginScreen_Rider = '${RIDER_IMG_PATH}img_login_screen.png';
 
+  static const String imgProductBackground_Dev = '${DEV_IMG_PATH}img_product_background.jpg';
+  static const String imgProductBackground_Prod = '${PROD_IMG_PATH}img_product_background.jpg';
+  static const String imgProductBackground_Rider = '${RIDER_IMG_PATH}img_product_background.jpg';
 
 }
 
@@ -42,8 +45,7 @@ const String imgError = '${COMMON_IMG_PATH}img_error.png';
 const String imgSale = '${COMMON_IMG_PATH}img_sale.png';
 
 const String imgDailyPoetryCardLeft = '${COMMON_IMG_PATH}img_daily_poetry_card_left.png';
-const String imgProductBackground = '${COMMON_IMG_PATH}img_product_background.jpg';
-const String imgDPEBanner = '${COMMON_IMG_PATH}img_product_background.jpg';
+const String imgDPEBanner = '${COMMON_IMG_PATH}img_dpe_banner.jpg';
 
 const String imgErrorLight = '${COMMON_IMG_PATH}img_error_light.png';
 const String imgErrorDark = '${COMMON_IMG_PATH}img_error_dark.png';

@@ -186,7 +186,7 @@ class ProductItem extends StatelessWidget {
             if(auth.currentUser.value == null){
               nav.gotoSignInScreen();
             }
-            else if(data.productAvailability == true){
+            else if(data.productAvailability == true && data.productQuantity! > 0){
               await cart.addToCart(data.productId!);
             } else {
               showToast(AppLanguage.outOfStockStr(appLanguage).toString());
@@ -199,12 +199,12 @@ class ProductItem extends StatelessWidget {
           ) : Container(
             height: nameHeight,
             decoration: BoxDecoration(
-                color: data.productAvailability == false ? AppColors.disableMaterialButtonSkin(isDark) : AppColors.materialButtonSkin(isDark),
+                color: data.productAvailability == false || data.productQuantity == 0 ? AppColors.disableMaterialButtonSkin(isDark) : AppColors.materialButtonSkin(isDark),
                 borderRadius: BorderRadius.circular(8.0)
             ),
             child: Center(
                 child: appText(
-                    text: data.productAvailability == false ? AppLanguage.outOfStockStr(appLanguage) : AppLanguage.addToCartStr(appLanguage),
+                    text: data.productAvailability == false || data.productQuantity == 0 ? AppLanguage.outOfStockStr(appLanguage) : AppLanguage.addToCartStr(appLanguage),
                     textStyle: buttonTextStyle(color: data.productAvailability == false ? AppColors.materialButtonTextSkin(isDark).withValues(alpha: 0.5) : AppColors.materialButtonTextSkin(isDark)))),
           ),
         ),

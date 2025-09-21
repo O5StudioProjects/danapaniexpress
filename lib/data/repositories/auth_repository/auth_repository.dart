@@ -21,6 +21,17 @@ class AuthRepository extends AuthDatasource{
     return result;
   }
 
+  /// FORGOT PASSWORD - REPOSITORY
+  Future<Map<String, dynamic>> forgotPassword({
+    required String phone,
+    required String newPassword,
+  }) async {
+    return await forgotPasswordApi(
+      phone: phone,
+      newPassword: newPassword,
+    );
+  }
+
   ///LOGIN USER - API
   Future<Map<String, dynamic>> loginUser({
         required String identifier,
