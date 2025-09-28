@@ -20,7 +20,7 @@ class SpecialNoteForRider extends StatelessWidget {
       child: GestureDetector(
         // onTap: ()=> Get.find<NavigationController>().gotoOrdersFeedbackScreen(orderModel: orderData),
         child: orderDetailSectionsUI(
-            titleText: 'Special Note For Rider',
+            titleText: AppLanguage.specialNoteForRiderStr(appLanguage),
             column:
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,

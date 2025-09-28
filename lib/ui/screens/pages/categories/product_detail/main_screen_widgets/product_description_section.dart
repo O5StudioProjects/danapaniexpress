@@ -49,14 +49,14 @@ class ProductDescriptionSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           appText(
-            text: 'Rs. ${data.productSellingPrice!.toStringAsFixed(1)}',
+            text: '$appCurrency ${data.productSellingPrice!.toStringAsFixed(1)}',
             textStyle: sellingPriceDetailTextStyle(),
           ),
           if (data.productCutPrice != null)
             Padding(
               padding: const EdgeInsets.only(left: 5.0),
               child: appText(
-                text: 'Rs. ${data.productCutPrice?.toStringAsFixed(1)}',
+                text: '$appCurrency ${data.productCutPrice?.toStringAsFixed(1)}',
                 textStyle: cutPriceTextStyle(isDetail: true),
               ),
             ),
@@ -272,7 +272,7 @@ class ProductDescriptionSection extends StatelessWidget {
           SizedBox(
             width: size.width,
             child: appText(
-              text: 'Vendor',
+              text: AppLanguage.vendorStr(appLanguage),
               textStyle: headingTextStyle(),
               textDirection: setTextDirection(appLanguage),
               textAlign: setTextAlignment(appLanguage),

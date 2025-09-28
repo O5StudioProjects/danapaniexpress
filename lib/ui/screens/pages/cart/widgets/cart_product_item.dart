@@ -149,14 +149,14 @@ class CartProductItem extends StatelessWidget {
       children: [
         if(product.productSellingPrice != null)
           appText(
-            text: 'Rs. ${product.productSellingPrice}',
+            text: '$appCurrency ${product.productSellingPrice}',
             textStyle: sellingPriceTextStyle(),
             maxLines: 1,
           ),
         setWidth(8.0),
         if(product.productCutPrice != null)
           appText(
-            text: 'Rs. ${product.productCutPrice}',
+            text: '$appCurrency ${product.productCutPrice}',
             maxLines: 1,
             textStyle: cutPriceTextStyle(isDetail: false),
           ),

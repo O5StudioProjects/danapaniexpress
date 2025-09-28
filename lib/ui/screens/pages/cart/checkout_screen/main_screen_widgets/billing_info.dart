@@ -92,7 +92,7 @@ class BillingInfo extends StatelessWidget {
         children: [
           appText(
             text:
-            'Rs. ${cart.totalSellingPrice.value.toStringAsFixed(1)} ',
+            '$appCurrency ${cart.totalSellingPrice.value.toStringAsFixed(1)} ',
             textStyle: itemTextStyle().copyWith(
               color: AppColors.sellingPriceDetailTextSkin(
                 isDark,
@@ -102,7 +102,7 @@ class BillingInfo extends StatelessWidget {
           setWidth(4.0),
           appText(
               text:
-              'Rs. ${cart.totalCutPrice.value.toStringAsFixed(1)} ',
+              '$appCurrency ${cart.totalCutPrice.value.toStringAsFixed(1)} ',
               textStyle: cutPriceTextStyle().copyWith(
                 color: AppColors.cutPriceDetailTextColorSkin(
                   isDark,
@@ -137,7 +137,7 @@ class BillingInfo extends StatelessWidget {
           setWidth(8.0),
           appText(
               text:
-              'Rs. ${cart.totalCutPrice.value.toStringAsFixed(1)} ',
+              '$appCurrency ${cart.totalCutPrice.value.toStringAsFixed(1)} ',
               textStyle: cutPriceTextStyle().copyWith(
                 color: AppColors.cutPriceDetailTextColorSkin(
                   isDark,
@@ -149,7 +149,7 @@ class BillingInfo extends StatelessWidget {
           setWidth(4.0),
           appText(
               text:
-              'Rs. ${cart.totalSellingPrice.value.toStringAsFixed(1)} ',
+              '$appCurrency ${cart.totalSellingPrice.value.toStringAsFixed(1)} ',
               textStyle: itemTextStyle().copyWith(
                 color: AppColors.sellingPriceDetailTextSkin(
                   isDark,

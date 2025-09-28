@@ -67,14 +67,14 @@ class _CancelOrderDialogState extends State<CancelOrderDialog> with SingleTicker
                       children: [
                         appText(text: AppLanguage.cancelOrderStr(appLanguage), textStyle:  headingTextStyle()),
                        _appDivider(),
-                        appText(text: 'Write reason to cancel order!', textStyle:  itemTextStyle().copyWith(color: AppColors.materialButtonSkin(isDark))),
+                        appText(text: AppLanguage.writeReasonToCancelOrderStr(appLanguage), textStyle:  itemTextStyle().copyWith(color: AppColors.materialButtonSkin(isDark))),
                         _reasonTags(),
-                        if(Get.find<OrdersController>().reasonForCancelTag.value == 'Others')
+                        if(Get.find<OrdersController>().reasonForCancelTag.value == AppLanguage.othersStr(appLanguage))
                         Padding(
                           padding: const EdgeInsets.only(top: MAIN_HORIZONTAL_PADDING),
                           child: AppTextFormField(
                             textEditingController: widget.textEditingControl,
-                            hintText: 'More Detailed Reason to cancel Order...',
+                            hintText: AppLanguage.moreDetailedReasonToCancelOrderStr(appLanguage),
                             isDetail: true,
                             maxLines: 8,
                           ),
@@ -110,10 +110,10 @@ class _CancelOrderDialogState extends State<CancelOrderDialog> with SingleTicker
     var order = Get.find<OrdersController>();
     return Obx((){
       var reasonTagsList = [
-        'Change of Mind',
-        'Not Needed',
-        'I Ordered Mistakenly',
-        'Others'
+        AppLanguage.changeOfMindStr(appLanguage).toString(),
+        AppLanguage.notNeededStr(appLanguage).toString(),
+        AppLanguage.iOrderedMistakenlyStr(appLanguage).toString(),
+        AppLanguage.othersStr(appLanguage).toString()
       ];
       return Padding(
         padding: const EdgeInsets.only(top: MAIN_HORIZONTAL_PADDING),

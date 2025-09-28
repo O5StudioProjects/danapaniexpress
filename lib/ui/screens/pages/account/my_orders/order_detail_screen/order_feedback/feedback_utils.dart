@@ -1,7 +1,4 @@
 
-
-import 'package:danapaniexpress/core/common_imports.dart';
-
 class FeedbackItemModel {
 
   final String title;

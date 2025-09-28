@@ -849,5 +849,31 @@ class AppLanguage {
   static String? riderRatingUpdatedSuccessfullyStr(String appLanguage) => allLang[appLanguage]?[RIDER_RATING_UPDATED_SUCCESSFULLY];
   static String? failedToUpdateRiderRatingStr(String appLanguage) => allLang[appLanguage]?[FAILED_TO_UPDATE_RIDER_RATING];
   static String? pleaseWaitStr(String appLanguage) => allLang[appLanguage]?[PLEASE_WAIT];
+  static String? todayStr(String appLanguage) => allLang[appLanguage]?[TODAY];
+  static String? serverErrorStr(String appLanguage) => allLang[appLanguage]?[SERVER_ERROR];
+  static String? internetConnectionRestoredStr(String appLanguage) => allLang[appLanguage]?[INTERNET_CONNECTION_RESTORED];
+  static String? checkYourInternetConnectionStr(String appLanguage) => allLang[appLanguage]?[CHECK_YOUR_INTERNET_CONNECTION];
+  static String? writeReasonToCancelOrderStr(String appLanguage) => allLang[appLanguage]?[WRITE_REASON_TO_CANCEL_ORDER];
+  static String? othersStr(String appLanguage) => allLang[appLanguage]?[OTHERS];
+  static String? moreDetailedReasonToCancelOrderStr(String appLanguage) => allLang[appLanguage]?[MORE_DETAILED_REASON_TO_CANCEL_ORDER];
+  static String? changeOfMindStr(String appLanguage) => allLang[appLanguage]?[CHANGE_OF_MIND];
+  static String? notNeededStr(String appLanguage) => allLang[appLanguage]?[NOT_NEEDED];
+  static String? iOrderedMistakenlyStr(String appLanguage) => allLang[appLanguage]?[I_ORDERED_MISTAKENLY];
+  static String? inStr(String appLanguage) => allLang[appLanguage]?[IN];
+  static String? peoplesStr(String appLanguage) => allLang[appLanguage]?[PEOPLES];
+  static String? listStr(String appLanguage) => allLang[appLanguage]?[LIST];
+  static String? vendorStr(String appLanguage) => allLang[appLanguage]?[VENDOR];
+  static String? specialNoteForRiderStr(String appLanguage) => allLang[appLanguage]?[SPECIAL_NOTE_FOR_RIDER];
+  static String? cancelledByStr(String appLanguage) => allLang[appLanguage]?[CANCELLED_BY];
+  static String? selfCancelledStr(String appLanguage) => allLang[appLanguage]?[SELF_CANCELLED];
+  static String? selfStr(String appLanguage) => allLang[appLanguage]?[SELF];
+  static String? riderStr(String appLanguage) => allLang[appLanguage]?[RIDER];
+  static String? reasonForCancelStr(String appLanguage) => allLang[appLanguage]?[REASON_FOR_CANCEL];
+  static String? emptyReasonStr(String appLanguage) => allLang[appLanguage]?[EMPTY_REASON];
+  static String? pleaseEnterReasonForCancelOrderStr(String appLanguage) => allLang[appLanguage]?[PLEASE_ENTER_REASON_FOR_CANCEL_ORDER];
+  static String? missingMobileStr(String appLanguage) => allLang[appLanguage]?[MISSING_MOBILE];
+  static String? enterNewPasswordStr(String appLanguage) => allLang[appLanguage]?[ENTER_NEW_PASSWORD];
+  static String? missingPasswordStr(String appLanguage) => allLang[appLanguage]?[MISSING_PASSWORD];
+  static String? enterConfirmNewPasswordStr(String appLanguage) => allLang[appLanguage]?[ENTER_CONFIRM_NEW_PASSWORD];
 
 }

@@ -60,22 +60,22 @@ class _OrdersListForTabState extends State<OrdersListForTab> {
         OrderTabsModel(
           icon: icOrderActive,
           title: AppLanguage.activeStr(appLanguage).toString(),
-          statusKey: 'Active', // ← Add this
+          statusKey: OrderStatus.ACTIVE,
         ),
         OrderTabsModel(
           icon: icOrderConfirmed,
           title: AppLanguage.confirmedStr(appLanguage).toString(),
-          statusKey: 'Confirmed',
+          statusKey: OrderStatus.CONFIRMED,
         ),
         OrderTabsModel(
           icon: icOrderCompleted,
           title: AppLanguage.completedStr(appLanguage).toString(),
-          statusKey: 'Completed',
+          statusKey: OrderStatus.COMPLETED,
         ),
         OrderTabsModel(
           icon: icOrderCancel,
           title: AppLanguage.cancelledStr(appLanguage).toString(),
-          statusKey: 'Cancelled',
+          statusKey: OrderStatus.CANCELLED,
         ),
       ];
 

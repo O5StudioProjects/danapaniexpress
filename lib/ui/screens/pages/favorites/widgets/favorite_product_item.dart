@@ -132,14 +132,14 @@ class FavoriteProductItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
         appText(
-          text: 'Rs. ${product.productSellingPrice}',
+          text: '$appCurrency ${product.productSellingPrice}',
           textStyle: sellingPriceTextStyle(),
           maxLines: 1,
         ),
         Padding(
           padding: const EdgeInsets.only(left: 6.0),
           child: appText(
-            text: 'Rs. ${product.productCutPrice}',
+            text: '$appCurrency ${product.productCutPrice}',
             maxLines: 1,
             textStyle: cutPriceTextStyle(isDetail: false),
           ),
