@@ -46,7 +46,7 @@ class ErrorScreen extends StatelessWidget {
           children: [
             appIcon(icon: AppAnims.animErrorSkin(isDark), iconType: IconType.ANIM, width: size.width * 0.5),
             setHeight(MAIN_VERTICAL_PADDING),
-            appText(text: 'Server Error', textStyle: bodyTextStyle().copyWith(
+            appText(text: AppLanguage.serverErrorStr(appLanguage), textStyle: bodyTextStyle().copyWith(
                 color: AppColors.materialButtonSkin(isDark),
                 fontSize: SUB_HEADING_TEXT_BUTTON_FONT_SIZE
             ))
@@ -71,7 +71,7 @@ class NoInternet extends StatelessWidget {
           children: [
             appIcon(icon: animNoInternet, iconType: IconType.ANIM, width: size.width * 0.5),
             setHeight(MAIN_VERTICAL_PADDING),
-            appText(text: internet ? 'Internet Connection Restored' : 'Check your internet connection', textStyle: bodyTextStyle().copyWith(
+            appText(text: internet ? AppLanguage.internetConnectionRestoredStr(appLanguage) : AppLanguage.checkYourInternetConnectionStr(appLanguage), textStyle: bodyTextStyle().copyWith(
                 color: AppColors.materialButtonSkin(isDark),
                 fontSize: SUB_HEADING_TEXT_BUTTON_FONT_SIZE
             )),
@@ -80,7 +80,7 @@ class NoInternet extends StatelessWidget {
                 ? Padding(
               padding: const EdgeInsets.only(top: MAIN_VERTICAL_PADDING, right: MAIN_HORIZONTAL_PADDING, left: MAIN_HORIZONTAL_PADDING),
               child:
-            appMaterialButton(text: 'Go Back', onTap: (){
+            appMaterialButton(text: AppLanguage.goBackStr(appLanguage), onTap: (){
                 if(isStart){
                   navigation.gotoDashboardScreen();
                 } else {

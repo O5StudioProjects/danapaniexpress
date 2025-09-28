@@ -64,15 +64,16 @@ class OrderStatusSection extends StatelessWidget {
                 children: [
                   appDivider(),
                   orderDetailItemsFixedUI(
-                      titleText: 'Cancelled By',
-                      detailText: orderData.reasonForCancel!.contains('Self Cancelled') ? 'Self' : orderData.cancelByAdmin == true ? 'Vendor' : 'Rider'
+                      titleText: AppLanguage.cancelledByStr(appLanguage),
+                      detailText: orderData.reasonForCancel!.contains('Self Cancelled')
+                          ? AppLanguage.selfStr(appLanguage) : orderData.cancelByAdmin == true ? AppLanguage.vendorStr(appLanguage) : AppLanguage.riderStr(appLanguage)
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       setHeight(8.0),
                       appText(
-                        text: 'Reason For Cancel',
+                        text: AppLanguage.reasonForCancelStr(appLanguage),
                         textStyle: itemTextStyle().copyWith(fontWeight: FontWeight.w800,
                           color: AppColors.primaryTextColorSkin(isDark),
                         ),

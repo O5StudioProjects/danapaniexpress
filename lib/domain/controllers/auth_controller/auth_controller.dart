@@ -72,18 +72,18 @@ class AuthController extends GetxController {
 
     // ✅ Validate required fields
     if (phone.isEmpty) {
-      showSnackbar(title: 'Missing Mobile', message: 'Enter your mobile number.', isError: true);
+      showSnackbar(title: AppLanguage.missingMobileStr(appLanguage).toString(), message: AppLanguage.enterPhoneStr(appLanguage).toString(), isError: true);
       forgotPasswordStatus.value = Status.FAILURE;
       return;
     }
     if (newPassword.isEmpty) {
-      showSnackbar(title: 'Missing Password', message: 'Enter a new password.', isError: true);
+      showSnackbar(title: AppLanguage.missingPasswordStr(appLanguage).toString(), message: AppLanguage.enterNewPasswordStr(appLanguage).toString(), isError: true);
       forgotPasswordStatus.value = Status.FAILURE;
       return;
     }
 
     if (confirmNewPassword.isEmpty) {
-      showSnackbar(title: 'Missing Password', message: 'Enter confirm new password.', isError: true);
+      showSnackbar(title: AppLanguage.missingPasswordStr(appLanguage).toString(), message: AppLanguage.enterConfirmNewPasswordStr(appLanguage).toString(), isError: true);
       forgotPasswordStatus.value = Status.FAILURE;
       return;
     }

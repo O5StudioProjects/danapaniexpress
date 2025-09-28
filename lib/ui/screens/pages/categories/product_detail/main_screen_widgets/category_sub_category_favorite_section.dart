@@ -63,7 +63,7 @@ class CategorySubcategoryFavoriteSection extends StatelessWidget {
           children: [
 
             appText(
-              text: 'In ${data.productFavoriteList?.length.toString()} People\'s ',
+              text: '${AppLanguage.inStr(appLanguage)} ${data.productFavoriteList?.length.toString()} ${AppLanguage.peoplesStr(appLanguage)} ',
               textDirection: setTextDirection(appLanguage),
               textStyle: secondaryTextStyle().copyWith(
                 color: AppColors.secondaryTextColorSkin(isDark).withValues(alpha: 0.7),
@@ -74,7 +74,7 @@ class CategorySubcategoryFavoriteSection extends StatelessWidget {
               height: 14.0,
               child: appIcon(iconType: IconType.PNG, icon: icHeartFill, color: AppColors.materialButtonSkin(isDark)),
             ),
-            appText(text: ' list', textStyle: secondaryTextStyle().copyWith(
+            appText(text: ' ${AppLanguage.listStr(appLanguage)}', textStyle: secondaryTextStyle().copyWith(
             color: AppColors.secondaryTextColorSkin(isDark).withValues(alpha: 0.7),)),
 
           ],

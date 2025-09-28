@@ -73,51 +73,6 @@ class AccountInfoController extends GetxController {
     }
   }
 
-  // /// UPLOAD IMAGE API CALL
-  // Future<void> uploadUserImage() async {
-  //   uploadImageStatus.value = AuthStatus.LOADING;
-  //
-  //   if (auth.userId.value == null) {
-  //     uploadImageStatus.value = AuthStatus.FAILURE;
-  //     showSnackbar(
-  //         isError: true,
-  //         title: AppLanguage.errorStr(appLanguage).toString(),
-  //         message: AppLanguage.userNotLoggedInStr(appLanguage).toString()
-  //     );
-  //     return;
-  //   }
-  //
-  //   if(selectedImage.value == null){
-  //     uploadImageStatus.value = AuthStatus.FAILURE;
-  //     showSnackbar(title: AppLanguage.imageNotSelectedStr(appLanguage).toString(), message: AppLanguage.imageNotSelectedDetailStr(appLanguage).toString());
-  //     return;
-  //   }
-  //
-  //   final result = await accountInfoRepo.uploadUserImage(
-  //     file: selectedImage.value!,
-  //     userId: auth.userId.value!,
-  //   );
-  //
-  //   if (result['success'] == true || result['status'] == 'success') {
-  //     await auth.fetchUserProfile(); // Refresh image in currentUser
-  //     selectedImage.value = null;
-  //     uploadImageStatus.value = AuthStatus.SUCCESS;
-  //     showSnackbar(
-  //         isError: false,
-  //         title: 'Success',
-  //         message: result['message'] ?? 'Image uploaded',
-  //     );
-  //
-  //   } else {
-  //     uploadImageStatus.value = AuthStatus.FAILURE;
-  //     showSnackbar(
-  //         isError: true,
-  //         title: 'Failed',
-  //         message: result['message'] ?? result['error'] ?? 'Upload failed',
-  //     );
-  //   }
-  // }
-
   /// UPLOAD IMAGE (Web + Mobile)
   Future<void> uploadUserImage() async {
     uploadImageStatus.value = AuthStatus.LOADING;

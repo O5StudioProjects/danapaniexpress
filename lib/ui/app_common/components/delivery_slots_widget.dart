@@ -40,7 +40,7 @@ class DeliverySlotsWidget extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             appText(
-                              text: index == 0 ? 'Today' : day.dayName,
+                              text: index == 0 ? AppLanguage.todayStr(appLanguage) : day.dayName,
                               textStyle: tabItemTextStyle(
                                   isSelected: index == checkout.selectedDayIndex.value),
                             ),

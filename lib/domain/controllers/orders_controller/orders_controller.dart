@@ -422,7 +422,7 @@ class OrdersController extends GetxController {
     } catch (e) {
       updateOrderStatus.value = Status.FAILURE;
       //showToast('${AppLanguage.somethingWentWrongStr(appLanguage)}');
-      showSnackbar(title: 'Error', message: '${AppLanguage.somethingWentWrongStr(appLanguage)}', isError: true);
+      showSnackbar(title: '${AppLanguage.errorStr(appLanguage)}', message: '${AppLanguage.somethingWentWrongStr(appLanguage)}', isError: true);
 
       if (kDebugMode) {
         print('ORDER UPDATE FAILED Exception : $e');
@@ -442,7 +442,7 @@ class OrdersController extends GetxController {
         textEditingControl: reasonForCancelOrderController.value,
         onTapConfirm: () async {
           if(reasonForCancelOrderController.value.text.isEmpty && reasonForCancelTag.value.isEmpty){
-            showSnackbar(title: 'Empty Reason', message: 'Please Enter Reason for cancel order', isError: true);
+            showSnackbar(title: AppLanguage.emptyReasonStr(appLanguage).toString(), message: '${AppLanguage.pleaseEnterReasonForCancelOrderStr(appLanguage)}', isError: true);
           } else{
             await updateOrderNew(
                 orderId: orderId,
