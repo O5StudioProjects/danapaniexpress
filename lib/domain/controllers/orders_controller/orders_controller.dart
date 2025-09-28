@@ -1,7 +1,6 @@
 import 'package:danapaniexpress/core/common_imports.dart';
 import 'package:danapaniexpress/core/controllers_import.dart';
 import 'package:danapaniexpress/data/repositories/orders_repository/orders_repository.dart';
-import 'package:danapaniexpress/ui/app_common/dialogs/bool_dialog.dart';
 import 'package:danapaniexpress/ui/app_common/dialogs/cancel_order_dialog.dart';
 
 import '../../../data/models/order_model.dart';

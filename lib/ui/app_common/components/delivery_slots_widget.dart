@@ -14,7 +14,7 @@ class DeliverySlotsWidget extends StatelessWidget {
         // Days horizontal scroll
         Obx(
               () => SizedBox(
-            height: 60,
+            height: 70,
             child: ListView.builder(
               padding: const EdgeInsets.only(left: MAIN_HORIZONTAL_PADDING),
               scrollDirection: Axis.horizontal,
@@ -112,36 +112,44 @@ class DeliverySlotsWidget extends StatelessWidget {
                   ignoring: !slot.isAvailable,
                   child: Opacity(
                     opacity: slot.isAvailable ? 1.0 : 0.4,
-                    child: RadioListTile(
-                      title: slot.isAvailable ? Row(
-                        children: [
-                          appText(
-                            text: slot.slotLabel,
-                            textStyle: itemTextStyle(),
-                          ),
-                          setWidth(8.0),
-                          appText(
-                            text: AppLanguage.availableStr(appLanguage),
-                            textStyle: itemTextStyle().copyWith(color: AppColors.materialButtonSkin(isDark)),
-                          )
-                        ],
-                      ) : appText(
-                        text: '${slot.slotLabel} ${AppLanguage.bookedStr(appLanguage)}',
-                        textStyle: itemTextStyle(),
-                      ),
-                      value: slot.slotId,
+                    child: RadioGroup<int>(
                       groupValue: checkout.selectedSlotId.value,
                       onChanged: (value) {
-                        checkout.selectedSlotId.value = value as int;
+                        checkout.selectedSlotId.value = value!;
                         checkout.selectedSlotLabel.value = slot.slotLabel;
                         checkout.selectedSlotDate.value = selectedDay.date;
                         print(checkout.selectedSlotLabel.value);
                       },
-                      activeColor: AppColors.materialButtonSkin(isDark),
+                      child: RadioListTile(
+                        title: slot.isAvailable
+                            ? Row(
+                          children: [
+                            appText(
+                              text: slot.slotLabel,
+                              textStyle: itemTextStyle(),
+                            ),
+                            setWidth(8.0),
+                            appText(
+                              text: AppLanguage.availableStr(appLanguage),
+                              textStyle: itemTextStyle().copyWith(
+                                color: AppColors.materialButtonSkin(isDark),
+                              ),
+                            )
+                          ],
+                        )
+                            : appText(
+                          text:
+                          '${slot.slotLabel} ${AppLanguage.bookedStr(appLanguage)}',
+                          textStyle: itemTextStyle(),
+                        ),
+                        value: slot.slotId,
+                        activeColor: AppColors.materialButtonSkin(isDark),
+                      ),
                     ),
                   ),
                 ),
               );
+
             },
           );
         }),
