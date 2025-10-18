@@ -33,6 +33,7 @@ class ProductFields {
     isSelected,
     productQuantityLimit,
     productQuantity,
+    isInStock,
     dateTime,
   ];
 
@@ -65,6 +66,7 @@ class ProductFields {
   static const String isSelected = 'is_selected';
   static const String productQuantityLimit = 'product_quantity_limit';
   static const String productQuantity = 'product_stock_qty';
+  static const String isInStock = 'is_in_stock';
   static const String dateTime = 'date_time';
 }
 
@@ -98,6 +100,7 @@ class ProductModel {
   final bool? isSelected;
   final int? productQuantityLimit;
   final int? productQuantity;
+  final bool? isInStock;
   final String? dateTime;
 
   const ProductModel({
@@ -130,6 +133,7 @@ class ProductModel {
     this.isSelected,
     this.productQuantityLimit,
     this.productQuantity,
+    this.isInStock,
     this.dateTime,
   });
 
@@ -170,6 +174,8 @@ class ProductModel {
     isSelected: json[ProductFields.isSelected] == true,
     productQuantityLimit: int.tryParse(json[ProductFields.productQuantityLimit]?.toString() ?? ''),
     productQuantity: int.tryParse(json[ProductFields.productQuantity]?.toString() ?? ''),
+    isInStock: json[ProductFields.isInStock] == true || json[ProductFields.isInStock]?.toString() == '1',
+
     dateTime: json[ProductFields.dateTime]?.toString(),
   );
 
@@ -207,6 +213,7 @@ class ProductModel {
         ProductFields.isSelected: isSelected,
         ProductFields.productQuantityLimit: productQuantityLimit,
         ProductFields.productQuantity: productQuantity,
+        ProductFields.isInStock: isInStock,
         ProductFields.dateTime: dateTime,
       };
 
@@ -240,6 +247,7 @@ class ProductModel {
     bool? isSelected,
     int? productQuantityLimit,
     int? productQuantity,
+    bool? isInStock,
     String? dateTime,
   }) =>
       ProductModel(
@@ -272,6 +280,7 @@ class ProductModel {
         isSelected: isSelected ?? this.isSelected,
         productQuantityLimit: productQuantityLimit ?? this.productQuantityLimit,
         productQuantity: productQuantity ?? this.productQuantity,
+        isInStock: isInStock ?? this.isInStock,
         dateTime: dateTime ?? this.dateTime,
       );
 }

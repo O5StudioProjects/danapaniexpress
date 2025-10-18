@@ -3,7 +3,7 @@
 
 const urduFaizLahori = 'faiz_lahore_nastaleeq';
 const interRegular = 'inter_regular';
-const arabicFont = 'poppins_regular';
+const arabicFont = 'noto_naskh_Arabic';
 
 const urduRegular = 'alvi_nastaleeq';
 
@@ -27,5 +27,5 @@ const URDU_LANGUAGE = 'اردو';
 const ARABIC_LANGUAGE = 'العربية';
 
 const DEFAULT_APP_VERSION = '1.0';
-var languageList = [ENGLISH_LANGUAGE, URDU_LANGUAGE];
+var languageList = [ENGLISH_LANGUAGE, URDU_LANGUAGE, ARABIC_LANGUAGE];
 

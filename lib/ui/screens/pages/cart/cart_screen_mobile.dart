@@ -9,6 +9,12 @@ class CartScreenMobile extends StatelessWidget {
     final cart = Get.find<CartController>();
     final auth = Get.find<AuthController>();
     final nav = Get.find<NavigationController>();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await cart.fetchCartProducts();
+    });
+
+
     return Obx(() {
       return _buildUI(context, cart, auth, nav);
     });
@@ -50,7 +56,7 @@ class CartScreenMobile extends StatelessWidget {
     );
   }
 
-  Widget _productsList(cart, auth){
+  Widget _productsList(CartController cart, auth){
     return
       cart.emptyCartStatus.value == Status.LOADING
           ? Expanded(child: loadingIndicator())
