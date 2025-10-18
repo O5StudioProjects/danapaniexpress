@@ -135,7 +135,7 @@ class AccountHeaderSmall extends StatelessWidget {
       var data = auth.currentUser.value;
       return Container(
         width: size.width,
-        height: 100.0,
+        height: 140.0,
         decoration: BoxDecoration(color: AppColors.appBarColorSkin(isDark)),
         child: Padding(
           padding: const EdgeInsets.only(left: MAIN_HORIZONTAL_PADDING, right: 0.0, bottom: 6.0),
@@ -187,19 +187,19 @@ class AccountHeaderSmall extends StatelessWidget {
                           ? Row(
                         children: [
                           appText(text: '${favorites.favoritesList.length} ', textStyle: itemTextStyle()),
-                          appText(text: AppLanguage.wishlistStr(appLanguage), textStyle: accountSecondaryTextStyle()),
+                          Flexible(child: appText(text: AppLanguage.wishlistStr(appLanguage), textStyle: accountSecondaryTextStyle())),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 6),
                             child: appText(text: '-', textStyle: bodyTextStyle().copyWith(color: AppColors.secondaryTextColorSkin(isDark))),
                           ),
                           appText(text: '${cart.cartProducts.length} ', textStyle: itemTextStyle()),
-                          appText(text: AppLanguage.cartStr(appLanguage), textStyle: accountSecondaryTextStyle()),
+                          Flexible(child: appText(text: AppLanguage.cartStr(appLanguage), textStyle: accountSecondaryTextStyle())),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 6),
                             child: appText(text: '-', textStyle: bodyTextStyle().copyWith(color: AppColors.secondaryTextColorSkin(isDark))),
                           ),
                           appText(text: '${orders.activeOrdersCount} ', textStyle: itemTextStyle()),
-                          appText(text: AppLanguage.ordersStr(appLanguage), textStyle: accountSecondaryTextStyle()),
+                          Flexible(child: appText(text: AppLanguage.ordersStr(appLanguage), textStyle: accountSecondaryTextStyle())),
                         ],
                       )
                           : appText(text: AppLanguage.welcomeToAppNameStr(appLanguage), textStyle: secondaryTextStyle())

@@ -69,7 +69,7 @@ TextStyle secondaryTextStyle({height = 0.0}){
     height: height,
     fontSize: isRightLang ? (SUB_HEADING_TEXT_BUTTON_FONT_SIZE + 2.0) : SUB_HEADING_TEXT_BUTTON_FONT_SIZE,
     //fontSize:  PRIMARY_HEADING_FONT_SIZE,
-    fontFamily:  setFont(appLanguage, urdu: urduRegular, englishFont: robotoRegular),
+    fontFamily:  setFont(appLanguage, urdu: urduRegular, englishFont: robotoRegular, arabic: arabicFont),
     // fontWeight: getAppLanguage != ROMAN_URDU_ENGLISH_LANGUAGE ? FontWeight.bold : null
   );
 }
@@ -80,7 +80,7 @@ TextStyle accountSecondaryTextStyle({height = 0.0}){
     height: height,
     fontSize: isRightLang ? (SUB_HEADING_TEXT_BUTTON_FONT_SIZE + 2.0) : SUB_HEADING_TEXT_BUTTON_FONT_SIZE,
     //fontSize:  PRIMARY_HEADING_FONT_SIZE,
-    fontFamily:  setFont(appLanguage, urdu: urduRegular, englishFont: nunitoMedium),
+    fontFamily:  setFont(appLanguage, urdu: urduRegular, englishFont: nunitoMedium, arabic: arabicFont),
     // fontWeight: getAppLanguage != ROMAN_URDU_ENGLISH_LANGUAGE ? FontWeight.bold : null
   );
 }
@@ -113,22 +113,22 @@ TextStyle bodyAutoTextStyle({
 }) {
   final script = detectLanguageScript(text!);
 
-  switch (script) {
-    case LanguageScript.urdu:
+  switch (appLanguage) {
+    case URDU_LANGUAGE:
       return TextStyle(
         color: AppColors.primaryTextColorSkin(isDark),
         height: height,
         fontSize: NORMAL_TEXT_FONT_SIZE + 2.0,
         fontFamily: urduRegular,
       );
-    case LanguageScript.arabic:
+    case ARABIC_LANGUAGE:
       return TextStyle(
         color: AppColors.primaryTextColorSkin(isDark),
         height: height,
         fontSize: NORMAL_TEXT_FONT_SIZE + 1.0,
         fontFamily: arabicFont,
       );
-    case LanguageScript.english:
+    case ENGLISH_LANGUAGE:
       return TextStyle(
         color: AppColors.primaryTextColorSkin(isDark),
         height: height,
@@ -317,22 +317,22 @@ TextStyle accountHeaderNameTextStyle({
 }) {
   final script = detectLanguageScript(text!);
 
-  switch (script) {
-    case LanguageScript.urdu:
+  switch (appLanguage) {
+    case URDU_LANGUAGE:
       return TextStyle(
         color: AppColors.primaryHeadingTextSkin(isDark),
         height: height,
         fontSize: ACCOUNT_TITLE_FONT_SIZE + 2.0,
         fontFamily: urduRegular,
       );
-    case LanguageScript.arabic:
+    case ARABIC_LANGUAGE:
       return TextStyle(
         color: AppColors.primaryHeadingTextSkin(isDark),
         height: height,
         fontSize: ACCOUNT_TITLE_FONT_SIZE + 1.0,
         fontFamily: arabicFont,
       );
-    case LanguageScript.english:
+    case ENGLISH_LANGUAGE:
       return TextStyle(
         color: AppColors.primaryHeadingTextSkin(isDark),
         height: height,
@@ -366,21 +366,21 @@ TextStyle snackBarTitleTextStyle({
 }) {
   final script = detectLanguageScript(text!);
 
-  switch (script) {
-    case LanguageScript.urdu:
+  switch (appLanguage) {
+    case URDU_LANGUAGE:
       return TextStyle(
         color: isError ? whiteColor : AppColors.materialButtonTextSkin(isDark),
         fontSize: NORMAL_TEXT_FONT_SIZE + 2.0,
         fontFamily: urduRegular,
         fontWeight: FontWeight.w800,
       );
-    case LanguageScript.arabic:
+    case ARABIC_LANGUAGE:
       return TextStyle(
         color: isError ? whiteColor : AppColors.materialButtonTextSkin(isDark),
         fontSize: NORMAL_TEXT_FONT_SIZE + 1.0,
         fontFamily: arabicFont,
       );
-    case LanguageScript.english:
+    case ENGLISH_LANGUAGE:
       return TextStyle(
         color: isError ? whiteColor : AppColors.materialButtonTextSkin(isDark),
         fontSize: NORMAL_TEXT_FONT_SIZE + 1.5,
@@ -410,21 +410,21 @@ TextStyle snackBarMessageTextStyle({
 }) {
   final script = detectLanguageScript(text!);
 
-  switch (script) {
-    case LanguageScript.urdu:
+  switch (appLanguage) {
+    case URDU_LANGUAGE:
       return TextStyle(
         color: isError ? whiteColor : AppColors.materialButtonTextSkin(isDark),
         fontSize: NORMAL_TEXT_FONT_SIZE + 2.0,
         fontFamily: urduRegular,
         fontWeight: FontWeight.w600,
       );
-    case LanguageScript.arabic:
+    case ARABIC_LANGUAGE:
       return TextStyle(
         color: isError ? whiteColor : AppColors.materialButtonTextSkin(isDark),
         fontSize: NORMAL_TEXT_FONT_SIZE + 1.0,
         fontFamily: arabicFont,
       );
-    case LanguageScript.english:
+    case ENGLISH_LANGUAGE:
       return TextStyle(
         color: isError ? whiteColor : AppColors.materialButtonTextSkin(isDark),
         fontSize: NORMAL_TEXT_FONT_SIZE,
@@ -457,8 +457,8 @@ TextStyle editingFormTextStyle({
 }) {
   final script = detectLanguageScript(text!);
 
-  switch (script) {
-    case LanguageScript.urdu:
+  switch (appLanguage) {
+    case URDU_LANGUAGE:
       return TextStyle(
         color: AppColors.primaryTextColorSkin(isDark),
         height: height,
@@ -466,14 +466,14 @@ TextStyle editingFormTextStyle({
         fontFamily: urduRegular,
         fontWeight: FontWeight.w600,
       );
-    case LanguageScript.arabic:
+    case ARABIC_LANGUAGE:
       return TextStyle(
         color: AppColors.primaryTextColorSkin(isDark),
         height: height,
         fontSize: NORMAL_TEXT_FONT_SIZE + 1.0,
         fontFamily: arabicFont,
       );
-    case LanguageScript.english:
+    case ENGLISH_LANGUAGE:
       return TextStyle(
         color: AppColors.primaryTextColorSkin(isDark),
         height: height,
@@ -510,22 +510,22 @@ TextStyle secondaryAutoTextStyle({
 }) {
   final script = detectLanguageScript(text!);
 
-  switch (script) {
-    case LanguageScript.urdu:
+  switch (appLanguage) {
+    case URDU_LANGUAGE:
       return TextStyle(
         color: AppColors.secondaryTextColorSkin(isDark),
         height: height,
         fontSize: SUB_HEADING_TEXT_BUTTON_FONT_SIZE + 2.0,
         fontFamily: urduRegular,
       );
-    case LanguageScript.arabic:
+    case ARABIC_LANGUAGE:
       return TextStyle(
         color: AppColors.secondaryTextColorSkin(isDark),
         height: height,
         fontSize: SUB_HEADING_TEXT_BUTTON_FONT_SIZE + 1.0,
         fontFamily: arabicFont,
       );
-    case LanguageScript.english:
+    case ENGLISH_LANGUAGE:
       return TextStyle(
         color: AppColors.secondaryTextColorSkin(isDark),
         height: height,
@@ -560,8 +560,8 @@ TextStyle addressItemTextStyle({
 }) {
   final script = detectLanguageScript(text!);
 
-  switch (script) {
-    case LanguageScript.urdu:
+  switch (appLanguage) {
+    case URDU_LANGUAGE:
       return TextStyle(
         color: AppColors.primaryTextColorSkin(isDark),
         height: height,
@@ -569,7 +569,7 @@ TextStyle addressItemTextStyle({
         fontFamily: urduRegular,
         fontWeight: FontWeight.w800,
       );
-    case LanguageScript.arabic:
+    case ARABIC_LANGUAGE:
       return TextStyle(
         color: AppColors.primaryTextColorSkin(isDark),
         height: height,
@@ -577,7 +577,7 @@ TextStyle addressItemTextStyle({
         fontFamily: arabicFont,
         fontWeight: FontWeight.w800,
       );
-    case LanguageScript.english:
+    case ENGLISH_LANGUAGE:
       return TextStyle(
         color: AppColors.primaryTextColorSkin(isDark),
         height: height,

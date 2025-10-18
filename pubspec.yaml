@@ -136,3 +136,7 @@ flutter:
     - family: alvi_nastaleeq
       fonts:
         - asset: fonts/Alvi-Nastaleeq-Regular.ttf
+
+    - family: noto_naskh_Arabic
+      fonts:
+        - asset: fonts/NotoNaskhArabic-Regular.ttf

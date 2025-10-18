@@ -202,7 +202,7 @@ class CartProductItem extends StatelessWidget {
   Widget _lowerRowQuantityAndPrice() {
     final quantity = product.productQuantity ?? 0;
     final price = product.productSellingPrice ?? 0.0;
-
+    final isInStock = product.isInStock;
     return Expanded(
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 2.0),
@@ -210,7 +210,10 @@ class CartProductItem extends StatelessWidget {
           borderRadius: BorderRadius.circular(4.0),
         ),
         child: appText(
-          text: '$quantity x ${price.toStringAsFixed(0)} = $appCurrency ${(quantity * price).toStringAsFixed(0)}',
+          text: 
+          isInStock == false
+            ? AppLanguage.outOfStockStr(appLanguage)
+          : '$quantity x ${price.toStringAsFixed(0)} = $appCurrency ${(quantity * price).toStringAsFixed(0)}',
           textStyle: secondaryTextStyle().copyWith(
             color: AppColors.sellingPriceDetailTextSkin(isDark),
           ),
@@ -233,10 +236,13 @@ class CartProductItem extends StatelessWidget {
               : counterButton(
             icon: icMinus,
             iconType: IconType.PNG,
-            isLimitExceed: (product.productQuantity ?? 0) <= 1,
+            isLimitExceed: (product.productQuantity ?? 0) <= 1 || product.isInStock == false,
             onTap: () async {
               final quantity = product.productQuantity ?? 0;
-              if (quantity <= 1) {
+              if(product.isInStock == false){
+                showToast(AppLanguage.outOfStockStr(appLanguage).toString());
+              }
+              else if (quantity <= 1) {
                 showToast(AppLanguage.selectAtLeastOneProductStr(appLanguage).toString());
               } else {
                 await cart.removeQuantityFromCart(product.productId ?? '');
@@ -268,11 +274,14 @@ class CartProductItem extends StatelessWidget {
               : counterButton(
             icon: icPlus,
             iconType: IconType.PNG,
-            isLimitExceed: (product.productQuantityLimit ?? 0) <= (product.productQuantity ?? 0),
+            isLimitExceed: (product.productQuantityLimit ?? 0) <= (product.productQuantity ?? 0) || product.isInStock == false,
             onTap: () async {
               final quantity = product.productQuantity ?? 0;
               final limit = product.productQuantityLimit ?? 999999; // fallback large number
-              if (quantity >= limit) {
+              if(product.isInStock == false){
+                showToast(AppLanguage.outOfStockStr(appLanguage).toString());
+              }
+              else if (quantity >= limit) {
                 showToast(AppLanguage.quantityLimitExceededStr(appLanguage).toString());
               } else {
                 await cart.addQuantityToCart(product.productId ?? '');
